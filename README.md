@@ -1,6 +1,5 @@
 # KSVG 页面（简体中文说明）
 [![Contributors](https://img.shields.io/github/contributors/KCIS-KSVG/Pages)](https://github.com/KCIS-KSVG/Pages/graphs/contributors)
-[![License](https://img.shields.io/badge/License-Apache-blue.svg)](LICENSE)
 
 ## 1. 🚀 项目解释
 本网站项目是昆山康桥学校学生摄影合作组织（KSVG）的官方门户，主要服务于本校学生与教职工社群，同时内容亦对所有感兴趣者开放。
