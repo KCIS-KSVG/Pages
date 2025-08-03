@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSVG | 日程信息</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
+        type="image/png">
+
+    <style>
+        :root {
+            --primary-color: #920783;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #424245;
+            --light-gray: #f5f5f7;
+            --text-color: #1d1d1f;
+            --header-height: 70px;
+            --warning-bg: #fffbe6;
+            --warning-border: #ffe58f;
+            --warning-text: #d46b08;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+        }
+
+        .navigation {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 45px;
+        }
+
+        .navigation ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navigation ul li a {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .navigation ul li a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .navigation ul li a:hover,
+        .navigation ul li a.active {
+            color: var(--dark-gray);
+        }
+
+        .navigation ul li a:hover::after,
+        .navigation ul li a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .top-notice-banner {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            background-color: var(--warning-bg);
+            border-bottom: 1px solid var(--warning-border);
+            color: var(--warning-text);
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transform: translateY(0);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .top-notice-banner.hidden {
+            transform: translateY(-100%);
+        }
+
+        .notice-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 12px 60px 12px 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .notice-close-btn {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--warning-text);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .notice-close-btn:hover {
+            opacity: 1;
+        }
+
+        main {
+            padding-top: var(--header-height);
+            flex-grow: 1;
+        }
+
+        .page-intro {
+            padding: 60px 30px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .page-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .page-title-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-intro h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .page-intro p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin-top: 10px;
+        }
+
+        .zoom-button {
+            background-color: var(--light-gray);
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-button:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .content-section {
+            padding: 40px 30px 60px;
+        }
+
+        .calendar-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            height: 70vh;
+            min-height: 600px;
+        }
+
+        .calendar-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 90%;
+            height: 90%;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #555;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .footer {
+            background-color: var(--dark-gray);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 30px;
+            flex-shrink: 0;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-left p {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a i {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-socials a:hover i {
+            color: var(--primary-color);
+        }
+
+        .footer-address {
+            font-size: 0.9rem;
+            text-align: right;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .navigation ul {
+                display: none;
+            }
+
+            .zoom-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navigation">
+            <a href="kcis-ksvg.github.io" class="logo-link"><img
+                    src="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
+                    alt="KSVG Logo" class="logo-image"></a>
+            <ul>
+                <li><a href="#" class="active">主页</a></li>
+                <li><a href="kcis-ksvg.github.io/progress">项目进展</a></li>
+                <li><a href="#">媒体共享</a></li>
+                <li><a href="#">文件共享</a></li>
+                <li><a href="kcis-ksvg.github.io/schedule">日程信息</a></li>
+                <li><a href="#">组织招募</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="top-notice" class="top-notice-banner">
+        <div class="notice-content">
+            <strong>提示：</strong>本页面记录了自2022年以来的所有KSVG事件。请注意，仅2025年秋季学期（9月）及之后的内容经过了全面核实，具有官方参考价值。我们无法保证此前内容的绝对准确性。
+            <button id="notice-close" class="notice-close-btn" aria-label="关闭提示">×</button>
+        </div>
+    </div>
+
+    <main>
+        <section class="page-intro">
+            <div class="page-container">
+                <div class="page-title-wrapper">
+                    <h1>日程信息</h1>
+                    <button id="zoom-button" class="zoom-button"><i class="ri-zoom-in-line"></i> 放大</button>
+                </div>
+                <p>在此查看 KSVG 的项目安排、活动日程及重要日期。日历数据由Google提供。</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="page-container">
+                <div class="calendar-container">
+                    <iframe class="calendar-embed"
+                        src="https://calendar.google.com/calendar/embed?src=bb5dcf2293b1794f7f721d2e681647896d23df17b1981278d535fcd7f887727b%40group.calendar.google.com&ctz=Asia%2FShanghai&mode=MONTH">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="calendar-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modal-close-button" class="modal-close-button">×</button>
+            <iframe class="calendar-embed"
+                src="https://calendar.google.com/calendar/embed?src=bb5dcf2293b1794f7f721d2e681647896d23df17b1981278d535fcd7f887727b%40group.calendar.google.com&ctz=Asia%2FShanghai&mode=MONTH">
+            </iframe>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
+                <div class="footer-socials"><a href="#" aria-label="Bilibili" title="Bilibili"><i
+                            class="ri-bilibili-fill"></i></a><a href="#" aria-label="WeChat" title="WeChat"><i
+                            class="ri-wechat-fill"></i></a><a href="mailto:support_ksvg@163.com" aria-label="Email"
+                        title="Email"><i class="ri-mail-fill"></i></a></div>
+            </div>
+            <div class="footer-address">
+                <p>Kang Chiao International School East China</p>
+                <p>No.369, Zuchongzhi South Road, Kunshan, Jiangsu</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const zoomButton = document.getElementById('zoom-button');
+            const modalOverlay = document.getElementById('calendar-modal');
+            const modalCloseButton = document.getElementById('modal-close-button');
+
+            zoomButton.addEventListener('click', () => {
+                modalOverlay.classList.add('active');
+            });
+
+            const closeModal = () => {
+                modalOverlay.classList.remove('active');
+            };
+
+            modalCloseButton.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // 1. 简化的横幅控制逻辑
+            const noticeBanner = document.getElementById('top-notice');
+            const noticeCloseBtn = document.getElementById('notice-close');
+
+            noticeCloseBtn.addEventListener('click', () => {
+                noticeBanner.classList.add('hidden');
+                // 动画结束后彻底隐藏，防止影响布局
+                setTimeout(() => {
+                    noticeBanner.style.display = 'none';
+                }, 400);
+            });
+        });
+    </script>
+</body>
+
+</html>

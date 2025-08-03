@@ -1,23 +1,22 @@
-# KSVG 页面（简体中文说明）
+# KSVG Pages
 [![Contributors](https://img.shields.io/github/contributors/KCIS-KSVG/Pages)](https://github.com/KCIS-KSVG/Pages/graphs/contributors)
 
-## 1. 🚀 项目解释
-本网站项目是昆山康桥学校学生摄影合作组织（KSVG）的官方门户，主要服务于本校学生与教职工社群，同时内容亦对所有感兴趣者开放。
+## 1. 🚀 Project Description
+This website project is the official portal of the Kang Chiao Students Photography Organization (KSVG). It primarily serves the student and faculty community of KSVG, while also serving as an online service portal for other partner organizations.
 
-## 2. 📧 与我们取得联系
+## 2. 📧 Contact Us
+For questions and feedback about this project, please contact:
+- Organization: support_ksvg@163.com
+- Developer: jianzhixuan.work@gmail.com
 
-对于此项目的问题与反馈，请联络：
-- 电子邮件：support_ksvg@163.com（组织）
-- 电子邮件：jianzhixuan.work@gmail.com（开发者）
-
-## 3. 💻 网站聚合功能
-### 媒体共享
-- 所有可公开查看和使用的活动拍摄原媒体。由阿里云盘提供服务（外部链接）。
-### 招募信息
-- 公布所有学生会公关组和KSVG招募信息。主页面为站内服务，表单部分由Google提供服务。
-### 文件公开
-- 组织对外公开的项目文件库。由Github提供服务，KSVG组织运营（位于KCIS-KSVG/Documentation）。
-### 行事历
-- 根据“康桥校园学期行事历”和“昆山康桥学生会行事历”更新的KSVG行事历。站内服务，内嵌内容由Google提供服务。
-### 周信息简报
-- 提供当周活动和娱乐事件的简报服务。站内服务。
+## 3. 💻 Website Features
+### Organization Introduction
+- Learn about our mission, vision, and core values, as well as our history, organizational structure, and team.
+### Project Status Inquiry
+- Get the latest updates on all projects: status, milestones, plans, and challenges.
+### Media Sharing Services
+- Access and download our published media resources, including images, videos, and brochures.
+### Calendar Information Sharing
+- View important team or organization calendars: meetings, events, and deadlines.
+### Recruiting Information
+- Find all current job openings, job descriptions, and the application process.

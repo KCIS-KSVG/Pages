@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSVG | 首页</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" href="/Users/jianzhixuan/Desktop/KCIS-KSVG Pages/Pages/embed-files/ksvg-logo.png" type="image/png">
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
+        type="image/png">
 
     <style>
         :root {
@@ -21,11 +24,17 @@
             --header-height: 70px;
         }
 
-        *, *::before, *::after {
-            margin: 0; padding: 0; box-sizing: border-box;
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -33,8 +42,11 @@
             color: var(--text-color);
             line-height: 1.6;
         }
-        
-        a { text-decoration: none; color: inherit; }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         .site-header {
             background-color: rgba(255, 255, 255, 0.8);
@@ -42,138 +54,215 @@
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid #ddd;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: var(--header-height);
             z-index: 1000;
         }
 
         .navigation {
-            max-width: 1280px; margin: 0 auto; padding: 0 30px;
-            height: 100%; display: flex;
-            justify-content: space-between; align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .logo-image { height: 45px; }
+        .logo-image {
+            height: 45px;
+        }
 
         .navigation ul {
-            list-style: none; display: flex; gap: 30px;
+            list-style: none;
+            display: flex;
+            gap: 30px;
         }
 
         .navigation ul li a {
-            color: var(--medium-gray); font-size: 0.9rem; font-weight: 600;
-            padding: 5px 0; position: relative; transition: color 0.3s ease;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
         }
 
         .navigation ul li a::after {
-            content: ''; position: absolute; width: 100%;
-            transform: scaleX(0); height: 2px; bottom: -5px; left: 0;
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -5px;
+            left: 0;
             background-color: var(--primary-color);
-            transform-origin: bottom right; transition: transform 0.3s ease-out;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
         }
 
-        .navigation ul li a:hover, .navigation ul li a.active { color: var(--dark-gray); }
-        .navigation ul li a:hover::after, .navigation ul li a.active::after {
-            transform: scaleX(1); transform-origin: bottom left;
+        .navigation ul li a:hover,
+        .navigation ul li a.active {
+            color: var(--dark-gray);
         }
-        
-        main { padding-top: var(--header-height); }
-        
+
+        .navigation ul li a:hover::after,
+        .navigation ul li a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        main {
+            padding-top: var(--header-height);
+        }
+
         .hero-section {
             min-height: 600px;
             height: calc(85vh - var(--header-height));
-            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.pexels.com/photos/5439/earth-space.jpg');
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center;
-            text-align: center; color: #fff;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://images.pexels.com/photos/5439/earth-space.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
         }
 
-        .hero-content { max-width: 1000px; padding: 0 20px; }
-        .hero-content .small-title { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
+        .hero-content {
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .hero-content .small-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .hero-content h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 5rem;
             font-weight: 700;
-            line-height: 1.2; margin: 10px 0 20px 0;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
+            margin: 10px 0 20px 0;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .content-section { padding: 120px 30px; }
-        .content-section.bg-light-gray { background-color: var(--light-gray); }
-        
+        .content-section {
+            padding: 120px 30px;
+        }
+
+        .content-section.bg-light-gray {
+            background-color: var(--light-gray);
+        }
+
         .details-grid {
-            max-width: 1100px; margin: 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: center;
             gap: 80px;
         }
-        .details-grid.reverse { direction: rtl; }
-        .details-grid.reverse > * { direction: ltr; }
 
-        .details-visual { text-align: center; }
+        .details-grid.reverse {
+            direction: rtl;
+        }
+
+        .details-grid.reverse>* {
+            direction: ltr;
+        }
+
+        .details-visual {
+            text-align: center;
+        }
+
         .details-visual i {
             font-size: 100px;
             color: var(--primary-color);
             opacity: 0.8;
         }
+
         .details-text h2 {
             font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 25px;
         }
+
         .details-text p {
             font-size: 1.15rem;
             line-height: 1.7;
             color: var(--medium-gray);
         }
-        .details-text ul {
-            list-style: none;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .details-text ul li {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+
+        .service-item-content {
             display: flex;
-            align-items: center;
+            flex-grow: 1;
         }
-        .details-text ul li i {
-            color: var(--primary-color);
-            margin-right: 15px;
-            font-size: 1.4rem;
+
+        .service-item-title {
+            font-weight: 700;
+            min-width: 180px;
+            /* 固定标题宽度，确保对齐 */
+            flex-shrink: 0;
+            /* 防止标题被压缩 */
         }
-        
+
+        .service-item-description {
+            color: var(--medium-gray);
+        }
+
         .fade-in-section {
-            opacity: 0; transform: translateY(30px);
+            opacity: 0;
+            transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
-        
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .footer {
             background-color: var(--dark-gray);
             color: rgba(255, 255, 255, 0.7);
             padding: 60px 30px;
         }
+
         .footer-container {
-            max-width: 1280px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; gap: 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
         }
+
         .footer-left p {
             margin-bottom: 20px;
             font-size: 0.9rem;
         }
-        .footer-socials { display: flex; gap: 20px; }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
         .footer-socials a i {
             font-size: 24px;
             color: rgba(255, 255, 255, 0.7);
             transition: color 0.3s ease;
         }
+
         .footer-socials a:hover i {
             color: var(--primary-color);
         }
+
         .footer-address {
             font-size: 0.9rem;
             text-align: right;
@@ -181,34 +270,71 @@
         }
 
         @media (max-width: 768px) {
-            .navigation ul { display: none; }
-            .hero-content h1 { font-size: 3.5rem; }
-            .content-section { padding: 80px 20px; }
-            .details-grid, .details-grid.reverse {
+            .navigation ul {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .content-section {
+                padding: 80px 20px;
+            }
+
+            .details-grid,
+            .details-grid.reverse {
                 grid-template-columns: 1fr;
                 gap: 40px;
                 direction: ltr;
             }
-            .details-text { text-align: center; }
-            .details-text ul { text-align: left; }
-            .footer-container { text-align: center; }
-            .footer-socials { justify-content: center; }
-            .footer-address { text-align: center; }
+
+            .details-text {
+                text-align: center;
+            }
+
+            .service-list {
+                text-align: left;
+            }
+
+            /* 2. 在移动端取消固定宽度，让其自然换行 */
+            .service-item-content {
+                flex-direction: column;
+            }
+
+            .service-item-title {
+                min-width: auto;
+                margin-bottom: 5px;
+            }
+
+            .footer-container {
+                text-align: center;
+            }
+
+            .footer-socials {
+                justify-content: center;
+            }
+
+            .footer-address {
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
     <header class="site-header">
         <nav class="navigation">
-            <a href="#" class="logo-link">
-                <img src="/Users/jianzhixuan/Desktop/KCIS-KSVG Pages/Pages/embed-files/ksvg-logo.png" alt="KSVG Logo" class="logo-image">
+            <a href="kcis-ksvg.github.io" class="logo-link">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
+                    alt="KSVG Logo" class="logo-image">
             </a>
             <ul>
-                <li><a href="/Users/jianzhixuan/Desktop/KCIS-KSVG Pages/Pages/index.html" class="active">主页</a></li>
-                <li><a href="/Users/jianzhixuan/Desktop/KCIS-KSVG Pages/progress/index.html">项目进展</a></li>
-                <li><a href="https://example.com" target="_blank" rel="noopener noreferrer">媒体共享</a></li>
+                <li><a href="#" class="active">主页</a></li>
+                <li><a href="kcis-ksvg.github.io/progress">项目进展</a></li>
+                <li><a href="#">媒体共享</a></li>
                 <li><a href="#">文件共享</a></li>
-                <li><a href="#">日程信息</a></li>
+                <li><a href="kcis-ksvg.github.io/schedule">日程信息</a></li>
                 <li><a href="#">组织招募</a></li>
             </ul>
         </nav>
@@ -221,7 +347,7 @@
                 <h1>KCISEC-KSVG</h1>
             </div>
         </section>
-        
+
         <section class="content-section fade-in-section">
             <div class="details-grid">
                 <div class="details-visual">
@@ -233,7 +359,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="content-section bg-light-gray fade-in-section">
             <div class="details-grid reverse">
                 <div class="details-visual">
@@ -266,17 +392,12 @@
                 <div class="details-text">
                     <h2>记录校园生活</h2>
                     <p>我们提供一系列旨在满足校园社区多样化需求的服务，将我们的技术和热情转化为对校园生活的生动记录。</p>
-                    <ul>
-                        <li><i class="ri-checkbox-circle-line"></i> <strong>活动摄影与摄像：</strong> 覆盖学术、体育、艺术等各类校园活动。</li>
-                        <li><i class="ri-checkbox-circle-line"></i> <strong>创意项目支持：</strong> 为学生和社团的创意视频项目提供技术支持。</li>
-                        <li><i class="ri-checkbox-circle-line"></i> <strong>官方媒体管理：</strong> 安全、高效地整理和分发校园的官方数字影像资料。</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
     </main>
-    
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
@@ -284,7 +405,8 @@
                 <div class="footer-socials">
                     <a href="#" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a>
                     <a href="#" aria-label="WeChat" title="WeChat"><i class="ri-wechat-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-fill"></i></a>
+                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
+                            class="ri-mail-fill"></i></a>
                 </div>
             </div>
             <div class="footer-address">
@@ -295,7 +417,7 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -308,4 +430,5 @@
         });
     </script>
 </body>
+
 </html>
