@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSVG | 项目文件公开</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png" type="image/png">
+
+    <style>
+        :root {
+            --primary-color: #920783;
+            --secondary-color: #007bff;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #424245;
+            --light-gray: #f5f5f7;
+            --text-color: #1d1d1f;
+            --header-height: 70px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: var(--light-gray); 
+            color: var(--text-color); line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0;
+            width: 100%; height: var(--header-height); z-index: 1000;
+        }
+        .navigation {
+            max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-image { height: 45px; }
+        .navigation ul { list-style: none; display: flex; gap: 30px; }
+        .navigation ul li a {
+            color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0;
+            position: relative; transition: color 0.3s ease;
+        }
+        .navigation ul li a::after {
+            content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px;
+            bottom: -5px; left: 0; background-color: var(--primary-color);
+            transform-origin: bottom right; transition: transform 0.3s ease-out;
+        }
+        .navigation ul li a:hover, .navigation ul li a.active { color: var(--dark-gray); }
+        .navigation ul li a:hover::after, .navigation ul li a.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        
+        main { padding-top: var(--header-height); flex-grow: 1; }
+        .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
+        .page-container { max-width: 1280px; margin: 0 auto; }
+        .page-intro h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 10px; color: #888; }
+        .page-intro h1 a:hover { color: var(--primary-color); }
+        .page-intro h1 .separator { margin: 0 10px; }
+        .page-intro h1 .current-level { color: var(--dark-gray); }
+        .page-intro p { font-size: 1.1rem; color: var(--medium-gray); max-width: 800px; }
+        
+        .content-section { padding: 40px 30px 60px; }
+        .controls-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .sort-controls { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--medium-gray); }
+        .sort-select { border: 1px solid #d9d9d9; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; background-color: #fff; }
+        
+        .search-controls { display: flex; }
+        .search-input { border: 1px solid #d9d9d9; padding: 10px 16px; border-radius: 8px 0 0 8px; font-size: 1rem; width: 300px; border-right: none; outline: none; }
+        .search-button {
+            background-color: var(--primary-color); color: #fff; border: 1px solid var(--primary-color);
+            padding: 0 16px; border-radius: 0 8px 8px 0; font-size: 1.2rem;
+            cursor: pointer; transition: background-color 0.3s ease;
+            display: flex; align-items: center;
+        }
+        .search-button:hover { background-color: #7a066e; }
+
+        .table-container { background-color: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+        .folder-table { width: 100%; border-collapse: collapse; }
+        .folder-table th, .folder-table td { padding: 16px; text-align: left; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .folder-table th { font-weight: 600; background-color: #fafafa; }
+        .folder-table th:nth-child(1) { width: 50%; }
+        .folder-table th:nth-child(2) { width: 15%; text-align: center; }
+        .folder-table th:nth-child(3) { width: 35%; }
+
+        .folder-row { cursor: pointer; transition: background-color 0.2s ease; }
+        .folder-row:hover { background-color: var(--light-gray); }
+        .folder-name-cell { display: flex; align-items: center; gap: 15px; }
+        .folder-name-cell i { font-size: 1.5rem; color: var(--primary-color); }
+        .folder-name-cell span { font-weight: 600; }
+        .file-count-cell { text-align: center; color: var(--medium-gray); }
+
+        .details-row > td { padding: 0; }
+        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #fcfcfc; }
+        .folder-row.active + .details-row .accordion-body { max-height: 1000px; padding: 15px 20px; }
+        
+        .file-list { list-style: none; }
+        .file-item { display: flex; align-items: center; padding: 10px 15px; border-radius: 6px; }
+        .file-item:not(:last-child) { border-bottom: 1px solid #f0f0f0; }
+        .file-item i { font-size: 1.2rem; color: var(--medium-gray); margin-right: 15px; }
+        .file-name { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        mark.highlight { background-color: #ffc; color: #000; padding: 2px 4px; border-radius: 3px; }
+        .match-indicator-container { display: flex; align-items: center; gap: 8px; }
+        .match-indicator { font-size: 0.75rem; font-weight: 600; padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
+        .folder-match-indicator { background-color: #ffc; color: #000; }
+        .file-match-indicator { background-color: #e6f7ff; color: #006d9c; }
+
+        .loading-text { padding: 40px; text-align: center; color: var(--medium-gray); }
+
+        .footer { background-color: var(--dark-gray); color: rgba(255, 255, 255, 0.7); padding: 60px 30px; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
+        .footer-left p { margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a i { font-size: 24px; color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-socials a:hover i { color: var(--primary-color); }
+        .footer-address { font-size: 0.9rem; text-align: right; line-height: 1.8; }
+        
+        @media (max-width: 768px) { .navigation ul { display: none; } .controls-container { flex-direction: column; align-items: stretch; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navigation">
+            <a href="#" class="logo-link"><img src="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png" alt="KSVG Logo" class="logo-image"></a>
+            <ul>
+                <li><a href="#">主页</a></li>
+                <li><a href="#">项目进展</a></li>
+                <li><a href="https://example.com" target="_blank">媒体共享</a></li>
+                <li><a href="#" class="active">文件共享</a></li>
+                <li><a href="#">日程信息</a></li> 
+                <li><a href="#">组织招募</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-intro">
+            <div class="page-container">
+                <h1>
+                    <a href="#">文件共享</a>
+                    <span class="separator">/</span>
+                    <span class="current-level">项目文件公开</span>
+                </h1>
+                <p>访问所有已归档项目的公开文件、报告与相关资料。点击下方的项目分类以展开文件列表。</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="page-container">
+                <div class="controls-container">
+                    <div class="sort-controls">
+                        <label for="sort-select">排序方式:</label>
+                        <select id="sort-select" class="sort-select">
+                            <option value="name-asc">名称 (A-Z)</option>
+                            <option value="name-desc">名称 (Z-A)</option>
+                            <option value="date-desc">修改日期 (最新)</option>
+                            <option value="date-asc">修改日期 (最旧)</option>
+                        </select>
+                    </div>
+                    <div class="search-controls">
+                        <input type="search" id="search-input" class="search-input" placeholder="搜索文件夹/文件...">
+                        <button id="search-button" class="search-button"><i class="ri-search-line"></i></button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="folder-table">
+                        <thead>
+                            <tr>
+                                <th>文件夹名称</th>
+                                <th>文件数量</th>
+                                <th>最后修改日期</th>
+                            </tr>
+                        </thead>
+                        <tbody id="file-browser-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
+                <div class="footer-socials"><a href="#" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a><a href="#" aria-label="WeChat" title="WeChat"><i class="ri-wechat-fill"></i></a><a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-fill"></i></a></div>
+            </div>
+            <div class="footer-address"><p>Kang Chiao International School East China</p><p>No.369, Zuchongzhi South Road, Kunshan, Jiangsu</p></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const repoOwner = 'KCIS-KSVG';
+            const repoName = 'Documentation';
+            const rootPath = 'Project_Files';
+            const tableBody = document.getElementById('file-browser-body');
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const sortSelect = document.getElementById('sort-select');
+            
+            let allFolders = [];
+
+            const API_URL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${rootPath}`;
+
+            const fileTypeIcons = {
+                pdf: 'ri-file-pdf-line', zip: 'ri-file-zip-line', rar: 'ri-file-zip-line', '7z': 'ri-file-zip-line',
+                doc: 'ri-file-word-line', docx: 'ri-file-word-line', xls: 'ri-file-excel-line', xlsx: 'ri-file-excel-line',
+                ppt: 'ri-file-ppt-line', pptx: 'ri-file-ppt-line', jpg: 'ri-image-line', jpeg: 'ri-image-line',
+                png: 'ri-image-line', gif: 'ri-image-line', svg: 'ri-image-line', webp: 'ri-image-line',
+                default: 'ri-file-text-line'
+            };
+            
+            async function fetchWithCache(url) {
+                const cacheKey = `github_api_${url}`;
+                const cached = sessionStorage.getItem(cacheKey);
+                if (cached) return JSON.parse(cached);
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`GitHub API Error: ${response.status}`);
+                    const data = await response.json();
+                    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+                    return data;
+                } catch (error) { console.error('Failed to fetch:', error); return null; }
+            }
+
+            function getFileType(filename) { return filename.split('.').pop().toLowerCase(); }
+
+            function createFileItemHTML(file, searchTerm) {
+                const iconClass = fileTypeIcons[getFileType(file.name)] || fileTypeIcons.default;
+                const fileNameHTML = searchTerm ? highlightText(file.name, searchTerm) : file.name;
+                return `<li class="file-item"><i class="${iconClass}"></i><a href="${file.download_url}" class="file-name" download title="点击下载: ${file.name}">${fileNameHTML}</a></li>`;
+            }
+
+            async function loadFolderContents(detailsRow, folder, searchTerm) {
+                if (detailsRow.dataset.loaded === 'true') return;
+                const body = detailsRow.querySelector('.accordion-body');
+                body.innerHTML = `<div class="loading-text">正在加载文件列表...</div>`;
+                
+                const contents = await fetchWithCache(folder.url);
+                if (contents) {
+                    const files = contents.filter(item => item.type === 'file');
+                    if (files.length > 0) {
+                        body.innerHTML = `<ul class="file-list">${files.map(file => createFileItemHTML(file, searchTerm)).join('')}</ul>`;
+                    } else {
+                        body.innerHTML = `<div class="loading-text">此文件夹为空。</div>`;
+                    }
+                    detailsRow.dataset.loaded = 'true';
+                } else {
+                    body.innerHTML = `<div class="loading-text" style="color: red;">无法加载文件列表。</div>`;
+                }
+            }
+            
+            function highlightText(text, term) {
+                if (!term || term.length < 1) return text;
+                const regex = new RegExp(term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
+                return text.toString().replace(regex, match => `<mark class="highlight">${match}</mark>`);
+            }
+
+            function renderFolders(foldersToRender, searchTerm) {
+                tableBody.innerHTML = '';
+                if (foldersToRender.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="3" class="loading-text">未找到匹配的文件夹。</td></tr>`;
+                    return;
+                }
+                foldersToRender.forEach(folder => {
+                    const folderRow = document.createElement('tr');
+                    folderRow.className = 'folder-row';
+
+                    const { isFolderMatch, isFileMatch } = folder.matchInfo || {};
+                    let indicatorsHTML = '';
+                    if (searchTerm && isFolderMatch) indicatorsHTML += `<span class="match-indicator folder-match-indicator">文件夹匹配</span>`;
+                    if (searchTerm && isFileMatch) indicatorsHTML += `<span class="match-indicator file-match-indicator">文件详情匹配</span>`;
+
+                    folderRow.innerHTML = `
+                        <td class="folder-name-cell">
+                            <i class="ri-folder-zip-line"></i>
+                            <span>${isFolderMatch ? highlightText(folder.name.replace(/_/g, ' '), searchTerm) : folder.name.replace(/_/g, ' ')}</span>
+                        </td>
+                        <td class="file-count-cell">${folder.file_count !== undefined ? folder.file_count : '...'}</td>
+                        <td>
+                            <div class="match-indicator-container">${indicatorsHTML}</div>
+                            ${folder.last_modified ? new Date(folder.last_modified).toLocaleString() : '...'}
+                        </td>
+                    `;
+                    
+                    const detailsRow = document.createElement('tr');
+                    detailsRow.className = 'details-row';
+                    detailsRow.innerHTML = `<td colspan="3"><div class="accordion-body"></div></td>`;
+                    
+                    tableBody.appendChild(folderRow);
+                    tableBody.appendChild(detailsRow);
+
+                    folderRow.addEventListener('click', () => {
+                        const wasActive = folderRow.classList.contains('active');
+                        tableBody.querySelectorAll('.folder-row').forEach(item => item.classList.remove('active'));
+                        if (!wasActive) {
+                            folderRow.classList.add('active');
+                            loadFolderContents(detailsRow, folder, searchTerm);
+                        }
+                    });
+                });
+            }
+
+            async function filterAndSort() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const sortValue = sortSelect.value;
+
+                let filteredFolders = allFolders;
+                
+                if (searchTerm) {
+                    const searchPromises = allFolders.map(async folder => {
+                        const contents = await fetchWithCache(folder.url);
+                        const files = contents ? contents.filter(item => item.type === 'file') : [];
+                        const isFolderMatch = folder.name.toLowerCase().includes(searchTerm);
+                        const isFileMatch = files.some(file => file.name.toLowerCase().includes(searchTerm));
+                        return { ...folder, matchInfo: { isFolderMatch, isFileMatch } };
+                    });
+                    const foldersWithMatchInfo = await Promise.all(searchPromises);
+                    filteredFolders = foldersWithMatchInfo.filter(f => f.matchInfo.isFolderMatch || f.matchInfo.isFileMatch);
+                }
+                
+                switch(sortValue) {
+                    case 'name-asc': filteredFolders.sort((a, b) => a.name.localeCompare(b.name)); break;
+                    case 'name-desc': filteredFolders.sort((a, b) => b.name.localeCompare(a.name)); break;
+                    case 'date-desc': filteredFolders.sort((a, b) => b.last_modified - a.last_modified); break;
+                    case 'date-asc': filteredFolders.sort((a, b) => a.last_modified - b.last_modified); break;
+                }
+                renderFolders(filteredFolders, searchTerm);
+            }
+
+            tableBody.innerHTML = `<tr><td colspan="3" class="loading-text">正在从GitHub加载文件结构...</td></tr>`;
+            const initialContents = await fetchWithCache(API_URL);
+            if (initialContents) {
+                let folders = initialContents.filter(item => item.type === 'dir');
+                
+                const enhancementPromises = folders.map(async (folder) => {
+                    const commits = await fetchWithCache(`https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=${folder.path}`);
+                    const contents = await fetchWithCache(folder.url);
+                    const file_count = contents ? contents.filter(item => item.type === 'file').length : 0;
+                    const last_modified = commits && commits.length > 0 ? new Date(commits[0].commit.committer.date) : new Date(0);
+                    return { ...folder, file_count, last_modified };
+                });
+                allFolders = await Promise.all(enhancementPromises);
+                filterAndSort();
+
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: red;">无法从GitHub加载项目分类。</td></tr>`;
+            }
+
+            searchButton.addEventListener('click', filterAndSort);
+            searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') filterAndSort(); });
+            sortSelect.addEventListener('change', filterAndSort);
+        });
+    </script>
+</body>
+</html>

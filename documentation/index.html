@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSVG | 文件共享</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png" type="image/png">
+
+    <style>
+        :root {
+            --primary-color: #920783;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #424245;
+            --light-gray: #f5f5f7;
+            --text-color: #1d1d1f;
+            --header-height: 70px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: var(--light-gray); 
+            color: var(--text-color); line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0;
+            width: 100%; height: var(--header-height); z-index: 1000;
+        }
+        .navigation {
+            max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-image { height: 45px; }
+        .navigation ul { list-style: none; display: flex; gap: 30px; }
+        .navigation ul li a {
+            color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0;
+            position: relative; transition: color 0.3s ease;
+        }
+        .navigation ul li a::after {
+            content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px;
+            bottom: -5px; left: 0; background-color: var(--primary-color);
+            transform-origin: bottom right; transition: transform 0.3s ease-out;
+        }
+        .navigation ul li a:hover, .navigation ul li a.active { color: var(--dark-gray); }
+        .navigation ul li a:hover::after, .navigation ul li a.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        
+        main { padding-top: var(--header-height); flex-grow: 1; }
+        .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
+        .page-container { max-width: 1280px; margin: 0 auto; }
+        .page-intro h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .page-intro p { font-size: 1.1rem; color: var(--medium-gray); max-width: 800px; }
+        
+        .content-section { padding: 60px 30px; }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .doc-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 40px;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+        }
+        .doc-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .doc-card i {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .doc-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .doc-card p {
+            color: var(--medium-gray);
+            font-size: 1rem;
+        }
+        
+        .doc-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .doc-card.disabled:hover {
+            transform: none;
+            border-color: #e5e5e5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .footer {
+            background-color: var(--dark-gray);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 30px;
+        }
+        .footer-container {
+            max-width: 1280px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 40px;
+        }
+        .footer-left p { margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a i { font-size: 24px; color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-socials a:hover i { color: var(--primary-color); }
+        .footer-address { font-size: 0.9rem; text-align: right; line-height: 1.8; }
+        
+        @media (max-width: 768px) { .navigation ul { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navigation">
+            <a href="#" class="logo-link"><img src="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png" alt="KSVG Logo" class="logo-image"></a>
+            <ul>
+                <li><a href="#">主页</a></li>
+                <li><a href="#">项目进展</a></li>
+                <li><a href="https://example.com" target="_blank">媒体共享</a></li>
+                <li><a href="#" class="active">文件共享</a></li>
+                <li><a href="#">日程信息</a></li> 
+                <li><a href="#">组织招募</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-intro">
+            <div class="page-container">
+                <h1>文件共享</h1>
+                <p>访问我们的公开文件库，获取项目相关文档与组织标准化作业流程。</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="page-container">
+                <div class="docs-grid">
+                    <a href="http://127.0.0.1:5500/Pages/documentation/project/index.html#" class="doc-card">
+                        <i class="ri-folder-open-line"></i>
+                        <h2>项目文件公开</h2>
+                        <p>访问所有已归档项目的公开文件、报告与相关资料。</p>
+                    </a>
+                    <div class="doc-card disabled" title="暂不开放外部查看">
+                        <i class="ri-file-shield-2-line"></i>
+                        <h2>组织作业标准化文件</h2>
+                        <p>查阅KSVG内部工作流程、规范指南与标准作业程序 (SOP)。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>© 2025 TonyJ_D. All Rights Reserved.</p>
+                <div class="footer-socials"><a href="#" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a><a href="#" aria-label="WeChat" title="WeChat"><i class="ri-wechat-fill"></i></a><a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-fill"></i></a></div>
+            </div>
+            <div class="footer-address"><p>Kang Chiao International School East China</p><p>No.369, Zuchongzhi South Road, Kunshan, Jiangsu</p></div>
+        </div>
+    </footer>
+</body>
+</html>
