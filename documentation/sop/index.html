@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KSVG | 文件共享</title>
+    <title>KSVG | 资源不可用</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@
             --light-gray: #f5f5f7;
             --text-color: #1d1d1f;
             --header-height: 70px;
+            --error-color: #d46b08;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,67 +55,45 @@
         .navigation ul li a:hover, .navigation ul li a.active { color: var(--dark-gray); }
         .navigation ul li a:hover::after, .navigation ul li a.active::after { transform: scaleX(1); transform-origin: bottom left; }
         
-        main { padding-top: var(--header-height); flex-grow: 1; }
-        .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
-        .page-container { max-width: 1280px; margin: 0 auto; }
-        .page-intro h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 10px; }
-        .page-intro p { font-size: 1.1rem; color: var(--medium-gray); max-width: 800px; }
+        main { padding-top: var(--header-height); flex-grow: 1; display: flex; align-items: center; justify-content: center; }
         
         .content-section { padding: 60px 30px; }
-
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 800px;
+        .page-container { max-width: 1280px; margin: 0 auto; }
+        
+        .unavailable-container {
+            text-align: center;
+            max-width: 600px;
             margin: 0 auto;
         }
-        
-        .doc-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-color: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            padding: 40px;
-            aspect-ratio: 1 / 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-        }
-        .doc-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .doc-card i {
-            font-size: 3.5rem;
-            color: var(--primary-color);
+        .unavailable-container i {
+            font-size: 5rem;
+            color: var(--error-color);
             margin-bottom: 20px;
         }
-
-        .doc-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .unavailable-container h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
-        .doc-card p {
+        .unavailable-container p {
+            font-size: 1.1rem;
             color: var(--medium-gray);
-            font-size: 1rem;
+            margin-bottom: 30px;
         }
-        
-        .doc-card.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .return-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .doc-card.disabled:hover {
-            transform: none;
-            border-color: #e5e5e5;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .return-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        
+
         .footer {
             background-color: var(--dark-gray);
             color: rgba(255, 255, 255, 0.7);
@@ -152,26 +131,13 @@
 </header>
 
     <main>
-        <section class="page-intro">
-            <div class="page-container">
-                <h1>文件共享</h1>
-                <p>访问我们的公开文件库，获取项目相关文档与组织标准化作业流程。</p>
-            </div>
-        </section>
-
         <section class="content-section">
             <div class="page-container">
-                <div class="docs-grid">
-                    <a href="http://127.0.0.1:5500/Pages/documentation/project/index.html#" class="doc-card">
-                        <i class="ri-folder-open-line"></i>
-                        <h2>项目文件公开</h2>
-                        <p>访问所有已归档项目的公开文件、报告与相关资料。</p>
-                    </a>
-                    <div class="doc-card disabled" title="暂不开放外部查看">
-                        <i class="ri-file-shield-2-line"></i>
-                        <h2>组织作业标准化文件</h2>
-                        <p>查阅KSVG内部工作流程、规范指南与标准作业程序 (SOP)。</p>
-                    </div>
+                <div class="unavailable-container">
+                    <i class="ri-error-warning-line"></i>
+                    <h1>资源不可用</h1>
+                    <p>此部分内容为KSVG内部文件，不对外公开。请返回文件共享主页浏览其他可用资源。</p>
+                    <a href="/documentation/index.html" class="return-button">返回文件共享主页</a>
                 </div>
             </div>
         </section>
