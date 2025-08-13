@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png"
         type="image/png">
 
     <style>
@@ -24,319 +24,127 @@
             --header-height: 70px;
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--text-color); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        .site-header { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height); z-index: 1000; }
+        .navigation { max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .logo-image { height: 45px; }
+        .nav-menu { list-style: none; display: flex; gap: 30px; }
+        .nav-menu li a { color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0; position: relative; transition: color 0.3s ease; }
+        .nav-menu li a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -5px; left: 0; background-color: var(--primary-color); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+        .nav-menu li a:hover, .nav-menu li a.active { color: var(--dark-gray); }
+        .nav-menu li a:hover::after, .nav-menu li a.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        
+        .nav-toggle { display: none; background: none; border: none; font-size: 28px; color: var(--dark-gray); cursor: pointer; z-index: 1001; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+        main { padding-top: var(--header-height); }
+        
+        .hero-section { min-height: 600px; height: calc(85vh - var(--header-height)); background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-mikhail-nilov-6965514.jpg'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; color: #fff; transition: background-image 1s ease-in-out; }
+        .hero-content { max-width: 1000px; padding: 0 20px; animation: fadeInHero 1.5s ease-out; }
+        @keyframes fadeInHero { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-content .small-title { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-content h1 { font-family: 'Poppins', sans-serif; font-size: 5rem; font-weight: 700; line-height: 1.2; margin: 10px 0 20px 0; text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        .content-section { padding: 120px 30px; }
+        .content-section.bg-light-gray { background-color: var(--light-gray); }
+        .details-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; }
+        .details-grid.reverse { direction: rtl; }
+        .details-grid.reverse > * { direction: ltr; }
+        .details-visual { text-align: center; }
+        .details-visual i { font-size: 100px; color: var(--primary-color); opacity: 0.8; transition: transform 0.3s ease; }
+        .details-visual i:hover { transform: scale(1.1); }
+        .details-text h2 { font-size: 2.8rem; font-weight: 700; margin-bottom: 25px; }
+        .details-text p { font-size: 1.15rem; line-height: 1.7; color: var(--medium-gray); }
+        .partner-tags { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px;}
+        .partner-tag { background-color: rgba(146, 7, 131, 0.1); color: #5e0455; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 1rem; }
+        .details-grid.reverse .partner-tags { justify-content: flex-end; }
+        .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
 
-        .site-header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            z-index: 1000;
-        }
-
-        .navigation {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 30px;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-image {
-            height: 45px;
-        }
-
-        .navigation ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .navigation ul li a {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 5px 0;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .navigation ul li a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-
-        .navigation ul li a:hover,
-        .navigation ul li a.active {
-            color: var(--dark-gray);
-        }
-
-        .navigation ul li a:hover::after,
-        .navigation ul li a.active::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        main {
-            padding-top: var(--header-height);
-        }
-
-        .hero-section {
-            min-height: 600px;
-            height: calc(85vh - var(--header-height));
-            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://images.pexels.com/photos/5439/earth-space.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            padding: 0 20px;
-        }
-
-        .hero-content .small-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero-content h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin: 10px 0 20px 0;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .content-section {
-            padding: 120px 30px;
-        }
-
-        .content-section.bg-light-gray {
-            background-color: var(--light-gray);
-        }
-
-        .details-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 80px;
-        }
-
-        .details-grid.reverse {
-            direction: rtl;
-        }
-
-        .details-grid.reverse>* {
-            direction: ltr;
-        }
-
-        .details-visual {
-            text-align: center;
-        }
-
-        .details-visual i {
-            font-size: 100px;
-            color: var(--primary-color);
-            opacity: 0.8;
-        }
-
-        .details-text h2 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-
-        .details-text p {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: var(--medium-gray);
-        }
-
-        .service-item-content {
-            display: flex;
-            flex-grow: 1;
-        }
-
-        .service-item-title {
-            font-weight: 700;
-            min-width: 180px;
-            /* 固定标题宽度，确保对齐 */
-            flex-shrink: 0;
-            /* 防止标题被压缩 */
-        }
-
-        .service-item-description {
-            color: var(--medium-gray);
-        }
-
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .footer {
-            background-color: var(--dark-gray);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 60px 30px;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-left p {
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-socials a i {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            transition: color 0.3s ease;
-        }
-
-        .footer-socials a:hover i {
-            color: var(--primary-color);
-        }
-
-        .footer-address {
-            font-size: 0.9rem;
-            text-align: right;
-            line-height: 1.8;
-        }
+        #dynamic-island-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1001; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        #dynamic-island-container.visible { opacity: 1; pointer-events: auto; }
+        #bubble { position: absolute; bottom: 0; left: 50%; width: 44px; height: 44px; transform: translateX(-50%) scale(0); border-radius: 50%; border: 2px solid var(--primary-color); background: transparent; }
+        #dynamic-island-container.popping #bubble { animation: pop-bubble 0.6s cubic-bezier(0.5, 0, 0.5, 1) forwards; }
+        @keyframes pop-bubble { 0% { transform: translateX(-50%) scale(0); opacity: 0; } 30%, 70% { opacity: 1; } 50% { transform: translateX(-50%) scale(1.1); } 100% { transform: translateX(-50%) scale(0.8); opacity: 0; } }
+        #dynamic-island { position: relative; height: 44px; width: 44px; background: rgba(25, 25, 25, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 8px 25px rgba(0,0,0,0.25); border-radius: 22px; display: flex; align-items: center; justify-content: center; transform: scale(0); transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        #dynamic-island-container.visible #dynamic-island { animation: island-appear 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0.2s forwards; }
+        @keyframes island-appear { from { transform: scale(0); } to { transform: scale(1); } }
+        #dynamic-island-container.expanded #dynamic-island { width: 200px; }
+        #dynamic-island-container.hiding #dynamic-island { animation: island-disappear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes island-disappear { 0% { transform: scale(1); width: 200px; } 60% { transform: scale(1); width: 44px; } 100% { transform: scale(0); width: 44px; } }
+        #dynamic-island ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 12px; align-items: center; opacity: 0; transition: opacity 0.3s ease 0.2s; }
+        #dynamic-island-container.expanded ul { opacity: 1; }
+        #dynamic-island li { width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        #dynamic-island li.active { width: 28px; border-radius: 4px; background-color: #ffffff; }
+        
+        .footer { background-color: var(--dark-gray); color: rgba(255, 255, 255, 0.7); padding: 60px 30px; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
+        .footer-left p { margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a i { font-size: 24px; color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-socials a:hover i { color: var(--primary-color); }
+        .footer-address { font-size: 0.9rem; text-align: right; line-height: 1.8; }
 
         @media (max-width: 768px) {
-            .navigation ul {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-
-            .content-section {
-                padding: 80px 20px;
-            }
-
-            .details-grid,
-            .details-grid.reverse {
-                grid-template-columns: 1fr;
+            .nav-toggle { display: block; }
+            .navigation .nav-menu {
+                position: fixed; top: 0; right: -100%;
+                width: 100%; height: 100vh;
+                /* MODIFIED: Improved background */
+                background-color: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                display: flex; flex-direction: column;
+                justify-content: center; align-items: center;
                 gap: 40px;
-                direction: ltr;
+                transition: right 0.4s ease-in-out;
             }
+            .nav-menu.is-active { right: 0; }
+            /* NEW: Staggered link animation */
+            .nav-menu li { opacity: 0; transform: translateY(15px); }
+            .nav-menu.is-active li { opacity: 1; transform: translateY(0); transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
+            .nav-menu.is-active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-menu.is-active li:nth-child(2) { transition-delay: 0.15s; }
+            .nav-menu.is-active li:nth-child(3) { transition-delay: 0.2s; }
+            .nav-menu.is-active li:nth-child(4) { transition-delay: 0.25s; }
+            .nav-menu.is-active li:nth-child(5) { transition-delay: 0.3s; }
+            .nav-menu.is-active li:nth-child(6) { transition-delay: 0.35s; }
+            .nav-menu li a { font-size: 1.5rem; }
 
-            .details-text {
-                text-align: center;
-            }
+            /* FIXED: Keep Dynamic Island visible on mobile */
+            #dynamic-island-container { display: block; }
 
-            .service-list {
-                text-align: left;
-            }
-
-            /* 2. 在移动端取消固定宽度，让其自然换行 */
-            .service-item-content {
-                flex-direction: column;
-            }
-
-            .service-item-title {
-                min-width: auto;
-                margin-bottom: 5px;
-            }
-
-            .footer-container {
-                text-align: center;
-            }
-
-            .footer-socials {
-                justify-content: center;
-            }
-
-            .footer-address {
-                text-align: center;
-            }
+            .hero-content h1 { font-size: 3.5rem; }
+            .content-section { padding: 80px 25px; }
+            .details-grid { grid-template-columns: 1fr; gap: 40px; }
+            .details-grid.reverse { direction: ltr; }
+            .details-text { text-align: center; }
+            .details-text h2 { font-size: 2rem; }
+            .partner-tags, .details-grid.reverse .partner-tags { justify-content: center; }
+            .footer-container { flex-direction: column; text-align: center; align-items: center; }
+            .footer-address { text-align: center; }
         }
     </style>
 </head>
-
 <body>
     <header class="site-header">
         <nav class="navigation">
-            <a href="kcis-ksvg.github.io" class="logo-link">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Pages/main/embed-files/ksvg-logo.png"
-                    alt="KSVG Logo" class="logo-image">
+            <a href="http://127.0.0.1:5500/Pages/index.html" class="logo-link">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo" class="logo-image">
             </a>
-            <ul>
-                <li><a href="#" class="active">主页</a></li>
-                <li><a href="kcis-ksvg.github.io/progress">项目进展</a></li>
-                <li><a href="#">媒体共享</a></li>
-                <li><a href="#">文件共享</a></li>
-                <li><a href="kcis-ksvg.github.io/schedule">日程信息</a></li>
-                <li><a href="#">组织招募</a></li>
+            <ul class="nav-menu">
+                <li><a href="http://127.0.0.1:5500/Pages/index.html" class="active">主页</a></li>
+                <li><a href="http://127.0.0.1:5500/Pages/progress/index.html">项目进展</a></li>
+                <li><a href="http://127.0.0.1:5500/Pages/media/index.html">媒体共享</a></li>
+                <li><a href="http://127.0.0.1:5500/Pages/documentation/index.html">文件共享</a></li>
+                <li><a href="http://127.0.0.1:5500/Pages/schedule/index.html">日程信息</a></li>
+                <li><a href="http://127.0.0.1:5500/Pages/recruiting/index.html">组织招募</a></li>
             </ul>
+            <button class="nav-toggle" aria-label="Open menu">
+                <i class="ri-menu-line"></i>
+            </button>
         </nav>
     </header>
 
@@ -344,59 +152,78 @@
         <section class="hero-section">
             <div class="hero-content fade-in-section">
                 <p class="small-title">昆山康桥学生摄影合作组织</p>
-                <h1>KCISEC-KSVG</h1>
+                <h1>KCISEC KSVG</h1>
             </div>
         </section>
 
-        <section class="content-section fade-in-section">
+        <section id="section-goal" class="content-section fade-in-section">
             <div class="details-grid">
-                <div class="details-visual">
-                    <i class="ri-focus-3-line"></i>
-                </div>
+                <div class="details-visual"><i class="ri-compass-3-line"></i></div>
                 <div class="details-text">
-                    <h2>我们的使命</h2>
-                    <p>我们致力于通过镜头捕捉并珍藏校园生活中的每一个充满活力的瞬间。我们的热情在于为全体师生创造一个永恒的、可追溯的视觉档案，记录下属于每个人的独特故事和共同记忆。</p>
+                    <h2>我们的目标</h2>
+                    <p>构建一个由学生主导的校园摄影社群。我们通过项目实践，激发创作热情，共同推动影像艺术在校园内的普及与发展。</p>
                 </div>
             </div>
         </section>
 
-        <section class="content-section bg-light-gray fade-in-section">
+        <section id="section-workflow" class="content-section bg-light-gray fade-in-section">
             <div class="details-grid reverse">
-                <div class="details-visual">
-                    <i class="ri-team-line"></i>
-                </div>
+                <div class="details-visual"><i class="ri-node-tree"></i></div>
                 <div class="details-text">
-                    <h2>协作与成长</h2>
-                    <p>我们是一个由来自不同背景、对媒体创作充满热爱的学生组成的团队。在这里，我们不仅是服务者，更是学习者。我们互相交流、磨练技术、共同探索创意的边界，在协作中成长为更优秀的创作者。</p>
+                    <h2>协作与进步</h2>
+                    <p>我们遵循从前期规划、中期执行到后期归档的标准化工作流程。团队成员各司其职，并在每次项目结束后复盘，持续优化，追求卓越。</p>
                 </div>
             </div>
         </section>
 
-        <section class="content-section fade-in-section">
+        <section id="section-services" class="content-section fade-in-section">
             <div class="details-grid">
-                <div class="details-visual">
-                    <i class="ri-tools-line"></i>
-                </div>
+                <div class="details-visual"><i class="ri-tv-2-line"></i></div>
                 <div class="details-text">
-                    <h2>创意工具箱</h2>
-                    <p>从高清摄像机到专业灯光音响，我们的工具箱为实现各种创意挑战提供了坚实的技术保障。我们相信，恰当的工具是释放创造力、确保每个项目圆满成功的关键。</p>
+                    <h2>技术与服务</h2>
+                    <p>我们提供活动摄影、视频录制、照片直播与流媒体转播等服务。所有项目均采用标准化规格进行拍摄与数据管理，确保高质量交付。</p>
                 </div>
             </div>
         </section>
 
-        <section class="content-section bg-light-gray fade-in-section">
+        <section id="section-partners" class="content-section bg-light-gray fade-in-section">
             <div class="details-grid reverse">
-                <div class="details-visual">
-                    <i class="ri-gallery-line"></i>
-                </div>
+                <div class="details-visual"><i class="ri-shake-hands-line"></i></div>
                 <div class="details-text">
-                    <h2>记录校园生活</h2>
-                    <p>我们提供一系列旨在满足校园社区多样化需求的服务，将我们的技术和热情转化为对校园生活的生动记录。</p>
+                    <h2>协作组织</h2>
+                    <p>我们与校内多个组织紧密合作，通过跨部门协作，为校园社群提供更多元、更全面的视觉支持。</p>
+                    <div class="partner-tags">
+                        <span class="partner-tag">KCSC</span>
+                        <span class="partner-tag">KCSA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-delivery" class="content-section fade-in-section">
+            <div class="details-grid">
+                <div class="details-visual"><i class="ri-apps-2-line"></i></div>
+                <div class="details-text">
+                    <h2>沟通与交付</h2>
+                    <p>本网站作为我们的信息中枢，集成了项目追踪与文件索引功能。我们结合多平台工具，为合作方提供系统、透明、高效的协作体验。</p>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <div id="dynamic-island-container">
+        <div id="bubble"></div>
+        <div id="dynamic-island">
+            <ul>
+                <li data-target-id="section-goal"></li>
+                <li data-target-id="section-workflow"></li>
+                <li data-target-id="section-services"></li>
+                <li data-target-id="section-partners"></li>
+                <li data-target-id="section-delivery"></li>
+            </ul>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-container">
@@ -405,8 +232,7 @@
                 <div class="footer-socials">
                     <a href="#" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a>
                     <a href="#" aria-label="WeChat" title="WeChat"><i class="ri-wechat-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
-                            class="ri-mail-fill"></i></a>
+                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-fill"></i></a>
                 </div>
             </div>
             <div class="footer-address">
@@ -417,18 +243,92 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+        try {
+            document.addEventListener("DOMContentLoaded", function () {
+                // Mobile navigation
+                const navToggle = document.querySelector('.nav-toggle');
+                const navMenu = document.querySelector('.nav-menu');
+                if (navToggle && navMenu) {
+                    navToggle.addEventListener('click', () => {
+                        navMenu.classList.toggle('is-active');
+                        const icon = navToggle.querySelector('i');
+                        icon.className = navMenu.classList.contains('is-active') ? 'ri-close-line' : 'ri-menu-line';
+                    });
+                }
+
+                // Random wallpaper
+                async function setRandomHeroImage() {
+                    const wallpapersUrl = 'https://api.github.com/repos/KCIS-KSVG/Data/contents/wallpapers';
+                    const heroSection = document.querySelector('.hero-section');
+                    try {
+                        const response = await fetch(wallpapersUrl);
+                        if (!response.ok) throw new Error('Network response was not ok.');
+                        const files = await response.json();
+                        const imageFiles = files.filter(file => file.type === 'file' && /\.(jpg|jpeg|png)$/i.test(file.name));
+                        if (imageFiles.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * imageFiles.length);
+                            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('${imageFiles[randomIndex].download_url}')`;
+                        }
+                    } catch (error) { console.error("Could not fetch random wallpaper:", error); }
+                }
+                setRandomHeroImage();
+
+                // Fade-in sections
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.fade-in-section').forEach(section => fadeObserver.observe(section));
+
+                // Dynamic Island
+                const islandContainer = document.getElementById('dynamic-island-container');
+                const heroSection = document.querySelector('.hero-section');
+                const contentSections = document.querySelectorAll('.content-section[id]');
+                const islandDots = document.querySelectorAll('#dynamic-island li');
+                let isIslandVisible = false;
+                let animationTimeout;
+                window.addEventListener('scroll', () => {
+                    const scrollThreshold = heroSection.offsetHeight * 0.9;
+                    if (window.scrollY > scrollThreshold && !isIslandVisible) {
+                        isIslandVisible = true;
+                        clearTimeout(animationTimeout);
+                        islandContainer.classList.remove('hiding');
+                        islandContainer.classList.add('visible');
+                        islandContainer.classList.add('popping');
+                        animationTimeout = setTimeout(() => {
+                            islandContainer.classList.remove('popping');
+                            islandContainer.classList.add('expanded');
+                        }, 600);
+                    } else if (window.scrollY <= scrollThreshold && isIslandVisible) {
+                        isIslandVisible = false;
+                        clearTimeout(animationTimeout);
+                        islandContainer.classList.remove('expanded');
+                        islandContainer.classList.add('hiding');
+                        animationTimeout = setTimeout(() => {
+                            islandContainer.classList.remove('visible');
+                            islandContainer.classList.remove('hiding');
+                        }, 400);
                     }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
-        });
+                }, { passive: true });
+                const islandDotObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const targetId = entry.target.id;
+                            islandDots.forEach(dot => {
+                                dot.classList.toggle('active', dot.dataset.targetId === targetId);
+                            });
+                        }
+                    });
+                }, { rootMargin: '-45% 0px -45% 0px' });
+                contentSections.forEach(section => islandDotObserver.observe(section));
+            });
+        } catch (e) {
+            console.error("An error occurred while initializing the page script:", e);
+        }
     </script>
 </body>
-
 </html>
