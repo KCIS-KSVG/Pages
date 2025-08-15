@@ -169,6 +169,20 @@
         .selection-item label { font-weight: normal; display: flex; align-items: center; cursor: pointer;}
         .selection-item input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; }
         .selection-item-project { font-weight: bold; } .selection-item-session { padding-left: 25px; } .selection-item-product { padding-left: 25px; color: #555; }
+        .selection-item.disabled > label { color: #ccc; cursor: not-allowed; }
+        .selection-rule { font-size: 0.9rem; color: var(--medium-gray); background-color: #f0f0f0; padding: 10px; border-radius: 6px; margin-bottom: 15px; }
+        .word-counter { text-align: right; font-size: 0.85rem; color: var(--medium-gray); }
+        .warning-text { color: #c81e1e; font-weight: 600; background-color: #fff1f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .warning-text p { margin: 0 0 10px 0; } .warning-text p:last-child { margin-bottom: 0; }
+        .email-fallback { font-size: 0.85rem; color: var(--secondary-color); text-align: center; margin-bottom: 20px; }
+        .email-fallback a { font-weight: 600; text-decoration: underline; }
+        .feedback-page { text-align: center; padding: 40px; }
+        .feedback-page i { font-size: 60px; margin-bottom: 20px; }
+        .feedback-page.success i { color: #389e0d; }
+        .feedback-page.error i { color: #cf1322; }
+        .feedback-page h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .feedback-page p { color: var(--medium-gray); }
+
         .modal-footer { flex-shrink: 0; display: flex; justify-content: flex-end; gap: 15px; border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px; }
         .modal-button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.2s ease; }
         .modal-button-primary { background: var(--primary-color); color: #fff; } .modal-button-primary:hover { background: #7a066e; }
@@ -298,7 +312,7 @@
                                 <input type="search" class="search-input" id="search-input" placeholder="键入关键词以搜索...">
                                 <button class="search-button" id="search-button"><i class="ri-search-line"></i></button>
                             </div>
-                            <button class="action-button" id="new-request-button"><i class="ri-mail-add-line"></i> 新增邮件请求</button>
+                            <button class="action-button" id="new-request-button"><i class="ri-mail-add-line"></i> 新增事件或请求</button>
                         </div>
                     </div>
                 </div>
@@ -342,24 +356,55 @@
     <div class="modal-overlay" id="request-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-title">新增邮件请求 (1/2)</h2>
+                <h2 id="modal-title">新增事件或请求 (1/4)</h2>
                 <button class="modal-close" id="modal-close-button"><i class="ri-close-line"></i></button>
             </div>
             <div class="modal-body">
-                <div class="modal-page active" id="modal-page-1"><div class="form-group"><label>选择相关项目/场次/产品 (可多选)</label><div class="selection-list" id="modal-selection-list"></div></div></div>
+                <div class="modal-page active" id="modal-page-1">
+                    <div class="form-group">
+                        <label>选择关联项目/场次/产品</label>
+                        <p class="selection-rule">注意：一次只能提交与单个项目（Project）相关的事件或请求。</p>
+                        <div class="selection-list" id="modal-selection-list"></div>
+                    </div>
+                </div>
                 <div class="modal-page" id="modal-page-2">
-                    <div class="form-group"><label>已选请求目标</label><textarea id="modal-selected-item" class="readonly-field" readonly rows="2"></textarea></div>
-                    <div class="form-group"><label>请求单号</label><input type="text" id="modal-request-id" class="readonly-field" readonly></div>
-                    <div class="form-grid"><div class="form-group"><label for="modal-name">姓名</label><input type="text" id="modal-name" required></div><div class="form-group"><label for="modal-id-number">学号/工号</label><input type="text" id="modal-id-number" required></div></div>
-                    <div class="form-group"><label for="modal-class-dept">班级/部门</label><input type="text" id="modal-class-dept" required></div>
+                    <div class="form-group"><label>事件编号</label><input type="text" id="modal-request-id" class="readonly-field" readonly></div>
+                    <div class="form-group"><label>关联信息</label><textarea id="modal-selected-item" class="readonly-field" readonly rows="2"></textarea></div>
                     <div class="form-group"><label for="modal-category">事件类别</label><select id="modal-category"><option value="服务反馈">服务反馈</option><option value="加急请求">加急请求</option><option value="状态请求">状态请求</option><option value="变更信息">变更信息</option><option value="其他类别">其他类别</option></select></div>
-                    <div class="form-group"><label for="modal-description">具体描述</label><textarea id="modal-description" placeholder="请详细描述您的请求..."></textarea></div>
+                    <div class="form-group"><label for="modal-description">具体描述</label><textarea id="modal-description" placeholder="请详细描述您的请求 (5-200字)"></textarea><div class="word-counter" id="word-counter">0/200</div></div>
+                </div>
+                <div class="modal-page" id="modal-page-3">
+                    <p class="email-fallback">本表单仅支持境外网络环境提交数据。如果您无法访问，<a href="#" id="email-fallback-link">请点此处通过邮箱发送信息</a>。</p>
+                    <div class="warning-text">
+                        <p><strong>注意事项：</strong></p>
+                        <p>1. 请确保您提交的信息真实有效。禁止提交不当言论或滥用此系统。</p>
+                        <p>2. 请勿代他人提交或泄露他人个人信息。</p>
+                        <p>3. 我们承诺将严格保护您的个人数据，并仅将其用于本次事件处理。您的数据被安全的储存在Google。</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group"><label for="modal-name">姓名</label><input type="text" id="modal-name" required></div>
+                        <div class="form-group"><label for="modal-fillerId">学号/工号 (ID)</label><input type="text" id="modal-fillerId" required></div>
+                    </div>
+                    <div class="form-group"><label for="modal-unit">母班级/部门/组织</label><input type="text" id="modal-unit" required></div>
+                </div>
+                <div class="modal-page" id="modal-page-4">
+                    <div class="feedback-page success" id="feedback-success" style="display: none;">
+                        <i class="ri-checkbox-circle-line"></i>
+                        <h3>提交成功</h3>
+                        <p>感谢您的反馈，我们会尽快处理。</p>
+                    </div>
+                    <div class="feedback-page error" id="feedback-error" style="display: none;">
+                        <i class="ri-error-warning-line"></i>
+                        <h3>提交失败</h3>
+                        <p>网络或服务器发生错误，请稍后重试。</p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="modal-button modal-button-secondary" id="modal-back-button" style="display: none;">返回</button>
-                <button class="modal-button modal-button-primary" id="modal-continue-button" disabled>继续</button>
-                <button class="modal-button modal-button-primary" id="modal-submit-button" style="display: none;" disabled>生成邮件</button>
+                <button class="modal-button modal-button-primary" id="modal-next-button" disabled>继续</button>
+                <button class="modal-button modal-button-primary" id="modal-submit-button" style="display: none;" disabled>提交</button>
+                <button class="modal-button modal-button-secondary" id="modal-close-final-button" style="display: none;">关闭</button>
             </div>
         </div>
     </div>
@@ -408,7 +453,8 @@
                 staffRequests: `${BASE_URL}ksvg.com.cn_progress_data%20-%20staffRequest.csv`, bdEquipment: `${BASE_URL}ksvg.com.cn_progress_data%20-%20BD_Equipment.csv`,
                 bdStaff: `${BASE_URL}ksvg.com.cn_progress_data%20-%20BD_Staff.csv`
             };
-            const EMAIL_RECIPIENT = "support_ksvg@163.com";
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7OTlfA0clp0zE2WE6OZrsNgIx4LzpK5aWopJZIFfS0K95WikL-IJiBcmF3rQehWlV/exec";
+            
             let allData = []; let currentFilter = 'all'; let currentSort = { key: 'id', order: 'asc' };
             const ui = {
                 loadingOverlay: document.getElementById('loading-overlay'), tableBody: document.getElementById('project-table-body'), table: document.querySelector('.project-table'),
@@ -416,13 +462,6 @@
                 searchInput: document.getElementById('search-input'), searchButton: document.getElementById('search-button'), filterBtns: document.querySelectorAll('.filter-btn'),
                 projectMatchLabel: document.querySelector('label[for="only-project-match"]'), sessionMatchLabel: document.querySelector('label[for="only-session-match"]'),
                 projectMatchCheckbox: document.getElementById('only-project-match'), sessionMatchCheckbox: document.getElementById('only-session-match')
-            };
-            const requestModal = {
-                overlay: document.getElementById('request-modal'), title: document.getElementById('modal-title'), page1: document.getElementById('modal-page-1'), page2: document.getElementById('modal-page-2'),
-                selectionList: document.getElementById('modal-selection-list'), selectedItemInput: document.getElementById('modal-selected-item'), requestIdInput: document.getElementById('modal-request-id'),
-                nameInput: document.getElementById('modal-name'), idNumberInput: document.getElementById('modal-id-number'), classDeptInput: document.getElementById('modal-class-dept'),
-                categorySelect: document.getElementById('modal-category'), descriptionText: document.getElementById('modal-description'), backBtn: document.getElementById('modal-back-button'),
-                continueBtn: document.getElementById('modal-continue-button'), submitBtn: document.getElementById('modal-submit-button'), closeBtn: document.querySelector('#request-modal .modal-close')
             };
             
             const detailsModal = {
@@ -554,22 +593,185 @@
                 }
                 renderTable(filteredData, searchTerm);
             }
-            Object.assign(requestModal, {
-                open() { this.reset(); this.populateList(); this.overlay.classList.add('visible'); }, close() { this.overlay.classList.remove('visible'); },
-                reset() { this.showPage(1); this.selectedItems = []; this.descriptionText.value = ''; this.categorySelect.value = '服务反馈'; this.nameInput.value = ''; this.idNumberInput.value = ''; this.classDeptInput.value = ''; this.continueBtn.disabled = true; this.submitBtn.disabled = true; this.selectionList.innerHTML = ''; },
-                showPage(num) { this.page1.classList.toggle('active', num === 1); this.page2.classList.toggle('active', num === 2); this.backBtn.style.display = num === 2 ? 'block' : 'none'; this.continueBtn.style.display = num === 1 ? 'block' : 'none'; this.submitBtn.style.display = num === 2 ? 'block' : 'none'; this.title.textContent = `新增邮件请求 (${num}/2)`; },
-                populateList() { let html = ''; allData.forEach(p => { html += `<div class="selection-item selection-item-project"><label><input type="checkbox" data-id="${p.id}" data-parent=""> ${p.name} (${p.id})</label></div>`; p.products.forEach(pr => { html += `<div class="selection-item selection-item-product"><label><input type="checkbox" data-id="${pr.id}" data-parent="${p.id}"> ${pr.name} (${pr.id})</label></div>`; }); p.sessions.forEach(s => { html += `<div class="selection-item selection-item-session"><label><input type="checkbox" data-id="${s.id}" data-parent="${p.id}"> ${s.name} (${s.id})</label></div>`; }); }); this.selectionList.innerHTML = html; },
-                generateRequestId() { const d = new Date(); const ts = `${String(d.getFullYear()).slice(-2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}${String(d.getSeconds()).padStart(2,'0')}`; return `FED-${ts}${String(Math.floor(Math.random()*9000)+1000)}`; },
-                validatePage2() { this.submitBtn.disabled = !(this.nameInput.value.trim() && this.idNumberInput.value.trim() && this.classDeptInput.value.trim()); },
-                updateSelectedItems() { this.selectedItems = Array.from(this.selectionList.querySelectorAll('input:checked')).map(cb => ({ id: cb.dataset.id, parent: cb.dataset.parent })); this.continueBtn.disabled = this.selectedItems.length === 0; },
-                getSelectedItemsAsText() { return this.selectedItems.map(item => item.parent ? `[${item.parent}]/[${item.id}]` : `[${item.id}]`).join(', '); }
+
+            const requestFormModal = {
+                overlay: document.getElementById('request-modal'),
+                title: document.getElementById('modal-title'),
+                pages: document.querySelectorAll('#request-modal .modal-page'),
+                backBtn: document.getElementById('modal-back-button'),
+                nextBtn: document.getElementById('modal-next-button'),
+                submitBtn: document.getElementById('modal-submit-button'),
+                closeFinalBtn: document.getElementById('modal-close-final-button'),
+                closeBtn: document.querySelector('#request-modal .modal-close'),
+                emailFallbackLink: document.getElementById('email-fallback-link'),
+                
+                selectionList: document.getElementById('modal-selection-list'),
+                requestIdInput: document.getElementById('modal-request-id'),
+                selectedItemInput: document.getElementById('modal-selected-item'),
+                categorySelect: document.getElementById('modal-category'),
+                descriptionText: document.getElementById('modal-description'),
+                wordCounter: document.getElementById('word-counter'),
+                nameInput: document.getElementById('modal-name'),
+                fillerIdInput: document.getElementById('modal-fillerId'),
+                unitInput: document.getElementById('modal-unit'),
+                feedbackSuccess: document.getElementById('feedback-success'),
+                feedbackError: document.getElementById('feedback-error'),
+
+                currentPage: 1,
+                selectedItems: [],
+                
+                open() { this.reset(); this.populateList(); this.overlay.classList.add('visible'); },
+                close() { this.overlay.classList.remove('visible'); },
+                reset() {
+                    this.currentPage = 1;
+                    this.selectedItems = [];
+                    this.descriptionText.value = ''; this.categorySelect.value = '服务反馈';
+                    this.nameInput.value = ''; this.fillerIdInput.value = ''; this.unitInput.value = '';
+                    this.goToPage(1);
+                },
+                goToPage(pageNumber) {
+                    this.currentPage = pageNumber;
+                    this.pages.forEach((page, index) => page.classList.toggle('active', index + 1 === pageNumber));
+                    this.title.textContent = `新增事件或请求 (${pageNumber}/4)`;
+                    
+                    this.backBtn.style.display = (pageNumber > 1 && pageNumber < 4) ? 'inline-flex' : 'none';
+                    this.nextBtn.style.display = (pageNumber < 3) ? 'inline-flex' : 'none';
+                    this.submitBtn.style.display = (pageNumber === 3) ? 'inline-flex' : 'none';
+                    this.closeFinalBtn.style.display = (pageNumber === 4) ? 'inline-flex' : 'none';
+
+                    if (pageNumber === 4) { this.title.textContent = "提交状态"; this.backBtn.style.display = 'none'; }
+                    
+                    this.updateFormState();
+                },
+                populateList() {
+                    let html = '';
+                    allData.forEach(p => {
+                        html += `<div class="selection-item selection-item-project" data-project-id="${p.id}"><label><input type="checkbox" data-type="project" data-id="${p.id}"> ${p.name} (${p.id})</label></div>`;
+                        p.products.forEach(pr => { html += `<div class="selection-item selection-item-product" data-project-id="${p.id}"><label><input type="checkbox" data-type="product" data-id="${pr.id}" data-parent-id="${p.id}"> ${pr.name} (${pr.id})</label></div>`; });
+                        p.sessions.forEach(s => { html += `<div class="selection-item selection-item-session" data-project-id="${p.id}"><label><input type="checkbox" data-type="session" data-id="${s.id}" data-parent-id="${p.id}"> ${s.name} (${s.id})</label></div>`; });
+                    });
+                    this.selectionList.innerHTML = html;
+                },
+                handleSelectionChange(e) {
+                    const checkbox = e.target;
+                    if (!checkbox || checkbox.type !== 'checkbox') return;
+
+                    const parentProjectDiv = checkbox.closest('.selection-item-project');
+                    const currentProjectId = parentProjectDiv ? parentProjectDiv.dataset.projectId : checkbox.closest('.selection-item').dataset.projectId;
+
+                    if (checkbox.dataset.type === 'project') {
+                        const children = this.selectionList.querySelectorAll(`[data-parent-id="${checkbox.dataset.id}"]`);
+                        children.forEach(child => child.checked = checkbox.checked);
+                    } else {
+                        const parentCheckbox = this.selectionList.querySelector(`input[data-type="project"][data-id="${checkbox.dataset.parentId}"]`);
+                        if (parentCheckbox) {
+                            const allChildren = this.selectionList.querySelectorAll(`[data-parent-id="${checkbox.dataset.parentId}"]`);
+                            const allChildrenChecked = Array.from(allChildren).every(child => child.checked);
+                            parentCheckbox.checked = allChildrenChecked;
+                        }
+                    }
+
+                    const anyChecked = this.selectionList.querySelector('input:checked');
+                    if (anyChecked) {
+                        const selectedProjectId = anyChecked.closest('.selection-item').dataset.projectId;
+                        this.selectionList.querySelectorAll('.selection-item').forEach(item => {
+                            if (item.dataset.projectId !== selectedProjectId) {
+                                item.classList.add('disabled');
+                                item.querySelectorAll('input').forEach(input => input.disabled = true);
+                            }
+                        });
+                    } else {
+                        this.selectionList.querySelectorAll('.selection-item').forEach(item => {
+                            item.classList.remove('disabled');
+                            item.querySelectorAll('input').forEach(input => input.disabled = false);
+                        });
+                    }
+                    this.updateFormState();
+                },
+                updateFormState() {
+                    if (this.currentPage === 1) {
+                        this.selectedItems = Array.from(this.selectionList.querySelectorAll('input:checked')).map(cb => ({ id: cb.dataset.id, type: cb.dataset.type, parent: cb.dataset.parentId }));
+                        this.nextBtn.disabled = this.selectedItems.length === 0;
+                    } else if (this.currentPage === 2) {
+                        const descLength = this.descriptionText.value.trim().length;
+                        this.wordCounter.textContent = `${descLength}/200`;
+                        this.nextBtn.disabled = !(descLength >= 5 && descLength <= 200);
+                    } else if (this.currentPage === 3) {
+                        this.submitBtn.disabled = !(this.nameInput.value.trim() && this.fillerIdInput.value.trim() && this.unitInput.value.trim());
+                    }
+                },
+                preparePage2() {
+                    const d = new Date();
+                    const ts = `${String(d.getFullYear()).slice(-2)}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}${String(d.getSeconds()).padStart(2,'0')}`;
+                    this.requestIdInput.value = `ISU-${ts}${String(Math.floor(Math.random()*9000)+1000)}`;
+                    
+                    const projectSelection = this.selectedItems.find(item => item.type === 'project');
+                    if (projectSelection) {
+                        this.selectedItemInput.value = `${projectSelection.id}`;
+                    } else {
+                        const parentId = this.selectedItems[0].parent;
+                        const childrenIds = this.selectedItems.map(item => `${item.type.toUpperCase()}-${item.id}`).join(', ');
+                        this.selectedItemInput.value = `${parentId} (${childrenIds})`;
+                    }
+                },
+                async submitForm() {
+                    this.submitBtn.disabled = true;
+                    this.submitBtn.innerHTML = '<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> 提交中...';
+
+                    const formData = {
+                        id: this.requestIdInput.value,
+                        correlationId: this.selectedItemInput.value,
+                        category: this.categorySelect.value,
+                        name: this.nameInput.value,
+                        fillerId: this.fillerIdInput.value,
+                        unit: this.unitInput.value,
+                        text: this.descriptionText.value,
+                    };
+
+                    try {
+                        const response = await fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formData)
+                        });
+                        this.feedbackSuccess.style.display = 'block';
+                        this.feedbackError.style.display = 'none';
+                    } catch (error) {
+                        console.error('Submission failed:', error);
+                        this.feedbackSuccess.style.display = 'none';
+                        this.feedbackError.style.display = 'block';
+                    } finally {
+                        this.goToPage(4);
+                    }
+                },
+                generateMailto() {
+                    const formData = {
+                        id: this.requestIdInput.value, correlationId: this.selectedItemInput.value,
+                        category: this.categorySelect.value, text: this.descriptionText.value,
+                        name: this.nameInput.value, fillerId: this.fillerIdInput.value, unit: this.unitInput.value
+                    };
+                    const emailDisclaimer = "**因为电子邮件的内容可能存在不确定性，如果您的邮件正文被修改，系统可能会因为无法识别而自动取消该记录。为了确保记录有效，请不要编辑邮件正文**。\n\n感谢您对KSVG服务的支持，您的反馈对推动我们发展做出了重要贡献。\n\n--- 请求详情 ---\n";
+                    const emailBody = `${emailDisclaimer}\n- 事件编号: ${formData.id}\n- 关联信息: ${formData.correlationId}\n- 事件类别: ${formData.category}\n- 提交人姓名: ${formData.name}\n- 提交人学号/工号: ${formData.fillerId}\n- 提交人班级/部门: ${formData.unit}\n\n- 具体描述:\n${formData.text}\n`;
+                    const subject = `服务请求: [${formData.category}] - ${formData.id}`;
+                    window.location.href = `mailto:support_ksvg@163.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                }
+            };
+
+            document.getElementById('new-request-button').addEventListener('click', () => requestFormModal.open());
+            requestFormModal.closeBtn.addEventListener('click', () => requestFormModal.close());
+            requestFormModal.closeFinalBtn.addEventListener('click', () => requestFormModal.close());
+            requestFormModal.backBtn.addEventListener('click', () => requestFormModal.goToPage(requestFormModal.currentPage - 1));
+            requestFormModal.nextBtn.addEventListener('click', () => {
+                if (requestFormModal.currentPage === 1) requestFormModal.preparePage2();
+                requestFormModal.goToPage(requestFormModal.currentPage + 1);
             });
-            document.getElementById('new-request-button').addEventListener('click', () => requestModal.overlay.classList.add('visible'));
-            requestModal.closeBtn.addEventListener('click', () => requestModal.overlay.classList.remove('visible')); requestModal.backBtn.addEventListener('click', () => requestModal.showPage(1));
-            requestModal.selectionList.addEventListener('change', () => requestModal.updateSelectedItems());
-            requestModal.continueBtn.addEventListener('click', () => { requestModal.selectedItemInput.value = requestModal.getSelectedItemsAsText(); requestModal.requestIdInput.value = requestModal.generateRequestId(); requestModal.showPage(2); requestModal.validatePage2(); });
-            [requestModal.nameInput, requestModal.idNumberInput, requestModal.classDeptInput].forEach(el => el.addEventListener('input', () => requestModal.validatePage2()));
-            requestModal.submitBtn.addEventListener('click', () => { const notes = "【重要注意事项】\n- 请勿手动修改邮件中的任何参数和编码，特别是请求单号。\n- 请在发送前再次核对自己提交的信息是否准确。\n- 我们会在下一个工作日尽快答复您的请求。\n- 为避免事件管理混乱，同一个事件请勿重复提交邮件请求。\n\n--- 请求详情 ---\n"; const body = `${notes}\n- 请求人: ${requestModal.nameInput.value}\n- 学号/工号: ${requestModal.idNumberInput.value}\n- 班级/部门: ${requestModal.classDeptInput.value}\n\n- 请求单号: ${requestModal.requestIdInput.value}\n- 关联目标: ${requestModal.selectedItemInput.value}\n- 事件类别: ${requestModal.categorySelect.value}\n\n- 事件描述:\n${requestModal.descriptionText.value}\n`; const subject = `服务请求: [${requestModal.categorySelect.value}] - ${requestModal.requestIdInput.value}`; window.location.href = `mailto:${EMAIL_RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; requestModal.overlay.classList.remove('visible'); });
+            requestFormModal.submitBtn.addEventListener('click', () => requestFormModal.submitForm());
+            requestFormModal.emailFallbackLink.addEventListener('click', (e) => { e.preventDefault(); requestFormModal.generateMailto(); });
+            requestFormModal.selectionList.addEventListener('change', (e) => requestFormModal.handleSelectionChange(e));
+            requestFormModal.descriptionText.addEventListener('input', () => requestFormModal.updateFormState());
+            [requestFormModal.nameInput, requestFormModal.fillerIdInput, requestFormModal.unitInput].forEach(el => el.addEventListener('input', () => requestFormModal.updateFormState()));
+
             ui.searchInput.addEventListener('input', applyFiltersAndSearch);
             ui.filterBtns.forEach(btn => btn.addEventListener('click', function() { ui.filterBtns.forEach(b => b.classList.remove('active')); this.classList.add('active'); currentFilter = this.dataset.filter; applyFiltersAndSearch(); }));
             ui.searchButton.addEventListener('click', applyFiltersAndSearch); ui.searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyFiltersAndSearch(); } });
