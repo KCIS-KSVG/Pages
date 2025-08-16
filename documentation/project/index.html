@@ -1,174 +1,694 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSVG | 项目文件公开</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
 
     <style>
         :root {
-            --primary-color: #920783; --secondary-color: #007bff; --dark-gray: #1d1d1f;
-            --medium-gray: #424245; --light-gray: #f5f5f7; --text-color: #1d1d1f;
-            --header-height: 70px; --status-active-bg: #e6f7ff;
-            --status-active-text: #006adc; --status-archived-bg: #f6f6f6;
+            --primary-color: #920783;
+            --secondary-color: #007bff;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #424245;
+            --light-gray: #f5f5f7;
+            --text-color: #1d1d1f;
+            --header-height: 70px;
+            --status-active-bg: #e6f7ff;
+            --status-active-text: #006adc;
+            --status-archived-bg: #f6f6f6;
             --status-archived-text: #5a5a5a;
         }
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: 'Inter', sans-serif; background-color: var(--light-gray); 
-            color: var(--text-color); line-height: 1.6;
-            display: flex; flex-direction: column; min-height: 100vh;
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body.no-scroll { overflow: hidden; }
-        a { text-decoration: none; color: inherit; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         .site-header {
-            background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0;
-            width: 100%; height: var(--header-height); z-index: 1020;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1020;
         }
+
         .navigation {
-            max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%;
-            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .logo-image { height: 45px; }
-        .nav-menu { list-style: none; display: flex; gap: 30px; }
+
+        .logo-image {
+            height: 45px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
         .nav-menu li a {
-            color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0;
-            position: relative; transition: color 0.3s ease;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
         }
+
         .nav-menu li a::after {
-            content: ''; position: absolute; width: 80%; height: 3px; bottom: -5px; left: 10%;
-            background-color: var(--primary-color); transform: scaleX(0); transform-origin: bottom left;
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            bottom: -5px;
+            left: 10%;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: bottom left;
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .nav-menu li a:hover, .nav-menu li a.active { color: var(--dark-gray); }
-        .nav-menu li a:hover::after, .nav-menu li a.active::after {
-            transform: scaleX(1); transform-origin: bottom left;
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--dark-gray);
         }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
         .nav-toggle {
-            display: none; background: none; border: none; font-size: 28px; color: var(--dark-gray);
-            cursor: pointer; z-index: 1030; transition: transform 0.4s ease;
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--dark-gray);
+            cursor: pointer;
+            z-index: 1030;
+            transition: transform 0.4s ease;
         }
-        .nav-toggle.is-active { transform: rotate(90deg); }
-        
-        main { padding-top: var(--header-height); flex-grow: 1; }
-        .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
-        .page-container { max-width: 1280px; margin: 0 auto; }
-        .page-intro h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 10px; display: flex; align-items: center; flex-wrap: wrap; }
-        .page-intro h1 a { color: var(--dark-gray); animation: fade-to-gray 1s 0.5s forwards; }
-        @keyframes fade-to-gray { to { color: #888; } }
-        .page-intro h1 a:hover { color: var(--primary-color) !important; animation: none; }
-        .page-intro h1 .separator { margin: 0 10px; color: #ccc; }
-        .page-intro h1 .current-level { color: var(--dark-gray); display: inline-block; animation: slide-in 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards; opacity: 0; position: relative; left: -20px; }
-        @keyframes slide-in { to { left: 0; opacity: 1; } }
-        .page-intro p { font-size: 1.1rem; color: var(--medium-gray); max-width: 800px; }
-        
-        .content-section { padding: 40px 30px 60px; }
-        .controls-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
-        .status-filters { display: flex; align-items: center; gap: 20px; }
-        .checkbox-group input[type="checkbox"] { display: none; }
-        .checkbox-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; user-select: none; color: var(--medium-gray); }
-        .checkbox-group .checkbox-icon { width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-        .checkbox-group .checkbox-icon i { font-size: 16px; color: #fff; transform: scale(0); transition: transform 0.3s ease; }
-        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon { background-color: var(--secondary-color); border-color: var(--secondary-color); }
-        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon i { transform: scale(1); }
-        .search-controls { display: flex; }
-        .search-input { border: 1px solid #d9d9d9; padding: 10px 16px; border-radius: 8px 0 0 8px; font-size: 1rem; width: 300px; border-right: none; outline: none; }
-        .search-button { background-color: var(--primary-color); color: #fff; border: 1px solid var(--primary-color); padding: 0 16px; border-radius: 0 8px 8px 0; font-size: 1.2rem; cursor: pointer; transition: background-color 0.3s ease; display: flex; align-items: center; }
-        .search-button:hover { background-color: #7a066e; }
 
-        .table-container { position: relative; background-color: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; min-height: 400px; }
-        .folder-table { width: 100%; border-collapse: collapse; }
-        .folder-table th, .folder-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #f0f0f0; vertical-align: middle; font-size: 0.9rem; }
-        .folder-table th { background-color: #fafafa; }
-        .sortable-header { cursor: pointer; user-select: none; transition: background-color 0.2s; position: relative; }
-        .sortable-header:hover { background-color: #f0f0f0; }
-        .sort-indicator { color: #bbb; font-size: 0.8em; margin-left: 6px; display: inline-block; width: 1em; text-align: center; opacity: 0.7; }
-        .sortable-header.sort-asc .sort-indicator, .sortable-header.sort-desc .sort-indicator { opacity: 1; color: var(--dark-gray); }
-        .folder-row { cursor: pointer; transition: background-color 0.2s ease; }
-        .folder-row:hover { background-color: var(--light-gray); }
-        .folder-name-cell { display: flex; align-items: center; gap: 15px; }
-        .folder-name-cell i { font-size: 1.5rem; color: var(--primary-color); }
-        .folder-name-cell span { font-weight: 600; }
-        .file-count-cell, .status-cell { text-align: center; }
-        .actions-cell { text-align: right; }
-        .status-tag { padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
-        .status-tag.active { background-color: var(--status-active-bg); color: var(--status-active-text); }
-        .status-tag.archived { background-color: var(--status-archived-bg); color: var(--status-archived-text); }
-        .download-all-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; background-color: #eee; border: 1px solid #ddd; border-radius: 6px; transition: all 0.2s ease; }
-        .download-all-btn:hover { background-color: #ddd; border-color: #ccc; }
+        .nav-toggle.is-active {
+            transform: rotate(90deg);
+        }
 
-        .details-row > td { padding: 0; }
-        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #f8f8fa; }
-        .folder-row.active + .details-row .accordion-body { max-height: 1000px; padding: 20px; }
-        
-        .file-list { list-style: none; }
-        .file-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
-        .file-item:last-child { border-bottom: none; }
-        .file-details { display: flex; align-items: center; gap: 12px; }
-        .file-details i { font-size: 1.2rem; color: var(--medium-gray); }
-        .file-actions { display: flex; align-items: center; gap: 15px; }
-        .file-size { font-size: 0.85rem; color: var(--medium-gray); font-family: monospace; }
-        .download-button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; font-size: 0.8rem; font-weight: 600; background-color: var(--primary-color); color: #fff; border-radius: 5px; transition: background-color 0.2s ease; }
-        .download-button:hover { background-color: #7a066e; }
+        main {
+            padding-top: var(--header-height);
+            flex-grow: 1;
+        }
 
-        .loading-text { padding: 40px; text-align: center; color: var(--medium-gray); }
-        .highlight { background-color: yellow; }
+        .page-intro {
+            padding: 60px 30px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+        }
 
-        #loading-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); z-index: 10; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s ease; opacity: 0; pointer-events: none; }
-        #loading-overlay.visible { opacity: 1; pointer-events: auto; }
-        .loader { border: 7px solid #f3f3f3; border-top: 7px solid var(--primary-color); border-radius: 50%; width: 70px; height: 70px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .page-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
 
-        .footer { background-color: var(--dark-gray); color: rgba(255, 255, 255, 0.7); padding: 60px 30px; }
-        .footer-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
-        .footer-left p { margin-bottom: 20px; font-size: 0.9rem; }
-        .footer-socials { display: flex; gap: 20px; }
-        .footer-socials a i { font-size: 24px; color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
-        .footer-socials a:hover i { color: var(--primary-color); }
-        .footer-address { font-size: 0.9rem; text-align: right; line-height: 1.8; }
-        
-        @media (max-width: 992px) { .controls-container { flex-direction: column; align-items: stretch; gap: 15px;} .search-controls { width: 100%;} .search-input { width: 100%; } }
+        .page-intro h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .page-intro h1 a {
+            color: var(--dark-gray);
+            animation: fade-to-gray 1s 0.5s forwards;
+        }
+
+        @keyframes fade-to-gray {
+            to {
+                color: #888;
+            }
+        }
+
+        .page-intro h1 a:hover {
+            color: var(--primary-color) !important;
+            animation: none;
+        }
+
+        .page-intro h1 .separator {
+            margin: 0 10px;
+            color: #ccc;
+        }
+
+        .page-intro h1 .current-level {
+            color: var(--dark-gray);
+            display: inline-block;
+            animation: slide-in 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+            opacity: 0;
+            position: relative;
+            left: -20px;
+        }
+
+        @keyframes slide-in {
+            to {
+                left: 0;
+                opacity: 1;
+            }
+        }
+
+        .page-intro p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+        }
+
+        .content-section {
+            padding: 40px 30px 60px;
+        }
+
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .status-filters {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            user-select: none;
+            color: var(--medium-gray);
+        }
+
+        .checkbox-group .checkbox-icon {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group .checkbox-icon i {
+            font-size: 16px;
+            color: #fff;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon i {
+            transform: scale(1);
+        }
+
+        .search-controls {
+            display: flex;
+        }
+
+        .search-input {
+            border: 1px solid #d9d9d9;
+            padding: 10px 16px;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            width: 300px;
+            border-right: none;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            padding: 0 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-button:hover {
+            background-color: #7a066e;
+        }
+
+        .table-container {
+            position: relative;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            min-height: 400px;
+        }
+
+        .folder-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .folder-table th,
+        .folder-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        .folder-table th {
+            background-color: #fafafa;
+        }
+
+        .sortable-header {
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        .sortable-header:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sort-indicator {
+            color: #bbb;
+            font-size: 0.8em;
+            margin-left: 6px;
+            display: inline-block;
+            width: 1em;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .sortable-header.sort-asc .sort-indicator,
+        .sortable-header.sort-desc .sort-indicator {
+            opacity: 1;
+            color: var(--dark-gray);
+        }
+
+        .folder-row {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .folder-row:hover {
+            background-color: var(--light-gray);
+        }
+
+        .folder-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .folder-name-cell i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .folder-name-cell span {
+            font-weight: 600;
+        }
+
+        .file-count-cell,
+        .status-cell {
+            text-align: center;
+        }
+
+        .actions-cell {
+            text-align: right;
+        }
+
+        .status-tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-tag.active {
+            background-color: var(--status-active-bg);
+            color: var(--status-active-text);
+        }
+
+        .status-tag.archived {
+            background-color: var(--status-archived-bg);
+            color: var(--status-archived-text);
+        }
+
+        .download-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .download-all-btn:hover {
+            background-color: #ddd;
+            border-color: #ccc;
+        }
+
+        .details-row>td {
+            padding: 0;
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background-color: #f8f8fa;
+        }
+
+        .folder-row.active+.details-row .accordion-body {
+            max-height: 1000px;
+            padding: 20px;
+        }
+
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-details i {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+        }
+
+        .file-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-size {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            font-family: monospace;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .download-button:hover {
+            background-color: #7a066e;
+        }
+
+        .loading-text {
+            padding: 40px;
+            text-align: center;
+            color: var(--medium-gray);
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #loading-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .loader {
+            border: 7px solid #f3f3f3;
+            border-top: 7px solid var(--primary-color);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer {
+            background-color: var(--dark-gray);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 30px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-left p {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a i {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-socials a:hover i {
+            color: var(--primary-color);
+        }
+
+        .footer-address {
+            font-size: 0.9rem;
+            text-align: right;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 992px) {
+            .controls-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .search-controls {
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-toggle { display: block; }
+            .nav-toggle {
+                display: block;
+            }
+
             .navigation .nav-menu {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-                background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-                display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
                 transform: translateY(-100%);
                 transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
                 z-index: 1010;
             }
-            .nav-menu.is-active { transform: translateY(0); }
+
+            .nav-menu.is-active {
+                transform: translateY(0);
+            }
+
             .nav-menu li {
-                opacity: 0; transform: translateY(-20px);
+                opacity: 0;
+                transform: translateY(-20px);
                 transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             }
-            .nav-menu.is-active li { opacity: 1; transform: translateY(0); }
-            .nav-menu.is-active li:nth-child(1) { transition-delay: 0.3s; }
-            .nav-menu.is-active li:nth-child(2) { transition-delay: 0.35s; }
-            .nav-menu.is-active li:nth-child(3) { transition-delay: 0.4s; }
-            .nav-menu.is-active li:nth-child(4) { transition-delay: 0.45s; }
-            .nav-menu.is-active li:nth-child(5) { transition-delay: 0.5s; }
-            .nav-menu.is-active li:nth-child(6) { transition-delay: 0.55s; }
-            .nav-menu li a { font-size: 1.5rem; }
-            .footer-container { flex-direction: column; text-align: center; align-items: center; }
-            .footer-address { text-align: center; }
+
+            .nav-menu.is-active li {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-menu.is-active li:nth-child(1) {
+                transition-delay: 0.3s;
+            }
+
+            .nav-menu.is-active li:nth-child(2) {
+                transition-delay: 0.35s;
+            }
+
+            .nav-menu.is-active li:nth-child(3) {
+                transition-delay: 0.4s;
+            }
+
+            .nav-menu.is-active li:nth-child(4) {
+                transition-delay: 0.45s;
+            }
+
+            .nav-menu.is-active li:nth-child(5) {
+                transition-delay: 0.5s;
+            }
+
+            .nav-menu.is-active li:nth-child(6) {
+                transition-delay: 0.55s;
+            }
+
+            .nav-menu li a {
+                font-size: 1.5rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .footer-address {
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
     <header class="site-header">
         <nav class="navigation">
-            <a href="https://ksvg.com.cn/" class="logo-link"><img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo" class="logo-image"></a>
+            <a href="https://ksvg.com.cn/" class="logo-link"><img
+                    src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
+                    class="logo-image"></a>
             <ul class="nav-menu">
                 <li><a href="https://ksvg.com.cn/">主页</a></li>
                 <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
@@ -199,14 +719,16 @@
                     <div class="status-filters">
                         <div class="checkbox-group">
                             <input type="checkbox" id="filter-active">
-                            <label for="filter-active"><span class="checkbox-icon"><i class="ri-check-line"></i></span>仅显示活跃</label>
+                            <label for="filter-active"><span class="checkbox-icon"><i
+                                        class="ri-check-line"></i></span>仅显示活跃</label>
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="filter-archived">
-                            <label for="filter-archived"><span class="checkbox-icon"><i class="ri-check-line"></i></span>仅显示归档</label>
+                            <label for="filter-archived"><span class="checkbox-icon"><i
+                                        class="ri-check-line"></i></span>仅显示归档</label>
                         </div>
                     </div>
-                    
+
                     <div class="search-controls">
                         <input type="search" id="search-input" class="search-input" placeholder="键入关键词以搜索...">
                         <button id="search-button" class="search-button"><i class="ri-search-line"></i></button>
@@ -219,9 +741,12 @@
                     <table class="folder-table">
                         <thead>
                             <tr>
-                                <th class="sortable-header" data-sort="name">项目名称 <span class="sort-indicator"></span></th>
-                                <th class="sortable-header" data-sort="file_count">文件数量 <span class="sort-indicator"></span></th>
-                                <th class="sortable-header" data-sort="status">状态 <span class="sort-indicator"></span></th>
+                                <th class="sortable-header" data-sort="name">项目名称 <span class="sort-indicator"></span>
+                                </th>
+                                <th class="sortable-header" data-sort="file_count">文件数量 <span
+                                        class="sort-indicator"></span></th>
+                                <th class="sortable-header" data-sort="status">状态 <span class="sort-indicator"></span>
+                                </th>
                                 <th></th> <!-- Header for download all button -->
                             </tr>
                         </thead>
@@ -231,15 +756,18 @@
             </div>
         </section>
     </main>
-    
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
                 <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
                 <div class="footer-socials">
-                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a>
-                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i class="ri-youtube-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-line"></i></a>
+                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili"
+                        title="Bilibili"><i class="ri-bilibili-fill"></i></a>
+                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i
+                            class="ri-youtube-fill"></i></a>
+                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
+                            class="ri-mail-line"></i></a>
                 </div>
             </div>
             <div class="footer-address">
@@ -250,7 +778,7 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             const navToggle = document.querySelector('.nav-toggle'); const navMenu = document.querySelector('.nav-menu'); const body = document.body;
             if (navToggle && navMenu) {
                 const icon = navToggle.querySelector('i');
@@ -271,7 +799,7 @@
 
             const repoOwner = 'KCIS-KSVG'; const repoName = 'Data';
             const activePath = 'files_share/project_files/active'; const archivedPath = 'files_share/project_files/archived';
-            
+
             const loadingOverlay = document.getElementById('loading-overlay');
             const tableBody = document.getElementById('file-browser-body');
             const tableHead = document.querySelector('.folder-table thead');
@@ -279,12 +807,12 @@
             const searchButton = document.getElementById('search-button');
             const filterActiveCheckbox = document.getElementById('filter-active');
             const filterArchivedCheckbox = document.getElementById('filter-archived');
-            
+
             let allFolders = [];
             let currentSort = { key: 'name', order: 'asc' };
 
             const fileTypeIcons = { pdf: 'ri-file-pdf-line', zip: 'ri-file-zip-line', rar: 'ri-file-zip-line', '7z': 'ri-file-zip-line', doc: 'ri-file-word-line', docx: 'ri-file-word-line', xls: 'ri-file-excel-line', xlsx: 'ri-file-excel-line', ppt: 'ri-file-ppt-line', pptx: 'ri-file-ppt-line', jpg: 'ri-image-line', jpeg: 'ri-image-line', png: 'ri-image-line', gif: 'ri-image-line', svg: 'ri-image-line', webp: 'ri-image-line', default: 'ri-file-text-line' };
-            
+
             async function fetchWithCache(url, timeout = 8000) {
                 const cacheKey = `github_api_cache_${url}`;
                 const cachedItem = sessionStorage.getItem(cacheKey);
@@ -314,7 +842,7 @@
                     </div>
                 </li>`;
             }
-            
+
             async function loadFolderContents(detailsRow, folder) {
                 if (detailsRow.dataset.loaded === 'true') return;
                 const body = detailsRow.querySelector('.accordion-body');
@@ -355,13 +883,13 @@
                     folderRow.className = 'folder-row';
                     const displayName = folder.name.replace(/_/g, ' ');
                     const downloadAllUrl = `https://download-directory.github.io/?url=${folder.html_url}`;
-                    
+
                     folderRow.innerHTML = `
                         <td class="folder-name-cell"><i class="ri-folder-zip-line"></i><span>${highlightText(displayName, searchTerm)}</span></td>
                         <td class="file-count-cell">${folder.file_count ?? 'N/A'}</td>
                         <td class="status-cell"><span class="status-tag ${folder.status}">${folder.status}</span></td>
                         <td class="actions-cell"><a href="${downloadAllUrl}" class="download-all-btn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><i class="ri-download-cloud-2-line"></i> 全部下载</a></td>`;
-                    
+
                     const detailsRow = document.createElement('tr');
                     detailsRow.className = 'details-row';
                     detailsRow.innerHTML = `<td colspan="4"><div class="accordion-body"></div></td>`;
@@ -386,7 +914,7 @@
                 if (showActive && !showArchived) filteredFolders = allFolders.filter(f => f.status === 'active');
                 else if (!showActive && showArchived) filteredFolders = allFolders.filter(f => f.status === 'archived');
                 if (searchTerm) filteredFolders = filteredFolders.filter(f => f.name.toLowerCase().includes(searchTerm));
-                
+
                 filteredFolders.sort((a, b) => {
                     const valA = a[currentSort.key]; const valB = b[currentSort.key];
                     let comparison = 0;
@@ -407,11 +935,11 @@
                     const [activeRes, archivedRes] = await Promise.all([fetchWithCache(activeApiUrl).catch(e => null), fetchWithCache(archivedApiUrl).catch(e => null)]);
                     if (!activeRes && !archivedRes) throw new Error("Both active and archived directories failed to load.");
 
-                    const activeFolders = activeRes ? activeRes.filter(item => item.type === 'dir').map(f => ({...f, status: 'active'})) : [];
-                    const archivedFolders = archivedRes ? archivedRes.filter(item => item.type === 'dir').map(f => ({...f, status: 'archived'})) : [];
+                    const activeFolders = activeRes ? activeRes.filter(item => item.type === 'dir').map(f => ({ ...f, status: 'active' })) : [];
+                    const archivedFolders = archivedRes ? archivedRes.filter(item => item.type === 'dir').map(f => ({ ...f, status: 'archived' })) : [];
                     const combinedFolders = [...activeFolders, ...archivedFolders];
 
-                    const enhancementPromises = combinedFolders.map(folder => 
+                    const enhancementPromises = combinedFolders.map(folder =>
                         fetchWithCache(folder.url)
                             .then(contents => ({ ...folder, file_count: contents.filter(item => item.type === 'file').length }))
                             .catch(error => { console.warn(`Could not fetch details for ${folder.name}:`, error); return { ...folder, file_count: null }; })
@@ -426,7 +954,7 @@
                     loadingOverlay.classList.remove('visible');
                 }
             }
-            
+
             [filterActiveCheckbox, filterArchivedCheckbox].forEach(cb => {
                 cb.addEventListener('change', e => {
                     if (e.target.id === 'filter-active' && e.target.checked) filterArchivedCheckbox.checked = false;
@@ -435,8 +963,8 @@
                 });
             });
             searchButton.addEventListener('click', filterAndSort);
-            searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); filterAndSort(); }});
-            
+            searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); filterAndSort(); } });
+
             tableHead.addEventListener('click', e => {
                 const header = e.target.closest('.sortable-header');
                 if (!header) return;
@@ -449,9 +977,19 @@
                 }
                 filterAndSort();
             });
-            
+
             fetchAllProjects();
         });
     </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7FP90XJEB6');
+    </script>
 </body>
+
 </html>
