@@ -13,32 +13,51 @@
 
     <style>
         :root {
-            --primary-color: #920783;
-            --secondary-color: #007bff;
-            --dark-gray: #1d1d1f;
-            --medium-gray: #424245;
-            --light-gray: #f5f5f7;
-            --text-color: #1d1d1f;
-            --header-height: 70px;
-            --status-active-bg: #e6f7ff;
-            --status-active-text: #006adc;
-            --status-archived-bg: #f6f6f6;
+            --primary-color: #920783; --secondary-color: #007bff; --dark-gray: #1d1d1f;
+            --medium-gray: #424245; --light-gray: #f5f5f7; --text-color: #1d1d1f;
+            --header-height: 70px; --status-active-bg: #e6f7ff;
+            --status-active-text: #006adc; --status-archived-bg: #f6f6f6;
             --status-archived-text: #5a5a5a;
         }
-
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--light-gray); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: var(--light-gray); 
+            color: var(--text-color); line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        body.no-scroll { overflow: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        .site-header { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height); z-index: 1000; }
-        .navigation { max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #ddd; position: fixed; top: 0; left: 0;
+            width: 100%; height: var(--header-height); z-index: 1020;
+        }
+        .navigation {
+            max-width: 1280px; margin: 0 auto; padding: 0 30px; height: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
         .logo-image { height: 45px; }
-        .navigation ul { list-style: none; display: flex; gap: 30px; }
-        .navigation ul li a { color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0; position: relative; transition: color 0.3s ease; }
-        .navigation ul li a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -5px; left: 0; background-color: var(--primary-color); transform-origin: bottom right; transition: transform 0.3s ease-out; }
-        .navigation ul li a:hover, .navigation ul li a.active { color: var(--dark-gray); }
-        .navigation ul li a:hover::after, .navigation ul li a.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        .nav-menu { list-style: none; display: flex; gap: 30px; }
+        .nav-menu li a {
+            color: var(--medium-gray); font-size: 0.9rem; font-weight: 600; padding: 5px 0;
+            position: relative; transition: color 0.3s ease;
+        }
+        .nav-menu li a::after {
+            content: ''; position: absolute; width: 80%; height: 3px; bottom: -5px; left: 10%;
+            background-color: var(--primary-color); transform: scaleX(0); transform-origin: bottom left;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .nav-menu li a:hover, .nav-menu li a.active { color: var(--dark-gray); }
+        .nav-menu li a:hover::after, .nav-menu li a.active::after {
+            transform: scaleX(1); transform-origin: bottom left;
+        }
+        .nav-toggle {
+            display: none; background: none; border: none; font-size: 28px; color: var(--dark-gray);
+            cursor: pointer; z-index: 1030; transition: transform 0.4s ease;
+        }
+        .nav-toggle.is-active { transform: rotate(90deg); }
         
         main { padding-top: var(--header-height); flex-grow: 1; }
         .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
@@ -54,7 +73,6 @@
         
         .content-section { padding: 40px 30px 60px; }
         .controls-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
-        
         .status-filters { display: flex; align-items: center; gap: 20px; }
         .checkbox-group input[type="checkbox"] { display: none; }
         .checkbox-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; user-select: none; color: var(--medium-gray); }
@@ -62,59 +80,52 @@
         .checkbox-group .checkbox-icon i { font-size: 16px; color: #fff; transform: scale(0); transition: transform 0.3s ease; }
         .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon { background-color: var(--secondary-color); border-color: var(--secondary-color); }
         .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon i { transform: scale(1); }
-
         .search-controls { display: flex; }
         .search-input { border: 1px solid #d9d9d9; padding: 10px 16px; border-radius: 8px 0 0 8px; font-size: 1rem; width: 300px; border-right: none; outline: none; }
         .search-button { background-color: var(--primary-color); color: #fff; border: 1px solid var(--primary-color); padding: 0 16px; border-radius: 0 8px 8px 0; font-size: 1.2rem; cursor: pointer; transition: background-color 0.3s ease; display: flex; align-items: center; }
         .search-button:hover { background-color: #7a066e; }
 
-        .table-container { background-color: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+        .table-container { position: relative; background-color: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; min-height: 400px; }
         .folder-table { width: 100%; border-collapse: collapse; }
-        .folder-table th, .folder-table td { padding: 16px; text-align: left; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .folder-table th, .folder-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #f0f0f0; vertical-align: middle; font-size: 0.9rem; }
         .folder-table th { background-color: #fafafa; }
-        .folder-table th:nth-child(1) { width: 55%; }
-        .folder-table th:nth-child(2), .folder-table th:nth-child(3) { width: 22.5%; text-align: center; }
-        
         .sortable-header { cursor: pointer; user-select: none; transition: background-color 0.2s; position: relative; }
         .sortable-header:hover { background-color: #f0f0f0; }
-        /* MODIFIED: Triangle indicator styles */
         .sort-indicator { color: #bbb; font-size: 0.8em; margin-left: 6px; display: inline-block; width: 1em; text-align: center; opacity: 0.7; }
         .sortable-header.sort-asc .sort-indicator, .sortable-header.sort-desc .sort-indicator { opacity: 1; color: var(--dark-gray); }
-
         .folder-row { cursor: pointer; transition: background-color 0.2s ease; }
         .folder-row:hover { background-color: var(--light-gray); }
         .folder-name-cell { display: flex; align-items: center; gap: 15px; }
         .folder-name-cell i { font-size: 1.5rem; color: var(--primary-color); }
         .folder-name-cell span { font-weight: 600; }
-        .file-count-cell { text-align: center; color: var(--medium-gray); font-family: monospace; }
-        .status-cell { text-align: center; }
+        .file-count-cell, .status-cell { text-align: center; }
+        .actions-cell { text-align: right; }
         .status-tag { padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
         .status-tag.active { background-color: var(--status-active-bg); color: var(--status-active-text); }
         .status-tag.archived { background-color: var(--status-archived-bg); color: var(--status-archived-text); }
+        .download-all-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; background-color: #eee; border: 1px solid #ddd; border-radius: 6px; transition: all 0.2s ease; }
+        .download-all-btn:hover { background-color: #ddd; border-color: #ccc; }
 
         .details-row > td { padding: 0; }
-        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #fcfcfc; }
+        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #f8f8fa; }
         .folder-row.active + .details-row .accordion-body { max-height: 1000px; padding: 20px; }
         
-        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .file-card { background-color: #fff; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); aspect-ratio: 1 / 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-        .file-preview { flex-grow: 1; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .file-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .file-preview i { font-size: 3rem; color: var(--medium-gray); }
-        .file-info { padding: 10px; font-size: 0.9rem; text-align: left; display: grid; gap: 5px; border-top: 1px solid #e0e0e0; }
-        .file-info span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .file-info strong { color: var(--dark-gray); }
+        .file-list { list-style: none; }
+        .file-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .file-item:last-child { border-bottom: none; }
+        .file-details { display: flex; align-items: center; gap: 12px; }
+        .file-details i { font-size: 1.2rem; color: var(--medium-gray); }
+        .file-actions { display: flex; align-items: center; gap: 15px; }
+        .file-size { font-size: 0.85rem; color: var(--medium-gray); font-family: monospace; }
+        .download-button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; font-size: 0.8rem; font-weight: 600; background-color: var(--primary-color); color: #fff; border-radius: 5px; transition: background-color 0.2s ease; }
+        .download-button:hover { background-color: #7a066e; }
 
-        .download-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
-        .file-card:hover .download-overlay { opacity: 1; transform: translateY(0); }
-        .download-button { background-color: var(--primary-color); color: #fff; padding: 10px 20px; border-radius: 50px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
-        
         .loading-text { padding: 40px; text-align: center; color: var(--medium-gray); }
         .highlight { background-color: yellow; }
 
-        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s ease; opacity: 0; pointer-events: none; }
+        #loading-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); z-index: 10; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s ease; opacity: 0; pointer-events: none; }
         #loading-overlay.visible { opacity: 1; pointer-events: auto; }
-        .loader { border: 5px solid #f3f3f3; border-top: 5px solid var(--primary-color); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        .loader { border: 7px solid #f3f3f3; border-top: 7px solid var(--primary-color); border-radius: 50%; width: 70px; height: 70px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .footer { background-color: var(--dark-gray); color: rgba(255, 255, 255, 0.7); padding: 60px 30px; }
@@ -126,25 +137,47 @@
         .footer-address { font-size: 0.9rem; text-align: right; line-height: 1.8; }
         
         @media (max-width: 992px) { .controls-container { flex-direction: column; align-items: stretch; gap: 15px;} .search-controls { width: 100%;} .search-input { width: 100%; } }
-        @media (max-width: 768px) { .navigation ul { display: none; } }
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .navigation .nav-menu {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+                display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;
+                transform: translateY(-100%);
+                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+                z-index: 1010;
+            }
+            .nav-menu.is-active { transform: translateY(0); }
+            .nav-menu li {
+                opacity: 0; transform: translateY(-20px);
+                transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            .nav-menu.is-active li { opacity: 1; transform: translateY(0); }
+            .nav-menu.is-active li:nth-child(1) { transition-delay: 0.3s; }
+            .nav-menu.is-active li:nth-child(2) { transition-delay: 0.35s; }
+            .nav-menu.is-active li:nth-child(3) { transition-delay: 0.4s; }
+            .nav-menu.is-active li:nth-child(4) { transition-delay: 0.45s; }
+            .nav-menu.is-active li:nth-child(5) { transition-delay: 0.5s; }
+            .nav-menu.is-active li:nth-child(6) { transition-delay: 0.55s; }
+            .nav-menu li a { font-size: 1.5rem; }
+            .footer-container { flex-direction: column; text-align: center; align-items: center; }
+            .footer-address { text-align: center; }
+        }
     </style>
 </head>
 <body>
-    <div id="loading-overlay">
-        <div class="loader"></div>
-    </div>
-
     <header class="site-header">
         <nav class="navigation">
-            <a href="http://127.0.0.1:5500/Pages/index.html" class="logo-link"><img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo" class="logo-image"></a>
-            <ul>
-                <li><a href="http://127.0.0.1:5500/Pages/index.html">主页</a></li>
-                <li><a href="http://127.0.0.1:5500/Pages/progress/index.html">项目进展</a></li>
-                <li><a href="http://127.0.0.1:5500/Pages/media/index.html">媒体共享</a></li>
-                <li><a href="http://127.0.0.1:5500/Pages/documentation/index.html" class="active">文件共享</a></li>
-                <li><a href="http://127.0.0.1:5500/Pages/schedule/index.html">日程信息</a></li>
-                <li><a href="http://127.0.0.1:5500/Pages/recruiting/index.html">组织招募</a></li>
+            <a href="https://ksvg.com.cn/" class="logo-link"><img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo" class="logo-image"></a>
+            <ul class="nav-menu">
+                <li><a href="https://ksvg.com.cn/">主页</a></li>
+                <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
+                <li><a href="https://ksvg.com.cn/media/">媒体共享</a></li>
+                <li><a href="https://ksvg.com.cn/documentation/" class="active">文件共享</a></li>
+                <li><a href="https://ksvg.com.cn/schedule/">日程信息</a></li>
+                <li><a href="https://ksvg.com.cn/recruiting/">组织招募</a></li>
             </ul>
+            <button class="nav-toggle" aria-label="Open menu"><i class="ri-menu-line"></i></button>
         </nav>
     </header>
 
@@ -152,7 +185,7 @@
         <section class="page-intro">
             <div class="page-container">
                 <h1>
-                    <a href="http://127.0.0.1:5500/Pages/documentation/index.html">文件共享</a>
+                    <a href="https://ksvg.com.cn/documentation/">文件共享</a>
                     <span class="separator">/</span>
                     <span class="current-level">项目文件公开</span>
                 </h1>
@@ -175,18 +208,21 @@
                     </div>
                     
                     <div class="search-controls">
-                        <!-- MODIFIED: Placeholder text updated -->
                         <input type="search" id="search-input" class="search-input" placeholder="键入关键词以搜索...">
                         <button id="search-button" class="search-button"><i class="ri-search-line"></i></button>
                     </div>
                 </div>
                 <div class="table-container">
+                    <div id="loading-overlay">
+                        <div class="loader"></div>
+                    </div>
                     <table class="folder-table">
                         <thead>
                             <tr>
                                 <th class="sortable-header" data-sort="name">项目名称 <span class="sort-indicator"></span></th>
                                 <th class="sortable-header" data-sort="file_count">文件数量 <span class="sort-indicator"></span></th>
                                 <th class="sortable-header" data-sort="status">状态 <span class="sort-indicator"></span></th>
+                                <th></th> <!-- Header for download all button -->
                             </tr>
                         </thead>
                         <tbody id="file-browser-body"></tbody>
@@ -196,30 +232,45 @@
         </section>
     </main>
     
-    <!-- FIXED: Footer code restored -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
                 <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
                 <div class="footer-socials">
-                    <a href="#" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a>
-                    <a href="#" aria-label="WeChat" title="WeChat"><i class="ri-wechat-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-fill"></i></a>
+                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili" title="Bilibili"><i class="ri-bilibili-fill"></i></a>
+                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i class="ri-youtube-fill"></i></a>
+                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i class="ri-mail-line"></i></a>
                 </div>
             </div>
             <div class="footer-address">
                 <p>Kang Chiao International School East China</p>
-                <p>No.369, Zuchongzhi South Road, Kunshan, Jiangsu</p>
+                <p>No.500, Xihuan Road, Huaqiao Economic Development Zone, Kunshan, Jiangsu</p>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            const repoOwner = 'KCIS-KSVG';
-            const repoName = 'Data';
-            const activePath = 'files_share/project_files/active';
-            const archivedPath = 'files_share/project_files/archived';
+            const navToggle = document.querySelector('.nav-toggle'); const navMenu = document.querySelector('.nav-menu'); const body = document.body;
+            if (navToggle && navMenu) {
+                const icon = navToggle.querySelector('i');
+                const toggleMenu = (forceClose = false) => {
+                    const isActive = navMenu.classList.contains('is-active');
+                    if (forceClose || isActive) {
+                        navMenu.classList.remove('is-active'); navToggle.classList.remove('is-active');
+                        body.classList.remove('no-scroll'); icon.className = 'ri-menu-line';
+                    } else {
+                        navMenu.classList.add('is-active'); navToggle.classList.add('is-active');
+                        body.classList.add('no-scroll'); icon.className = 'ri-close-line';
+                    }
+                };
+                navToggle.addEventListener('click', () => toggleMenu());
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
+            }
+
+            const repoOwner = 'KCIS-KSVG'; const repoName = 'Data';
+            const activePath = 'files_share/project_files/active'; const archivedPath = 'files_share/project_files/archived';
             
             const loadingOverlay = document.getElementById('loading-overlay');
             const tableBody = document.getElementById('file-browser-body');
@@ -237,10 +288,7 @@
             async function fetchWithCache(url, timeout = 8000) {
                 const cacheKey = `github_api_cache_${url}`;
                 const cachedItem = sessionStorage.getItem(cacheKey);
-                if (cachedItem) {
-                    const { data } = JSON.parse(cachedItem);
-                    return data;
-                }
+                if (cachedItem) { const { data } = JSON.parse(cachedItem); return data; }
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), timeout);
                 const response = await fetch(url, { signal: controller.signal, headers: { 'Accept': 'application/vnd.github.v3+json' } });
@@ -253,14 +301,18 @@
 
             function highlightText(text, term) { if (!term) return text; return text.replace(new RegExp(term, 'gi'), match => `<mark class="highlight">${match}</mark>`); }
 
-            function createFileCardHTML(file, searchTerm) {
-                 const fileType = file.name.split('.').pop().toLowerCase();
-                const isImage = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(fileType);
+            function createFileItemHTML(file, searchTerm) {
+                const fileType = file.name.split('.').pop().toLowerCase();
                 const iconClass = fileTypeIcons[fileType] || fileTypeIcons.default;
                 const fileNameHTML = highlightText(file.name, searchTerm);
-                const bytes = file.size;
                 const formatBytes = (bytes, decimals = 2) => { if (bytes === 0) return '0 Bytes'; const k = 1024; const dm = decimals < 0 ? 0 : decimals; const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]; };
-                return `<div class="file-card"><div class="file-preview">${isImage ? `<img src="${file.download_url}" alt="${file.name}" loading="lazy">` : `<i class="${iconClass}"></i>`}</div><div class="file-info"><span title="${file.name}"><strong>名称:</strong> ${fileNameHTML}</span><span><strong>类型:</strong> ${fileType.toUpperCase()}</span><span><strong>大小:</strong> ${formatBytes(bytes)}</span></div><a href="${file.download_url}" class="download-overlay" download><span class="download-button"><i class="ri-download-2-line"></i> 下载</span></a></div>`;
+                return `<li class="file-item">
+                    <div class="file-details"><i class="${iconClass}"></i><span>${fileNameHTML}</span></div>
+                    <div class="file-actions">
+                        <span class="file-size">${formatBytes(file.size)}</span>
+                        <a href="${file.download_url}" class="download-button" download><i class="ri-download-2-line"></i></a>
+                    </div>
+                </li>`;
             }
             
             async function loadFolderContents(detailsRow, folder) {
@@ -272,7 +324,7 @@
                     const files = contents.filter(item => item.type === 'file');
                     if (files.length > 0) {
                         const searchTerm = searchInput.value;
-                        body.innerHTML = `<div class="file-grid">${files.map(file => createFileCardHTML(file, searchTerm)).join('')}</div>`;
+                        body.innerHTML = `<ul class="file-list">${files.map(file => createFileItemHTML(file, searchTerm)).join('')}</ul>`;
                     } else {
                         body.innerHTML = `<div class="loading-text">此项目文件夹为空。</div>`;
                     }
@@ -289,14 +341,12 @@
                     if (th.dataset.sort === currentSort.key) {
                         th.classList.add(`sort-${currentSort.order}`);
                         indicator.textContent = currentSort.order === 'asc' ? '▲' : '▼';
-                    } else {
-                        indicator.textContent = '';
-                    }
+                    } else { indicator.textContent = ''; }
                 });
 
                 tableBody.innerHTML = '';
                 if (foldersToRender.length === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="3" class="loading-text">未找到匹配的项目。</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="4" class="loading-text">未找到匹配的项目。</td></tr>`;
                     return;
                 }
                 const searchTerm = searchInput.value;
@@ -304,14 +354,17 @@
                     const folderRow = document.createElement('tr');
                     folderRow.className = 'folder-row';
                     const displayName = folder.name.replace(/_/g, ' ');
+                    const downloadAllUrl = `https://download-directory.github.io/?url=${folder.html_url}`;
+                    
                     folderRow.innerHTML = `
                         <td class="folder-name-cell"><i class="ri-folder-zip-line"></i><span>${highlightText(displayName, searchTerm)}</span></td>
                         <td class="file-count-cell">${folder.file_count ?? 'N/A'}</td>
-                        <td class="status-cell"><span class="status-tag ${folder.status}">${folder.status}</span></td>`;
+                        <td class="status-cell"><span class="status-tag ${folder.status}">${folder.status}</span></td>
+                        <td class="actions-cell"><a href="${downloadAllUrl}" class="download-all-btn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><i class="ri-download-cloud-2-line"></i> 全部下载</a></td>`;
                     
                     const detailsRow = document.createElement('tr');
                     detailsRow.className = 'details-row';
-                    detailsRow.innerHTML = `<td colspan="3"><div class="accordion-body"></div></td>`;
+                    detailsRow.innerHTML = `<td colspan="4"><div class="accordion-body"></div></td>`;
                     tableBody.appendChild(folderRow);
                     tableBody.appendChild(detailsRow);
 
@@ -335,8 +388,7 @@
                 if (searchTerm) filteredFolders = filteredFolders.filter(f => f.name.toLowerCase().includes(searchTerm));
                 
                 filteredFolders.sort((a, b) => {
-                    const valA = a[currentSort.key];
-                    const valB = b[currentSort.key];
+                    const valA = a[currentSort.key]; const valB = b[currentSort.key];
                     let comparison = 0;
                     if (valA === null || valA === undefined) return 1;
                     if (valB === null || valB === undefined) return -1;
@@ -359,7 +411,6 @@
                     const archivedFolders = archivedRes ? archivedRes.filter(item => item.type === 'dir').map(f => ({...f, status: 'archived'})) : [];
                     const combinedFolders = [...activeFolders, ...archivedFolders];
 
-                    // FIXED: More robust file count fetching
                     const enhancementPromises = combinedFolders.map(folder => 
                         fetchWithCache(folder.url)
                             .then(contents => ({ ...folder, file_count: contents.filter(item => item.type === 'file').length }))
@@ -370,7 +421,7 @@
 
                 } catch (error) {
                     console.error("Failed to load project data:", error);
-                    tableBody.innerHTML = `<tr><td colspan="3" class="loading-text" style="color: red;">无法加载项目列表，请刷新页面重试。</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="4" class="loading-text" style="color: red;">无法加载项目列表，请刷新页面重试。</td></tr>`;
                 } finally {
                     loadingOverlay.classList.remove('visible');
                 }
