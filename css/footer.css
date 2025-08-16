@@ -1,0 +1,68 @@
+/* =================================================================== */
+/*                          FOOTER STYLES                              */
+/* =================================================================== */
+
+/* --- Main Footer Container --- */
+
+.footer {
+    background-color: var(--dark-gray);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 60px 30px;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+/* --- Left Section (Copyright & Socials) --- */
+
+.footer-left p {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-socials a i {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+}
+
+.footer-socials a:hover i {
+    color: var(--primary-color);
+}
+
+/* --- Right Section (Address) --- */
+
+.footer-address {
+    font-size: 0.9rem;
+    text-align: right;
+    line-height: 1.8;
+}
+
+
+/* =================================================================== */
+/*                      MOBILE FOOTER STYLES                           */
+/* =================================================================== */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .footer-address {
+        text-align: center;
+    }
+}
