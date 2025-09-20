@@ -303,7 +303,7 @@
             position: relative;
             background-color: #fff;
             border-radius: 8px;
-            overflow: hidden;
+            overflow-x: auto;
             border: 1px solid #e0e0e0;
             min-height: 400px;
         }
@@ -320,6 +320,12 @@
             border-bottom: 1px solid #f0f0f0;
             vertical-align: middle;
             font-size: 0.9rem;
+        }
+
+        /* *** 修改点 1: 为特定列设置最小宽度 *** */
+        .folder-table th:nth-child(2),
+        .folder-table th:nth-child(3) {
+            min-width: 120px;
         }
 
         .folder-table th {
@@ -415,6 +421,11 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             transition: all 0.2s ease;
+        }
+
+        /* *** 修改点 2: 按钮文字的显示和隐藏 *** */
+        .download-all-btn span {
+            display: inline;
         }
 
         .download-all-btn:hover {
@@ -679,6 +690,54 @@
             .footer-address {
                 text-align: center;
             }
+
+            .content-section {
+                padding: 20px 15px 40px;
+            }
+
+            .page-intro {
+                padding: 40px 15px;
+            }
+
+            .page-intro h1 {
+                font-size: 2rem;
+            }
+
+            .page-intro p {
+                font-size: 1rem;
+            }
+
+            .folder-table {
+                min-width: 600px;
+            }
+
+            .folder-table th,
+            .folder-table td {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+
+            .status-tag {
+                padding: 3px 8px;
+                font-size: 0.75rem;
+            }
+
+            /* *** 修改点 2: 在移动端隐藏按钮文字 *** */
+            .download-all-btn {
+                padding: 8px;
+            }
+
+            .download-all-btn span {
+                display: none;
+            }
+
+            .file-list {
+                font-size: 0.9rem;
+            }
+
+            .accordion-body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -747,7 +806,7 @@
                                         class="sort-indicator"></span></th>
                                 <th class="sortable-header" data-sort="status">状态 <span class="sort-indicator"></span>
                                 </th>
-                                <th></th> <!-- Header for download all button -->
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="file-browser-body"></tbody>
@@ -888,7 +947,7 @@
                         <td class="folder-name-cell"><i class="ri-folder-zip-line"></i><span>${highlightText(displayName, searchTerm)}</span></td>
                         <td class="file-count-cell">${folder.file_count ?? 'N/A'}</td>
                         <td class="status-cell"><span class="status-tag ${folder.status}">${folder.status}</span></td>
-                        <td class="actions-cell"><a href="${downloadAllUrl}" class="download-all-btn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><i class="ri-download-cloud-2-line"></i> 全部下载</a></td>`;
+                        <td class="actions-cell"><a href="${downloadAllUrl}" class="download-all-btn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><i class="ri-download-cloud-2-line"></i><span> 全部下载</span></a></td>`;
 
                     const detailsRow = document.createElement('tr');
                     detailsRow.className = 'details-row';
@@ -981,7 +1040,6 @@
             fetchAllProjects();
         });
     </script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

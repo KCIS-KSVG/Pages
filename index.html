@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="KSVG, KCIS, 昆山康桥学校，华东康桥国际学校，康桥摄影">
+    <meta name="description" content="KSVG, KCIS, 昆山康桥学校，华东康桥国际学校，昆山康桥学生摄影合作组织">
     <title>KSVG | 首页</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +13,10 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
+
+    <!-- Linked external CSS files via jsDeliver(CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
 
     <style>
         :root {
@@ -43,94 +47,9 @@
             line-height: 1.6;
         }
 
-        body.no-scroll {
-            overflow: hidden;
-        }
-
         a {
             text-decoration: none;
             color: inherit;
-        }
-
-        .site-header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            z-index: 1020;
-        }
-
-        .navigation {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 30px;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-image {
-            height: 45px;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-menu li a {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 5px 0;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a::after {
-            content: '';
-            position: absolute;
-            width: 80%;
-            height: 3px;
-            bottom: -5px;
-            left: 10%;
-            background-color: var(--primary-color);
-            transform: scaleX(0);
-            transform-origin: bottom left;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .nav-menu li a:hover,
-        .nav-menu li a.active {
-            color: var(--dark-gray);
-        }
-
-        .nav-menu li a:hover::after,
-        .nav-menu li a.active::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--dark-gray);
-            cursor: pointer;
-            z-index: 1030;
-            transition: transform 0.4s ease;
-        }
-
-        .nav-toggle.is-active {
-            transform: rotate(90deg);
         }
 
         main {
@@ -405,115 +324,7 @@
             background-color: #ffffff;
         }
 
-        .footer {
-            background-color: var(--dark-gray);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 60px 30px;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-left p {
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-socials a i {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            transition: color 0.3s ease;
-        }
-
-        .footer-socials a:hover i {
-            color: var(--primary-color);
-        }
-
-        .footer-address {
-            font-size: 0.9rem;
-            text-align: right;
-            line-height: 1.8;
-        }
-
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
-            }
-
-            .navigation .nav-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transform: translateY(-100%);
-                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                z-index: 1010;
-            }
-
-            .nav-menu.is-active {
-                transform: translateY(0);
-            }
-
-            .nav-menu li {
-                opacity: 0;
-                transform: translateY(-20px);
-                transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            }
-
-            .nav-menu.is-active li {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .nav-menu.is-active li:nth-child(1) {
-                transition-delay: 0.3s;
-            }
-
-            .nav-menu.is-active li:nth-child(2) {
-                transition-delay: 0.35s;
-            }
-
-            .nav-menu.is-active li:nth-child(3) {
-                transition-delay: 0.4s;
-            }
-
-            .nav-menu.is-active li:nth-child(4) {
-                transition-delay: 0.45s;
-            }
-
-            .nav-menu.is-active li:nth-child(5) {
-                transition-delay: 0.5s;
-            }
-
-            .nav-menu.is-active li:nth-child(6) {
-                transition-delay: 0.55s;
-            }
-
-            .nav-menu li a {
-                font-size: 1.5rem;
-            }
-
             .hero-content .small-title {
                 font-size: clamp(0.8rem, 3.5vw, 1.1rem);
             }
@@ -546,16 +357,6 @@
             .partner-tags,
             .details-grid.reverse .partner-tags {
                 justify-content: center;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .footer-address {
-                text-align: center;
             }
         }
     </style>
@@ -752,7 +553,7 @@
             });
         } catch (e) { console.error("An error occurred while initializing the page script:", e); }
     </script>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

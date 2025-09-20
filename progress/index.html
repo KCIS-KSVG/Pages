@@ -11,6 +11,10 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
+
     <style>
         :root {
             --primary-color: #920783;
@@ -61,87 +65,6 @@
         a {
             text-decoration: none;
             color: inherit;
-        }
-
-        .site-header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            z-index: 1020;
-        }
-
-        .navigation {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 30px;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-image {
-            height: 45px;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-menu li a {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 5px 0;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a::after {
-            content: '';
-            position: absolute;
-            width: 80%;
-            height: 3px;
-            bottom: -5px;
-            left: 10%;
-            background-color: var(--primary-color);
-            transform: scaleX(0);
-            transform-origin: bottom left;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .nav-menu li a:hover,
-        .nav-menu li a.active {
-            color: var(--dark-gray);
-        }
-
-        .nav-menu li a:hover::after,
-        .nav-menu li a.active::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--dark-gray);
-            cursor: pointer;
-            z-index: 1030;
-            transition: transform 0.4s ease;
-        }
-
-        .nav-toggle.is-active {
-            transform: rotate(90deg);
         }
 
         main {
@@ -282,67 +205,6 @@
             border-color: var(--primary-color);
         }
 
-        .post-filter-controls {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: not-allowed;
-            font-weight: 600;
-            color: #ccc;
-            user-select: none;
-            transition: color 0.3s ease;
-        }
-
-        .checkbox-group label.enabled {
-            color: var(--medium-gray);
-            cursor: pointer;
-        }
-
-        .checkbox-icon {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            position: relative;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .checkbox-group label.enabled .checkbox-icon {
-            border-color: #a9a9a9;
-        }
-
-        .checkbox-icon .tick {
-            position: absolute;
-            top: 1px;
-            left: 4px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg) scale(0);
-            transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        }
-
-        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .checkbox-group input[type="checkbox"]:checked+label .checkbox-icon .tick {
-            transform: rotate(45deg) scale(1);
-        }
-
         .table-container {
             position: relative;
             background-color: #fff;
@@ -468,17 +330,22 @@
             font-weight: 600;
         }
 
-        .status-计划 {
+        .status-计划,
+        .status-计划中 {
             background-color: var(--status-planned-bg);
             color: var(--status-planned-text);
         }
 
-        .status-进行 {
+        .status-进行,
+        .status-进行中 {
             background-color: var(--status-ongoing-bg);
             color: var(--status-ongoing-text);
         }
 
-        .status-完成 {
+        .status-完成,
+        .status-结束,
+        .status-已完成,
+        .status-提交完成 {
             background-color: var(--status-completed-bg);
             color: var(--status-completed-text);
         }
@@ -674,6 +541,7 @@
         .detail-item .value {
             font-size: 1rem;
             color: var(--dark-gray);
+            word-break: break-all;
         }
 
         .detail-item .value.description {
@@ -682,11 +550,17 @@
             grid-column: 1 / -1;
         }
 
+        .section-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
         .session-card {
             border: 1px solid #ddd;
             border-radius: 8px;
             margin-bottom: 20px;
-            background: #fff;
+            overflow: hidden;
         }
 
         .session-header {
@@ -960,142 +834,39 @@
             cursor: not-allowed;
         }
 
-        .footer {
-            background-color: var(--dark-gray);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 60px 30px;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-left p {
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-socials a i {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            transition: color 0.3s ease;
-        }
-
-        .footer-socials a:hover i {
-            color: var(--primary-color);
-        }
-
-        .footer-address {
-            font-size: 0.9rem;
-            text-align: right;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 992px) {
-            .detail-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
+            .content-section {
+                padding: 20px 15px 40px;
             }
 
-            .navigation .nav-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transform: translateY(-100%);
-                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                z-index: 1010;
+            .page-intro {
+                padding: 40px 15px;
             }
 
-            .nav-menu.is-active {
-                transform: translateY(0);
+            .page-intro h1 {
+                font-size: 2rem;
             }
 
-            .nav-menu li {
-                opacity: 0;
-                transform: translateY(-20px);
-                transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            .page-intro p {
+                font-size: 1rem;
             }
 
-            .nav-menu.is-active li {
-                opacity: 1;
-                transform: translateY(0);
+            .project-table th,
+            .project-table td {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+                white-space: normal;
             }
 
-            .nav-menu.is-active li:nth-child(1) {
-                transition-delay: 0.3s;
-            }
-
-            .nav-menu.is-active li:nth-child(2) {
-                transition-delay: 0.35s;
-            }
-
-            .nav-menu.is-active li:nth-child(3) {
-                transition-delay: 0.4s;
-            }
-
-            .nav-menu.is-active li:nth-child(4) {
-                transition-delay: 0.45s;
-            }
-
-            .nav-menu.is-active li:nth-child(5) {
-                transition-delay: 0.5s;
-            }
-
-            .nav-menu.is-active li:nth-child(6) {
-                transition-delay: 0.55s;
-            }
-
-            .nav-menu li a {
-                font-size: 1.5rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .footer-address {
-                text-align: center;
+            .status-badge {
+                padding: 3px 8px;
+                font-size: 0.75rem;
             }
 
             #details-modal .modal-content {
-                top: var(--header-height);
-                bottom: 0;
-                left: 0;
-                right: 0;
                 width: 100%;
-                height: calc(100vh - var(--header-height));
+                height: 100vh;
+                top: 0;
                 border-radius: 0;
             }
 
@@ -1107,29 +878,56 @@
                 padding: 15px;
             }
 
+            #details-modal .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
             .detail-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 15px 10px;
-                position: relative;
             }
 
-            .detail-grid::after {
-                content: '';
-                position: absolute;
-                left: 50%;
-                top: 0;
-                bottom: 0;
-                width: 1px;
-                background-color: #e8e8e8;
-                transform: translateX(-50%);
+            .detail-item .label {
+                font-size: 0.8rem;
             }
 
-            .detail-item {
-                padding: 0 5px;
+            .detail-item .value {
+                font-size: 0.9rem;
             }
 
-            .detail-item.value.description {
-                grid-column: 1 / -1;
+            .details-table {
+                font-size: 0.8rem;
+            }
+
+            .details-table th,
+            .details-table td {
+                padding: 6px;
+                white-space: normal;
+            }
+
+            .details-table th:last-child,
+            .details-table td:last-child {
+                border-right: 1px solid #f0f0f0;
+            }
+
+            #request-modal .modal-content {
+                padding: 20px;
+                max-height: 95vh;
+            }
+
+            #request-modal .modal-body {
+                font-size: 0.9rem;
+            }
+
+            .form-group label {
+                font-size: 0.9rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 0.9rem;
+                padding: 8px;
             }
 
             .main-controls {
@@ -1150,60 +948,6 @@
 
             .search-input {
                 width: 100%;
-            }
-        }
-
-        @page {
-            size: portrait;
-            margin: 1in;
-        }
-
-        @media print {
-            body>*:not(.print-area) {
-                display: none;
-            }
-
-            .print-area {
-                display: block !important;
-            }
-
-            .print-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-bottom: 20px;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .print-header h2 {
-                font-size: 1.5rem;
-                margin: 0;
-            }
-
-            .print-logo {
-                max-height: 40px;
-            }
-
-            .print-footer {
-                position: fixed;
-                bottom: 30px;
-                left: 30px;
-                font-size: 10px;
-                color: #666;
-            }
-
-            .modal-body {
-                overflow: visible !important;
-                height: auto !important;
-            }
-
-            .details-table-wrapper {
-                overflow-x: visible !important;
-            }
-
-            .detail-card,
-            .session-card {
-                page-break-inside: avoid;
             }
         }
     </style>
@@ -1243,21 +987,7 @@
                                 <button class="filter-btn active" data-filter="all">所有项目</button>
                                 <button class="filter-btn" data-filter="计划">计划</button>
                                 <button class="filter-btn" data-filter="进行">进行</button>
-                                <button class="filter-btn" data-filter="完成">完成</button>
-                                <button class="filter-btn" data-filter="归档">归档</button>
-                                <button class="filter-btn" data-filter="取消">取消</button>
-                            </div>
-                            <div class="post-filter-controls">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="only-project-match" disabled>
-                                    <label for="only-project-match"><span class="checkbox-icon"><span
-                                                class="tick"></span></span> 仅显示项目匹配</label>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="only-session-match" disabled>
-                                    <label for="only-session-match"><span class="checkbox-icon"><span
-                                                class="tick"></span></span> 仅显示场次匹配</label>
-                                </div>
+                                <button class="filter-btn" data-filter="结束">结束</button>
                             </div>
                         </div>
                         <div class="right-controls">
@@ -1277,17 +1007,17 @@
                     <table class="project-table">
                         <thead>
                             <tr>
-                                <th class="sortable-header" data-sort="name">项目名称 <span class="sort-indicator"></span>
+                                <th class="sortable-header" data-sort="项目注册名称">项目名称 <span class="sort-indicator"></span>
                                 </th>
-                                <th class="sortable-header" data-sort="id">内部编号 <span class="sort-indicator"></span>
+                                <th class="sortable-header" data-sort="项目编码">内部编号 <span class="sort-indicator"></span>
                                 </th>
-                                <th class="sortable-header" data-sort="startDate">开始日期 <span
+                                <th class="sortable-header" data-sort="项目开始日期">开始日期 <span class="sort-indicator"></span>
+                                </th>
+                                <th class="sortable-header" data-sort="项目结束日期">结束日期 <span class="sort-indicator"></span>
+                                </th>
+                                <th class="sortable-header" data-sort="对接部门和组织">合作部门 <span
                                         class="sort-indicator"></span></th>
-                                <th class="sortable-header" data-sort="endDate">结束日期 <span
-                                        class="sort-indicator"></span></th>
-                                <th class="sortable-header" data-sort="department">合作部门 <span
-                                        class="sort-indicator"></span></th>
-                                <th class="sortable-header" data-sort="status">状态 <span class="sort-indicator"></span>
+                                <th class="sortable-header" data-sort="状态项目">状态 <span class="sort-indicator"></span>
                                 </th>
                                 <th id="match-details-header" style="min-width: 150px;">搜索匹配</th>
                             </tr>
@@ -1314,7 +1044,6 @@
             <div class="modal-body" id="details-modal-body"></div>
         </div>
     </div>
-    <div id="print-container" class="print-area" style="display: none;"></div>
 
     <div class="modal-overlay" id="request-modal">
         <div class="modal-content">
@@ -1432,20 +1161,17 @@
 
                 const BASE_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/';
                 const URLS = {
-                    projects: `${BASE_URL}ksvg.com.cn_progress_data%20-%20projects.csv`, sessions: `${BASE_URL}ksvg.com.cn_progress_data%20-%20sessions.csv`,
-                    prodRequests: `${BASE_URL}ksvg.com.cn_progress_data%20-%20prodRequest.csv`, equiRequests: `${BASE_URL}ksvg.com.cn_progress_data%20-%20equiRequest.csv`,
-                    staffRequests: `${BASE_URL}ksvg.com.cn_progress_data%20-%20staffRequest.csv`, bdEquipment: `${BASE_URL}ksvg.com.cn_progress_data%20-%20BD_Equipment.csv`,
-                    bdStaff: `${BASE_URL}ksvg.com.cn_progress_data%20-%20BD_Staff.csv`
+                    projects: `${BASE_URL}01.csv`, sessions: `${BASE_URL}02.csv`,
+                    setups: `${BASE_URL}03.csv`, products: `${BASE_URL}04.csv`,
+                    staff: `${BASE_URL}05.csv`, equipment: `${BASE_URL}06.csv`
                 };
                 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC5cFEo7_tHSG5mKpSJU91eEmIOta4--bYg7ta5fRG8MpXOIaSyV63ocYi5zPnRrE/exec";
 
-                let allData = []; let currentFilter = 'all'; let currentSort = { key: 'id', order: 'asc' };
+                let allData = []; let currentFilter = 'all'; let currentSort = { key: '项目编码', order: 'asc' };
                 const ui = {
                     loadingOverlay: document.getElementById('loading-overlay'), tableBody: document.getElementById('project-table-body'), table: document.querySelector('.project-table'),
                     tableHead: document.querySelector('.project-table thead'),
-                    searchInput: document.getElementById('search-input'), searchButton: document.getElementById('search-button'), filterBtns: document.querySelectorAll('.filter-btn'),
-                    projectMatchLabel: document.querySelector('label[for="only-project-match"]'), sessionMatchLabel: document.querySelector('label[for="only-session-match"]'),
-                    projectMatchCheckbox: document.getElementById('only-project-match'), sessionMatchCheckbox: document.getElementById('only-session-match')
+                    searchInput: document.getElementById('search-input'), searchButton: document.getElementById('search-button'), filterBtns: document.querySelectorAll('.filter-btn')
                 };
 
                 const detailsModal = {
@@ -1453,77 +1179,155 @@
                     body: document.getElementById('details-modal-body'), closeBtn: document.getElementById('details-modal-close-button'),
                     printBtn: document.getElementById('details-modal-print-button'), currentProjectId: null,
                     open(projectId) {
-                        const project = allData.find(p => p.id === projectId); if (!project) return;
-                        this.currentProjectId = project.id; this.title.textContent = project.name;
+                        const project = allData.find(p => p['项目编码'] === projectId); if (!project) return;
+                        this.currentProjectId = project['项目编码']; this.title.textContent = project['项目注册名称'];
                         this.body.innerHTML = this.generateContent(project);
                         this.overlay.classList.add('visible'); body.classList.add('no-scroll');
                     },
                     close() { this.overlay.classList.remove('visible'); body.classList.remove('no-scroll'); },
+
                     generateContent(p) {
                         const searchTerm = ui.searchInput.value.toLowerCase().trim();
-                        const createDetailItem = (label, value) => value ? `<div class="detail-item"><div class="label">${label}</div><div class="value">${highlight(value, searchTerm)}</div></div>` : '';
+                        const createDetailItem = (label, value) => value || value === 0 ? `<div class="detail-item"><div class="label">${label}</div><div class="value">${value}</div></div>` : '';
                         const createDescriptionItem = (label, value) => value ? `<div class="detail-item value description"><div class="label">${label}</div>${highlight(value, searchTerm)}</div>` : '';
+                        const driveLink = p['云端硬盘文稿库'];
+                        const driveLinkHTML = driveLink ? `<a href="${driveLink}" target="_blank" style="text-decoration: underline;">点此查看</a>` : '无';
 
-                        const projectDetails = `<div class="detail-card"><h3>项目详情</h3><div class="detail-card-body"><div class="detail-grid">
-                        ${createDetailItem('内部编号', p.id)} ${createDetailItem('合作部门', p.department)}
-                        ${createDetailItem('状态', `<span class="status-badge status-${p.status}">${p.status}</span>`)}
-                        ${createDetailItem('开始日期', serialToDate(p.startDate))} ${createDetailItem('结束日期', serialToDate(p.endDate))}
-                        ${createDetailItem('项目经理', p.manager)}
-                        ${createDescriptionItem('项目描述', p.description)}
-                        </div></div></div>`;
+                        const projectDetails = `<div class="detail-card">
+                            <h3>项目详情</h3>
+                            <div class="detail-card-body">
+                                <div class="detail-grid">
+                                    ${createDetailItem('内部编号', highlight(p['项目编码'], searchTerm))}
+                                    ${createDetailItem('合作部门', highlight(p['对接部门和组织'], searchTerm))}
+                                    ${createDetailItem('状态', `<span class="status-badge status-${p['状态项目']}">${p['状态项目']}</span>`)}
+                                    ${createDetailItem('开始日期', formatDateString(p['项目开始日期']))}
+                                    ${createDetailItem('结束日期', formatDateString(p['项目结束日期']))}
+                                    ${createDetailItem('项目负责人', highlight(p['项目负责人'], searchTerm))}
+                                </div>
+                                <hr class="section-divider">
+                                <div class="detail-grid">
+                                    ${createDetailItem('全局视频规格', highlight(p['全局视频规格'], searchTerm))}
+                                    ${createDetailItem('全局照片规格', highlight(p['全局照片规格'], searchTerm))}
+                                    ${createDetailItem('本地媒体备份', highlight(p['本地媒体备份'], searchTerm))}
+                                    ${createDetailItem('云端媒体备份', highlight(p['云端媒体备份'], searchTerm))}
+                                    ${createDetailItem('云端硬盘文稿库', driveLinkHTML)}
+                                </div>
+                                ${createDescriptionItem('项目备注', p['备注'])}
+                            </div>
+                        </div>`;
 
                         const productRequests = p.products && p.products.length > 0 ? `<div class="detail-card"><h3>产品请求</h3><div class="detail-card-body" style="padding:0;">
-                        <div class="details-table-wrapper"><table class="details-table"><thead><tr><th>编号</th><th>类别</th><th>名称</th><th>负责人</th><th>状态</th><th>备注</th></tr></thead><tbody>
-                        ${p.products.map(pr => `<tr><td>${highlight(pr.id, searchTerm)}</td><td>${highlight(pr.category, searchTerm)}</td><td>${highlight(pr.name, searchTerm)}</td><td>${highlight(pr.staff, searchTerm)}</td><td><span class="status-badge status-${pr.status}">${pr.status}</span></td><td>${highlight(pr.notes, searchTerm)}</td></tr>`).join('')}
+                        <div class="details-table-wrapper"><table class="details-table"><thead><tr><th>编号</th><th>类别</th><th>名称/描述</th><th>负责人</th><th>状态</th><th>备注</th></tr></thead><tbody>
+                        ${p.products.map(pr => `<tr>
+                            <td>${highlight(pr['产品编码'], searchTerm)}</td>
+                            <td>${highlight(pr['分类'], searchTerm)}</td>
+                            <td style="white-space:normal;">${highlight(pr['需求描述'], searchTerm)}</td>
+                            <td>${highlight(pr['负责人'], searchTerm)}</td>
+                            <td><span class="status-badge status-${pr['状态']}">${pr['状态']}</span></td>
+                            <td style="white-space:normal;">${highlight(pr['备注'], searchTerm)}</td>
+                        </tr>`).join('')}
                         </tbody></table></div></div></div>` : '';
 
-                        const sessions = p.sessions && p.sessions.length > 0 ? p.sessions.map(s => `<div class="session-card">
-                        <div class="session-header"><h4>${highlight(s.name, searchTerm)} (${highlight(s.id, searchTerm)}) <span class="status-badge status-${s.status}">${s.status}</span></h4></div>
-                        <div class="session-body">
-                            <div class="detail-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 20px;">
-                                ${createDetailItem('场地', s.site)} ${createDetailItem('日期', `${serialToDate(s.startDate)} ~ ${serialToDate(s.endDate)}`)}
-                                ${createDescriptionItem('备注', s.notes)}
-                            </div>
-                            ${s.equipment && s.equipment.length > 0 ? `<h5>设备请求</h5><div class="details-table-wrapper"><table class="details-table"><thead><tr><th>设备ID</th><th>名称</th><th>类别</th><th>所有者</th><th>序列号</th><th>备注</th></tr></thead><tbody>
-                                ${s.equipment.map(e => `<tr><td>${highlight(e.id, searchTerm)}</td><td>${highlight(e.name, searchTerm)}</td><td>${highlight(e.category, searchTerm)}</td><td>${highlight(e.owner, searchTerm)}</td><td>${highlight(e.serialNumbers, searchTerm)}</td><td>${highlight(e.notes, searchTerm)}</td></tr>`).join('')}
-                            </tbody></table></div>` : '<div class="no-data">无设备请求</div>'}
-                            ${s.staff && s.staff.length > 0 ? `<h5>人员分配</h5><div class="details-table-wrapper"><table class="details-table"><thead><tr><th>姓名</th><th>职位</th><th>学号/ID</th><th>备注</th></tr></thead><tbody>
-                                ${s.staff.map(st => `<tr><td>${highlight(st.Name, searchTerm)}</td><td>${highlight(st.position, searchTerm)}</td><td>${highlight(st.identity, searchTerm)}</td><td>${highlight(st.note, searchTerm)}</td></tr>`).join('')}
-                            </tbody></table></div>` : '<div class="no-data">无人员分配</div>'}
-                        </div></div>`).join('') : '<div class="detail-card"><div class="no-data">此项目没有关联场次</div></div>';
+                        const sessions = p.sessions && p.sessions.length > 0 ? `<div class="detail-card"><h3>归属场次</h3><div class="detail-card-body">
+                            ${p.sessions.map(s => {
+                            const startDate = formatDateString(s['场次开始时间'], true);
+                            const endDate = formatDateString(s['场次结束时间'], true);
+                            const dateHTML = startDate === 'N/A' && endDate === 'N/A' ? 'N/A' : `起始：${startDate}<br>结束：${endDate}`;
+
+                            const setupsHTML = `<h5>机位编组</h5>` + (s.setups && s.setups.length > 0
+                                ? `<div class="details-table-wrapper"><table class="details-table">
+                                        <thead><tr><th>机位</th><th>描述</th><th>负责人</th><th style="width: 40%;">设备</th><th>备注</th></tr></thead>
+                                        <tbody>
+                                            ${s.setups.map(setup => `<tr>
+                                                <td>${highlight(setup['机位序号'], searchTerm)}</td>
+                                                <td>${highlight(setup['机位描述'], searchTerm)}</td>
+                                                <td>${highlight(setup.staff?.['NAME'], searchTerm) || 'N/A'}</td>
+                                                <td style="white-space:normal;">${highlight(setup.equipment?.['型号'], searchTerm) || 'N/A'}</td>
+                                                <td style="white-space:normal;">${highlight(setup['备注'], searchTerm)}</td>
+                                            </tr>`).join('')}
+                                        </tbody>
+                                    </table></div>`
+                                : '<div class="no-data">无机位编组信息</div>');
+
+                            return `<div class="session-card">
+                                <div class="session-header"><h4>${highlight(s['场次名称'], searchTerm)} (${highlight(s['场次序号'], searchTerm)}) <span class="status-badge status-${s['场次状态']}">${highlight(s['场次状态'], searchTerm)}</span></h4></div>
+                                <div class="session-body">
+                                    <div class="detail-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 20px;">
+                                        ${createDetailItem('场地', highlight(s['执行地点'], searchTerm))}
+                                        ${createDetailItem('日期', dateHTML)}
+                                        ${createDescriptionItem('备注', s['场次备注'])}
+                                    </div>
+                                    ${setupsHTML}
+                                </div></div>`
+                        }).join('')}
+                        </div></div>`: '';
 
                         return projectDetails + productRequests + sessions;
                     }
                 };
 
-                function parseCSV(text) { if (!text) return []; const lines = text.trim().split(/\r?\n/); if (lines.length < 2) return []; const headers = lines[0].split(',').map(h => h.trim()); return lines.slice(1).map(line => { const values = line.split(','); return headers.reduce((obj, header, index) => { obj[header] = (values[index] || '').trim(); return obj; }, {}); }); }
+                function parseCSV(text) {
+                    if (!text) return [];
+                    const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
+                    if (lines.length < 2) return [];
+                    const headers = lines[0].split(',').map(h => h.trim());
+
+                    const splitCsvLine = (line) => {
+                        const result = [];
+                        let current = '';
+                        let inQuotes = false;
+                        for (const char of line) {
+                            if (char === '"') {
+                                inQuotes = !inQuotes;
+                            } else if (char === ',' && !inQuotes) {
+                                result.push(current);
+                                current = '';
+                            } else {
+                                current += char;
+                            }
+                        }
+                        result.push(current);
+                        return result;
+                    };
+
+                    return lines.slice(1).map(line => {
+                        const values = splitCsvLine(line);
+                        return headers.reduce((obj, header, index) => {
+                            obj[header] = (values[index] || '').trim();
+                            return obj;
+                        }, {});
+                    });
+                }
                 async function fetchCSV(url) { const response = await fetch(`${url}?v=${new Date().getTime()}`); if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.statusText}`); return await response.text(); }
 
                 async function loadAllData() {
                     ui.loadingOverlay.classList.add('visible');
                     try {
                         const results = await Promise.allSettled(Object.values(URLS).map(fetchCSV));
-                        const [projectsCSV, sessionsCSV, prodRequestsCSV, equiRequestsCSV, staffRequestsCSV, bdEquipmentCSV, bdStaffCSV] = results.map(res => res.status === 'fulfilled' ? res.value : '');
-                        if (!projectsCSV) throw new Error("Critical file 'projects.csv' failed to load.");
-                        const projects = parseCSV(projectsCSV); const sessions = parseCSV(sessionsCSV);
-                        const prodRequests = parseCSV(prodRequestsCSV); const equiRequests = parseCSV(equiRequestsCSV);
-                        const staffRequests = parseCSV(staffRequestsCSV); const bdEquipment = parseCSV(bdEquipmentCSV);
-                        const bdStaff = parseCSV(bdStaffCSV);
+                        const [projects, sessions, setups, products, staff, equipment] = results.map(res => res.status === 'fulfilled' ? parseCSV(res.value) : []);
+                        if (!projects || projects.length === 0) throw new Error("Critical file '01.csv' failed to load.");
+
                         allData = projects.map(p => {
-                            const projectSessions = sessions.filter(s => s.projectId === p.id).map(s => {
-                                const resolvedEquipment = equiRequests.filter(er => er.sessionId === s.id).map(req => ({ ...req, ...(bdEquipment.find(dev => dev.id === req.id) || {}) }));
-                                const resolvedStaff = staffRequests.filter(sr => sr.sessionId === s.id).map(req => ({ ...req, ...(bdStaff.find(staff => staff.id === req.identity) || {}) }));
-                                return { ...s, equipment: resolvedEquipment, staff: resolvedStaff };
+                            const projectProducts = products.filter(pr => pr['项目编码（自动）'] === p['项目编码']);
+                            const projectSessions = sessions.filter(s => s['项目编码（自动）'] === p['项目编码']).map(session => {
+                                const sessionSetups = setups.filter(setup => setup['场次归属（关联）'] === session['场次名称'])
+                                    .map(setup => {
+                                        const staffDetails = staff.find(s => s['NAME'] === setup['人员配置']);
+                                        const equipDetails = equipment.find(e => e['型号'] === setup['设备配置']);
+                                        return { ...setup, staff: staffDetails, equipment: equipDetails };
+                                    });
+                                return { ...session, setups: sessionSetups };
                             });
-                            return { ...p, sessions: projectSessions, products: prodRequests.filter(pr => pr.projectId === p.id) };
+                            return { ...p, sessions: projectSessions, products: projectProducts };
                         });
+
                         applyFiltersAndSearch();
 
                         const params = new URLSearchParams(window.location.search);
                         const projectIdToOpen = params.get('open');
                         if (projectIdToOpen) {
-                            if (allData.some(p => p.id === projectIdToOpen)) {
-                                detailsModal.open(projectIdToOpen);
+                            if (allData.some(p => p['项目编码'] === projectIdToOpen || `PRJ-${p['项目编码']}` === projectIdToOpen)) {
+                                detailsModal.open(projectIdToOpen.replace('PRJ-', ''));
                             } else {
                                 console.warn(`Project ID "${projectIdToOpen}" from URL not found.`);
                             }
@@ -1532,7 +1336,24 @@
                         }
                     } catch (error) { console.error('Data loading or processing failed:', error); ui.tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 40px; color: red;">数据加载失败: ${error.message}</td></tr>`; } finally { ui.loadingOverlay.classList.remove('visible'); }
                 }
-                function serialToDate(serial) { if (!serial || isNaN(serial)) return 'N/A'; const date = new Date(Date.UTC(1899, 11, 30) + serial * 86400000); return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; }
+
+                function formatDateString(dateStr, includeTime = false) {
+                    if (!dateStr || dateStr.toLowerCase() === 'n/a') return 'N/A';
+                    if (includeTime) {
+                        let match = dateStr.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日\s*(\d{1,2}):(\d{2})/);
+                        if (match) {
+                            const [, year, month, day, hour, minute] = match;
+                            return `${year}年${month.padStart(2, '0')}月${day.padStart(2, '0')}日 ${hour.padStart(2, '0')}时${minute}分`;
+                        }
+                    }
+                    let match = dateStr.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日/);
+                    if (match) {
+                        const [, year, month, day] = match;
+                        return `${year}年${month.padStart(2, '0')}月${day.padStart(2, '0')}日`;
+                    }
+                    return dateStr;
+                }
+
                 function highlight(text, term) { if (!term || !text) return text; return text.toString().replace(new RegExp(term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi'), match => `<mark class="highlight">${match}</mark>`); }
 
                 function renderTable(data, searchTerm = '') {
@@ -1541,14 +1362,14 @@
                     ui.tableBody.innerHTML = ''; if (data.length === 0) { ui.tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 40px;">未找到匹配的项目。</td></tr>`; return; }
                     data.forEach(p => {
                         const projectRow = document.createElement('tr');
-                        projectRow.className = 'project-row'; projectRow.dataset.id = p.id;
+                        projectRow.className = 'project-row'; projectRow.dataset.id = p['项目编码'];
                         let matchDetailsHTML = '';
                         if (searchTerm) {
                             if (p.projectMatchCount > 0) matchDetailsHTML += `<span class="match-badge match-badge-project">项目匹配: ${p.projectMatchCount}</span>`;
                             if (p.sessionMatchCount > 0) matchDetailsHTML += `<span class="match-badge match-badge-session">场次匹配: ${p.sessionMatchCount}</span>`;
                             if (p.productMatchCount > 0) matchDetailsHTML += `<span class="match-badge match-badge-product">产品匹配: ${p.productMatchCount}</span>`;
                         }
-                        projectRow.innerHTML = `<td>${highlight(p.name, searchTerm)}</td><td>${highlight(p.id, searchTerm)}</td><td>${serialToDate(p.startDate)}</td><td>${serialToDate(p.endDate)}</td><td>${highlight(p.department, searchTerm)}</td><td><span class="status-badge status-${p.status}">${p.status}</span></td><td class="match-details-cell">${matchDetailsHTML}</td>`;
+                        projectRow.innerHTML = `<td>${highlight(p['项目注册名称'], searchTerm)}</td><td>${highlight(p['项目编码'], searchTerm)}</td><td>${formatDateString(p['项目开始日期'])}</td><td>${formatDateString(p['项目结束日期'])}</td><td>${highlight(p['对接部门和组织'], searchTerm)}</td><td><span class="status-badge status-${p['状态项目']}">${p['状态项目']}</span></td><td class="match-details-cell">${matchDetailsHTML}</td>`;
                         ui.tableBody.appendChild(projectRow);
                     });
                 }
@@ -1557,18 +1378,17 @@
                     const searchTerm = ui.searchInput.value.toLowerCase().trim();
                     ui.table.classList.toggle('is-searching', !!searchTerm);
                     let filteredData = allData;
-                    if (currentFilter !== 'all') { filteredData = filteredData.filter(p => p.status === currentFilter); }
+                    if (currentFilter !== 'all') { filteredData = filteredData.filter(p => p['状态项目'] === currentFilter); }
                     if (searchTerm) {
                         const searchRegex = new RegExp(searchTerm.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
                         const countMatches = (obj) => Object.values(obj).join(' ').toLowerCase().match(searchRegex)?.length || 0;
 
                         filteredData = filteredData.map(p => {
-                            let projectMatchCount = countMatches({ name: p.name, id: p.id, department: p.department, description: p.description });
+                            let projectMatchCount = countMatches({ name: p['项目注册名称'], id: p['项目编码'], department: p['对接部门和组织'], description: p['备注'] });
                             let productMatchCount = p.products.reduce((sum, pr) => sum + countMatches(pr), 0);
                             let sessionMatchCount = p.sessions.reduce((sum, s) => {
-                                let count = countMatches({ name: s.name, id: s.id, site: s.site, notes: s.notes });
-                                count += s.equipment.reduce((s, item) => s + countMatches(item), 0);
-                                count += s.staff.reduce((s, item) => s + countMatches(item), 0);
+                                let count = countMatches({ name: s['场次名称'], id: s['场次序号'], site: s['执行地点'], notes: s['场次备注'] });
+                                count += s.setups.reduce((setupSum, setup) => setupSum + countMatches(setup) + countMatches(setup.staff || {}) + countMatches(setup.equipment || {}), 0);
                                 return sum + count;
                             }, 0);
 
@@ -1577,6 +1397,22 @@
                     }
                     renderTable(filteredData, searchTerm);
                 }
+
+                ui.searchButton.addEventListener('click', applyFiltersAndSearch);
+                ui.searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyFiltersAndSearch(); } });
+
+                ui.filterBtns.forEach(btn => btn.addEventListener('click', function () { ui.filterBtns.forEach(b => b.classList.remove('active')); this.classList.add('active'); currentFilter = this.dataset.filter; applyFiltersAndSearch(); }));
+                ui.tableBody.addEventListener('click', e => { const row = e.target.closest('.project-row'); if (row) detailsModal.open(row.dataset.id); });
+                detailsModal.closeBtn.addEventListener('click', () => detailsModal.close());
+                detailsModal.overlay.addEventListener('click', (e) => { if (e.target === detailsModal.overlay) { detailsModal.close(); } });
+
+                detailsModal.printBtn.addEventListener('click', () => {
+                    if (detailsModal.currentProjectId) {
+                        const url = `https://rendering.ksvg.com.cn/progress/?id=${detailsModal.currentProjectId}`;
+                        window.location.href = url;
+                    }
+                });
+                ui.tableHead.addEventListener('click', e => { const header = e.target.closest('.sortable-header'); if (!header) return; const sortKey = header.dataset.sort; if (currentSort.key === sortKey) { currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc'; } else { currentSort.key = sortKey; currentSort.order = 'asc'; } applyFiltersAndSearch(); });
 
                 const requestFormModal = {
                     overlay: document.getElementById('request-modal'),
@@ -1588,7 +1424,6 @@
                     closeFinalBtn: document.getElementById('modal-close-final-button'),
                     closeBtn: document.querySelector('#request-modal .modal-close'),
                     emailFallbackLink: document.getElementById('email-fallback-link'),
-
                     selectionList: document.getElementById('modal-selection-list'),
                     requestIdInput: document.getElementById('modal-request-id'),
                     selectedItemInput: document.getElementById('modal-selected-item'),
@@ -1600,49 +1435,39 @@
                     unitInput: document.getElementById('modal-unit'),
                     feedbackSuccess: document.getElementById('feedback-success'),
                     feedbackError: document.getElementById('feedback-error'),
-
-                    currentPage: 1,
-                    selectedItems: [],
-
+                    currentPage: 1, selectedItems: [],
                     open() { this.reset(); this.populateList(); this.overlay.classList.add('visible'); },
                     close() { this.overlay.classList.remove('visible'); },
                     reset() {
-                        this.currentPage = 1;
-                        this.selectedItems = [];
-                        this.descriptionText.value = ''; this.categorySelect.value = '服务反馈';
-                        this.nameInput.value = ''; this.fillerIdInput.value = ''; this.unitInput.value = '';
+                        this.currentPage = 1; this.selectedItems = []; this.descriptionText.value = '';
+                        this.categorySelect.value = '服务反馈'; this.nameInput.value = ''; this.fillerIdInput.value = ''; this.unitInput.value = '';
                         this.goToPage(1);
                     },
                     goToPage(pageNumber) {
                         this.currentPage = pageNumber;
                         this.pages.forEach((page, index) => page.classList.toggle('active', index + 1 === pageNumber));
                         this.title.textContent = `新增事件或请求 (${pageNumber}/4)`;
-
                         this.backBtn.style.display = (pageNumber > 1 && pageNumber < 4) ? 'inline-flex' : 'none';
                         this.nextBtn.style.display = (pageNumber < 3) ? 'inline-flex' : 'none';
                         this.submitBtn.style.display = (pageNumber === 3) ? 'inline-flex' : 'none';
                         this.closeFinalBtn.style.display = (pageNumber === 4) ? 'inline-flex' : 'none';
-
                         if (pageNumber === 4) { this.title.textContent = "提交状态"; this.backBtn.style.display = 'none'; }
-
                         this.updateFormState();
                     },
                     populateList() {
                         let html = '';
                         allData.forEach(p => {
-                            html += `<div class="selection-item selection-item-project" data-project-id="${p.id}"><label><input type="checkbox" data-type="project" data-id="${p.id}"> ${p.name} (${p.id})</label></div>`;
-                            p.products.forEach(pr => { html += `<div class="selection-item selection-item-product" data-project-id="${p.id}"><label><input type="checkbox" data-type="product" data-id="${pr.id}" data-parent-id="${p.id}"> ${pr.name} (${pr.id})</label></div>`; });
-                            p.sessions.forEach(s => { html += `<div class="selection-item selection-item-session" data-project-id="${p.id}"><label><input type="checkbox" data-type="session" data-id="${s.id}" data-parent-id="${p.id}"> ${s.name} (${s.id})</label></div>`; });
+                            html += `<div class="selection-item selection-item-project" data-project-id="${p['项目编码']}"><label><input type="checkbox" data-type="project" data-id="${p['项目编码']}"> ${p['项目注册名称']} (${p['项目编码']})</label></div>`;
+                            p.products.forEach(pr => { html += `<div class="selection-item selection-item-product" data-project-id="${p['项目编码']}"><label><input type="checkbox" data-type="product" data-id="${pr['产品编码']}" data-parent-id="${p['项目编码']}"> ${pr['需求描述'].substring(0, 30)}... (${pr['产品编码']})</label></div>`; });
+                            p.sessions.forEach(s => { html += `<div class="selection-item selection-item-session" data-project-id="${p['项目编码']}"><label><input type="checkbox" data-type="session" data-id="${s['场次名称']}" data-parent-id="${p['项目编码']}"> ${s['场次名称']} (${s['场次序号']})</label></div>`; });
                         });
                         this.selectionList.innerHTML = html;
                     },
                     handleSelectionChange(e) {
                         const checkbox = e.target;
                         if (!checkbox || checkbox.type !== 'checkbox') return;
-
                         const parentProjectDiv = checkbox.closest('.selection-item-project');
                         const currentProjectId = parentProjectDiv ? parentProjectDiv.dataset.projectId : checkbox.closest('.selection-item').dataset.projectId;
-
                         if (checkbox.dataset.type === 'project') {
                             const children = this.selectionList.querySelectorAll(`[data-parent-id="${checkbox.dataset.id}"]`);
                             children.forEach(child => child.checked = checkbox.checked);
@@ -1654,7 +1479,6 @@
                                 parentCheckbox.checked = allChildrenChecked;
                             }
                         }
-
                         const anyChecked = this.selectionList.querySelector('input:checked');
                         if (anyChecked) {
                             const selectedProjectId = anyChecked.closest('.selection-item').dataset.projectId;
@@ -1673,108 +1497,47 @@
                         this.updateFormState();
                     },
                     updateFormState() {
-                        if (this.currentPage === 1) {
-                            this.selectedItems = Array.from(this.selectionList.querySelectorAll('input:checked')).map(cb => ({ id: cb.dataset.id, type: cb.dataset.type, parent: cb.dataset.parentId }));
-                            this.nextBtn.disabled = this.selectedItems.length === 0;
-                        } else if (this.currentPage === 2) {
-                            const descLength = this.descriptionText.value.trim().length;
-                            this.wordCounter.textContent = `${descLength}/200`;
-                            this.nextBtn.disabled = !(descLength >= 5 && descLength <= 200);
-                        } else if (this.currentPage === 3) {
-                            this.submitBtn.disabled = !(this.nameInput.value.trim() && this.fillerIdInput.value.trim() && this.unitInput.value.trim());
-                        }
+                        if (this.currentPage === 1) { this.selectedItems = Array.from(this.selectionList.querySelectorAll('input:checked')).map(cb => ({ id: cb.dataset.id, type: cb.dataset.type, parent: cb.dataset.parentId })); this.nextBtn.disabled = this.selectedItems.length === 0; }
+                        else if (this.currentPage === 2) { const descLength = this.descriptionText.value.trim().length; this.wordCounter.textContent = `${descLength}/200`; this.nextBtn.disabled = !(descLength >= 5 && descLength <= 200); }
+                        else if (this.currentPage === 3) { this.submitBtn.disabled = !(this.nameInput.value.trim() && this.fillerIdInput.value.trim() && this.unitInput.value.trim()); }
                     },
                     preparePage2() {
-                        const d = new Date();
-                        const ts = `${String(d.getFullYear()).slice(-2)}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}${String(d.getSeconds()).padStart(2, '0')}`;
+                        const d = new Date(); const ts = `${String(d.getFullYear()).slice(-2)}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}${String(d.getSeconds()).padStart(2, '0')}`;
                         this.requestIdInput.value = `ISU-${ts}${String(Math.floor(Math.random() * 9000) + 1000)}`;
-
                         const projectSelection = this.selectedItems.find(item => item.type === 'project');
-                        if (projectSelection) {
-                            this.selectedItemInput.value = `${projectSelection.id}`;
-                        } else {
-                            const parentId = this.selectedItems[0].parent;
-                            const childrenIds = this.selectedItems.map(item => `${item.type.toUpperCase()}-${item.id}`).join(', ');
-                            this.selectedItemInput.value = `${parentId} (${childrenIds})`;
-                        }
+                        if (projectSelection) { this.selectedItemInput.value = `${projectSelection.id}`; }
+                        else { const parentId = this.selectedItems[0].parent; const childrenIds = this.selectedItems.map(item => `${item.type.toUpperCase()}-${item.id}`).join(', '); this.selectedItemInput.value = `${parentId} (${childrenIds})`; }
                     },
                     async submitForm() {
-                        this.submitBtn.disabled = true;
-                        this.submitBtn.innerHTML = '<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> 提交中...';
-
-                        const formData = {
-                            id: this.requestIdInput.value,
-                            correlationId: this.selectedItemInput.value,
-                            category: this.categorySelect.value,
-                            name: this.nameInput.value,
-                            fillerId: this.fillerIdInput.value,
-                            unit: this.unitInput.value,
-                            text: this.descriptionText.value,
-                        };
-
+                        this.submitBtn.disabled = true; this.submitBtn.innerHTML = '<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> 提交中...';
+                        const formData = { id: this.requestIdInput.value, correlationId: this.selectedItemInput.value, category: this.categorySelect.value, name: this.nameInput.value, fillerId: this.fillerIdInput.value, unit: this.unitInput.value, text: this.descriptionText.value };
                         try {
-                            const response = await fetch(SCRIPT_URL, {
-                                method: 'POST',
-                                mode: 'no-cors',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(formData)
-                            });
-                            this.feedbackSuccess.style.display = 'block';
-                            this.feedbackError.style.display = 'none';
-                        } catch (error) {
-                            console.error('Submission failed:', error);
-                            this.feedbackSuccess.style.display = 'none';
-                            this.feedbackError.style.display = 'block';
-                        } finally {
-                            this.goToPage(4);
-                        }
+                            const response = await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+                            this.feedbackSuccess.style.display = 'block'; this.feedbackError.style.display = 'none';
+                        } catch (error) { console.error('Submission failed:', error); this.feedbackSuccess.style.display = 'none'; this.feedbackError.style.display = 'block'; }
+                        finally { this.goToPage(4); }
                     },
                     generateMailto() {
-                        const formData = {
-                            id: this.requestIdInput.value, correlationId: this.selectedItemInput.value,
-                            category: this.categorySelect.value, text: this.descriptionText.value,
-                            name: this.nameInput.value, fillerId: this.fillerIdInput.value, unit: this.unitInput.value
-                        };
-                        const emailDisclaimer = "**因为电子邮件的内容可能存在不确定性，如果您的邮件正文被修改，系统可能会因为无法识别而自动取消该记录。为了确保记录有效，请不要编辑邮件正文**。\n\n感谢您对KSVG服务的支持，您的反馈对推动我们发展做出了重要贡献。\n\n--- 请求详情 ---\n";
-                        const emailBody = `${emailDisclaimer}\n- 事件编号: ${formData.id}\n- 关联信息: ${formData.correlationId}\n- 事件类别: ${formData.category}\n- 提交人姓名: ${formData.name}\n- 提交人学号/工号: ${formData.fillerId}\n- 提交人班级/部门: ${formData.unit}\n\n- 具体描述:\n${formData.text}\n`;
-                        const subject = `服务请求: [${formData.category}] - ${formData.id}`;
+                        const formData = { id: this.requestIdInput.value, correlationId: this.selectedItemInput.value, category: this.categorySelect.value, text: this.descriptionText.value, name: this.nameInput.value, fillerId: this.fillerIdInput.value, unit: this.unitInput.value };
+                        const emailDisclaimer = "**...**\n"; const emailBody = `${emailDisclaimer}\n...`; const subject = `服务请求: [${formData.category}] - ${formData.id}`;
                         window.location.href = `mailto:support_ksvg@163.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
                     }
                 };
-
                 document.getElementById('new-request-button').addEventListener('click', () => requestFormModal.open());
                 requestFormModal.closeBtn.addEventListener('click', () => requestFormModal.close());
                 requestFormModal.closeFinalBtn.addEventListener('click', () => requestFormModal.close());
                 requestFormModal.backBtn.addEventListener('click', () => requestFormModal.goToPage(requestFormModal.currentPage - 1));
-                requestFormModal.nextBtn.addEventListener('click', () => {
-                    if (requestFormModal.currentPage === 1) requestFormModal.preparePage2();
-                    requestFormModal.goToPage(requestFormModal.currentPage + 1);
-                });
+                requestFormModal.nextBtn.addEventListener('click', () => { if (requestFormModal.currentPage === 1) requestFormModal.preparePage2(); requestFormModal.goToPage(requestFormModal.currentPage + 1); });
                 requestFormModal.submitBtn.addEventListener('click', () => requestFormModal.submitForm());
                 requestFormModal.emailFallbackLink.addEventListener('click', (e) => { e.preventDefault(); requestFormModal.generateMailto(); });
                 requestFormModal.selectionList.addEventListener('change', (e) => requestFormModal.handleSelectionChange(e));
                 requestFormModal.descriptionText.addEventListener('input', () => requestFormModal.updateFormState());
                 [requestFormModal.nameInput, requestFormModal.fillerIdInput, requestFormModal.unitInput].forEach(el => el.addEventListener('input', () => requestFormModal.updateFormState()));
 
-                ui.searchInput.addEventListener('input', applyFiltersAndSearch);
-                ui.filterBtns.forEach(btn => btn.addEventListener('click', function () { ui.filterBtns.forEach(b => b.classList.remove('active')); this.classList.add('active'); currentFilter = this.dataset.filter; applyFiltersAndSearch(); }));
-                ui.searchButton.addEventListener('click', applyFiltersAndSearch); ui.searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyFiltersAndSearch(); } });
-                [ui.projectMatchCheckbox, ui.sessionMatchCheckbox].forEach(cb => cb.addEventListener('change', applyFiltersAndSearch));
-                ui.tableBody.addEventListener('click', e => { const row = e.target.closest('.project-row'); if (row) detailsModal.open(row.dataset.id); });
-                detailsModal.closeBtn.addEventListener('click', () => detailsModal.close());
-                detailsModal.overlay.addEventListener('click', (e) => { if (e.target === detailsModal.overlay) { detailsModal.close(); } });
-                detailsModal.printBtn.addEventListener('click', () => {
-                    if (detailsModal.currentProjectId) {
-                        const url = `https://rendering.ksvg.com.cn/progress/?id=${detailsModal.currentProjectId}`;
-                        window.location.href = url;
-                    }
-                });
-                ui.tableHead.addEventListener('click', e => { const header = e.target.closest('.sortable-header'); if (!header) return; const sortKey = header.dataset.sort; if (currentSort.key === sortKey) { currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc'; } else { currentSort.key = sortKey; currentSort.order = 'asc'; } applyFiltersAndSearch(); });
                 loadAllData();
             });
         } catch (e) { console.error("A critical error occurred on the page:", e); document.getElementById('project-table-body').innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 40px; color: red;">页面脚本发生严重错误，请联系管理员。</td></tr>`; }
     </script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
