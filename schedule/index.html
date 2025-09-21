@@ -456,6 +456,55 @@
             .footer-address {
                 text-align: center;
             }
+
+            .content-section {
+                padding: 20px 15px 40px;
+            }
+
+            .page-intro {
+                padding: 40px 15px;
+            }
+
+            .page-intro h1 {
+                font-size: 2rem;
+            }
+
+            .page-intro p {
+                font-size: 1rem;
+            }
+
+            .calendar-container {
+                padding: 10px;
+            }
+
+            .fc .fc-toolbar-title {
+                font-size: 1.2em;
+            }
+
+            .fc .fc-button {
+                font-size: 0.8em;
+                padding: 0.4em 0.6em;
+            }
+
+            .fc .fc-daygrid-day-number,
+            .fc .fc-col-header-cell-cushion {
+                font-size: 0.9em;
+            }
+
+            .fc .fc-event-title,
+            .fc-v-event .fc-event-main,
+            .fc-list-event-title {
+                font-size: 0.85em;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .event-detail-content span,
+            .event-detail-content a {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -581,14 +630,17 @@
             }
 
             const calendarEl = document.getElementById('calendar');
-
-            const mobileToolbar = { left: 'prev,next today', center: 'title', right: '' };
-            const desktopToolbar = { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth' };
+            const isMobile = () => window.innerWidth < 768;
 
             const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                initialView: isMobile() ? 'listMonth' : 'dayGridMonth',
                 locale: 'zh-cn',
-                headerToolbar: window.innerWidth < 768 ? mobileToolbar : desktopToolbar,
+                // *** 核心修改: 动态工具栏 ***
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: isMobile() ? 'dayGridMonth,timeGridWeek,listMonth' : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
                 buttonText: {
                     today: '今天', month: '月', week: '周', day: '日', list: '列表'
                 },
@@ -598,7 +650,7 @@
                 },
                 eventDisplay: 'block',
                 eventColor: 'var(--primary-color)',
-                height: '75vh',
+                height: 'auto',
 
                 eventClick: function (info) {
                     info.jsEvent.preventDefault();
@@ -610,6 +662,11 @@
                                 <strong>${info.event.start.toLocaleString('zh-CN', { dateStyle: 'full' })}</strong>
                                 <span>${info.event.start.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })} - ${info.event.end.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
                             </div></div>`;
+                    if (props.location && !props.location.includes('meet.google.com')) {
+                        bodyHtml += `<div class="event-detail-item">
+                            <i class="ri-map-pin-line"></i>
+                            <div class="event-detail-content"><strong>地点</strong><span>${props.location}</span></div></div>`;
+                    }
                     if (props.location && props.location.includes('meet.google.com')) {
                         bodyHtml += `<div class="event-detail-item">
                             <i class="ri-vidicon-line"></i>
@@ -619,12 +676,12 @@
                         const attendees = Array.isArray(props.attendee) ? props.attendee : [props.attendee];
                         bodyHtml += `<div class="event-detail-item">
                             <i class="ri-group-line"></i>
-                            <div class="event-detail-content"><strong>参与人</strong><ul class="attendee-list">${attendees.map(a => `<li><a href="${a}">${a.replace('mailto:', '')}</a></li>`).join('')}</ul></div></div>`;
+                            <div class="event-detail-content"><strong>参与人</strong><ul class="attendee-list">${attendees.map(a => `<li><a href="${a.uri}">${a.cn || a.uri.replace('mailto:', '')}</a></li>`).join('')}</ul></div></div>`;
                     }
                     if (parsedDesc.projectCode) {
                         bodyHtml += `<div class="event-detail-item">
                             <i class="ri-barcode-line"></i>
-                            <div class="event-detail-content"><strong>项目编码</strong><a href="https://ksvg.com.cn/progress/">${parsedDesc.projectCode}</a></div></div>`;
+                            <div class="event-detail-content"><strong>关联项目</strong><a href="https://ksvg.com.cn/progress/?open=${parsedDesc.projectCode}">${parsedDesc.projectCode}</a></div></div>`;
                     }
                     if (parsedDesc.projectNotes) {
                         bodyHtml += `<div class="event-detail-item">
@@ -641,23 +698,24 @@
                     eventModal.open();
                 },
                 windowResize: function (arg) {
-                    if (arg.view.type !== 'listMonth' && window.innerWidth < 768) {
+                    const newIsMobile = isMobile();
+                    calendar.setOption('headerToolbar', {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: newIsMobile ? 'dayGridMonth,timeGridWeek,listMonth' : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    });
+
+                    if (newIsMobile && arg.view.type !== 'listMonth') {
                         calendar.changeView('listMonth');
-                        calendar.setOption('headerToolbar', mobileToolbar);
-                    } else if (arg.view.type === 'listMonth' && window.innerWidth >= 768) {
+                    } else if (!newIsMobile && arg.view.type === 'listMonth') {
                         calendar.changeView('dayGridMonth');
-                        calendar.setOption('headerToolbar', desktopToolbar);
                     }
                 }
             });
 
-            if (window.innerWidth < 768) {
-                calendar.changeView('listMonth');
-            }
             calendar.render();
         });
     </script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

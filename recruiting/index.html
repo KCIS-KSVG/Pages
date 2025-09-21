@@ -253,6 +253,7 @@
             line-height: 1.8;
         }
 
+        /* *** 移动端优化 *** */
         @media (max-width: 768px) {
             .nav-toggle {
                 display: block;
@@ -328,6 +329,44 @@
 
             .footer-address {
                 text-align: center;
+            }
+
+            .content-section {
+                padding: 40px 15px;
+            }
+
+            .page-intro {
+                padding: 40px 15px;
+            }
+
+            .page-intro h1 {
+                font-size: 2rem;
+            }
+
+            .page-intro p {
+                font-size: 1rem;
+            }
+
+            .unavailable-container {
+                padding: 30px;
+                margin: 20px auto;
+            }
+
+            .unavailable-container i {
+                font-size: 4rem;
+            }
+
+            .unavailable-container h2 {
+                font-size: 1.5rem;
+            }
+
+            .unavailable-container p {
+                font-size: 1rem;
+            }
+
+            .return-button {
+                padding: 10px 25px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -428,7 +467,6 @@
             console.error("An error occurred on the page:", e);
         }
     </script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
