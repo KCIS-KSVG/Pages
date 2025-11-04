@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSVG | Not Found (404)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
+
+    <!-- 使用 CDN 引入全局样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
+
+    <style>
+        /* --- 全局变量与基础样式 (与主页保持一致) --- */
+        :root {
+            --primary-color: #920783;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #424245;
+            --light-gray: #f5f5f7;
+            --text-color: #1d1d1f;
+            --header-height: 70px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* 与主页内容区背景色一致 */
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        main {
+            /* 为固定的导航栏留出空间 */
+            padding-top: var(--header-height);
+        }
+
+        /* --- 404页面专属样式 --- */
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* 计算高度，使其填充导航栏和页脚之间的区域 */
+            min-height: calc(100vh - var(--header-height) - 180px); /* 180px 是页脚的大致高度 */
+            padding: 40px 20px;
+        }
+
+        .error-container h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(6rem, 20vw, 10rem); /* 响应式字体大小 */
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .error-container h2 {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .error-container p {
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            color: var(--medium-gray);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #7a066e; /* 主色的深色版本 */
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(146, 7, 131, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 保持一致的导航栏 -->
+    <header class="site-header">
+        <nav class="navigation">
+            <a href="/" class="logo-link">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
+                    class="logo-image">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="https://ksvg.com.cn">主页</a></li>
+                <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
+                <li><a href="https://ksvg.com.cn/media/">媒体共享</a></li>
+                <li><a href="https://ksvg.com.cn/documentation/">文件共享</a></li>
+                <li><a href="https://ksvg.com.cn/schedule/">日程信息</a></li>
+                <li><a href="https://ksvg.com.cn/recruiting/">组织招募</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Open menu"><i class="ri-menu-line"></i></button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="error-container">
+            <h1>404</h1>
+            <h2>页面未找到</h2>
+            <p>您访问的页面可能已被移动、删除或从未存在。请检查网址或返回首页。</p>
+            <a href="/" class="btn-primary">返回首页</a>
+        </div>
+    </main>
+
+    <!-- 保持一致的页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili"
+                        title="Bilibili"><i class="ri-bilibili-fill"></i></a>
+                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i
+                            class="ri-youtube-fill"></i></a>
+                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
+                            class="ri-mail-line"></i></a>
+                </div>
+            </div>
+            <div class="footer-address">
+                <p>Kang Chiao International School East China</p>
+                <p>No.500, Xihuan Road, Huaqiao Economic Development Zone, Kunshan, Jiangsu</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 仅保留必要的导航菜单脚本
+        try {
+            document.addEventListener("DOMContentLoaded", function () {
+                const navToggle = document.querySelector('.nav-toggle');
+                const navMenu = document.querySelector('.nav-menu');
+                const body = document.body;
+                if (navToggle && navMenu) {
+                    const icon = navToggle.querySelector('i');
+                    const toggleMenu = (forceClose = false) => {
+                        const isActive = navMenu.classList.contains('is-active');
+                        if (forceClose || isActive) {
+                            navMenu.classList.remove('is-active');
+                            navToggle.classList.remove('is-active');
+                            body.classList.remove('no-scroll');
+                            icon.className = 'ri-menu-line';
+                        } else {
+                            navMenu.classList.add('is-active');
+                            navToggle.classList.add('is-active');
+                            body.classList.add('no-scroll');
+                            icon.className = 'ri-close-line';
+                        }
+                    };
+                    navToggle.addEventListener('click', () => toggleMenu());
+                    
+                    const navLinks = navMenu.querySelectorAll('a');
+                    navLinks.forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
+
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth > 768) { toggleMenu(true); }
+                    });
+                }
+            });
+        } catch (e) {
+            console.error("An error occurred on the 404 page script:", e);
+        }
+    </script>
+    <!-- Google Analytics Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FP90XJEB6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7FP90XJEB6');
+    </script>
+</body>
+
+</html>
