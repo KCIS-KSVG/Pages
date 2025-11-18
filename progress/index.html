@@ -1577,7 +1577,7 @@
                 ui.tableBody.addEventListener('click', e => { const row = e.target.closest('.project-row'); if (row) detailsModal.open(row.dataset.id); });
                 detailsModal.closeBtn.addEventListener('click', () => detailsModal.close());
                 detailsModal.overlay.addEventListener('click', (e) => { if (e.target === detailsModal.overlay) { detailsModal.close(); } });
-                detailsModal.printBtn.addEventListener('click', () => { if (detailsModal.currentProjectId) { window.open(`https://rendering.ksvg.com.cn/progress/?id=${detailsModal.currentProjectId}`, '_blank'); } });
+                detailsModal.printBtn.addEventListener('click', () => { if (detailsModal.currentProjectId) { window.open(`https://rendering.ksvg.com.cn/project-status/report-mainsite.html?id=${detailsModal.currentProjectId}`, '_blank'); } });
                 ui.tableHead.addEventListener('click', e => { const header = e.target.closest('.sortable-header'); if (!header) return; const sortKey = header.dataset.sort; if (currentSort.key === sortKey) { currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc'; } else { currentSort.key = sortKey; currentSort.order = 'asc'; } applyFiltersAndSearch(); });
 
                 const requestFormModal = {
