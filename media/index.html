@@ -13,6 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
+
     <style>
         :root {
             --primary-color: #920783;
@@ -21,7 +24,6 @@
             --light-gray: #f5f5f7;
             --text-color: #1d1d1f;
             --header-height: 70px;
-            --info-color: #007bff;
         }
 
         *,
@@ -55,87 +57,6 @@
             color: inherit;
         }
 
-        .site-header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            z-index: 1020;
-        }
-
-        .navigation {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 30px;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-image {
-            height: 45px;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-menu li a {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 5px 0;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a::after {
-            content: '';
-            position: absolute;
-            width: 80%;
-            height: 3px;
-            bottom: -5px;
-            left: 10%;
-            background-color: var(--primary-color);
-            transform: scaleX(0);
-            transform-origin: bottom left;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .nav-menu li a:hover,
-        .nav-menu li a.active {
-            color: var(--dark-gray);
-        }
-
-        .nav-menu li a:hover::after,
-        .nav-menu li a.active::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--dark-gray);
-            cursor: pointer;
-            z-index: 1030;
-            transition: transform 0.4s ease;
-        }
-
-        .nav-toggle.is-active {
-            transform: rotate(90deg);
-        }
-
         main {
             padding-top: var(--header-height);
             flex-grow: 1;
@@ -165,209 +86,162 @@
         }
 
         .content-section {
-            padding: 60px 30px;
+            padding: 40px 30px 60px;
         }
 
-        .unavailable-container {
-            text-align: center;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 40px;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-        }
-
-        .unavailable-container i {
-            font-size: 5rem;
-            color: var(--info-color);
-            margin-bottom: 20px;
-        }
-
-        .unavailable-container h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .unavailable-container p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
+        /* Controls Bar Styles (Adopted from Reference) */
+        .controls-wrapper {
             margin-bottom: 30px;
         }
 
-        .return-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .return-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer {
-            background-color: var(--dark-gray);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 60px 30px;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
+        .main-controls {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-left p {
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        .footer-socials {
-            display: flex;
             gap: 20px;
         }
 
-        .footer-socials a i {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            transition: color 0.3s ease;
+        .left-controls {
+            display: flex;
+            gap: 20px; /* Gap between view-toggle and filter-controls */
+            flex-wrap: wrap;
+        }
+        
+        .view-toggle, .filter-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .footer-socials a:hover i {
-            color: var(--primary-color);
-        }
-
-        .footer-address {
+        .view-toggle button, .filter-btn {
+            background-color: #fff;
+            border: 1px solid #d9d9d9;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 0.9rem;
-            text-align: right;
-            line-height: 1.8;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* *** 移动端优化 *** */
+        .view-toggle button {
+            padding: 8px 12px; /* Specific padding for icon buttons */
+        }
+        
+        .view-toggle button:hover:not(.active), .filter-btn:hover:not(.active) {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .view-toggle button.active, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+        
+        .search-controls {
+            display: flex;
+        }
+
+        .search-input {
+            border: 1px solid #d9d9d9;
+            padding: 10px 16px;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            width: 300px;
+            border-right: none;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .search-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            padding: 0 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-button:hover {
+            background-color: #7a066e;
+        }
+
+        /* Cards Container */
+        #media-cards-container {
+            position: relative;
+            min-height: 200px;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        }
+        
+        #media-cards-container.list-view {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .media-card { background-color: #fff; border-radius: 12px; border: 1px solid #e0e0e0; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .media-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+        .media-card.list-item { flex-direction: row; align-items: center; padding: 15px 25px; }
+
+        .card-header h3 { font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin-bottom: 5px; color: var(--dark-gray); }
+        .card-header p { font-size: 0.9rem; color: var(--medium-gray); font-weight: 600; }
+        .grid-view-content { padding: 20px 25px; }
+        .list-view-content { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
+        .list-view-content .info-col { display: flex; flex-direction: column; }
+        .list-view-content .date-col { text-align: right; }
+        .card-body .meta-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--dark-gray); }
+        .card-body .meta-item:not(:first-child) { margin-top: 15px; }
+        .card-body .meta-item i { font-size: 1.3rem; color: var(--primary-color); margin-top: 2px; }
+        
+        .status-badge { font-weight: bold; padding: 3px 8px; border-radius: 6px; font-size: 0.9rem; }
+        .status-badge.active { color: #237804; background: #f6ffed; border: 1px solid #b7eb8f; }
+        .status-badge.expired { color: #8c8c8c; background: #fafafa; border: 1px solid #d9d9d9; }
+        
+        #loading-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(245, 245, 247, 0.7); z-index: 10; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s; }
+        .loader { border: 7px solid #e0e0e0; border-top: 7px solid var(--primary-color); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 31, 0.5); backdrop-filter: blur(10px); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; display: flex; justify-content: center; align-items: center; }
+        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
+        .modal-content { background: #fff; border-radius: 12px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); transform: scale(0.95); opacity: 0; transition: all 0.4s ease; }
+        .modal-overlay.visible .modal-content { transform: scale(1); opacity: 1; }
+        .modal-header { flex-shrink: 0; padding: 20px 30px; border-bottom: 1px solid #e0e0e0; }
+        .modal-header h2 { font-family: 'Poppins', sans-serif; font-size: 1.6rem; margin: 0; }
+        .modal-header p { font-size: 0.9rem; color: var(--medium-gray); font-weight: 600; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--medium-gray); }
+        .modal-body { flex-grow: 1; overflow-y: auto; padding: 25px 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; }
+        .modal-body .meta-item { display: flex; align-items: flex-start; gap: 12px; }
+        .modal-body .meta-item.full-width { grid-column: 1 / -1; }
+        .modal-body .meta-item i { font-size: 1.5rem; color: var(--primary-color); margin-top: 3px; }
+        .meta-content .label { font-weight: 600; font-size: 0.9rem; color: var(--dark-gray); }
+        .meta-content .value { font-size: 1rem; color: var(--medium-gray); }
+        .duration-note { font-size: 0.8rem; color: #888; margin-top: 4px; }
+        .modal-footer { flex-shrink: 0; padding: 20px 30px; border-top: 1px solid #e0e0e0; }
+        .aliyun-drive-button { display: block; width: 100%; text-align: center; padding: 12px; background-color: var(--primary-color); color: #fff; border-radius: 8px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; }
+        .aliyun-drive-button:hover { background-color: #7a066e; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(146, 7, 131, 0.3); }
+
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
-            }
-
-            .navigation .nav-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transform: translateY(-100%);
-                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                z-index: 1010;
-            }
-
-            .nav-menu.is-active {
-                transform: translateY(0);
-            }
-
-            .nav-menu li {
-                opacity: 0;
-                transform: translateY(-20px);
-                transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            }
-
-            .nav-menu.is-active li {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .nav-menu.is-active li:nth-child(1) {
-                transition-delay: 0.3s;
-            }
-
-            .nav-menu.is-active li:nth-child(2) {
-                transition-delay: 0.35s;
-            }
-
-            .nav-menu.is-active li:nth-child(3) {
-                transition-delay: 0.4s;
-            }
-
-            .nav-menu.is-active li:nth-child(4) {
-                transition-delay: 0.45s;
-            }
-
-            .nav-menu.is-active li:nth-child(5) {
-                transition-delay: 0.5s;
-            }
-
-            .nav-menu.is-active li:nth-child(6) {
-                transition-delay: 0.55s;
-            }
-
-            .nav-menu li a {
-                font-size: 1.5rem;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .footer-address {
-                text-align: center;
-            }
-
-            .content-section {
-                padding: 40px 15px;
-            }
-
-            .page-intro {
-                padding: 40px 15px;
-            }
-
-            .page-intro h1 {
-                font-size: 2rem;
-            }
-
-            .page-intro p {
-                font-size: 1rem;
-            }
-
-            .unavailable-container {
-                padding: 30px;
-                margin: 20px auto;
-            }
-
-            .unavailable-container i {
-                font-size: 4rem;
-            }
-
-            .unavailable-container h2 {
-                font-size: 1.5rem;
-            }
-
-            .unavailable-container p {
-                font-size: 1rem;
-            }
-
-            .return-button {
-                padding: 10px 25px;
-                font-size: 0.9rem;
-            }
+            .page-intro { padding: 40px 15px; }
+            .content-section { padding: 30px 15px; }
+            #media-cards-container { grid-template-columns: 1fr; }
+            .modal-body { grid-template-columns: 1fr; }
+            .main-controls { flex-direction: column; align-items: stretch; gap: 25px; }
+            .left-controls { justify-content: space-between; }
+            .right-controls { align-items: stretch; }
+            .search-controls { width: 100%; }
+            .search-input { width: 100%; }
         }
     </style>
 </head>
@@ -375,10 +249,9 @@
 <body>
     <header class="site-header">
         <nav class="navigation">
-            <a href="https://ksvg.com.cn/" class="logo-link">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
-                    class="logo-image">
-            </a>
+            <a href="https://ksvg.com.cn/" class="logo-link"><img
+                    src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
+                    class="logo-image"></a>
             <ul class="nav-menu">
                 <li><a href="https://ksvg.com.cn/">主页</a></li>
                 <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
@@ -395,22 +268,55 @@
         <section class="page-intro">
             <div class="page-container">
                 <h1>媒体共享</h1>
-                <p>此页面用于分享项目的相关媒体文件，如照片、视频等。目前正在建设中。</p>
+                <p>在这里查找各项目公开分享的媒体文件。点击卡片查看详情，并通过详情页的链接访问对应的阿里云盘分享页。</p>
             </div>
         </section>
-
         <section class="content-section">
             <div class="page-container">
-                <div class="unavailable-container">
-                    <i class="ri-tools-line"></i>
-                    <h2>页面建设中</h2>
-                    <p>媒体共享功能正在开发中，敬请期待。您可以先返回主页浏览其他内容。</p>
-                    <a href="https://ksvg.com.cn/" class="return-button">返回主页</a>
+                <div class="controls-wrapper">
+                    <div class="main-controls">
+                        <div class="left-controls">
+                             <div class="view-toggle">
+                                <button id="grid-view-btn" class="filter-btn active" title="方框视图"><i class="ri-layout-grid-fill"></i></button>
+                                <button id="list-view-btn" class="filter-btn" title="列表视图"><i class="ri-list-check"></i></button>
+                            </div>
+                            <div class="filter-controls">
+                                <button data-filter="all" class="filter-btn active">所有</button>
+                                <button data-filter="active" class="filter-btn">有效</button>
+                                <button data-filter="expired" class="filter-btn">失效</button>
+                            </div>
+                        </div>
+                        <div class="right-controls">
+                             <div class="search-controls">
+                                <input type="search" class="search-input" id="search-input" placeholder="按名称或编号搜索...">
+                                <button class="search-button" id="search-button"><i class="ri-search-line"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="media-cards-container">
+                    <div id="loading-overlay">
+                        <div class="loader"></div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
-
+    
+    <div class="modal-overlay" id="media-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <p id="modal-project-code"></p>
+                <button class="modal-close" id="modal-close-button"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer">
+                <a href="#" id="modal-drive-link" target="_blank" rel="noopener noreferrer" class="aliyun-drive-button">前往阿里云盘查看</a>
+            </div>
+        </div>
+    </div>
+    
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
@@ -434,39 +340,276 @@
     <script>
         try {
             document.addEventListener("DOMContentLoaded", function () {
-                const navToggle = document.querySelector('.nav-toggle');
-                const navMenu = document.querySelector('.nav-menu');
+                const navToggle = document.querySelector('.nav-toggle'); 
+                const navMenu = document.querySelector('.nav-menu'); 
                 const body = document.body;
-
                 if (navToggle && navMenu) {
                     const icon = navToggle.querySelector('i');
                     const toggleMenu = (forceClose = false) => {
                         const isActive = navMenu.classList.contains('is-active');
                         if (forceClose || isActive) {
-                            navMenu.classList.remove('is-active');
+                            navMenu.classList.remove('is-active'); 
                             navToggle.classList.remove('is-active');
-                            body.classList.remove('no-scroll');
+                            body.classList.remove('no-scroll'); 
                             icon.className = 'ri-menu-line';
                         } else {
-                            navMenu.classList.add('is-active');
+                            navMenu.classList.add('is-active'); 
                             navToggle.classList.add('is-active');
-                            body.classList.add('no-scroll');
+                            body.classList.add('no-scroll'); 
                             icon.className = 'ri-close-line';
                         }
                     };
                     navToggle.addEventListener('click', () => toggleMenu());
-                    const navLinks = navMenu.querySelectorAll('a');
-                    navLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            setTimeout(() => toggleMenu(true), 100);
-                        });
+                    navMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
+                }
+
+                const PROJECTS_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/01.csv';
+                const MEDIA_SHARES_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/07.csv';
+                
+                const ui = {
+                    cardsContainer: document.getElementById('media-cards-container'),
+                    loadingOverlay: document.getElementById('loading-overlay'),
+                    gridViewBtn: document.getElementById('grid-view-btn'),
+                    listViewBtn: document.getElementById('list-view-btn'),
+                    filterControls: document.querySelector('.filter-controls'),
+                    searchInput: document.getElementById('search-input'),
+                    searchButton: document.getElementById('search-button'),
+                    modal: {
+                        overlay: document.getElementById('media-modal'),
+                        title: document.getElementById('modal-title'),
+                        projectCode: document.getElementById('modal-project-code'),
+                        body: document.getElementById('modal-body'),
+                        driveLink: document.getElementById('modal-drive-link'),
+                        closeBtn: document.getElementById('modal-close-button'),
+                    }
+                };
+                
+                let allMergedData = [];
+                let currentView = 'grid';
+                let currentFilter = 'all';
+                let currentSearchTerm = '';
+
+                function parseCSV(text) {
+                    if (!text) return [];
+                    const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
+                    if (lines.length < 2) return [];
+                    const headers = lines[0].split(',').map(h => h.trim());
+                    return lines.slice(1).map(line => {
+                        if (!line.trim()) return null;
+                        const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                        return headers.reduce((obj, header, index) => {
+                             let value = (values[index] || '').trim();
+                             if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+                             obj[header] = value;
+                             return obj;
+                        }, {});
+                    }).filter(Boolean);
+                }
+                
+                const isShareActive = (share) => {
+                    const startDate = new Date(share.date.replace(/年|月/g, '-').replace('日', ''));
+                    const durationDays = parseInt(share.duration, 10);
+                    if (isNaN(startDate.getTime()) || isNaN(durationDays)) return false;
+                    const endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + durationDays);
+                    return new Date() < endDate;
+                };
+                
+                function displayData() {
+                    let dataToDisplay = [...allMergedData];
+                    
+                    if (currentFilter === 'active') {
+                        dataToDisplay = dataToDisplay.filter(isShareActive);
+                    } else if (currentFilter === 'expired') {
+                        dataToDisplay = dataToDisplay.filter(item => !isShareActive(item));
+                    }
+                    
+                    if (currentSearchTerm) {
+                        const term = currentSearchTerm.toLowerCase();
+                        dataToDisplay = dataToDisplay.filter(item => 
+                            item.projectName.toLowerCase().includes(term) ||
+                            item.projectCode.toLowerCase().includes(term) ||
+                            item.shareId.toLowerCase().includes(term)
+                        );
+                    }
+
+                    renderCards(dataToDisplay);
+                }
+
+                function renderCards(data) {
+                    ui.cardsContainer.innerHTML = '';
+                    if (data.length === 0) {
+                        ui.cardsContainer.innerHTML = `<p style="padding: 20px; text-align: center; color: var(--medium-gray);">没有找到匹配的媒体分享。</p>`;
+                        return;
+                    }
+                    
+                    data.sort((a, b) => new Date(b.date.replace(/年|月/g, '-').replace('日', '')) - new Date(a.date.replace(/年|月/g, '-').replace('日', '')));
+                    
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'media-card';
+                        card.dataset.id = item.shareId;
+                        
+                        const isActive = isShareActive(item);
+                        const statusBadge = `<span class="status-badge ${isActive ? 'active' : 'expired'}">${isActive ? '有效' : '失效'}</span>`;
+                        
+                        if (currentView === 'grid') {
+                            card.innerHTML = `
+                                <div class="grid-view-content card-header">
+                                    <h3>${item.projectName}</h3>
+                                    <p>项目编号: ${item.projectCode}</p>
+                                </div>
+                                <div class="grid-view-content card-body">
+                                    <div class="meta-item">
+                                        <i class="ri-calendar-check-line"></i>
+                                        <div><strong>开放日期:</strong><br>${item.date}</div>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            card.classList.add('list-item');
+                            card.innerHTML = `
+                                <div class="list-view-content">
+                                    <div class="info-col">
+                                        <h3>${item.projectName}</h3>
+                                        <p>${item.projectCode}</p>
+                                    </div>
+                                    <div class="date-col">
+                                        <div>${item.date}</div>
+                                        ${statusBadge}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        ui.cardsContainer.appendChild(card);
                     });
                 }
+                
+                const modal = {
+                    open(data) {
+                        ui.modal.title.textContent = data.projectName;
+                        ui.modal.projectCode.textContent = `项目编码: ${data.projectCode}`;
+                        ui.modal.driveLink.href = data.link;
+                        
+                        const endDate = new Date(data.date.replace(/年|月/g, '-').replace('日', ''));
+                        endDate.setDate(endDate.getDate() + parseInt(data.duration, 10));
+                        const endDateString = `${endDate.getFullYear()}年${endDate.getMonth() + 1}月${endDate.getDate()}日`;
+                        
+                        ui.modal.body.innerHTML = `
+                            <div class="meta-item"><i class="ri-barcode-line"></i><div class="meta-content"><div class="label">媒体共享编号</div><div class="value">${data.shareId}</div></div></div>
+                            <div class="meta-item"><i class="ri-group-line"></i><div class="meta-content"><div class="label">项目负责人</div><div class="value">${data.projectLead || 'N/A'}</div></div></div>
+                            <div class="meta-item"><i class="ri-building-4-line"></i><div class="meta-content"><div class="label">对接部门</div><div class="value">${data.department || 'N/A'}</div></div></div>
+                            <div class="meta-item"><i class="ri-calendar-todo-line"></i><div class="meta-content"><div class="label">开放日期</div><div class="value">${data.date}</div></div></div>
+                            <div class="meta-item full-width"><i class="ri-time-line"></i><div class="meta-content"><div class="label">理论有效期限</div><div class="value">${data.duration}日 (至 ${endDateString})</div><p class="duration-note">注: 到期后KSVG会继续签发公开分享许可记录。</p></div></div>
+                            <div class="meta-item full-width"><i class="ri-information-line"></i><div class="meta-content"><div class="label">备注</div><div class="value">${data.notes || '无'}</div></div></div>
+                        `;
+                        
+                        ui.modal.overlay.classList.add('visible');
+                        body.classList.add('no-scroll');
+                    },
+                    close() {
+                        ui.modal.overlay.classList.remove('visible');
+                        body.classList.remove('no-scroll');
+                    }
+                };
+
+                async function initializePage() {
+                    try {
+                        const [projectsResponse, sharesResponse] = await Promise.all([
+                            fetch(`${PROJECTS_URL}?v=${new Date().getTime()}`),
+                            fetch(`${MEDIA_SHARES_URL}?v=${new Date().getTime()}`)
+                        ]);
+                        if (!projectsResponse.ok || !sharesResponse.ok) throw new Error('Data fetching failed');
+                        const [projectsText, sharesText] = await Promise.all([projectsResponse.text(), sharesResponse.text()]);
+
+                        const projectsData = parseCSV(projectsText);
+                        const sharesData = parseCSV(sharesText);
+                        
+                        const projectsMap = new Map(projectsData.map(p => [p['项目名称'], p]));
+                        
+                        allMergedData = sharesData.map(share => {
+                            const projectName = share['项目名称（关联）'];
+                            const project = projectsMap.get(projectName);
+                            return {
+                                shareId: share['媒体共享编号（自动）'],
+                                projectName: projectName,
+                                projectCode: project ? project['项目编码（自动）'] : 'N/A',
+                                projectLead: project ? project['项目负责人'] : 'N/A',
+                                department: project ? project['对接部门'] : 'N/A',
+                                date: share['开放日期'],
+                                duration: share['有效持续时间（日）'],
+                                link: share['外部链接'],
+                                notes: share['备注'] || null
+                            };
+                        }).filter(item => item.link);
+                        
+                        displayData();
+                    } catch (error) {
+                        console.error("Failed to load or process media data:", error);
+                        ui.cardsContainer.innerHTML = `<p style="color: red; padding: 20px; text-align: center;">无法加载媒体分享信息，请稍后重试。</p>`;
+                    } finally {
+                        ui.loadingOverlay.style.opacity = '0';
+                        setTimeout(() => ui.loadingOverlay.style.display = 'none', 300);
+                    }
+                }
+                
+                function handleSearch() {
+                    currentSearchTerm = ui.searchInput.value.trim();
+                    displayData();
+                }
+
+                // Event Listeners
+                ui.cardsContainer.addEventListener('click', (e) => {
+                    const card = e.target.closest('.media-card');
+                    if (card) {
+                        const id = card.dataset.id;
+                        const data = allMergedData.find(item => item.shareId === id);
+                        if (data) modal.open(data);
+                    }
+                });
+                
+                ui.modal.closeBtn.addEventListener('click', modal.close);
+                ui.modal.overlay.addEventListener('click', (e) => { if (e.target === ui.modal.overlay) modal.close(); });
+                
+                ui.gridViewBtn.addEventListener('click', () => {
+                    currentView = 'grid';
+                    ui.gridViewBtn.classList.add('active');
+                    ui.listViewBtn.classList.remove('active');
+                    ui.cardsContainer.classList.remove('list-view');
+                    displayData();
+                });
+
+                ui.listViewBtn.addEventListener('click', () => {
+                    currentView = 'list';
+                    ui.listViewBtn.classList.add('active');
+                    ui.gridViewBtn.classList.remove('active');
+                    ui.cardsContainer.classList.add('list-view');
+                    displayData();
+                });
+                
+                ui.filterControls.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        ui.filterControls.querySelector('.active').classList.remove('active');
+                        e.target.classList.add('active');
+                        currentFilter = e.target.dataset.filter;
+                        displayData();
+                    }
+                });
+                
+                ui.searchButton.addEventListener('click', handleSearch);
+                ui.searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleSearch();
+                    }
+                });
+
+                initializePage();
             });
         } catch (e) {
-            console.error("An error occurred on the page:", e);
+            console.error("A critical error occurred on the page:", e);
+            document.getElementById('media-cards-container').innerHTML = `<p style="color: red; padding: 20px; text-align: center;">页面脚本发生严重错误，请联系管理员。</p>`;
         }
     </script>
 </body>
-
 </html>
