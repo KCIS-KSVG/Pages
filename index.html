@@ -3,556 +3,763 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="KSVG, KCIS, 昆山康桥学校，华东康桥国际学校，昆山康桥学生摄影合作组织">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="KSVG, KCIS, 昆山康桥学校，昆山康桥学生摄影合作组织">
     <title>KSVG | 首页</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Georgia&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
 
-    <!-- Linked external CSS files via jsDeliver(CDN) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
-
     <style>
+        /* --- CORE VARIABLES --- */
         :root {
-            --primary-color: #920783;
-            --dark-gray: #1d1d1f;
-            --medium-gray: #424245;
-            --light-gray: #f5f5f7;
-            --text-color: #1d1d1f;
-            --header-height: 70px;
+            --brand-primary: #002b49;  
+            --brand-secondary: #c41230;
+            --banner-bg: #f0f0f0;
+            --banner-text: #1b1b1b;
+            --link-blue: #005ea2;
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --header-height: 64px; 
+            --transition-speed: 0.3s;
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ========================================================= */
+        /* 1. USA BANNER (EXACT COPY FROM AUTH)                      */
+        /* ========================================================= */
+        .usa-banner {
+            background-color: #f0f0f0; color: #1b1b1b; font-size: 0.8rem;
+            position: relative; z-index: 2000; border-bottom: 1px solid #e2e2e2;
+        }
+        .usa-accordion__heading {
+            max-width: 1200px; margin: 0 auto; padding: 10px 20px;
+            display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+            position: relative; background-color: var(--banner-bg); z-index: 2002;
+        }
+        .flag-icon { width: 16px; opacity: 0.7; border-radius: 2px; }
+        .usa-banner__button {
+            background: none; border: none; color: var(--link-blue); font-weight: 700;
+            cursor: pointer; padding: 0 5px; text-decoration: underline;
+            display: inline-flex; align-items: center; font-size: 0.8rem;
+        }
+        .usa-banner__button:hover { text-decoration: none; }
+        .icon-arrow { width: 10px; height: 10px; margin-left: 4px; transition: transform 0.2s ease; fill: currentColor; }
+        .usa-banner__button[aria-expanded="true"] .icon-arrow { transform: rotate(180deg); }
+        .usa-banner__content {
+            display: none; position: absolute; top: 100%; left: 0; width: 100%;
+            background-color: #f0f0f0; border-bottom: 1px solid #dcdcdc;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 20px 0; z-index: 2001;
+        }
+        .usa-banner__grid {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        }
+        .media-block { display: flex; gap: 15px; }
+        .media-icon {
+            background: #dcdcdc; width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .media-body h3 { font-size: 0.85rem; margin-bottom: 3px; font-weight: 700; line-height: 1.2;}
+        .media-body p { font-size: 0.8rem; color: #555; line-height: 1.4; margin: 0; }
+        .brand-strip {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%);
         }
 
-        html {
-            scroll-behavior: smooth;
+        /* ========================================================= */
+        /* 2. MAIN HEADER                                            */
+        /* ========================================================= */
+        .site-header { 
+            position: sticky; top: 0; z-index: 1000; 
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+        }
+        .header-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        
+        .logo-link img { height: 40px; width: auto; transition: transform var(--transition-speed); }
+        .logo-link img:hover { transform: scale(1.05); }
+
+        /* Desktop Navigation */
+        .navigation { display: flex; align-items: center; flex: 1; justify-content: center; }
+        .nav-menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+        .nav-menu a {
+            font-size: 0.85rem; font-weight: 600; color: var(--text-dark);
+            text-transform: uppercase; letter-spacing: 0.5px; transition: color var(--transition-speed);
+        }
+        .nav-menu a:hover { color: var(--brand-primary); }
+
+        /* Desktop Auth / Right Actions */
+        .header-actions { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
+        .desktop-auth-container { position: relative; }
+        
+        .auth-btn-styled {
+            background-color: var(--brand-primary); color: white !important;
+            padding: 8px 18px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.5px; transition: all 0.2s; border: none; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; font-family: inherit; text-decoration: none;
+        }
+        .auth-btn-styled:hover { background-color: #001f35; transform: translateY(-1px); }
+
+        .nav-toggle { 
+            display: none; background: none; border: none; font-size: 1.5rem; 
+            color: var(--text-dark); cursor: pointer; padding: 5px;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--text-color);
-            line-height: 1.6;
+        /* ========================================================= */
+        /* 3. MOBILE OVERLAY MENU (Optimized UI)                     */
+        /* ========================================================= */
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: white; z-index: 2100; display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu-overlay.is-active { transform: translateX(0); }
+        
+        .mobile-menu-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; height: var(--header-height); border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-menu-header img { height: 35px; }
+        .mobile-close-btn {
+            background: none; border: none; font-size: 1.8rem; color: var(--text-dark);
+            cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        .mobile-nav-links {
+            flex-grow: 1; overflow-y: auto; list-style: none; padding: 20px; margin: 0;
         }
-
-        main {
-            padding-top: var(--header-height);
+        .mobile-nav-links li { border-bottom: 1px solid #f1f5f9; }
+        .mobile-nav-links a {
+            display: flex; align-items: center; padding: 18px 0; font-size: 1.05rem; 
+            font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px;
         }
+        /* Grey icons for mobile menu */
+        .mobile-nav-links i { color: #94a3b8; font-size: 1.3rem; margin-right: 15px; }
+        
+        .mobile-auth-dock { padding: 20px; border-top: 1px solid #f1f5f9; background: #fafafa; }
+        
+        /* FILLED Mobile Button */
+        .mobile-auth-btn {
+            width: 100%; padding: 16px; background-color: var(--brand-primary); border: none;
+            color: white; font-size: 0.95rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; cursor: pointer; text-align: center; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit;
+            border-radius: 6px;
+        }
+        .mobile-auth-btn:active { background-color: #001f35; transform: scale(0.98); }
 
+        /* ========================================================= */
+        /* 4. HERO SECTION (Static GitHub Fallback)                  */
+        /* ========================================================= */
         .hero-section {
-            min-height: 600px;
-            height: calc(85vh - var(--header-height));
-            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-mikhail-nilov-6965514.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            transition: background-image 1s ease-in-out;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            padding: 0 20px;
-            animation: fadeInHero 1.5s ease-out;
-        }
-
-        @keyframes fadeInHero {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-content .small-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero-content h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin: 10px 0 20px 0;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .content-section {
-            padding: 120px 30px;
-        }
-
-        .content-section.bg-light-gray {
-            background-color: var(--light-gray);
-        }
-
-        .details-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 80px;
-        }
-
-        .details-grid.reverse {
-            direction: rtl;
-        }
-
-        .details-grid.reverse>* {
-            direction: ltr;
-        }
-
-        .details-visual {
-            text-align: center;
-        }
-
-        .details-visual i {
-            font-size: 100px;
-            color: var(--primary-color);
-            opacity: 0.8;
-            transition: transform 0.3s ease;
-        }
-
-        .details-visual i:hover {
-            transform: scale(1.1);
-        }
-
-        .details-text h2 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-
-        .details-text p {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: var(--medium-gray);
-        }
-
-        .partner-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .partner-tag {
-            background-color: rgba(146, 7, 131, 0.1);
-            color: #5e0455;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .details-grid.reverse .partner-tags {
-            justify-content: flex-end;
-        }
-
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #dynamic-island-container {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1001;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        #dynamic-island-container.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #bubble {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 44px;
-            height: 44px;
-            transform: translateX(-50%) scale(0);
-            border-radius: 50%;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-        }
-
-        #dynamic-island-container.popping #bubble {
-            animation: pop-bubble 0.6s cubic-bezier(0.5, 0, 0.5, 1) forwards;
-        }
-
-        @keyframes pop-bubble {
-            0% {
-                transform: translateX(-50%) scale(0);
-                opacity: 0;
-            }
-
-            30%,
-            70% {
-                opacity: 1;
-            }
-
-            50% {
-                transform: translateX(-50%) scale(1.1);
-            }
-
-            100% {
-                transform: translateX(-50%) scale(0.8);
-                opacity: 0;
-            }
-        }
-
-        #dynamic-island {
+            height: calc(85vh - var(--header-height)); min-height: 500px;
+            background-color: var(--brand-primary); 
+            background-size: cover; background-position: center;
+            display: flex; justify-content: center; align-items: center; text-align: center;
             position: relative;
-            height: 44px;
-            width: 44px;
-            background: rgba(25, 25, 25, 0.8);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 8px 25px rgba(0, 0, 0, 0.25);
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: scale(0);
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); 
+            transition: background-image 0.5s ease;
+        }
+        .hero-content { 
+            position: relative; z-index: 2; max-width: 900px; padding: 0 20px; color: white; 
+        }
+        
+        .hero-greeting {
+            display: inline-flex; align-items: center; gap: 8px; font-size: 2rem; font-weight: 400; color: #e2e8f0;
+            margin-bottom: 20px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease;
+        }
+        .hero-greeting.show { opacity: 1; transform: translateY(0); }
+        .hero-greeting strong { color: white; font-weight: 600; }
+
+        .hero-content h1 { 
+            font-family: 'Georgia', serif; font-size: 4.5rem; font-weight: 800; 
+            margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .hero-subtitle { 
+            font-size: 1.15rem; font-weight: 400; color: #cbd5e1; letter-spacing: 1px;
         }
 
-        #dynamic-island-container.visible #dynamic-island {
-            animation: island-appear 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0.2s forwards;
+        /* ========================================================= */
+        /* 5. CONTENT SECTIONS (Clearly Separated)                   */
+        /* ========================================================= */
+        /* Base section with clear padding and bottom border */
+        .content-section { padding: 90px 20px; border-bottom: 1px solid var(--border-color); }
+        /* Alternate background for clear visual distinction */
+        .bg-white { background-color: #ffffff; }
+        .bg-surface { background-color: var(--surface-color); }
+        
+        .details-grid { 
+            max-width: 1000px; margin: 0 auto; display: grid; 
+            grid-template-columns: 1fr 1.5fr; align-items: center; gap: 60px; 
         }
+        .details-grid.reverse { direction: rtl; } 
+        .details-grid.reverse > * { direction: ltr; }
+        
+        .details-visual { text-align: center; } 
+        .details-visual i { font-size: 60px; color: var(--brand-primary); opacity: 0.9; }
+        
+        .details-text h2 { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
+        .details-text p { font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
 
-        @keyframes island-appear {
-            from {
-                transform: scale(0);
-            }
-
-            to {
-                transform: scale(1);
-            }
+        .partner-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; } 
+        .partner-tag { 
+            color: var(--brand-primary); padding: 6px 12px; border: 1px solid var(--border-color); 
+            font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
+            transition: background 0.2s; background: white; border-radius: 4px;
         }
+        .partner-tag:hover { background: #f1f5f9; border-color: var(--text-muted); }
+        .details-grid.reverse .partner-tags { justify-content: flex-end; }
 
-        #dynamic-island-container.expanded #dynamic-island {
-            width: 200px;
+        /* ========================================================= */
+        /* 6. NEWS SECTION (4 Columns, Auto Update)                  */
+        /* ========================================================= */
+        .news-header { text-align: center; margin-bottom: 50px; }
+        .news-header h2 { font-family: 'Georgia', serif; font-size: 2rem; color: var(--brand-primary); margin-bottom: 10px; }
+        .news-header p { color: var(--text-muted); font-size: 1rem; }
+        
+        .news-grid { 
+            max-width: 1200px; margin: 0 auto; display: grid; 
+            /* Changed to 4 columns for desktop */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; 
         }
-
-        #dynamic-island-container.hiding #dynamic-island {
-            animation: island-disappear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        .news-card { 
+            background: white; border: 1px solid var(--border-color); border-radius: 8px; 
+            overflow: hidden; display: flex; flex-direction: column; 
+            transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
         }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+        .news-image { height: 160px; background-size: cover; background-position: center; background-color: #e2e8f0; }
+        .news-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .news-source { font-size: 0.7rem; font-weight: 700; color: var(--brand-secondary); text-transform: uppercase; margin-bottom: 8px; }
+        .news-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 15px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-date { margin-top: auto; font-size: 0.75rem; color: var(--text-muted); }
+        
+        .news-loader { text-align: center; padding: 40px; color: var(--text-muted); width: 100%; grid-column: 1 / -1; }
+        .spin-icon { animation: spin 1s linear infinite; display: inline-block; font-size: 1.5rem; margin-bottom: 10px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @keyframes island-disappear {
-            0% {
-                transform: scale(1);
-                width: 200px;
-            }
-
-            60% {
-                transform: scale(1);
-                width: 44px;
-            }
-
-            100% {
-                transform: scale(0);
-                width: 44px;
-            }
+        /* ========================================================= */
+        /* 7. FOOTER                                                 */
+        /* ========================================================= */
+        .site-footer {
+            background-color: #000000; color: #ffffff; padding: 60px 20px 30px;
+            font-family: -apple-system, sans-serif;
         }
-
-        #dynamic-island ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease 0.2s;
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+            border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 20px;
         }
+        
+        .footer-heading { font-weight: 700; font-size: 0.85rem; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; color: #fff;}
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: #a3a3a3; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #ffffff; text-decoration: underline; }
 
-        #dynamic-island-container.expanded ul {
-            opacity: 1;
+        .footer-lang-btn {
+            background: transparent; border: none; color: #a3a3a3;
+            font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0; margin-top: 20px;
         }
-
-        #dynamic-island li {
-            width: 8px;
-            height: 8px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .footer-lang-btn:hover { color: #fff; }
+        .footer-lang-menu { display: none; background: #1a1a1a; padding: 10px; margin-top: 10px; border-radius: 4px; }
+        .footer-lang-menu.show { display: block; }
+        .footer-lang-option {
+            display: block; width: 100%; text-align: left; background: none; border: none;
+            color: #a3a3a3; font-size: 0.9rem; padding: 8px 0; cursor: pointer; transition: color 0.2s;
         }
+        .footer-lang-option:hover { color: #fff; }
 
-        #dynamic-island li.active {
-            width: 28px;
-            border-radius: 4px;
-            background-color: #ffffff;
+        .footer-bottom { 
+            max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; 
+            align-items: center; font-size: 0.75rem; color: #777;
         }
+        .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Georgia', serif; font-size: 1.2rem; font-weight: 800; color: #fff;}
+        .footer-logo img { width: 30px; filter: grayscale(100%) brightness(200%); opacity: 0.9; }
 
-        @media (max-width: 768px) {
-            .hero-content .small-title {
-                font-size: clamp(0.8rem, 3.5vw, 1.1rem);
-            }
-
-            .hero-content h1 {
-                font-size: clamp(2.8rem, 13vw, 3.5rem);
-            }
-
-            .content-section {
-                padding: 80px 25px;
-            }
-
-            .details-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .details-grid.reverse {
-                direction: ltr;
-            }
-
-            .details-text {
-                text-align: center;
-            }
-
-            .details-text h2 {
-                font-size: 2rem;
-            }
-
-            .partner-tags,
-            .details-grid.reverse .partner-tags {
-                justify-content: center;
-            }
+        /* ========================================================= */
+        /* 8. RESPONSIVE DESIGN                                      */
+        /* ========================================================= */
+        @media (max-width: 900px) {
+            .navigation { display: none; } 
+            .desktop-auth-container { display: none; } 
+            .nav-toggle { display: block; z-index: 2001; } 
+            
+            .hero-content h1 { font-size: 3.2rem; }
+            .hero-subtitle { font-size: 0.95rem; }
+            
+            .content-section { padding: 60px 20px; }
+            .details-grid { grid-template-columns: 1fr; gap: 30px; text-align: left; }
+            .details-grid.reverse { direction: ltr; }
+            .details-grid.reverse .partner-tags { justify-content: flex-start; }
+            .details-visual { text-align: left; }
+            
+            .news-grid { grid-template-columns: 1fr; }
+            
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .usa-banner__grid { grid-template-columns: 1fr; gap: 20px; }
         }
     </style>
 </head>
 
 <body>
-    <header class="site-header">
-        <nav class="navigation">
-            <a href="https://ksvg.com.cn/" class="logo-link">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
-                    class="logo-image">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="https://ksvg.com.cn/" class="active">主页</a></li>
-                <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
-                <li><a href="https://ksvg.com.cn/media/">媒体共享</a></li>
-                <li><a href="https://ksvg.com.cn/documentation/">文件共享</a></li>
-                <li><a href="https://ksvg.com.cn/schedule/">日程信息</a></li>
-                <li><a href="https://ksvg.com.cn/recruiting/">组织招募</a></li>
-            </ul>
-            <button class="nav-toggle" aria-label="Open menu">
-                <i class="ri-menu-line"></i>
+    <!-- 1. USA BANNER -->
+    <header class="usa-banner">
+        <div class="usa-accordion__heading">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/International_Flag_of_Planet_Earth.svg" alt="Flag" class="flag-icon">
+            <div style="font-weight:400; margin-right: 5px;">An official website of the KSVG Organization</div>
+            <button class="usa-banner__button" aria-expanded="false" onclick="toggleBanner()">
+                Here’s how you know <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
             </button>
-        </nav>
+        </div>
+        <div class="usa-banner__content" id="govBannerContent">
+            <div class="usa-banner__grid">
+                <div class="media-block">
+                    <div class="media-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <div class="media-body">
+                        <h3>Official websites use .ksvg.com.cn</h3>
+                        <p>A <strong>.ksvg.com.cn</strong> website belongs to an official KSVG entity or an organization hosted under KSVG infrastructure.</p>
+                    </div>
+                </div>
+                <div class="media-block">
+                    <div class="media-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <div class="media-body">
+                        <h3>Secure Connection</h3>
+                        <p>A lock or <strong>https://</strong> means you’ve safely connected to the server.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
+    <div class="brand-strip"></div>
+
+    <!-- 2. MAIN HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="https://ksvg.com.cn/" class="logo-link">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="navigation">
+                <ul class="nav-menu">
+                    <li><a href="https://ksvg.com.cn/" data-i18n="nav_home">主页</a></li>
+                    <li><a href="https://ksvg.com.cn/articles" data-i18n="nav_articles">文章</a></li>
+                    <li><a href="https://ksvg.com.cn/resources" data-i18n="nav_resources">素材库</a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" data-i18n="nav_docs">标准文件</a></li>
+                    <li><a href="https://ksvg.com.cn/partners" data-i18n="nav_partners">合作单位</a></li>
+                    <li><a href="https://ksvg.com.cn/recruiting/" data-i18n="nav_recruiting">组织招募</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Desktop Auth Display -->
+                <div class="desktop-auth-container" id="desktopAuthContainer">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Menu">
+                    <i class="ri-menu-3-line"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. MOBILE OVERLAY MENU (With Close Header & Icons) -->
+    <nav class="mobile-menu-overlay" id="mobileNavMenu">
+        <div class="mobile-menu-header">
+            <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
+            <button class="mobile-close-btn" id="mobileMenuCloseBtn" aria-label="Close Menu">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+
+        <ul class="mobile-nav-links">
+            <li><a href="https://ksvg.com.cn/"><i class="ri-home-5-line"></i> <span data-i18n="nav_home">主页</span></a></li>
+            <li><a href="https://ksvg.com.cn/articles"><i class="ri-article-line"></i> <span data-i18n="nav_articles">文章</span></a></li>
+            <li><a href="https://ksvg.com.cn/resources"><i class="ri-folder-open-line"></i> <span data-i18n="nav_resources">素材库</span></a></li>
+            <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn"><i class="ri-file-text-line"></i> <span data-i18n="nav_docs">标准文件</span></a></li>
+            <li><a href="https://ksvg.com.cn/partners"><i class="ri-shake-hands-line"></i> <span data-i18n="nav_partners">合作单位</span></a></li>
+            <li><a href="https://ksvg.com.cn/recruiting/"><i class="ri-user-add-line"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
+        </ul>
+        
+        <!-- Mobile Auth Dock -->
+        <div class="mobile-auth-dock" id="mobileAuthDock">
+            <!-- Injected via JS -->
+        </div>
+    </nav>
+
     <main>
-        <section class="hero-section">
-            <div class="hero-content fade-in-section">
-                <p class="small-title">昆山康桥学生摄影合作组织</p>
-                <h1>KCISEC KSVG</h1>
+        <!-- 4. HERO SECTION (Static GitHub Imagery) -->
+        <section class="hero-section" id="heroSection">
+            <div class="hero-content">
+                <div id="heroGreetingContainer" class="hero-greeting"></div> 
+                <h1 data-i18n="hero_title">KSVG</h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">昆山康桥学生摄影合作组织</p>
             </div>
         </section>
-        <section id="section-goal" class="content-section fade-in-section">
+        
+        <!-- 5. CONTENT SECTIONS (Clearly Separated) -->
+        <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-compass-3-line"></i></div>
+                <div class="details-visual"><i class="ri-ruler-2-line"></i></div>
                 <div class="details-text">
-                    <h2>我们的目标</h2>
-                    <p>构建一个由学生主导的校园摄影社群。我们通过项目实践，激发创作热情，共同推动影像艺术在校园内的普及与发展。</p>
+                    <h2 data-i18n="sec1_title">影像标准化</h2>
+                    <p data-i18n="sec1_desc">探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。</p>
                 </div>
             </div>
         </section>
-        <section id="section-workflow" class="content-section bg-light-gray fade-in-section">
+
+        <section class="content-section bg-surface">
             <div class="details-grid reverse">
                 <div class="details-visual"><i class="ri-node-tree"></i></div>
                 <div class="details-text">
-                    <h2>协作与进步</h2>
-                    <p>我们遵循从前期规划、中期执行到后期归档的标准化工作流程。团队成员各司其职，并在每次项目结束后复盘，持续优化，追求卓越。</p>
-                </div>
-            </div>
-        </section>
-        <section id="section-services" class="content-section fade-in-section">
-            <div class="details-grid">
-                <div class="details-visual"><i class="ri-tv-2-line"></i></div>
-                <div class="details-text">
-                    <h2>技术与服务</h2>
-                    <p>我们提供活动摄影、视频录制、照片直播与流媒体转播等服务。所有项目均采用标准化规格进行拍摄与数据管理，确保高质量交付。</p>
-                </div>
-            </div>
-        </section>
-        <section id="section-partners" class="content-section bg-light-gray fade-in-section">
-            <div class="details-grid reverse">
-                <div class="details-visual"><i class="ri-shake-hands-line"></i></div>
-                <div class="details-text">
-                    <h2>协作组织</h2>
-                    <p>我们与校内多个组织紧密合作，通过跨部门协作，为校园社群提供更多元、更全面的视觉支持。</p>
+                    <h2 data-i18n="sec2_title">跨组织协同</h2>
+                    <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织及社团建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
                     <div class="partner-tags">
-                        <span class="partner-tag">KCSC</span>
-                        <span class="partner-tag">KCSA</span>
+                        <a href="https://horizon_racing.com.cn" target="_blank" class="partner-tag"><i class="ri-steering-2-line"></i> Horizon Racing</a>
+                        <a href="https://bkc.site" target="_blank" class="partner-tag"><i class="ri-bank-line"></i> Bank of KC</a>
+                        <a href="https://kcsc.ksvg.com.cn" target="_blank" class="partner-tag"><i class="ri-megaphone-line"></i> KCSC PR</a>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="section-delivery" class="content-section fade-in-section">
+
+        <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-apps-2-line"></i></div>
+                <div class="details-visual"><i class="ri-shield-keyhole-line"></i></div>
                 <div class="details-text">
-                    <h2>沟通与交付</h2>
-                    <p>本网站作为我们的信息中枢，集成了项目追踪与文件索引功能。我们结合多平台工具，为合作方提供系统、透明、高效的协作体验。</p>
+                    <h2 data-i18n="sec3_title">数字基础设施</h2>
+                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为内部成员及合作方提供统一的数字资源访问凭证，确保数据流转安全且便捷。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. NEWS / RSS SECTION (4 Articles) -->
+        <section class="content-section bg-surface" id="newsSection" style="display: none;">
+            <div class="news-header">
+                <h2 data-i18n="news_title">行业资讯</h2>
+                <p data-i18n="news_desc">洞察全球影像技术前沿与行业动态</p>
+            </div>
+            <div class="news-grid" id="newsGrid">
+                <div class="news-loader">
+                    <i class="ri-loader-4-line spin-icon"></i>
+                    <div data-i18n="text_processing">Loading...</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="dynamic-island-container">
-        <div id="bubble"></div>
-        <div id="dynamic-island">
-            <ul>
-                <li data-target-id="section-goal"></li>
-                <li data-target-id="section-workflow"></li>
-                <li data-target-id="section-services"></li>
-                <li data-target-id="section-partners"></li>
-                <li data-target-id="section-delivery"></li>
-            </ul>
-        </div>
-    </div>
+    <!-- 7. FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col-main">
+                <div class="footer-heading" data-i18n="footer_col1">CORE ARCHITECTURE</div>
+                <ul class="footer-links">
+                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn">Documentation</a></li>
+                    <li><a href="javascript:void(0)" onclick="goToAuth('login')">Unified Authentication (UIA)</a></li>
+                    <li><a href="mailto:support@ksvg.com.cn" data-i18n="footer_contact">Email Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col-links">
+                <div class="footer-heading" data-i18n="footer_col2">FRIENDLY LINKS</div>
+                <ul class="footer-links">
+                    <li><a href="https://kcisec.site" target="_blank">昆山康桥校园网站</a></li>
+                    <li><a href="https://kcsc.ksvg.com.cn" target="_blank">昆山康桥学生会公关组</a></li>
+                    <li><a href="https://bkc.site" target="_blank">康桥银行</a></li>
+                    <li><a href="https://horizon_racing.com.cn" target="_blank">Horizon Racing</a></li>
+                </ul>
+            </div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
-                <div class="footer-socials">
-                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili"
-                        title="Bilibili"><i class="ri-bilibili-fill"></i></a>
-                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i
-                            class="ri-youtube-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
-                            class="ri-mail-line"></i></a>
+            <div class="footer-col-lang">
+                <div class="footer-heading" data-i18n="footer_col3">LANGUAGE PREFERENCE</div>
+                <button class="footer-lang-btn" onclick="document.getElementById('footerLangMenu').classList.toggle('show')">
+                    <i class="ri-global-line" style="font-size:1.2rem;"></i> <span class="current-lang-text">简体中文</span>
+                </button>
+                <div class="footer-lang-menu" id="footerLangMenu">
+                    <button class="footer-lang-option" onclick="setLanguage('en-us')">English</button>
+                    <button class="footer-lang-option" onclick="setLanguage('zh-hans')">简体中文</button>
+                    <button class="footer-lang-option" onclick="setLanguage('zh-hant')">繁體中文</button>
                 </div>
             </div>
-            <div class="footer-address">
-                <p>Kang Chiao International School East China</p>
-                <p>No.500, Xihuan Road, Huaqiao Economic Development Zone, Kunshan, Jiangsu</p>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo">
             </div>
+            <!-- Standard Professional Copyright -->
+            <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
         </div>
     </footer>
 
+    <!-- UI & API SCRIPTS -->
     <script>
-        try {
-            document.addEventListener("DOMContentLoaded", function () {
-                const navToggle = document.querySelector('.nav-toggle'); const navMenu = document.querySelector('.nav-menu'); const body = document.body;
-                if (navToggle && navMenu) {
-                    const icon = navToggle.querySelector('i');
-                    const toggleMenu = (forceClose = false) => {
-                        const isActive = navMenu.classList.contains('is-active');
-                        if (forceClose || isActive) {
-                            navMenu.classList.remove('is-active'); navToggle.classList.remove('is-active');
-                            body.classList.remove('no-scroll'); icon.className = 'ri-menu-line';
-                        } else {
-                            navMenu.classList.add('is-active'); navToggle.classList.add('is-active');
-                            body.classList.add('no-scroll'); icon.className = 'ri-close-line';
-                        }
-                    };
-                    navToggle.addEventListener('click', () => toggleMenu());
-                    const navLinks = navMenu.querySelectorAll('a');
-                    navLinks.forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
-                    window.addEventListener('resize', () => { if (window.innerWidth > 768) { toggleMenu(true); } });
-                }
-                async function setRandomHeroImage() {
-                    const wallpapersUrl = 'https://api.github.com/repos/KCIS-KSVG/Data/contents/wallpapers';
-                    const heroSection = document.querySelector('.hero-section');
+        // Banner Toggle
+        function toggleBanner() {
+            const content = document.getElementById('govBannerContent');
+            const btn = document.querySelector('.usa-banner__button');
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) { content.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); } 
+            else { content.style.display = 'block'; btn.setAttribute('aria-expanded', 'true'); }
+        }
+
+        // Mobile Menu
+        document.getElementById('mobileMenuOpenBtn').addEventListener('click', () => {
+            document.getElementById('mobileNavMenu').classList.add('is-active');
+            document.body.style.overflow = 'hidden';
+        });
+        document.getElementById('mobileMenuCloseBtn').addEventListener('click', () => {
+            document.getElementById('mobileNavMenu').classList.remove('is-active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close lang menu on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.footer-lang-btn') && !e.target.closest('.footer-lang-menu')) {
+                document.getElementById('footerLangMenu').classList.remove('show');
+            }
+        });
+
+        // Smart Auth Router (Syncs Language to Auth page)
+        window.goToAuth = function(view = 'login') {
+            const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+            const target = encodeURIComponent(window.location.hostname);
+            window.location.href = `https://auth.ksvg.com.cn/?lang=${lang}&view=${view}&target=${target}`;
+        };
+
+        // Hero Image (Static Array from Github)
+        function setStaticHeroImage() {
+            const heroSection = document.getElementById('heroSection');
+            const wallpapers =[
+                'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-mikhail-nilov-6965514.jpg',
+                'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-ron-lach-8154929.jpg'
+            ];
+            const randomIndex = Math.floor(Math.random() * wallpapers.length);
+            heroSection.style.backgroundImage = `url('${wallpapers[randomIndex]}')`;
+        }
+        setStaticHeroImage();
+
+        // RSS News Fetcher (4 Articles from 4 Sources)
+        async function loadPhotographyNews() {
+            const section = document.getElementById('newsSection');
+            const grid = document.getElementById('newsGrid');
+            const feeds =[
+                { name: 'PetaPixel', url: 'https://petapixel.com/feed/' },
+                { name: 'DPReview', url: 'https://www.dpreview.com/feeds/news' },
+                { name: 'DIY Photography', url: 'https://www.diyphotography.net/feed/' },
+                { name: 'Fstoppers', url: 'https://fstoppers.com/feed' }
+            ];
+            
+            section.style.display = 'block'; 
+            
+            try {
+                let allArticles =[];
+                for(let feed of feeds) {
                     try {
-                        const response = await fetch(wallpapersUrl);
-                        if (!response.ok) throw new Error('Network response was not ok.');
-                        const files = await response.json();
-                        const imageFiles = files.filter(file => file.type === 'file' && /\.(jpg|jpeg|png)$/i.test(file.name));
-                        if (imageFiles.length > 0) {
-                            const randomIndex = Math.floor(Math.random() * imageFiles.length);
-                            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('${imageFiles[randomIndex].download_url}')`;
+                        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
+                        if(res.ok) {
+                            const data = await res.json();
+                            // Get the top 2 from each source just in case
+                            if(data.items && data.items.length > 0) {
+                                const items = data.items.slice(0, 2).map(item => ({
+                                    ...item, sourceName: feed.name, pubDateObj: new Date(item.pubDate.replace(/-/g, '/'))
+                                }));
+                                allArticles = allArticles.concat(items);
+                            }
                         }
-                    } catch (error) { console.error("Could not fetch random wallpaper:", error); }
+                    } catch(err) { console.warn(`Failed to fetch ${feed.name}`); }
                 }
-                setRandomHeroImage();
-                const fadeObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            fadeObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('.fade-in-section').forEach(section => fadeObserver.observe(section));
-                const islandContainer = document.getElementById('dynamic-island-container');
-                const heroSection = document.querySelector('.hero-section');
-                const contentSections = document.querySelectorAll('.content-section[id]');
-                const islandDots = document.querySelectorAll('#dynamic-island li');
-                let isIslandVisible = false; let animationTimeout;
-                window.addEventListener('scroll', () => {
-                    const scrollThreshold = heroSection.offsetHeight * 0.9;
-                    if (window.scrollY > scrollThreshold && !isIslandVisible) {
-                        isIslandVisible = true; clearTimeout(animationTimeout);
-                        islandContainer.classList.remove('hiding'); islandContainer.classList.add('visible');
-                        islandContainer.classList.add('popping');
-                        animationTimeout = setTimeout(() => {
-                            islandContainer.classList.remove('popping'); islandContainer.classList.add('expanded');
-                        }, 600);
-                    } else if (window.scrollY <= scrollThreshold && isIslandVisible) {
-                        isIslandVisible = false; clearTimeout(animationTimeout);
-                        islandContainer.classList.remove('expanded'); islandContainer.classList.add('hiding');
-                        animationTimeout = setTimeout(() => {
-                            islandContainer.classList.remove('visible'); islandContainer.classList.remove('hiding');
-                        }, 400);
+                
+                if(allArticles.length === 0) throw new Error('No articles found');
+                
+                // Sort by newest
+                allArticles.sort((a, b) => b.pubDateObj - a.pubDateObj);
+                
+                // Keep only unique sources to ensure diversity in the 4 spots
+                let diverseArticles =[];
+                let seenSources = new Set();
+                for (let article of allArticles) {
+                    if (!seenSources.has(article.sourceName) && diverseArticles.length < 4) {
+                        diverseArticles.push(article);
+                        seenSources.add(article.sourceName);
                     }
-                }, { passive: true });
-                const islandDotObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const targetId = entry.target.id;
-                            islandDots.forEach(dot => { dot.classList.toggle('active', dot.dataset.targetId === targetId); });
+                }
+                // If we don't have 4 distinct sources, fill up with the rest
+                if(diverseArticles.length < 4) {
+                    for (let article of allArticles) {
+                        if (!diverseArticles.includes(article) && diverseArticles.length < 4) {
+                            diverseArticles.push(article);
                         }
-                    });
-                }, { rootMargin: '-45% 0px -45% 0px' });
-                contentSections.forEach(section => islandDotObserver.observe(section));
+                    }
+                }
+
+                grid.innerHTML = '';
+                
+                diverseArticles.forEach(article => {
+                    let imgUrl = article.thumbnail;
+                    if(!imgUrl || imgUrl === "") {
+                        const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
+                        if(imgMatch) imgUrl = imgMatch[1];
+                        else imgUrl = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png';
+                    }
+                    
+                    const dateStr = article.pubDateObj.toLocaleDateString();
+                    grid.innerHTML += `
+                        <a href="${article.link}" target="_blank" class="news-card">
+                            <div class="news-image" style="background-image: url('${imgUrl}')"></div>
+                            <div class="news-content">
+                                <div class="news-source">${article.sourceName}</div>
+                                <h3 class="news-title">${article.title}</h3>
+                                <div class="news-date">${dateStr}</div>
+                            </div>
+                        </a>
+                    `;
+                });
+            } catch(e) {
+                console.error("News Load Error:", e);
+                section.style.display = 'none'; 
+            }
+        }
+        loadPhotographyNews();
+
+        // I18N Translations
+        const translations = {
+            'en-us': {
+                nav_home: "Home", nav_articles: "Articles", nav_resources: "Resources", nav_recruiting: "Recruiting", nav_docs: "Standard Docs", nav_partners: "Partners",
+                hero_title: "KSVG", hero_subtitle: "Kang Chiao Students Photography Cooperative Organization",
+                sec1_title: "Imaging Standardization", 
+                sec1_desc: "Exploring and establishing campus imaging standards. By defining technical parameters and archiving workflows, we provide a stable technical reference for high-quality visual records.",
+                sec2_title: "Cross-Organization Collaboration", 
+                sec2_desc: "Integrating with the campus ecosystem. Leveraging our technical capabilities, we establish stable visual support networks with various partners inside and outside the school.",
+                sec3_title: "Digital Infrastructure", 
+                sec3_desc: "Relying on the Supabase-powered KSVG UIA platform, we offer unified and secure access credentials for internal members and collaborating parties.",
+                news_title: "Industry Insights", news_desc: "Discover the latest global imaging tech and industry news.",
+                footer_col1: "CORE ARCHITECTURE", footer_col2: "FRIENDLY LINKS", footer_col3: "LANGUAGE PREFERENCE", footer_contact: "Email Us",
+                footer_copyright: "Copyright &copy; 2022-2026 KSVG. All rights reserved.",
+                auth_login_ksvg: "Login to KSVG", auth_my_account: "MY ACCOUNT"
+            },
+            'zh-hans': {
+                nav_home: "主页", nav_articles: "文章", nav_resources: "素材库", nav_recruiting: "招募", nav_docs: "标准文件", nav_partners: "合作单位",
+                hero_title: "KSVG", hero_subtitle: "昆山康桥学生摄影合作组织",
+                sec1_title: "影像标准化", 
+                sec1_desc: "探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。",
+                sec2_title: "跨组织协同", 
+                sec2_desc: "通过专业的技术服务能力，我们与校内多方学生组织及社团建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。",
+                sec3_title: "数字基础设施", 
+                sec3_desc: "依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为用户及合作方提供数字资源访问凭证，确保用户行为安全。",
+                news_title: "行业资讯", news_desc: "洞察全球影像技术前沿与行业动态",
+                footer_col1: "核心架构", footer_col2: "友情链接", footer_col3: "语言偏好", footer_contact: "发送电子信件",
+                footer_copyright: "Copyright &copy; 2022-2026 KSVG. 保留所有权利。",
+                auth_login_ksvg: "登录 KSVG", auth_my_account: "我的账户"
+            },
+            'zh-hant': {
+                nav_home: "主頁", nav_articles: "文章", nav_resources: "素材庫", nav_recruiting: "招募", nav_docs: "標準文件", nav_partners: "合作單位",
+                hero_title: "KSVG", hero_subtitle: "昆山康橋學生攝影合作組織",
+                sec1_title: "影像標準化", 
+                sec1_desc: "探索並建立校園影像規範。通過整理前期參數與後期歸檔標準，我們希望為每一次高質量的視覺記錄提供穩定的技術參考與工作流保障。",
+                sec2_title: "跨組織協同", 
+                sec2_desc: "通過專業的技術服務能力，我們與校內多方學生組織及社團建立協作機制，共同為複雜的校園活動提供全面的視覺支持網絡。",
+                sec3_title: "數字基礎設施", 
+                sec3_desc: "依托基於 Supabase 架構的 KSVG 統一身份認證 (UIA) 平台，我們為內部成員及合作方提供統一的數字資源訪問憑證，確保用戶行為安全。",
+                news_title: "行業資訊", news_desc: "洞察全球影像技術前沿與行業動態",
+                footer_col1: "核心架構", footer_col2: "友情鏈接", footer_col3: "語言偏好", footer_contact: "發送電子信件",
+                footer_copyright: "Copyright &copy; 2022-2026 KSVG. 保留所有權利。",
+                auth_login_ksvg: "登入 KSVG", auth_my_account: "我的帳戶"
+            }
+        };
+
+        window.applyTranslations = function(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
             });
-        } catch (e) { console.error("An error occurred while initializing the page script:", e); }
+        }
+
+        window.setLanguage = function(lang) {
+            if (!translations[lang]) lang = 'zh-hans';
+            document.documentElement.setAttribute('lang', lang);
+            window.applyTranslations(lang);
+            const lbls = {'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文'};
+            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang]);
+            localStorage.setItem('ksvg_ui_lang', lang);
+            document.getElementById('footerLangMenu').classList.remove('show');
+            if(window.refreshGreeting) window.refreshGreeting();
+        }
+    </script>
+
+    <!-- MODULE: SUPABASE AUTH & DIRECT PROFILE ROUTING -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co', SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU'
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+        function getGreeting(name) {
+            const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+            const phrases = {
+                'en-us': `Hello, <strong>${name}</strong>.`,
+                'zh-hans': `您好，<strong>${name}</strong>。`,
+                'zh-hant': `您好，<strong>${name}</strong>。`
+            };
+            return phrases[lang] || phrases['zh-hans'];
+        }
+
+        async function initAuthUI() {
+            const dAuth = document.getElementById('desktopAuthContainer');
+            const mAuth = document.getElementById('mobileAuthDock');
+            const heroGreeting = document.getElementById('heroGreetingContainer');
+            
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (session) {
+                const email = session.user.email;
+                const name = session.user.user_metadata?.full_name || email.split('@')[0];
+
+                // Direct Profile Link for Logged In User
+                dAuth.innerHTML = `<button onclick="window.location.href='https://ksvg.com.cn/profile'" class="auth-btn-styled"><i class="ri-user-smile-line" style="font-size:1rem; margin-right:4px;"></i> <span data-i18n="auth_my_account">MY ACCOUNT</span></button>`;
+
+                mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.location.href='https://ksvg.com.cn/profile'"><i class="ri-user-settings-line"></i> <span data-i18n="auth_my_account">MY ACCOUNT</span></button>`;
+
+                window.refreshGreeting = () => {
+                    heroGreeting.innerHTML = getGreeting(name);
+                    heroGreeting.classList.add('show');
+                };
+                window.refreshGreeting();
+
+            } else {
+                // Direct Login Router for Unauthenticated User
+                dAuth.innerHTML = `<button onclick="goToAuth('login')" class="auth-btn-styled"><i class="ri-user-3-line" style="font-size:1rem; margin-right:4px;"></i> <span data-i18n="auth_login_ksvg">Login to KSVG</span></button>`;
+                
+                mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="goToAuth('login')"><i class="ri-login-box-line"></i> <span data-i18n="auth_login_ksvg">Login to KSVG</span></button>`;
+            }
+
+            let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            window.setLanguage(lang);
+        }
+
+        initAuthUI();
     </script>
 </body>
-
 </html>
