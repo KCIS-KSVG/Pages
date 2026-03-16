@@ -9,14 +9,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Georgia&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
 
     <style>
         /* --- CORE VARIABLES --- */
         :root {
-            --brand-primary: #002b49;  
+            --brand-primary: #002b49;
             --brand-secondary: #c41230;
             --banner-bg: #f0f0f0;
             --banner-text: #1b1b1b;
@@ -26,293 +28,1131 @@
             --border-color: #e2e8f0;
             --text-dark: #0f172a;
             --text-muted: #475569;
-            --header-height: 64px; 
+            --header-height: 64px;
             --transition-speed: 0.3s;
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; }
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         /* ========================================================= */
-        /* 1. USA BANNER (EXACT COPY FROM AUTH)                      */
+        /* 0. USWDS ACCESSIBILITY FOCUS (A11y Standard)              */
+        /* ========================================================= */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 0.25rem solid #2491ff !important;
+            outline-offset: 0.125rem !important;
+            border-radius: 4px;
+        }
+
+        /* ========================================================= */
+        /* 1. USA BANNER                                             */
         /* ========================================================= */
         .usa-banner {
-            background-color: #f0f0f0; color: #1b1b1b; font-size: 0.8rem;
-            position: relative; z-index: 2000; border-bottom: 1px solid #e2e2e2;
+            background-color: #f0f0f0;
+            color: #1b1b1b;
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 2000;
+            border-bottom: 1px solid #e2e2e2;
+            width: 100%;
         }
+
         .usa-accordion__heading {
-            max-width: 1200px; margin: 0 auto; padding: 10px 20px;
-            display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
-            position: relative; background-color: var(--banner-bg); z-index: 2002;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            background-color: var(--banner-bg);
+            z-index: 2002;
         }
-        .flag-icon { width: 16px; opacity: 0.7; border-radius: 2px; }
+
+        .flag-icon {
+            width: 16px;
+            opacity: 0.7;
+            border-radius: 2px;
+        }
+
         .usa-banner__button {
-            background: none; border: none; color: var(--link-blue); font-weight: 700;
-            cursor: pointer; padding: 0 5px; text-decoration: underline;
-            display: inline-flex; align-items: center; font-size: 0.8rem;
+            background: none;
+            border: none;
+            color: var(--link-blue);
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0 5px;
+            text-decoration: underline;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.8rem;
         }
-        .usa-banner__button:hover { text-decoration: none; }
-        .icon-arrow { width: 10px; height: 10px; margin-left: 4px; transition: transform 0.2s ease; fill: currentColor; }
-        .usa-banner__button[aria-expanded="true"] .icon-arrow { transform: rotate(180deg); }
+
+        .usa-banner__button:hover {
+            text-decoration: none;
+        }
+
+        .icon-arrow {
+            width: 10px;
+            height: 10px;
+            margin-left: 4px;
+            transition: transform var(--transition-speed) ease;
+            fill: currentColor;
+        }
+
+        .usa-banner__button[aria-expanded="true"] .icon-arrow {
+            transform: rotate(180deg);
+        }
+
         .usa-banner__content {
-            display: none; position: absolute; top: 100%; left: 0; width: 100%;
-            background-color: #f0f0f0; border-bottom: 1px solid #dcdcdc;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 20px 0; z-index: 2001;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #dcdcdc;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            z-index: 2001;
         }
+
         .usa-banner__grid {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
-        .media-block { display: flex; gap: 15px; }
+
+        .media-block {
+            display: flex;
+            gap: 15px;
+        }
+
         .media-icon {
-            background: #dcdcdc; width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            background: #dcdcdc;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .media-body h3 { font-size: 0.85rem; margin-bottom: 3px; font-weight: 700; line-height: 1.2;}
-        .media-body p { font-size: 0.8rem; color: #555; line-height: 1.4; margin: 0; }
+
+        .media-body h3 {
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .media-body p {
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.4;
+            margin: 0;
+        }
+
         .brand-strip {
-            height: 4px; width: 100%;
+            height: 4px;
+            width: 100%;
             background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%);
         }
 
         /* ========================================================= */
         /* 2. MAIN HEADER                                            */
         /* ========================================================= */
-        .site-header { 
-            position: sticky; top: 0; z-index: 1000; 
-            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px);
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border-color);
             height: var(--header-height);
         }
+
         .header-inner {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%;
-            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        
-        .logo-link img { height: 40px; width: auto; transition: transform var(--transition-speed); }
-        .logo-link img:hover { transform: scale(1.05); }
 
-        /* Desktop Navigation */
-        .navigation { display: flex; align-items: center; flex: 1; justify-content: center; }
-        .nav-menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+        .logo-link img {
+            height: 40px;
+            width: auto;
+            transition: transform var(--transition-speed);
+        }
+
+        .logo-link img:hover {
+            transform: scale(1.05);
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
         .nav-menu a {
-            font-size: 0.85rem; font-weight: 600; color: var(--text-dark);
-            text-transform: uppercase; letter-spacing: 0.5px; transition: color var(--transition-speed);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color var(--transition-speed);
+            position: relative;
+            padding: 5px 0;
         }
-        .nav-menu a:hover { color: var(--brand-primary); }
 
-        /* Desktop Auth / Right Actions */
-        .header-actions { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
-        .desktop-auth-container { position: relative; }
-        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--brand-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active-nav-item {
+            color: var(--brand-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active-nav-item::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .desktop-auth-container {
+            position: relative;
+        }
+
         .auth-btn-styled {
-            background-color: var(--brand-primary); color: white !important;
-            padding: 8px 18px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;
-            letter-spacing: 0.5px; transition: all 0.2s; border: none; cursor: pointer;
-            display: flex; align-items: center; gap: 6px; font-family: inherit; text-decoration: none;
+            background-color: var(--brand-primary);
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            text-decoration: none;
         }
-        .auth-btn-styled:hover { background-color: #001f35; transform: translateY(-1px); }
 
-        .nav-toggle { 
-            display: none; background: none; border: none; font-size: 1.5rem; 
-            color: var(--text-dark); cursor: pointer; padding: 5px;
+        .auth-btn-styled:hover {
+            background-color: #001f35;
+            transform: translateY(-1px);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 5px;
         }
 
         /* ========================================================= */
-        /* 3. MOBILE OVERLAY MENU (Optimized UI)                     */
+        /* 3. MOBILE OVERLAY MENU                                    */
         /* ========================================================= */
         .mobile-menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: white; z-index: 2100; display: flex; flex-direction: column;
-            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 2100;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .mobile-menu-overlay.is-active { transform: translateX(0); }
-        
+
+        .mobile-menu-overlay.is-active {
+            transform: translateX(0);
+        }
+
         .mobile-menu-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; height: var(--header-height); border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: var(--header-height);
+            border-bottom: 1px solid var(--border-color);
         }
-        .mobile-menu-header img { height: 35px; }
+
+        .mobile-menu-header img {
+            height: 35px;
+        }
+
         .mobile-close-btn {
-            background: none; border: none; font-size: 1.8rem; color: var(--text-dark);
-            cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-nav-links {
-            flex-grow: 1; overflow-y: auto; list-style: none; padding: 20px; margin: 0;
+            flex-grow: 1;
+            overflow-y: auto;
+            list-style: none;
+            padding: 20px;
+            margin: 0;
         }
-        .mobile-nav-links li { border-bottom: 1px solid #f1f5f9; }
+
+        .mobile-nav-links li {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
         .mobile-nav-links a {
-            display: flex; align-items: center; padding: 18px 0; font-size: 1.05rem; 
-            font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            padding: 18px 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            transition: background 0.2s;
         }
-        /* Grey icons for mobile menu */
-        .mobile-nav-links i { color: #94a3b8; font-size: 1.3rem; margin-right: 15px; }
-        
-        .mobile-auth-dock { padding: 20px; border-top: 1px solid #f1f5f9; background: #fafafa; }
-        
-        /* FILLED Mobile Button */
+
+        .mobile-nav-links i {
+            color: #94a3b8;
+            font-size: 1.3rem;
+            margin-right: 15px;
+        }
+
+        .mobile-nav-links a.active-nav-item {
+            background-color: #f1f5f9;
+            color: var(--brand-primary);
+            font-weight: 700;
+        }
+
+        .mobile-nav-links a.active-nav-item i {
+            color: var(--brand-primary);
+        }
+
+        .mobile-auth-dock {
+            padding: 20px;
+            border-top: 1px solid #f1f5f9;
+            background: #ffffff;
+        }
+
         .mobile-auth-btn {
-            width: 100%; padding: 16px; background-color: var(--brand-primary); border: none;
-            color: white; font-size: 0.95rem; font-weight: 700; letter-spacing: 1px;
-            text-transform: uppercase; cursor: pointer; text-align: center; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--brand-primary);
+            border: none;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
             border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 43, 73, 0.15);
         }
-        .mobile-auth-btn:active { background-color: #001f35; transform: scale(0.98); }
+
+        .mobile-auth-btn:active {
+            background-color: #001f35;
+            transform: scale(0.98);
+        }
 
         /* ========================================================= */
-        /* 4. HERO SECTION (Static GitHub Fallback)                  */
+        /* 4. HERO SECTION                                           */
         /* ========================================================= */
         .hero-section {
-            height: calc(85vh - var(--header-height)); min-height: 500px;
-            background-color: var(--brand-primary); 
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center; text-align: center;
+            height: calc(85vh - var(--header-height));
+            min-height: 500px;
+            background-color: var(--brand-primary);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             position: relative;
-            box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); 
+            box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7);
             transition: background-image 0.5s ease;
         }
-        .hero-content { 
-            position: relative; z-index: 2; max-width: 900px; padding: 0 20px; color: white; 
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            color: white;
         }
-        
+
         .hero-greeting {
-            display: inline-flex; align-items: center; gap: 8px; font-size: 2rem; font-weight: 400; color: #e2e8f0;
-            margin-bottom: 20px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.8s ease;
         }
-        .hero-greeting.show { opacity: 1; transform: translateY(0); }
-        .hero-greeting strong { color: white; font-weight: 600; }
 
-        .hero-content h1 { 
-            font-family: 'Georgia', serif; font-size: 4.5rem; font-weight: 800; 
-            margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        .hero-greeting.show {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .hero-subtitle { 
-            font-size: 1.15rem; font-weight: 400; color: #cbd5e1; letter-spacing: 1px;
+
+        .hero-greeting strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .hero-content h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: #cbd5e1;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================================= */
+        /* 5. CONTENT SECTIONS                                       */
+        /* ========================================================= */
+        .content-section {
+            padding: 90px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .bg-surface {
+            background-color: var(--surface-color);
+        }
+
+        .details-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .details-grid.reverse {
+            direction: rtl;
+        }
+
+        .details-grid.reverse>* {
+            direction: ltr;
+        }
+
+        .details-visual {
+            text-align: center;
+        }
+
+        .details-visual i {
+            font-size: 60px;
+            color: var(--brand-primary);
+            opacity: 0.9;
+        }
+
+        .details-text h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .details-text p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .learn-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 15px;
+            color: var(--link-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: gap 0.2s;
+        }
+
+        .learn-more-link:hover {
+            gap: 8px;
+            text-decoration: underline;
+        }
+
+        .partner-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .partner-tag {
+            color: var(--brand-primary);
+            padding: 6px 14px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .partner-tag i {
+            color: var(--brand-secondary);
+            font-size: 1rem;
+        }
+
+        .details-grid.reverse .partner-tags {
+            justify-content: flex-end;
         }
 
         /* ========================================================= */
-        /* 5. CONTENT SECTIONS (Clearly Separated)                   */
+        /* 6. NEWS SECTION                                           */
         /* ========================================================= */
-        /* Base section with clear padding and bottom border */
-        .content-section { padding: 90px 20px; border-bottom: 1px solid var(--border-color); }
-        /* Alternate background for clear visual distinction */
-        .bg-white { background-color: #ffffff; }
-        .bg-surface { background-color: var(--surface-color); }
-        
-        .details-grid { 
-            max-width: 1000px; margin: 0 auto; display: grid; 
-            grid-template-columns: 1fr 1.5fr; align-items: center; gap: 60px; 
+        .news-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
-        .details-grid.reverse { direction: rtl; } 
-        .details-grid.reverse > * { direction: ltr; }
-        
-        .details-visual { text-align: center; } 
-        .details-visual i { font-size: 60px; color: var(--brand-primary); opacity: 0.9; }
-        
-        .details-text h2 { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
-        .details-text p { font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
 
-        .partner-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; } 
-        .partner-tag { 
-            color: var(--brand-primary); padding: 6px 12px; border: 1px solid var(--border-color); 
-            font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
-            transition: background 0.2s; background: white; border-radius: 4px;
+        .news-header h2 {
+            font-family: 'Georgia', serif;
+            font-size: 2rem;
+            color: var(--brand-primary);
+            margin-bottom: 10px;
         }
-        .partner-tag:hover { background: #f1f5f9; border-color: var(--text-muted); }
-        .details-grid.reverse .partner-tags { justify-content: flex-end; }
 
-        /* ========================================================= */
-        /* 6. NEWS SECTION (4 Columns, Auto Update)                  */
-        /* ========================================================= */
-        .news-header { text-align: center; margin-bottom: 50px; }
-        .news-header h2 { font-family: 'Georgia', serif; font-size: 2rem; color: var(--brand-primary); margin-bottom: 10px; }
-        .news-header p { color: var(--text-muted); font-size: 1rem; }
-        
-        .news-grid { 
-            max-width: 1200px; margin: 0 auto; display: grid; 
-            /* Changed to 4 columns for desktop */
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; 
+        .news-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
-        .news-card { 
-            background: white; border: 1px solid var(--border-color); border-radius: 8px; 
-            overflow: hidden; display: flex; flex-direction: column; 
-            transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
         }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
-        .news-image { height: 160px; background-size: cover; background-position: center; background-color: #e2e8f0; }
-        .news-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-        .news-source { font-size: 0.7rem; font-weight: 700; color: var(--brand-secondary); text-transform: uppercase; margin-bottom: 8px; }
-        .news-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 15px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .news-date { margin-top: auto; font-size: 0.75rem; color: var(--text-muted); }
-        
-        .news-loader { text-align: center; padding: 40px; color: var(--text-muted); width: 100%; grid-column: 1 / -1; }
-        .spin-icon { animation: spin 1s linear infinite; display: inline-block; font-size: 1.5rem; margin-bottom: 10px; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .news-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .news-image {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            background-color: #e2e8f0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .news-content {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-source {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--brand-secondary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .news-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-date {
+            margin-top: auto;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .news-loader {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+
+        .spin-icon {
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         /* ========================================================= */
         /* 7. FOOTER                                                 */
         /* ========================================================= */
         .site-footer {
-            background-color: #000000; color: #ffffff; padding: 60px 20px 30px;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 60px 20px 30px;
             font-family: -apple-system, sans-serif;
         }
+
         .footer-grid {
-            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
-            border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 40px;
+            margin-bottom: 20px;
         }
-        
-        .footer-heading { font-weight: 700; font-size: 0.85rem; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; color: #fff;}
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: #a3a3a3; font-size: 0.9rem; transition: color 0.2s; }
-        .footer-links a:hover { color: #ffffff; text-decoration: underline; }
+
+        .footer-heading {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
 
         .footer-lang-btn {
-            background: transparent; border: none; color: #a3a3a3;
-            font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0; margin-top: 20px;
+            background: transparent;
+            border: none;
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0;
+            margin-top: 20px;
         }
-        .footer-lang-btn:hover { color: #fff; }
-        .footer-lang-menu { display: none; background: #1a1a1a; padding: 10px; margin-top: 10px; border-radius: 4px; }
-        .footer-lang-menu.show { display: block; }
+
+        .footer-lang-btn:hover {
+            color: #fff;
+        }
+
+        .footer-lang-menu {
+            display: none;
+            background: #1a1a1a;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .footer-lang-menu.show {
+            display: block;
+        }
+
         .footer-lang-option {
-            display: block; width: 100%; text-align: left; background: none; border: none;
-            color: #a3a3a3; font-size: 0.9rem; padding: 8px 0; cursor: pointer; transition: color 0.2s;
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color 0.2s;
         }
-        .footer-lang-option:hover { color: #fff; }
 
-        .footer-bottom { 
-            max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; 
-            align-items: center; font-size: 0.75rem; color: #777;
+        .footer-lang-option:hover {
+            color: #fff;
         }
-        .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Georgia', serif; font-size: 1.2rem; font-weight: 800; color: #fff;}
-        .footer-logo img { width: 30px; filter: grayscale(100%) brightness(200%); opacity: 0.9; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        .footer-bottom-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .footer-logo img {
+            width: 32px;
+            filter: grayscale(100%) brightness(200%);
+            opacity: 0.9;
+        }
+
+        /* Social Media Elements - CLEANED UP POPUPS */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .social-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #1e293b;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .social-circle:hover,
+        .social-circle:focus-visible {
+            background: var(--link-blue);
+            transform: translateY(-2px);
+        }
+
+        .footer-legal {
+            text-align: right;
+        }
+
+        .footer-legal-links {
+            margin-bottom: 8px;
+            font-size: 0.7rem;
+        }
+
+        .footer-legal-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.2s;
+        }
+
+        .footer-legal-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-a11y-text {
+            margin-top: 8px;
+            font-size: 0.65rem;
+            color: #64748b;
+            max-width: 500px;
+            line-height: 1.5;
+            margin-left: auto;
+        }
+
+        .footer-a11y-text a {
+            color: #94a3b8;
+            text-decoration: underline;
+        }
+
+        .footer-a11y-text a:hover {
+            color: #fff;
+        }
 
         /* ========================================================= */
-        /* 8. RESPONSIVE DESIGN                                      */
+        /* 8. MODALS & BANNER (Language & Cookie)                    */
         /* ========================================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lang-modal-box {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lang-modal-box h3 {
+            margin: 0 0 8px 0;
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .lang-modal-box p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .lang-modal-btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-modal-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .lang-modal-btn:hover,
+        .lang-modal-btn:focus-visible {
+            background: var(--surface-color);
+            color: var(--brand-primary);
+            border-color: var(--brand-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 400px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            z-index: 9999;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            animation: slideUp 0.4s ease;
+        }
+
+        @media (min-width: 480px) {
+            .cookie-banner {
+                right: auto;
+            }
+        }
+
+        .cookie-banner.show {
+            display: flex;
+        }
+
+        .cookie-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cookie-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cookie-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+
+        .cookie-body {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .cookie-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .cookie-btn-deny {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            border-color: #cbd5e1;
+        }
+
+        .cookie-btn-deny:hover {
+            background: #e2e8f0;
+        }
+
+        .cookie-btn-agree {
+            background: var(--brand-primary);
+            color: white;
+        }
+
+        .cookie-btn-agree:hover {
+            background: #001f35;
+        }
+
         @media (max-width: 900px) {
-            .navigation { display: none; } 
-            .desktop-auth-container { display: none; } 
-            .nav-toggle { display: block; z-index: 2001; } 
-            
-            .hero-content h1 { font-size: 3.2rem; }
-            .hero-subtitle { font-size: 0.95rem; }
-            
-            .content-section { padding: 60px 20px; }
-            .details-grid { grid-template-columns: 1fr; gap: 30px; text-align: left; }
-            .details-grid.reverse { direction: ltr; }
-            .details-grid.reverse .partner-tags { justify-content: flex-start; }
-            .details-visual { text-align: left; }
-            
-            .news-grid { grid-template-columns: 1fr; }
-            
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .usa-banner__grid { grid-template-columns: 1fr; gap: 20px; }
+            .navigation {
+                display: none;
+            }
+
+            .desktop-auth-container {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+                z-index: 2001;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .content-section {
+                padding: 60px 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: left;
+            }
+
+            .details-grid.reverse {
+                direction: ltr;
+            }
+
+            .details-grid.reverse .partner-tags {
+                justify-content: flex-start;
+            }
+
+            .details-visual {
+                text-align: left;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+            }
+
+            .footer-legal {
+                text-align: left;
+            }
+
+            .footer-legal-links a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .footer-a11y-text {
+                margin-left: 0;
+            }
+
+            .usa-banner__grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -321,26 +1161,41 @@
     <!-- 1. USA BANNER -->
     <header class="usa-banner">
         <div class="usa-accordion__heading">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/International_Flag_of_Planet_Earth.svg" alt="Flag" class="flag-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/International_Flag_of_Planet_Earth.svg"
+                alt="Flag" class="flag-icon">
             <div style="font-weight:400; margin-right: 5px;">An official website of the KSVG Organization</div>
-            <button class="usa-banner__button" aria-expanded="false" onclick="toggleBanner()">
-                Here’s how you know <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            <button class="usa-banner__button" aria-expanded="false" onclick="toggleBanner()" tabindex="0">
+                Here’s how you know <svg class="icon-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10l5 5 5-5z" />
+                </svg>
             </button>
         </div>
         <div class="usa-banner__content" id="govBannerContent">
             <div class="usa-banner__grid">
                 <div class="media-block">
                     <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
+                            aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                        </svg>
                     </div>
                     <div class="media-body">
                         <h3>Official websites use .ksvg.com.cn</h3>
-                        <p>A <strong>.ksvg.com.cn</strong> website belongs to an official KSVG entity or an organization hosted under KSVG infrastructure.</p>
+                        <p>A <strong>.ksvg.com.cn</strong> website belongs to an official KSVG entity or an organization
+                            hosted under KSVG infrastructure.</p>
                     </div>
                 </div>
                 <div class="media-block">
                     <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
+                            aria-hidden="true">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
                     </div>
                     <div class="media-body">
                         <h3>Secure Connection</h3>
@@ -356,91 +1211,97 @@
     <!-- 2. MAIN HEADER -->
     <header class="site-header">
         <div class="header-inner">
-            <a href="https://ksvg.com.cn/" class="logo-link">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
+            <a href="https://ksvg.com.cn/" class="logo-link" tabindex="0" aria-label="KSVG Home">
+                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo">
             </a>
-            
-            <!-- Desktop Nav -->
-            <nav class="navigation">
+            <nav class="navigation" aria-label="Primary Navigation">
                 <ul class="nav-menu">
-                    <li><a href="https://ksvg.com.cn/" data-i18n="nav_home">主页</a></li>
-                    <li><a href="https://ksvg.com.cn/articles" data-i18n="nav_articles">文章</a></li>
-                    <li><a href="https://ksvg.com.cn/resources" data-i18n="nav_resources">素材库</a></li>
-                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" data-i18n="nav_docs">标准文件</a></li>
-                    <li><a href="https://ksvg.com.cn/partners" data-i18n="nav_partners">合作单位</a></li>
-                    <li><a href="https://ksvg.com.cn/recruiting/" data-i18n="nav_recruiting">组织招募</a></li>
+                    <li><a href="https://ksvg.com.cn/" class="active-nav-item" tabindex="0" data-i18n="nav_home">主页</a>
+                    </li>
+                    <li><a href="https://ksvg.com.cn/articles" tabindex="0" data-i18n="nav_articles">文章</a></li>
+                    <li><a href="https://ksvg.com.cn/resources" tabindex="0" data-i18n="nav_resources">素材库</a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" tabindex="0"
+                            data-i18n="nav_docs">标准文件</a></li>
+                    <li><a href="https://ksvg.com.cn/partners" tabindex="0" data-i18n="nav_partners">合作单位</a></li>
+                    <li><a href="https://ksvg.com.cn/recruiting/" tabindex="0" data-i18n="nav_recruiting">组织招募</a></li>
                 </ul>
             </nav>
-
             <div class="header-actions">
-                <!-- Desktop Auth Display -->
                 <div class="desktop-auth-container" id="desktopAuthContainer">
                     <!-- Injected via JS -->
                 </div>
-                
-                <!-- Mobile Hamburger Toggle -->
-                <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Menu">
-                    <i class="ri-menu-3-line"></i>
+                <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Mobile Menu" tabindex="0">
+                    <i class="ri-menu-3-line" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- 3. MOBILE OVERLAY MENU (With Close Header & Icons) -->
-    <nav class="mobile-menu-overlay" id="mobileNavMenu">
+    <!-- 3. MOBILE OVERLAY MENU -->
+    <nav class="mobile-menu-overlay" id="mobileNavMenu" aria-label="Mobile Navigation">
         <div class="mobile-menu-header">
             <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
-            <button class="mobile-close-btn" id="mobileMenuCloseBtn" aria-label="Close Menu">
-                <i class="ri-close-line"></i>
+            <button class="mobile-close-btn" id="mobileMenuCloseBtn" aria-label="Close Mobile Menu" tabindex="0">
+                <i class="ri-close-line" aria-hidden="true"></i>
             </button>
         </div>
-
         <ul class="mobile-nav-links">
-            <li><a href="https://ksvg.com.cn/"><i class="ri-home-5-line"></i> <span data-i18n="nav_home">主页</span></a></li>
-            <li><a href="https://ksvg.com.cn/articles"><i class="ri-article-line"></i> <span data-i18n="nav_articles">文章</span></a></li>
-            <li><a href="https://ksvg.com.cn/resources"><i class="ri-folder-open-line"></i> <span data-i18n="nav_resources">素材库</span></a></li>
-            <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn"><i class="ri-file-text-line"></i> <span data-i18n="nav_docs">标准文件</span></a></li>
-            <li><a href="https://ksvg.com.cn/partners"><i class="ri-shake-hands-line"></i> <span data-i18n="nav_partners">合作单位</span></a></li>
-            <li><a href="https://ksvg.com.cn/recruiting/"><i class="ri-user-add-line"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
+            <li><a href="https://ksvg.com.cn/" class="active-nav-item" tabindex="0"><i class="ri-home-5-line"
+                        aria-hidden="true"></i> <span data-i18n="nav_home">主页</span></a></li>
+            <li><a href="https://ksvg.com.cn/articles" tabindex="0"><i class="ri-article-line" aria-hidden="true"></i>
+                    <span data-i18n="nav_articles">文章</span></a></li>
+            <li><a href="https://ksvg.com.cn/resources" tabindex="0"><i class="ri-folder-open-line"
+                        aria-hidden="true"></i> <span data-i18n="nav_resources">素材库</span></a></li>
+            <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" tabindex="0"><i
+                        class="ri-file-text-line" aria-hidden="true"></i> <span data-i18n="nav_docs">标准文件</span></a>
+            </li>
+            <!-- FIX: Using standard ri-group-line for compatibility -->
+            <li><a href="https://ksvg.com.cn/partners" tabindex="0"><i class="ri-group-line" aria-hidden="true"></i>
+                    <span data-i18n="nav_partners">合作单位</span></a></li>
+            <li><a href="https://ksvg.com.cn/recruiting/" tabindex="0"><i class="ri-user-add-line"
+                        aria-hidden="true"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
         </ul>
-        
-        <!-- Mobile Auth Dock -->
         <div class="mobile-auth-dock" id="mobileAuthDock">
             <!-- Injected via JS -->
         </div>
     </nav>
 
     <main>
-        <!-- 4. HERO SECTION (Static GitHub Imagery) -->
+        <!-- 4. HERO SECTION -->
         <section class="hero-section" id="heroSection">
             <div class="hero-content">
-                <div id="heroGreetingContainer" class="hero-greeting"></div> 
+                <div id="heroGreetingContainer" class="hero-greeting"></div>
                 <h1 data-i18n="hero_title">KSVG</h1>
                 <p class="hero-subtitle" data-i18n="hero_subtitle">昆山康桥学生摄影合作组织</p>
             </div>
         </section>
-        
-        <!-- 5. CONTENT SECTIONS (Clearly Separated) -->
+
+        <!-- 5. CONTENT SECTIONS -->
         <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-ruler-2-line"></i></div>
+                <div class="details-visual"><i class="ri-ruler-2-line" aria-hidden="true"></i></div>
                 <div class="details-text">
                     <h2 data-i18n="sec1_title">影像标准化</h2>
                     <p data-i18n="sec1_desc">探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。</p>
+                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" target="_blank"
+                        rel="noopener noreferrer" class="learn-more-link" tabindex="0">
+                        <span data-i18n="sec1_link">阅读标准文件</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="content-section bg-surface">
             <div class="details-grid reverse">
-                <div class="details-visual"><i class="ri-node-tree"></i></div>
+                <div class="details-visual"><i class="ri-node-tree" aria-hidden="true"></i></div>
                 <div class="details-text">
                     <h2 data-i18n="sec2_title">跨组织协同</h2>
-                    <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织及社团建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
+                    <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
                     <div class="partner-tags">
-                        <a href="https://horizon_racing.com.cn" target="_blank" class="partner-tag"><i class="ri-steering-2-line"></i> Horizon Racing</a>
-                        <a href="https://bkc.site" target="_blank" class="partner-tag"><i class="ri-bank-line"></i> Bank of KC</a>
-                        <a href="https://kcsc.ksvg.com.cn" target="_blank" class="partner-tag"><i class="ri-megaphone-line"></i> KCSC PR</a>
+                        <span class="partner-tag"><i class="ri-bank-line" aria-hidden="true"></i> <span
+                                data-i18n="tag_bkc">Bank of Kang Chiao</span></span>
+                        <span class="partner-tag"><i class="ri-camera-lens-line" aria-hidden="true"></i> <span
+                                data-i18n="tag_kcsc">昆山康桥学生会公关组</span></span>
                     </div>
                 </div>
             </div>
@@ -448,23 +1309,29 @@
 
         <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-shield-keyhole-line"></i></div>
+                <div class="details-visual"><i class="ri-shield-keyhole-line" aria-hidden="true"></i></div>
                 <div class="details-text">
                     <h2 data-i18n="sec3_title">数字基础设施</h2>
-                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为内部成员及合作方提供统一的数字资源访问凭证，确保数据流转安全且便捷。</p>
+                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA)
+                        平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
+                    <a href="https://redirect.ksvg.com.cn/?https://github.com/KCIS-KSVG" target="_blank"
+                        rel="noopener noreferrer" class="learn-more-link" tabindex="0">
+                        <span data-i18n="sec3_link">访问 GitHub 开源库</span> <i class="ri-arrow-right-line"
+                            aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- 6. NEWS / RSS SECTION (4 Articles) -->
-        <section class="content-section bg-surface" id="newsSection" style="display: none;">
+        <!-- 6. NEWS SECTION -->
+        <section class="content-section bg-surface" id="newsSection" style="display: none; border-bottom:none;">
             <div class="news-header">
                 <h2 data-i18n="news_title">行业资讯</h2>
                 <p data-i18n="news_desc">洞察全球影像技术前沿与行业动态</p>
             </div>
             <div class="news-grid" id="newsGrid">
                 <div class="news-loader">
-                    <i class="ri-loader-4-line spin-icon"></i>
+                    <i class="ri-loader-4-line spin-icon" aria-hidden="true"></i>
                     <div data-i18n="text_processing">Loading...</div>
                 </div>
             </div>
@@ -475,58 +1342,143 @@
     <footer class="site-footer">
         <div class="footer-grid">
             <div class="footer-col-main">
-                <div class="footer-heading" data-i18n="footer_col1">CORE ARCHITECTURE</div>
+                <div class="footer-heading" data-i18n="footer_col1">核心架构</div>
                 <ul class="footer-links">
-                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn">Documentation</a></li>
-                    <li><a href="javascript:void(0)" onclick="goToAuth('login')">Unified Authentication (UIA)</a></li>
-                    <li><a href="mailto:support@ksvg.com.cn" data-i18n="footer_contact">Email Us</a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" target="_blank"
+                            rel="noopener noreferrer" tabindex="0"><span data-i18n="footer_docs">KSVG
+                                Documentation</span> <i class="ri-external-link-line" aria-hidden="true"
+                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="goToAuth('login')" tabindex="0"
+                            data-i18n="footer_uia">KSVG UIA System</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col-links">
-                <div class="footer-heading" data-i18n="footer_col2">FRIENDLY LINKS</div>
+                <div class="footer-heading" data-i18n="footer_col2">友情链接</div>
                 <ul class="footer-links">
-                    <li><a href="https://kcisec.site" target="_blank">昆山康桥校园网站</a></li>
-                    <li><a href="https://kcsc.ksvg.com.cn" target="_blank">昆山康桥学生会公关组</a></li>
-                    <li><a href="https://bkc.site" target="_blank">康桥银行</a></li>
-                    <li><a href="https://horizon_racing.com.cn" target="_blank">Horizon Racing</a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://kcisec.site" target="_blank"
+                            rel="noopener noreferrer" tabindex="0"><span data-i18n="link_kcisec">昆山康桥校园网站</span> <i
+                                class="ri-external-link-line" aria-hidden="true"
+                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://kcsc.ksvg.com.cn" target="_blank"
+                            rel="noopener noreferrer" tabindex="0"><span data-i18n="link_kcsc">昆山康桥学生会公关组</span> <i
+                                class="ri-external-link-line" aria-hidden="true"
+                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                    <li><a href="https://redirect.ksvg.com.cn/?https://bkc.site" target="_blank"
+                            rel="noopener noreferrer" tabindex="0" data-i18n="link_bkc">康桥银行</a> <i
+                            class="ri-external-link-line" aria-hidden="true"
+                            style="font-size:0.75rem; opacity:0.6; margin-left:4px; color:#a3a3a3;"></i></li>
                 </ul>
             </div>
 
             <div class="footer-col-lang">
-                <div class="footer-heading" data-i18n="footer_col3">LANGUAGE PREFERENCE</div>
-                <button class="footer-lang-btn" onclick="document.getElementById('footerLangMenu').classList.toggle('show')">
-                    <i class="ri-global-line" style="font-size:1.2rem;"></i> <span class="current-lang-text">简体中文</span>
+                <div class="footer-heading" data-i18n="footer_col3">语言偏好</div>
+                <button class="footer-lang-btn" aria-haspopup="true"
+                    onclick="document.getElementById('footerLangMenu').classList.toggle('show')" tabindex="0">
+                    <i class="ri-global-line" aria-hidden="true" style="font-size:1.2rem;"></i>
+                    <span class="current-lang-text">简体中文</span>
+                    <i class="ri-arrow-down-s-line" aria-hidden="true" style="margin-left:2px;"></i>
                 </button>
                 <div class="footer-lang-menu" id="footerLangMenu">
-                    <button class="footer-lang-option" onclick="setLanguage('en-us')">English</button>
-                    <button class="footer-lang-option" onclick="setLanguage('zh-hans')">简体中文</button>
-                    <button class="footer-lang-option" onclick="setLanguage('zh-hant')">繁體中文</button>
+                    <button class="footer-lang-option" onclick="initLanguageSelection('en-us')"
+                        tabindex="0">English</button>
+                    <button class="footer-lang-option" onclick="initLanguageSelection('zh-hans')"
+                        tabindex="0">简体中文</button>
+                    <button class="footer-lang-option" onclick="initLanguageSelection('zh-hant')"
+                        tabindex="0">繁體中文</button>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
-            <div class="footer-logo">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo">
+            <div class="footer-bottom-left">
+                <div class="footer-logo" aria-label="KSVG">
+                    <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png"
+                        alt="KSVG Logo"> KSVG
+                </div>
+
+                <!-- Native Titles used instead of custom popups for USWDS Compliance -->
+                <div class="footer-socials" aria-label="Social Media Links">
+                    <a href="https://redirect.ksvg.com.cn/?https://www.youtube.com/@kcisec-ksvg" target="_blank"
+                        rel="noopener noreferrer" tabindex="0" aria-label="YouTube" title="YouTube"
+                        class="social-circle"><i class="ri-youtube-fill" aria-hidden="true"></i></a>
+                    <a href="https://redirect.ksvg.com.cn/?https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0"
+                        target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Bilibili" title="Bilibili"
+                        class="social-circle"><i class="ri-bilibili-fill" aria-hidden="true"></i></a>
+                    <a href="mailto:support@ksvg.com.cn" tabindex="0" aria-label="Email" title="Email"
+                        class="social-circle"><i class="ri-mail-fill" aria-hidden="true"></i></a>
+                    <button class="social-circle" aria-label="WeChat" title="WeChat" onclick="copyWechat()"
+                        tabindex="0">
+                        <i class="ri-wechat-fill" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
-            <!-- Standard Professional Copyright -->
-            <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
+            <div class="footer-legal">
+                <div class="footer-legal-links">
+                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn/privacy" target="_blank"
+                        rel="noopener noreferrer" tabindex="0" data-i18n="footer_privacy">隐私政策</a>
+                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn/terms" target="_blank"
+                        rel="noopener noreferrer" tabindex="0" data-i18n="footer_terms">服务条款</a>
+                </div>
+                <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
+                <div class="footer-a11y-text" data-i18n="footer_a11y">
+                    This website is designed in accordance with <a
+                        href='https://redirect.ksvg.com.cn/?https://uswds.digital.gov' target='_blank'
+                        rel='noopener noreferrer' tabindex="0">USWDS</a> and <a
+                        href='https://redirect.ksvg.com.cn/?https://www.ada.gov' target='_blank'
+                        rel='noopener noreferrer' tabindex="0">ADA</a> standards to ensure accessible digital
+                    experiences for all users.
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- LANGUAGE SELECTION MODAL -->
+    <div class="modal-overlay" id="langModal">
+        <div class="lang-modal-box" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
+            <i class="ri-global-line" aria-hidden="true"
+                style="font-size: 2.5rem; color: var(--brand-primary); margin-bottom: 15px;"></i>
+            <h3 id="langModalTitle" style="margin-bottom: 5px; font-family: 'Georgia', serif; font-size: 1.5rem;">Select
+                Language</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Please select your preferred
+                language to continue.</p>
+
+            <button class="lang-modal-btn" onclick="initLanguageSelection('en-us')" tabindex="0">English</button>
+            <button class="lang-modal-btn" onclick="initLanguageSelection('zh-hans')" tabindex="0">简体中文</button>
+            <button class="lang-modal-btn" onclick="initLanguageSelection('zh-hant')" tabindex="0">繁體中文</button>
+        </div>
+    </div>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie Consent">
+        <div class="cookie-header">
+            <span data-i18n="cookie_title">Cookie Declaration</span>
+            <button class="cookie-close" onclick="denyCookies()" aria-label="Close Cookie Banner"
+                tabindex="0">&times;</button>
+        </div>
+        <div class="cookie-body" data-i18n="cookie_desc">
+            We use cookies to remember your language preference and maintain secure login sessions.
+        </div>
+        <div class="cookie-actions">
+            <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()" data-i18n="cookie_deny"
+                tabindex="0">Deny</button>
+            <button class="cookie-btn cookie-btn-agree" onclick="acceptCookies()" data-i18n="cookie_agree"
+                tabindex="0">Agree</button>
+        </div>
+    </div>
+
     <!-- UI & API SCRIPTS -->
     <script>
-        // Banner Toggle
+        window.locales = {};
+
         function toggleBanner() {
             const content = document.getElementById('govBannerContent');
             const btn = document.querySelector('.usa-banner__button');
             const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) { content.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); } 
+            if (isExpanded) { content.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); }
             else { content.style.display = 'block'; btn.setAttribute('aria-expanded', 'true'); }
         }
 
-        // Mobile Menu
         document.getElementById('mobileMenuOpenBtn').addEventListener('click', () => {
             document.getElementById('mobileNavMenu').classList.add('is-active');
             document.body.style.overflow = 'hidden';
@@ -536,24 +1488,35 @@
             document.body.style.overflow = 'auto';
         });
 
-        // Close lang menu on outside click
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.footer-lang-btn') && !e.target.closest('.footer-lang-menu')) {
                 document.getElementById('footerLangMenu').classList.remove('show');
             }
         });
 
-        // Smart Auth Router (Syncs Language to Auth page)
-        window.goToAuth = function(view = 'login') {
+        window.goToAuth = function (view = 'login') {
             const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
             const target = encodeURIComponent(window.location.hostname);
             window.location.href = `https://auth.ksvg.com.cn/?lang=${lang}&view=${view}&target=${target}`;
         };
 
-        // Hero Image (Static Array from Github)
+        window.copyWechat = function () {
+            navigator.clipboard.writeText("ksvg_official").then(() => {
+                const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+                const msg = {
+                    'en-us': 'WeChat ID "ksvg_official" copied to clipboard!\nPlease search for KSVG on WeChat.',
+                    'zh-hans': '微信公众号 "ksvg_official" 已复制到剪贴板！\n请前往微信搜索 KSVG。',
+                    'zh-hant': '微信公眾號 "ksvg_official" 已複製到剪貼板！\n請前往微信搜索 KSVG。'
+                }[lang];
+                alert(msg);
+            }).catch(err => {
+                console.error("Could not copy text: ", err);
+            });
+        };
+
         function setStaticHeroImage() {
             const heroSection = document.getElementById('heroSection');
-            const wallpapers =[
+            const wallpapers = [
                 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-mikhail-nilov-6965514.jpg',
                 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-ron-lach-8154929.jpg'
             ];
@@ -562,44 +1525,36 @@
         }
         setStaticHeroImage();
 
-        // RSS News Fetcher (4 Articles from 4 Sources)
         async function loadPhotographyNews() {
             const section = document.getElementById('newsSection');
             const grid = document.getElementById('newsGrid');
-            const feeds =[
+            const feeds = [
                 { name: 'PetaPixel', url: 'https://petapixel.com/feed/' },
                 { name: 'DPReview', url: 'https://www.dpreview.com/feeds/news' },
                 { name: 'DIY Photography', url: 'https://www.diyphotography.net/feed/' },
                 { name: 'Fstoppers', url: 'https://fstoppers.com/feed' }
             ];
-            
-            section.style.display = 'block'; 
-            
+            section.style.display = 'block';
             try {
-                let allArticles =[];
-                for(let feed of feeds) {
+                let allArticles = [];
+                for (let feed of feeds) {
                     try {
                         const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
-                        if(res.ok) {
+                        if (res.ok) {
                             const data = await res.json();
-                            // Get the top 2 from each source just in case
-                            if(data.items && data.items.length > 0) {
+                            if (data.items && data.items.length > 0) {
                                 const items = data.items.slice(0, 2).map(item => ({
                                     ...item, sourceName: feed.name, pubDateObj: new Date(item.pubDate.replace(/-/g, '/'))
                                 }));
                                 allArticles = allArticles.concat(items);
                             }
                         }
-                    } catch(err) { console.warn(`Failed to fetch ${feed.name}`); }
+                    } catch (err) { }
                 }
-                
-                if(allArticles.length === 0) throw new Error('No articles found');
-                
-                // Sort by newest
+                if (allArticles.length === 0) throw new Error('No articles');
                 allArticles.sort((a, b) => b.pubDateObj - a.pubDateObj);
-                
-                // Keep only unique sources to ensure diversity in the 4 spots
-                let diverseArticles =[];
+
+                let diverseArticles = [];
                 let seenSources = new Set();
                 for (let article of allArticles) {
                     if (!seenSources.has(article.sourceName) && diverseArticles.length < 4) {
@@ -607,159 +1562,170 @@
                         seenSources.add(article.sourceName);
                     }
                 }
-                // If we don't have 4 distinct sources, fill up with the rest
-                if(diverseArticles.length < 4) {
+                if (diverseArticles.length < 4) {
                     for (let article of allArticles) {
-                        if (!diverseArticles.includes(article) && diverseArticles.length < 4) {
-                            diverseArticles.push(article);
-                        }
+                        if (!diverseArticles.includes(article) && diverseArticles.length < 4) diverseArticles.push(article);
                     }
                 }
-
                 grid.innerHTML = '';
-                
                 diverseArticles.forEach(article => {
                     let imgUrl = article.thumbnail;
-                    if(!imgUrl || imgUrl === "") {
+                    if (!imgUrl || imgUrl === "") {
                         const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
-                        if(imgMatch) imgUrl = imgMatch[1];
+                        if (imgMatch) imgUrl = imgMatch[1];
                         else imgUrl = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png';
                     }
-                    
                     const dateStr = article.pubDateObj.toLocaleDateString();
                     grid.innerHTML += `
-                        <a href="${article.link}" target="_blank" class="news-card">
-                            <div class="news-image" style="background-image: url('${imgUrl}')"></div>
-                            <div class="news-content">
-                                <div class="news-source">${article.sourceName}</div>
-                                <h3 class="news-title">${article.title}</h3>
-                                <div class="news-date">${dateStr}</div>
-                            </div>
-                        </a>
-                    `;
+                    <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card" tabindex="0">
+                        <div class="news-image" style="background-image: url('${imgUrl}')"></div>
+                        <div class="news-content">
+                            <div class="news-source">${article.sourceName}</div>
+                            <h3 class="news-title">${article.title}</h3>
+                            <div class="news-date">${dateStr}</div>
+                        </div>
+                    </a>
+                `;
                 });
-            } catch(e) {
-                console.error("News Load Error:", e);
-                section.style.display = 'none'; 
-            }
+            } catch (e) { section.style.display = 'none'; }
         }
         loadPhotographyNews();
 
-        // I18N Translations
-        const translations = {
-            'en-us': {
-                nav_home: "Home", nav_articles: "Articles", nav_resources: "Resources", nav_recruiting: "Recruiting", nav_docs: "Standard Docs", nav_partners: "Partners",
-                hero_title: "KSVG", hero_subtitle: "Kang Chiao Students Photography Cooperative Organization",
-                sec1_title: "Imaging Standardization", 
-                sec1_desc: "Exploring and establishing campus imaging standards. By defining technical parameters and archiving workflows, we provide a stable technical reference for high-quality visual records.",
-                sec2_title: "Cross-Organization Collaboration", 
-                sec2_desc: "Integrating with the campus ecosystem. Leveraging our technical capabilities, we establish stable visual support networks with various partners inside and outside the school.",
-                sec3_title: "Digital Infrastructure", 
-                sec3_desc: "Relying on the Supabase-powered KSVG UIA platform, we offer unified and secure access credentials for internal members and collaborating parties.",
-                news_title: "Industry Insights", news_desc: "Discover the latest global imaging tech and industry news.",
-                footer_col1: "CORE ARCHITECTURE", footer_col2: "FRIENDLY LINKS", footer_col3: "LANGUAGE PREFERENCE", footer_contact: "Email Us",
-                footer_copyright: "Copyright &copy; 2022-2026 KSVG. All rights reserved.",
-                auth_login_ksvg: "Login to KSVG", auth_my_account: "MY ACCOUNT"
-            },
-            'zh-hans': {
-                nav_home: "主页", nav_articles: "文章", nav_resources: "素材库", nav_recruiting: "招募", nav_docs: "标准文件", nav_partners: "合作单位",
-                hero_title: "KSVG", hero_subtitle: "昆山康桥学生摄影合作组织",
-                sec1_title: "影像标准化", 
-                sec1_desc: "探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。",
-                sec2_title: "跨组织协同", 
-                sec2_desc: "通过专业的技术服务能力，我们与校内多方学生组织及社团建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。",
-                sec3_title: "数字基础设施", 
-                sec3_desc: "依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为用户及合作方提供数字资源访问凭证，确保用户行为安全。",
-                news_title: "行业资讯", news_desc: "洞察全球影像技术前沿与行业动态",
-                footer_col1: "核心架构", footer_col2: "友情链接", footer_col3: "语言偏好", footer_contact: "发送电子信件",
-                footer_copyright: "Copyright &copy; 2022-2026 KSVG. 保留所有权利。",
-                auth_login_ksvg: "登录 KSVG", auth_my_account: "我的账户"
-            },
-            'zh-hant': {
-                nav_home: "主頁", nav_articles: "文章", nav_resources: "素材庫", nav_recruiting: "招募", nav_docs: "標準文件", nav_partners: "合作單位",
-                hero_title: "KSVG", hero_subtitle: "昆山康橋學生攝影合作組織",
-                sec1_title: "影像標準化", 
-                sec1_desc: "探索並建立校園影像規範。通過整理前期參數與後期歸檔標準，我們希望為每一次高質量的視覺記錄提供穩定的技術參考與工作流保障。",
-                sec2_title: "跨組織協同", 
-                sec2_desc: "通過專業的技術服務能力，我們與校內多方學生組織及社團建立協作機制，共同為複雜的校園活動提供全面的視覺支持網絡。",
-                sec3_title: "數字基礎設施", 
-                sec3_desc: "依托基於 Supabase 架構的 KSVG 統一身份認證 (UIA) 平台，我們為內部成員及合作方提供統一的數字資源訪問憑證，確保用戶行為安全。",
-                news_title: "行業資訊", news_desc: "洞察全球影像技術前沿與行業動態",
-                footer_col1: "核心架構", footer_col2: "友情鏈接", footer_col3: "語言偏好", footer_contact: "發送電子信件",
-                footer_copyright: "Copyright &copy; 2022-2026 KSVG. 保留所有權利。",
-                auth_login_ksvg: "登入 KSVG", auth_my_account: "我的帳戶"
-            }
-        };
-
-        window.applyTranslations = function(lang) {
+        window.applyTranslations = function () {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+                if (window.locales[key]) el.innerHTML = window.locales[key];
             });
         }
 
-        window.setLanguage = function(lang) {
-            if (!translations[lang]) lang = 'zh-hans';
+        window.setLanguage = async function (lang) {
             document.documentElement.setAttribute('lang', lang);
-            window.applyTranslations(lang);
-            const lbls = {'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文'};
+            const url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url);
+
+            try {
+                const res = await fetch(`./${lang}.json`);
+                if (!res.ok) throw new Error();
+                window.locales = await res.json();
+            } catch (e) {
+                console.error("I18N Error, check JSON files.");
+                return;
+            }
+
+            window.applyTranslations();
+            document.title = window.locales['tab_title'] || "KSVG";
+
+            const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
             document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang]);
             localStorage.setItem('ksvg_ui_lang', lang);
             document.getElementById('footerLangMenu').classList.remove('show');
-            if(window.refreshGreeting) window.refreshGreeting();
+
+            if (window.refreshAuthText) window.refreshAuthText();
         }
+
+        window.initLanguageSelection = async function (lang) {
+            document.getElementById('langModal').classList.remove('show');
+            await window.setLanguage(lang);
+            if (!localStorage.getItem('ksvg_cookie_consent')) {
+                setTimeout(() => { document.getElementById('cookieBanner').classList.add('show'); }, 500);
+            }
+        }
+
+        window.acceptCookies = function () {
+            localStorage.setItem('ksvg_cookie_consent', 'accepted');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+        window.denyCookies = function () {
+            localStorage.setItem('ksvg_cookie_consent', 'denied');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const hasLangSet = localStorage.getItem('ksvg_ui_lang');
+            const hasCookieConsent = localStorage.getItem('ksvg_cookie_consent');
+
+            if (!hasLangSet && !hasCookieConsent) {
+                document.getElementById('langModal').classList.add('show');
+            } else {
+                let lang = new URLSearchParams(window.location.search).get('lang') || hasLangSet || 'en-us';
+                await window.setLanguage(lang);
+                if (!hasCookieConsent) {
+                    setTimeout(() => { document.getElementById('cookieBanner').classList.add('show'); }, 1000);
+                }
+            }
+            if (window.initAuthUI) await window.initAuthUI();
+        });
     </script>
 
-    <!-- MODULE: SUPABASE AUTH & DIRECT PROFILE ROUTING -->
+    <!-- MODULE: SUPABASE AUTH (Cross-Subdomain Cookie Strategy) -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co', SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU'
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
+
+        const getCookieDomain = () => {
+            const hostname = window.location.hostname;
+            return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
+        };
+
+        const cookieStorage = {
+            getItem: (key) => {
+                const match = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
+                return match ? decodeURIComponent(match[2]) : null;
+            },
+            setItem: (key, value) => {
+                document.cookie = `${key}=${encodeURIComponent(value)}; domain=${getCookieDomain()}; path=/; max-age=31536000; secure; samesite=lax`;
+            },
+            removeItem: (key) => {
+                document.cookie = `${key}=; domain=${getCookieDomain()}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+            }
+        };
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
+        });
 
         function getGreeting(name) {
-            const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
-            const phrases = {
-                'en-us': `Hello, <strong>${name}</strong>.`,
-                'zh-hans': `您好，<strong>${name}</strong>。`,
-                'zh-hant': `您好，<strong>${name}</strong>。`
-            };
-            return phrases[lang] || phrases['zh-hans'];
+            const hour = new Date().getHours();
+            let timeKey = 'greeting_evening';
+            if (hour >= 5 && hour < 12) timeKey = 'greeting_morning';
+            else if (hour >= 12 && hour < 14) timeKey = 'greeting_noon';
+            else if (hour >= 14 && hour < 19) timeKey = 'greeting_afternoon';
+
+            let template = window.locales[timeKey] || "{name}";
+            return template.replace('{name}', `<strong>${name}</strong>`);
         }
 
-        async function initAuthUI() {
+        window.initAuthUI = async function () {
             const dAuth = document.getElementById('desktopAuthContainer');
             const mAuth = document.getElementById('mobileAuthDock');
             const heroGreeting = document.getElementById('heroGreetingContainer');
-            
+
             const { data: { session } } = await supabase.auth.getSession();
 
-            if (session) {
-                const email = session.user.email;
-                const name = session.user.user_metadata?.full_name || email.split('@')[0];
-
-                // Direct Profile Link for Logged In User
-                dAuth.innerHTML = `<button onclick="window.location.href='https://ksvg.com.cn/profile'" class="auth-btn-styled"><i class="ri-user-smile-line" style="font-size:1rem; margin-right:4px;"></i> <span data-i18n="auth_my_account">MY ACCOUNT</span></button>`;
-
-                mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.location.href='https://ksvg.com.cn/profile'"><i class="ri-user-settings-line"></i> <span data-i18n="auth_my_account">MY ACCOUNT</span></button>`;
-
-                window.refreshGreeting = () => {
+            window.refreshAuthText = () => {
+                if (session) {
+                    const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+                    dAuth.innerHTML = `<a href="https://ksvg.com.cn/profile" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></a>`;
+                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.location.href='https://ksvg.com.cn/profile'" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></button>`;
                     heroGreeting.innerHTML = getGreeting(name);
                     heroGreeting.classList.add('show');
-                };
-                window.refreshGreeting();
+                } else {
+                    dAuth.innerHTML = `<button onclick="goToAuth('login')" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
+                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="goToAuth('login')" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
+                    heroGreeting.innerHTML = '';
+                    heroGreeting.classList.remove('show');
+                }
+            };
 
-            } else {
-                // Direct Login Router for Unauthenticated User
-                dAuth.innerHTML = `<button onclick="goToAuth('login')" class="auth-btn-styled"><i class="ri-user-3-line" style="font-size:1rem; margin-right:4px;"></i> <span data-i18n="auth_login_ksvg">Login to KSVG</span></button>`;
-                
-                mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="goToAuth('login')"><i class="ri-login-box-line"></i> <span data-i18n="auth_login_ksvg">Login to KSVG</span></button>`;
-            }
-
-            let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
-            window.setLanguage(lang);
+            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
         }
 
-        initAuthUI();
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (window.initAuthUI) window.initAuthUI();
+        });
     </script>
 </body>
+
 </html>
