@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KSVG | Profile</title>
+    <title>KSVG | 账户管理</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
+    <!-- 请根据你的实际目录层级调整图标路径 -->
+    <link rel="icon" href="../assets/ksvg-logo.png?v=2" type="image/png">
+    <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=2" type="image/png">
 
     <style>
         /* --- CORE VARIABLES --- */
@@ -33,51 +35,22 @@
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
+        main { flex-grow: 1; }
 
-        /* ========================================================= */
-        /* 0. USWDS ACCESSIBILITY FOCUS                              */
-        /* ========================================================= */
+        /* A11Y Outline */
         a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-            outline: 0.25rem solid #2491ff !important;
-            outline-offset: 0.125rem !important;
-            border-radius: 4px;
+            outline: 0.25rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px;
         }
 
-        /* ========================================================= */
-        /* 1. USA BANNER & HEADER (SYNCED WITH INDEX)                */
-        /* ========================================================= */
-        .usa-banner { background-color: var(--banner-bg); color: var(--banner-text); font-size: 0.8rem; position: relative; z-index: 2000; border-bottom: 1px solid #e2e2e2; width: 100%; }
-        .usa-accordion__heading { max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; position: relative; background-color: var(--banner-bg); z-index: 2002; }
-        .flag-icon { width: 16px; opacity: 0.7; border-radius: 2px; }
-        .usa-banner__button { background: none; border: none; color: var(--link-blue); font-weight: 700; cursor: pointer; padding: 0 5px; text-decoration: underline; display: inline-flex; align-items: center; font-size: 0.8rem; }
-        .usa-banner__button:hover { text-decoration: none; }
-        .icon-arrow { width: 10px; height: 10px; margin-left: 4px; transition: transform var(--transition-speed) ease; fill: currentColor; }
-        .usa-banner__button[aria-expanded="true"] .icon-arrow { transform: rotate(180deg); }
-        .usa-banner__content { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--banner-bg); border-bottom: 1px solid #dcdcdc; box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 20px 0; z-index: 2001; }
-        .usa-banner__grid { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .media-block { display: flex; gap: 15px; }
-        .media-icon { background: #dcdcdc; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .media-body h3 { font-size: 0.85rem; margin-bottom: 3px; font-weight: 700; line-height: 1.2;}
-        .media-body p { font-size: 0.8rem; color: #555; line-height: 1.4; margin: 0;}
+        /* 渐变分割线 */
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
-        .site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); height: var(--header-height); }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
-        .logo-link img { height: 40px; width: auto; transition: transform var(--transition-speed); }
-        .logo-link img:hover { transform: scale(1.05); }
-
-        .navigation { display: flex; align-items: center; flex: 1; justify-content: center; }
-        .nav-menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
-        .nav-menu a { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; transition: color var(--transition-speed); position: relative; padding: 5px 0; }
-        .nav-menu a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--brand-primary); transition: all 0.3s ease; transform: translateX(-50%); }
-        .nav-menu a:hover { color: var(--brand-primary); }
-        .nav-menu a:hover::after { width: 100%; }
-
-        .header-actions { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
-        .desktop-auth-container { position: relative; }
-        .user-avatar-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); letter-spacing: 0.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        /* ========================================================= */
+        /* AUTH DROPDOWN (Injects into navigation.html placeholder)  */
+        /* ========================================================= */
+        .user-avatar-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); letter-spacing: 0.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color 0.2s; font-family: inherit; }
         .user-avatar-btn:hover { color: var(--brand-primary); }
         .user-avatar-btn i { font-size: 1.2rem; }
         
@@ -88,191 +61,80 @@
         .auth-dropdown-item { padding: 10px; font-size: 0.85rem; font-weight: 500; color: var(--text-dark); cursor: pointer; border-radius: 4px; display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
         .auth-dropdown-item:hover { background-color: #f1f5f9; }
         .auth-dropdown-item.logout { color: var(--error-red); }
-        .auth-dropdown-item.logout:hover { background-color: var(--error-bg); }
-        .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-dark); cursor: pointer; padding: 5px; }
+        .auth-dropdown-item.logout:hover { background-color: #fef2f2; }
 
-        /* ========================================================= */
-        /* 2. MOBILE OVERLAY MENU (SYNCED WITH INDEX)                */
-        /* ========================================================= */
-        .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 2100; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .mobile-menu-overlay.is-active { transform: translateX(0); }
-        .mobile-menu-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: var(--header-height); border-bottom: 1px solid var(--border-color); }
-        .mobile-menu-header img { height: 35px; }
-        .mobile-close-btn { background: none; border: none; font-size: 1.8rem; color: var(--text-dark); cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; }
-        .mobile-nav-links { flex-grow: 1; overflow-y: auto; list-style: none; padding: 20px; margin: 0; }
-        .mobile-nav-links li { border-bottom: 1px solid #f1f5f9; }
-        .mobile-nav-links a { display: flex; align-items: center; padding: 18px 10px; font-size: 1.05rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; border-radius: 8px; transition: background 0.2s; }
-        .mobile-nav-links i { color: #94a3b8; font-size: 1.3rem; margin-right: 15px; }
-        .mobile-nav-links a:hover { background-color: #f1f5f9; color: var(--brand-primary); }
-        
-        .mobile-auth-dock { padding: 20px; border-top: 1px solid #f1f5f9; background: #ffffff; }
-        
-        /* Mobile Account Menu for Profile Page */
+        /* Mobile Account Layout */
         .m-acc-email { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; word-break: break-all; }
         .m-acc-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; text-align: center; font-size: 0.95rem; font-family: inherit; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
         .m-acc-btn.logout { background: white; color: var(--error-red); border: 1px solid #fecaca; font-weight: 600;}
         .m-acc-btn.logout:active { background: #fef2f2; transform: scale(0.98); }
 
         /* ========================================================= */
-        /* 3. PROFILE LAYOUT & FORM (NNGroup Guidelines)             */
+        /* PROFILE LAYOUT & FORM (USWDS & NNGroup Guidelines)        */
         /* ========================================================= */
-        .profile-wrapper { max-width: 900px; margin: 40px auto 80px; padding: 0 20px; }
-        .profile-page-header { margin-bottom: 30px; display: flex; align-items: center; gap: 20px; }
-        .profile-avatar-large { width: 80px; height: 80px; background-color: var(--brand-primary); color: white; font-size: 2.5rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0, 43, 73, 0.2); text-transform: uppercase; }
-        .profile-title h1 { font-family: 'Georgia', serif; font-size: 2rem; color: var(--brand-primary); margin-bottom: 5px; letter-spacing: 0.5px; }
-        .profile-title p { color: var(--text-muted); font-size: 0.95rem; }
+        .profile-wrapper { max-width: 900px; margin: 50px auto 80px; padding: 0 20px; animation: fadeIn 0.4s ease-out; }
+        .profile-page-header { margin-bottom: 35px; display: flex; align-items: center; gap: 25px; }
+        .profile-avatar-large { width: 85px; height: 85px; background-color: var(--brand-primary); color: white; font-size: 2.5rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0, 43, 73, 0.2); text-transform: uppercase; }
+        .profile-title h1 { font-family: 'Georgia', serif; font-size: 2.2rem; color: var(--brand-primary); margin-bottom: 5px; letter-spacing: 0.5px; }
+        .profile-title p { color: var(--text-muted); font-size: 1rem; }
 
-        .form-section { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 35px 40px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        .form-section-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-        .form-section-title i { color: var(--brand-primary); }
+        .form-section { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 45px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .form-section-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .form-section-title i { color: var(--brand-primary); font-size: 1.4rem; }
 
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group.full-width { grid-column: 1 / -1; }
 
         .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-control { padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-family: inherit; color: var(--text-dark); transition: border-color 0.2s, box-shadow 0.2s; background: #fff; }
-        .form-control:focus { outline: none; border-color: var(--brand-primary); box-shadow: 0 0 0 3px rgba(0, 43, 73, 0.1); }
-        .form-control:disabled { background-color: #f1f5f9; color: #94a3b8; cursor: not-allowed; border-color: #e2e8f0; }
-        textarea.form-control { resize: vertical; min-height: 100px; }
+        .form-control { padding: 12px 16px; border: 1px solid #94a3b8; border-radius: 6px; font-size: 1rem; font-family: inherit; color: var(--text-dark); transition: all 0.2s; background: #fff; }
+        .form-control:focus { outline: none; border-color: var(--brand-primary); box-shadow: 0 0 0 4px rgba(36, 145, 255, 0.2); }
+        .form-control:disabled { background-color: #f1f5f9; color: #64748b; cursor: not-allowed; border-color: #e2e8f0; font-weight: 500;}
+        textarea.form-control { resize: vertical; min-height: 120px; line-height: 1.5; }
 
-        .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 15px; margin-top: 20px; }
-        .btn { padding: 12px 24px; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none; font-family: inherit; }
+        .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 15px; margin-top: 30px; }
+        .btn { padding: 12px 28px; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; font-family: inherit; }
         .btn:active { transform: scale(0.98); }
-        .btn-secondary { background-color: #f1f5f9; color: var(--text-dark); }
-        .btn-secondary:hover { background-color: #e2e8f0; }
+        .btn-secondary { background-color: white; border: 1px solid #cbd5e1; color: var(--text-dark); }
+        .btn-secondary:hover { background-color: #f8fafc; border-color: #94a3b8; }
         .btn-primary { background-color: var(--brand-primary); color: white; box-shadow: 0 4px 12px rgba(0, 43, 73, 0.15); }
         .btn-primary:hover { background-color: #001f35; }
         .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        .status-alert { display: none; padding: 12px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; margin-bottom: 20px; align-items: center; gap: 10px; animation: slideDown 0.3s ease; }
+        .status-alert { display: none; padding: 14px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; align-items: center; gap: 10px; animation: slideDown 0.3s ease; }
         .status-alert.success { background-color: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; display: flex; }
         .status-alert.error { background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; display: flex; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ========================================================= */
-        /* 4. FOOTER (SYNCED WITH INDEX)                             */
-        /* ========================================================= */
-        .site-footer { background-color: #000000; color: #ffffff; padding: 60px 20px 30px; font-family: -apple-system, sans-serif; margin-top: auto;}
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 20px; }
-        .footer-heading { font-weight: 700; font-size: 0.85rem; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; color: #fff;}
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: #a3a3a3; font-size: 0.9rem; transition: color 0.2s; }
-        .footer-links a:hover { color: #ffffff; text-decoration: underline; }
-        .footer-lang-btn { background: transparent; border: none; color: #a3a3a3; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0; margin-top: 20px; }
-        .footer-lang-btn:hover { color: #fff; }
-        .footer-lang-menu { display: none; background: #1a1a1a; padding: 10px; margin-top: 10px; border-radius: 4px; }
-        .footer-lang-menu.show { display: block; }
-        .footer-lang-option { display: block; width: 100%; text-align: left; background: none; border: none; color: #a3a3a3; font-size: 0.9rem; padding: 8px 0; cursor: pointer; transition: color 0.2s; }
-        .footer-lang-option:hover { color: #fff; }
-        .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #777; }
-        .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Georgia', serif; font-size: 1.2rem; font-weight: 800; color: #fff;}
-        .footer-logo img { width: 30px; filter: grayscale(100%) brightness(200%); opacity: 0.9; }
+        /* Loader Overlay */
+        #pageLoader { position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px; transition: opacity 0.4s; }
+        .spinner { animation: spin 1s linear infinite; font-size: 2.5rem; color: var(--brand-primary); }
 
         @media (max-width: 768px) {
             .form-grid { grid-template-columns: 1fr; }
-            .form-section { padding: 25px 20px; }
+            .form-section { padding: 30px 20px; }
             .profile-page-header { flex-direction: column; text-align: center; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .usa-banner__grid { grid-template-columns: 1fr; }
-            .navigation { display: none; }
-            .desktop-auth-container { display: none; }
-            .nav-toggle { display: block; }
+            .form-actions { flex-direction: column-reverse; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
 
 <body>
-    <!-- 1. USA BANNER -->
-    <header class="usa-banner">
-        <div class="usa-accordion__heading">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/International_Flag_of_Planet_Earth.svg" alt="Flag" class="flag-icon">
-            <div style="font-weight:400; margin-right: 5px;">An official website of the KSVG Organization</div>
-            <button class="usa-banner__button" aria-expanded="false" onclick="toggleBanner()">
-                Here’s how you know <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-            </button>
-        </div>
-        <div class="usa-banner__content" id="govBannerContent">
-            <div class="usa-banner__grid">
-                <div class="media-block">
-                    <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    </div>
-                    <div class="media-body">
-                        <h3>Official websites use .ksvg.com.cn</h3>
-                        <p>A <strong>.ksvg.com.cn</strong> website belongs to an official KSVG entity or an organization hosted under KSVG infrastructure.</p>
-                    </div>
-                </div>
-                <div class="media-block">
-                    <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                    <div class="media-body">
-                        <h3>Secure Connection</h3>
-                        <p>A lock or <strong>https://</strong> means you’ve safely connected to the server.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Page Loading Shield (Prevents flashing un-populated form) -->
+    <div id="pageLoader">
+        <i class="ri-loader-4-line spinner"></i>
+        <div style="color: var(--text-muted); font-weight: 500; font-size: 0.9rem;" data-i18n="text_authenticating">Authenticating Session...</div>
+    </div>
 
+    <!-- 占位符：全局组件加载区 -->
+    <div id="us-banner-placeholder"></div>
     <div class="brand-strip"></div>
+    <div id="navigation-placeholder"></div>
 
-    <!-- 2. MAIN HEADER (Synced with Index) -->
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="https://ksvg.com.cn/" class="logo-link">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
-            </a>
-            <nav class="navigation">
-                <ul class="nav-menu">
-                    <li><a href="https://ksvg.com.cn/" data-i18n="nav_home">主页</a></li>
-                    <li><a href="https://ksvg.com.cn/articles" data-i18n="nav_articles">文章</a></li>
-                    <li><a href="https://ksvg.com.cn/resources" data-i18n="nav_resources">素材库</a></li>
-                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" data-i18n="nav_docs">标准文件</a></li>
-                    <li><a href="https://ksvg.com.cn/partners" data-i18n="nav_partners">合作单位</a></li>
-                    <li><a href="https://ksvg.com.cn/recruiting/" data-i18n="nav_recruiting">组织招募</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <div class="desktop-auth-container" id="desktopAuthContainer">
-                    <!-- Auth Dropdown injected here -->
-                </div>
-                <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Menu">
-                    <i class="ri-menu-3-line"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- 3. MOBILE OVERLAY MENU (Synced with Index) -->
-    <nav class="mobile-menu-overlay" id="mobileNavMenu">
-        <div class="mobile-menu-header">
-            <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
-            <button class="mobile-close-btn" id="mobileMenuCloseBtn" aria-label="Close Menu">
-                <i class="ri-close-line"></i>
-            </button>
-        </div>
-        <ul class="mobile-nav-links">
-            <li><a href="https://ksvg.com.cn/"><i class="ri-home-5-line"></i> <span data-i18n="nav_home">主页</span></a></li>
-            <li><a href="https://ksvg.com.cn/articles"><i class="ri-article-line"></i> <span data-i18n="nav_articles">文章</span></a></li>
-            <li><a href="https://ksvg.com.cn/resources"><i class="ri-folder-open-line"></i> <span data-i18n="nav_resources">素材库</span></a></li>
-            <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn"><i class="ri-file-text-line"></i> <span data-i18n="nav_docs">标准文件</span></a></li>
-            <li><a href="https://ksvg.com.cn/partners"><i class="ri-shake-hands-line"></i> <span data-i18n="nav_partners">合作单位</span></a></li>
-            <li><a href="https://ksvg.com.cn/recruiting/"><i class="ri-user-add-line"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
-        </ul>
-        <div class="mobile-auth-dock" id="mobileAuthDock">
-            <!-- Mobile Auth info & Logout injected here -->
-        </div>
-    </nav>
-
-    <!-- 4. PROFILE FORM AREA -->
     <main>
         <div class="profile-wrapper">
             <div class="profile-page-header">
-                <div class="profile-avatar-large" id="mainAvatar">?</div>
+                <div class="profile-avatar-large" id="mainAvatar"><i class="ri-user-fill"></i></div>
                 <div class="profile-title">
                     <h1 data-i18n="profile_title">账户管理</h1>
                     <p data-i18n="profile_subtitle">管理您的个人资料及组织公开信息。</p>
@@ -283,7 +145,7 @@
                 <div id="statusAlert" class="status-alert"></div>
 
                 <div class="form-section">
-                    <h2 class="form-section-title"><i class="ri-user-settings-line"></i> <span data-i18n="sec_personal">基本信息</span></h2>
+                    <h2 class="form-section-title"><i class="ri-shield-user-fill"></i> <span data-i18n="sec_personal">基本身份与安全</span></h2>
                     <div class="form-grid">
                         <div class="form-group full-width">
                             <label class="form-label" for="email" data-i18n="label_email">安全验证邮箱 (不可修改)</label>
@@ -305,15 +167,15 @@
                 </div>
 
                 <div class="form-section">
-                    <h2 class="form-section-title"><i class="ri-organization-chart"></i> <span data-i18n="sec_org">组织与展示信息</span></h2>
+                    <h2 class="form-section-title"><i class="ri-building-4-fill"></i> <span data-i18n="sec_org">组织展示信息</span></h2>
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label" for="department" data-i18n="label_dept">所属部门 (Department)</label>
-                            <input type="text" id="department" class="form-control" placeholder="e.g. Photography Dept" tabindex="4">
+                            <input type="text" id="department" class="form-control" placeholder="e.g. 摄影部 Photography Dept" tabindex="4">
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="position" data-i18n="label_position">职位 (Position)</label>
-                            <input type="text" id="position" class="form-control" placeholder="e.g. Senior Member" tabindex="5">
+                            <input type="text" id="position" class="form-control" placeholder="e.g. 资深成员 Senior Member" tabindex="5">
                         </div>
                         <div class="form-group full-width">
                             <label class="form-label" for="portfolio" data-i18n="label_portfolio">个人作品集 / 社交主页链接</label>
@@ -321,13 +183,13 @@
                         </div>
                         <div class="form-group full-width">
                             <label class="form-label" for="bio" data-i18n="label_bio">个人简介 (Short Bio)</label>
-                            <textarea id="bio" class="form-control" placeholder="..." tabindex="7"></textarea>
+                            <textarea id="bio" class="form-control" placeholder="简单介绍一下你的职责或摄影风格..." tabindex="7"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='https://ksvg.com.cn/'" tabindex="9" data-i18n="btn_cancel">取消返回</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/'" tabindex="9" data-i18n="btn_cancel">取消返回</button>
                     <button type="submit" class="btn btn-primary" id="saveBtn" tabindex="8">
                         <i class="ri-save-3-line"></i> <span data-i18n="btn_save">保存更改</span>
                     </button>
@@ -336,289 +198,300 @@
         </div>
     </main>
 
-    <!-- 5. FOOTER (SYNCED WITH INDEX) -->
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-col-main">
-                <div class="footer-heading" data-i18n="footer_col1">核心架构</div>
-                <ul class="footer-links">
-                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn">KSVG Documentation</a></li>
-                    <li><a href="https://auth.ksvg.com.cn">KSVG UIA System</a></li>
-                    <li><a href="mailto:support@ksvg.com.cn" data-i18n="footer_contact">联系技术支持</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col-links">
-                <div class="footer-heading" data-i18n="footer_col2">友情链接</div>
-                <ul class="footer-links">
-                    <li><a href="https://kcisec.site" target="_blank">昆山康桥校园网站 (KCISEC)</a></li>
-                    <li><a href="https://kcsc.ksvg.com.cn" target="_blank">学生会公关组 (KCSC PR)</a></li>
-                    <li><a href="https://bkc.site" target="_blank">Bank of Kang Chiao (BKC)</a></li>
-                </ul>
-            </div>
+    <!-- 占位符：全局组件加载区 -->
+    <div id="footer-placeholder"></div>
 
-            <div class="footer-col-lang">
-                <div class="footer-heading" data-i18n="footer_col3">语言偏好</div>
-                <button class="footer-lang-btn" onclick="document.getElementById('footerLangMenu').classList.toggle('show')">
-                    <i class="ri-global-line" style="font-size:1.2rem;"></i> <span class="current-lang-text">简体中文</span>
-                </button>
-                <div class="footer-lang-menu" id="footerLangMenu">
-                    <button class="footer-lang-option" onclick="setLanguage('en-us')">English</button>
-                    <button class="footer-lang-option" onclick="setLanguage('zh-hans')">简体中文</button>
-                    <button class="footer-lang-option" onclick="setLanguage('zh-hant')">繁體中文</button>
-                </div>
-            </div>
+    <!-- LANGUAGE SELECTION MODAL -->
+    <div class="modal-overlay" id="langModal" style="display:none;">
+        <div class="lang-modal-box">
+            <i class="ri-global-line" style="font-size: 2.5rem; color: var(--brand-primary); margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom: 5px; font-family: 'Georgia', serif; font-size: 1.5rem;">Select Language</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Please select your preferred language to continue.</p>
+            <button class="lang-modal-btn" onclick="initLanguageSelection('en-us')">English</button>
+            <button class="lang-modal-btn" onclick="initLanguageSelection('zh-hans')">简体中文</button>
+            <button class="lang-modal-btn" onclick="initLanguageSelection('zh-hant')">繁體中文</button>
         </div>
-        
-        <div class="footer-bottom">
-            <div class="footer-logo">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"> KSVG
-            </div>
-            <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
-        </div>
-    </footer>
+    </div>
 
-    <!-- UI SCRIPTS -->
+    <!-- UI Core Scripts (Component Loader & I18N) -->
     <script>
         window.locales = {};
 
-        function toggleBanner() {
-            const content = document.getElementById('govBannerContent');
-            const btn = document.querySelector('.usa-banner__button');
-            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) { content.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); } 
-            else { content.style.display = 'block'; btn.setAttribute('aria-expanded', 'true'); }
+        // === 统一组件加载器 (支持相对路径) ===
+        // 这里假设 profile.html 位于 /profile/ 文件夹内。如果是，请使用 '../assets'。如果在根目录，请改回 './assets'。
+        const basePath = '../assets'; 
+
+        async function loadComponent(url, elementId) {
+            try {
+                const response = await fetch(url + '?t=' + new Date().getTime());
+                if (!response.ok) return;
+                const html = await response.text();
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const scripts = Array.from(temp.querySelectorAll('script'));
+                scripts.forEach(s => s.remove());
+                const placeholder = document.getElementById(elementId);
+                if (!placeholder) return;
+                while (temp.firstChild) {
+                    placeholder.parentNode.insertBefore(temp.firstChild, placeholder);
+                }
+                placeholder.remove();
+                // 恢复脚本
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    if (oldScript.innerHTML) newScript.text = oldScript.innerHTML;
+                    document.body.appendChild(newScript);
+                });
+            } catch (error) { console.error('Component load failed:', url); }
         }
 
-        // Mobile Menu
-        document.getElementById('mobileMenuOpenBtn').addEventListener('click', () => {
-            document.getElementById('mobileNavMenu').classList.add('is-active');
-            document.body.style.overflow = 'hidden';
-        });
-        document.getElementById('mobileMenuCloseBtn').addEventListener('click', () => {
-            document.getElementById('mobileNavMenu').classList.remove('is-active');
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close lang dropdown on outside click
+        // === 全局事件代理 (处理 Auth 菜单和 Mobile Menu) ===
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.footer-lang-btn') && !e.target.closest('.footer-lang-menu')) {
-                document.getElementById('footerLangMenu').classList.remove('show');
+            // Mobile Menu
+            if (e.target.closest('#mobileMenuOpenBtn')) {
+                const menu = document.getElementById('mobileNavMenu');
+                if(menu) { menu.classList.add('is-active'); document.body.style.overflow = 'hidden'; }
             }
-            if(!e.target.closest('.desktop-auth-container')) {
-                const drop = document.getElementById('desktopAuthDropdown');
-                if(drop) drop.classList.remove('show');
+            if (e.target.closest('#mobileMenuCloseBtn')) {
+                const menu = document.getElementById('mobileNavMenu');
+                if(menu) { menu.classList.remove('is-active'); document.body.style.overflow = 'auto'; }
+            }
+            // Desktop Auth Dropdown
+            const dAvatarBtn = e.target.closest('#dAvatarBtn');
+            const authDrop = document.getElementById('desktopAuthDropdown');
+            if (dAvatarBtn) {
+                if(authDrop) authDrop.classList.toggle('show');
+            } else if (!e.target.closest('.auth-dropdown-desktop')) {
+                if(authDrop) authDrop.classList.remove('show');
             }
         });
 
-        // i18n Logic (Fetching from external JSON just like Homepage)
-        window.applyTranslations = function() {
+        // === I18N 逻辑 ===
+        window.applyTranslations = function () {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (window.locales[key]) el.innerHTML = window.locales[key];
             });
-        }
+        };
 
-        window.setLanguage = async function(lang) {
+        window.setLanguage = async function (lang) {
             document.documentElement.setAttribute('lang', lang);
-            const url = new URL(window.location);
-            url.searchParams.set('lang', lang);
-            window.history.replaceState({}, '', url);
-            
             try {
-                // IMPORTANT: Ensure the 3 json files are in the same folder as profile/index.html
-                const res = await fetch(`./${lang}.json`);
-                if(!res.ok) throw new Error();
-                window.locales = await res.json();
-            } catch (e) {
-                console.error("I18N Error, check JSON files.");
-                return; 
-            }
+                // 读取全局翻译 (来自 assets)
+                const globalRes = await fetch(`${basePath}/${lang}.json`).catch(() => null);
+                // 读取本页面特定翻译 (来自当前文件夹)
+                const pageRes = await fetch(`./${lang}.json`).catch(() => null);
+                
+                let globalData = {}, pageData = {};
+                if (globalRes && globalRes.ok) globalData = await globalRes.json();
+                if (pageRes && pageRes.ok) pageData = await pageRes.json();
+                
+                window.locales = { ...globalData, ...pageData };
+            } catch (e) {}
 
             window.applyTranslations();
             document.title = window.locales['tab_title_profile'] || "KSVG | Profile";
-            
-            const lbls = {'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文'};
-            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang]);
             localStorage.setItem('ksvg_ui_lang', lang);
-            document.getElementById('footerLangMenu').classList.remove('show');
             
-            if(window.refreshAuthText) window.refreshAuthText();
-        }
+            // 刷新内部 JS 渲染的文字
+            if (window.refreshAuthText) window.refreshAuthText();
+        };
+
+        window.initLanguageSelection = async function (lang) {
+            document.getElementById('langModal').style.display = 'none';
+            await window.setLanguage(lang);
+        };
 
         document.addEventListener('DOMContentLoaded', async () => {
-            const params = new URLSearchParams(window.location.search);
-            let lang = params.get('lang') || localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            await Promise.all([
+                loadComponent(`${basePath}/us-banner.html`, 'us-banner-placeholder'),
+                loadComponent(`${basePath}/navigation.html`, 'navigation-placeholder'),
+                loadComponent(`${basePath}/footer.html`, 'footer-placeholder')
+            ]);
+            let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
             await window.setLanguage(lang);
-            if (window.initProfile) await window.initProfile();
+            if (window.initSupabaseProfile) await window.initSupabaseProfile();
         });
     </script>
 
-    <!-- MODULE: SUPABASE AUTH & FORM LOGIC (Cross-Subdomain Sync) -->
+    <!-- MODULE: SUPABASE AUTH & DATA BINDING -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
         
         const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
         
-        // --- CUSTOM COOKIE STORAGE (Must perfectly match auth.html and index.html) ---
         const getCookieDomain = () => {
             const hostname = window.location.hostname;
             return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
         };
 
+        // Advanced Chunking Cookie Storage for Session Sync
         const cookieStorage = {
-            getItem: (key) => {
-                const match = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
-                return match ? decodeURIComponent(match[2]) : null;
-            },
             setItem: (key, value) => {
-                document.cookie = `${key}=${encodeURIComponent(value)}; domain=${getCookieDomain()}; path=/; max-age=31536000; secure; samesite=lax`;
+                const domain = getCookieDomain();
+                const encodedValue = encodeURIComponent(value);
+                const chunkSize = 3000;
+                const chunks = Math.ceil(encodedValue.length / chunkSize);
+                document.cookie = `${key}-count=${chunks}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
+                for (let i = 0; i < chunks; i++) {
+                    const chunk = encodedValue.slice(i * chunkSize, (i + 1) * chunkSize);
+                    document.cookie = `${key}-${i}=${chunk}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
+                }
+            },
+            getItem: (key) => {
+                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
+                if (!countMatch) return null;
+                const count = parseInt(countMatch[2], 10);
+                let fullValue = '';
+                for (let i = 0; i < count; i++) {
+                    const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
+                    if (chunkMatch) fullValue += chunkMatch[2];
+                }
+                return fullValue ? decodeURIComponent(fullValue) : null;
             },
             removeItem: (key) => {
-                document.cookie = `${key}=; domain=${getCookieDomain()}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+                const domain = getCookieDomain();
+                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
+                if (countMatch) {
+                    const count = parseInt(countMatch[2], 10);
+                    for (let i = 0; i < count; i++) {
+                        document.cookie = `${key}-${i}=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+                    }
+                }
+                document.cookie = `${key}-count=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
             }
         };
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            auth: {
-                storage: cookieStorage,
-                storageKey: 'ksvg-auth-token'
-            }
+            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
         });
 
-        // DOM Elements
-        const dAuth = document.getElementById('desktopAuthContainer');
-        const mAuth = document.getElementById('mobileAuthDock');
-        const mainAvatar = document.getElementById('mainAvatar');
         const alertBox = document.getElementById('statusAlert');
         const saveBtn = document.getElementById('saveBtn');
-
-        const fEmail = document.getElementById('email');
-        const fName = document.getElementById('displayName');
-        const fStudentId = document.getElementById('studentId');
-        const fPhone = document.getElementById('phone');
-        const fDept = document.getElementById('department');
-        const fPos = document.getElementById('position');
-        const fPortfolio = document.getElementById('portfolio');
-        const fBio = document.getElementById('bio');
+        const mainAvatar = document.getElementById('mainAvatar');
+        
+        // Form Fields
+        const formFields = {
+            email: document.getElementById('email'),
+            full_name: document.getElementById('displayName'),
+            student_id: document.getElementById('studentId'),
+            phone: document.getElementById('phone'),
+            department: document.getElementById('department'),
+            position: document.getElementById('position'),
+            portfolio_url: document.getElementById('portfolio'),
+            bio: document.getElementById('bio')
+        };
 
         function showAlert(msgKey, type = 'success') {
             alertBox.className = `status-alert ${type}`;
             const icon = type === 'success' ? 'ri-checkbox-circle-fill' : 'ri-error-warning-fill';
             const text = window.locales[msgKey] || msgKey;
-            alertBox.innerHTML = `<i class="${icon}" style="font-size:1.2rem;"></i> <span>${text}</span>`;
+            alertBox.innerHTML = `<i class="${icon}"></i> <span>${text}</span>`;
+            alertBox.style.display = 'flex';
             setTimeout(() => { alertBox.style.display = 'none'; }, 4000);
         }
 
-        window.initProfile = async function() {
+        window.initSupabaseProfile = async function() {
             const { data: { session } } = await supabase.auth.getSession();
 
-            // Redirect to Auth if not logged in
             if (!session) {
-                window.location.href = `https://auth.ksvg.com.cn/?target=${encodeURIComponent(window.location.hostname + window.location.pathname)}`;
+                const target = encodeURIComponent(window.location.hostname + window.location.pathname);
+                window.location.href = `https://auth.ksvg.com.cn/?target=${target}`;
                 return;
             }
 
-            const user = session.user;
-            const email = user.email;
-            const meta = user.user_metadata || {};
+            const email = session.user.email;
+            const meta = session.user.user_metadata || {};
             const displayName = meta.full_name || email.split('@')[0];
-            const initial = displayName.charAt(0).toUpperCase();
 
-            // Global Re-rendering for i18n
+            // Render Auth Dropdowns
             window.refreshAuthText = () => {
-                // --- Desktop Header ---
-                dAuth.innerHTML = `
-                    <button class="user-avatar-btn" id="dAvatarBtn" tabindex="0">
-                        <i class="ri-user-smile-line"></i> ${displayName} <i class="ri-arrow-down-s-line" style="font-size:1rem"></i>
-                    </button>
-                    <div class="auth-dropdown-desktop" id="desktopAuthDropdown">
-                        <div class="auth-dropdown-email">${email}</div>
-                        <div class="auth-dropdown-item logout" id="dLogoutBtn" tabindex="0">
-                            <i class="ri-logout-box-r-line"></i> <span data-i18n="auth_sign_out">${window.locales['auth_sign_out'] || 'Sign Out'}</span>
+                const dAuth = document.getElementById('desktopAuthContainer');
+                const mAuth = document.getElementById('mobileAuthDock');
+                if(dAuth) {
+                    dAuth.innerHTML = `
+                        <button class="user-avatar-btn" id="dAvatarBtn" tabindex="0">
+                            <i class="ri-user-smile-line"></i> ${displayName} <i class="ri-arrow-down-s-line" style="font-size:1.1rem; margin-left: -2px;"></i>
+                        </button>
+                        <div class="auth-dropdown-desktop" id="desktopAuthDropdown">
+                            <div class="auth-dropdown-email">${email}</div>
+                            <div class="auth-dropdown-item logout" id="dLogoutBtn" tabindex="0">
+                                <i class="ri-logout-box-r-line" style="font-size:1.1rem;"></i> <span data-i18n="auth_sign_out">${window.locales['auth_sign_out'] || 'Sign Out'}</span>
+                            </div>
                         </div>
-                    </div>
-                `;
-
-                // --- Mobile Menu Dock ---
-                mAuth.innerHTML = `
-                    <div style="padding-bottom:10px; font-size:0.85rem; color:var(--text-muted); word-break: break-all;">
-                        <span data-i18n="auth_logged_in_as">${window.locales['auth_logged_in_as'] || 'Logged in as:'}</span><br><strong>${email}</strong>
-                    </div>
-                    <button class="m-acc-btn logout" id="mLogoutBtn" tabindex="0">
-                        <i class="ri-logout-box-r-line"></i> <span data-i18n="auth_sign_out">${window.locales['auth_sign_out'] || 'Sign Out'}</span>
-                    </button>
-                `;
-
-                // Re-bind listeners after innerHTML rewrite
-                document.getElementById('dAvatarBtn').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    document.getElementById('desktopAuthDropdown').classList.toggle('show');
-                });
+                    `;
+                }
+                if(mAuth) {
+                    mAuth.innerHTML = `
+                        <div class="m-acc-email">
+                            <span data-i18n="auth_logged_in_as">${window.locales['auth_logged_in_as'] || 'Logged in as:'}</span><br><strong>${email}</strong>
+                        </div>
+                        <button class="m-acc-btn logout" id="mLogoutBtn" tabindex="0">
+                            <i class="ri-logout-box-r-line" style="font-size:1.1rem;"></i> <span data-i18n="auth_sign_out">${window.locales['auth_sign_out'] || 'Sign Out'}</span>
+                        </button>
+                    `;
+                }
                 
                 const doLogout = async () => {
                     await supabase.auth.signOut();
-                    window.location.href = 'https://ksvg.com.cn/';
+                    window.location.href = '/';
                 };
-                document.getElementById('dLogoutBtn').addEventListener('click', doLogout);
-                document.getElementById('mLogoutBtn').addEventListener('click', doLogout);
+                
+                const dbg = document.getElementById('dLogoutBtn');
+                const mbg = document.getElementById('mLogoutBtn');
+                if(dbg) dbg.addEventListener('click', doLogout);
+                if(mbg) mbg.addEventListener('click', doLogout);
             };
 
             if(Object.keys(window.locales).length > 0) window.refreshAuthText();
 
-            // Populate Form
-            mainAvatar.textContent = initial;
-            fEmail.value = email;
-            fName.value = meta.full_name || '';
-            fStudentId.value = meta.student_id || '';
-            fPhone.value = meta.phone || '';
-            fDept.value = meta.department || '';
-            fPos.value = meta.position || '';
-            fPortfolio.value = meta.portfolio_url || '';
-            fBio.value = meta.bio || '';
+            // Populate Form fields
+            mainAvatar.textContent = displayName.charAt(0).toUpperCase();
+            formFields.email.value = email;
+            Object.keys(formFields).forEach(key => {
+                if (key !== 'email' && meta[key]) formFields[key].value = meta[key];
+            });
+
+            // Remove Loader Shield
+            document.getElementById('pageLoader').style.opacity = '0';
+            setTimeout(() => document.getElementById('pageLoader').style.display = 'none', 400);
         }
 
         // Handle Save
         document.getElementById('profileForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const originalBtnHtml = saveBtn.innerHTML;
-            saveBtn.innerHTML = `<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i>`;
+            saveBtn.innerHTML = `<i class="ri-loader-4-line spinner" style="font-size:1.1rem; color:white;"></i>`;
             saveBtn.disabled = true;
             alertBox.style.display = 'none';
 
             try {
-                const updates = {
-                    data: {
-                        full_name: fName.value.trim(),
-                        student_id: fStudentId.value.trim(),
-                        phone: fPhone.value.trim(),
-                        department: fDept.value.trim(),
-                        position: fPos.value.trim(),
-                        portfolio_url: fPortfolio.value.trim(),
-                        bio: fBio.value.trim()
-                    }
-                };
+                const payload = {};
+                Object.keys(formFields).forEach(key => {
+                    if (key !== 'email') payload[key] = formFields[key].value.trim();
+                });
 
-                const { error } = await supabase.auth.updateUser(updates);
+                const { error } = await supabase.auth.updateUser({ data: payload });
                 if (error) throw error;
 
-                const newName = fName.value.trim() || fEmail.value.split('@')[0];
+                // Update Avatar Live
+                const newName = payload.full_name || email.split('@')[0];
                 mainAvatar.textContent = newName.charAt(0).toUpperCase();
-                document.getElementById('dAvatarBtn').innerHTML = `<i class="ri-user-smile-line"></i> ${newName} <i class="ri-arrow-down-s-line" style="font-size:1rem"></i>`;
+                const dBtn = document.getElementById('dAvatarBtn');
+                if(dBtn) dBtn.innerHTML = `<i class="ri-user-smile-line"></i> ${newName} <i class="ri-arrow-down-s-line" style="font-size:1.1rem; margin-left: -2px;"></i>`;
 
                 showAlert("alert_success", "success");
 
             } catch (err) {
-                // If it's a supabase error, just show the generic error key, or append message.
-                showAlert("alert_error", "error");
                 console.error(err);
+                showAlert("alert_error", "error");
             } finally {
                 saveBtn.innerHTML = originalBtnHtml;
                 saveBtn.disabled = false;
             }
         });
-
     </script>
 </body>
 </html>
