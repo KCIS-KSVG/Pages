@@ -4,16 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="KSVG, KCIS, 昆山康桥学校，昆山康桥学生摄影合作组织">
+    <!-- 优化了 SEO 的 Description -->
+    <meta name="description"
+        content="KSVG（昆山康桥学生摄影合作组织）是昆山康桥学校 (KCIS) 的核心学生视觉技术团队。我们提供校园影像标准化规范、跨组织活动视觉协同支持，并开源 KSVG UIA 统一身份认证系统等数字基础设施，致力于提升校园视觉媒体质量与技术创新。">
     <title>KSVG | 首页</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 引入 Open Sans 以统一美系政府/官方机构设计风格 -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
+    <!-- 增加版本号强制绕过浏览器缓存 -->
+    <link rel="icon" href="./assets/ksvg-logo.png?v=2" type="image/png">
+    <link rel="shortcut icon" href="./assets/ksvg-logo.png?v=2" type="image/png">
 
     <style>
         /* --- CORE VARIABLES --- */
@@ -58,7 +63,7 @@
         }
 
         /* ========================================================= */
-        /* 0. USWDS ACCESSIBILITY FOCUS (A11y Standard)              */
+        /* 0. USWDS ACCESSIBILITY FOCUS (全局高亮蓝框)                 */
         /* ========================================================= */
         a:focus-visible,
         button:focus-visible,
@@ -72,7 +77,7 @@
         }
 
         /* ========================================================= */
-        /* 1. USA BANNER                                             */
+        /* 1. USA BANNER & HEADER CSS (供动态加载的组件使用)          */
         /* ========================================================= */
         .usa-banner {
             background-color: #f0f0f0;
@@ -184,15 +189,13 @@
             margin: 0;
         }
 
+        /* 渐变分割线 */
         .brand-strip {
             height: 4px;
             width: 100%;
             background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%);
         }
 
-        /* ========================================================= */
-        /* 2. MAIN HEADER                                            */
-        /* ========================================================= */
         .site-header {
             position: sticky;
             top: 0;
@@ -316,9 +319,7 @@
             padding: 5px;
         }
 
-        /* ========================================================= */
-        /* 3. MOBILE OVERLAY MENU                                    */
-        /* ========================================================= */
+        /* 移动端覆盖菜单 */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -436,7 +437,7 @@
         }
 
         /* ========================================================= */
-        /* 4. HERO SECTION                                           */
+        /* 2. HERO SECTION                                           */
         /* ========================================================= */
         .hero-section {
             height: calc(85vh - var(--header-height));
@@ -501,7 +502,7 @@
         }
 
         /* ========================================================= */
-        /* 5. CONTENT SECTIONS                                       */
+        /* 3. CONTENT SECTIONS                                       */
         /* ========================================================= */
         .content-section {
             padding: 90px 20px;
@@ -603,7 +604,7 @@
         }
 
         /* ========================================================= */
-        /* 6. NEWS SECTION                                           */
+        /* 4. NEWS SECTION                                           */
         /* ========================================================= */
         .news-header {
             text-align: center;
@@ -709,207 +710,7 @@
         }
 
         /* ========================================================= */
-        /* 7. FOOTER                                                 */
-        /* ========================================================= */
-        .site-footer {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 60px 20px 30px;
-            font-family: -apple-system, sans-serif;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 40px;
-            margin-bottom: 20px;
-        }
-
-        .footer-heading {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .footer-links a {
-            color: #a3a3a3;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        .footer-lang-btn {
-            background: transparent;
-            border: none;
-            color: #a3a3a3;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .footer-lang-btn:hover {
-            color: #fff;
-        }
-
-        .footer-lang-menu {
-            display: none;
-            background: #1a1a1a;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 4px;
-        }
-
-        .footer-lang-menu.show {
-            display: block;
-        }
-
-        .footer-lang-option {
-            display: block;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            color: #a3a3a3;
-            font-size: 0.9rem;
-            padding: 8px 0;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .footer-lang-option:hover {
-            color: #fff;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            font-size: 0.75rem;
-            color: #777;
-        }
-
-        .footer-bottom-left {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fff;
-        }
-
-        .footer-logo img {
-            width: 32px;
-            filter: grayscale(100%) brightness(200%);
-            opacity: 0.9;
-        }
-
-        /* Social Media Elements - CLEANED UP POPUPS */
-        .footer-socials {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .social-circle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #1e293b;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.2s;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .social-circle:hover,
-        .social-circle:focus-visible {
-            background: var(--link-blue);
-            transform: translateY(-2px);
-        }
-
-        .footer-legal {
-            text-align: right;
-        }
-
-        .footer-legal-links {
-            margin-bottom: 8px;
-            font-size: 0.7rem;
-        }
-
-        .footer-legal-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            margin-left: 15px;
-            transition: color 0.2s;
-        }
-
-        .footer-legal-links a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-
-        .footer-a11y-text {
-            margin-top: 8px;
-            font-size: 0.65rem;
-            color: #64748b;
-            max-width: 500px;
-            line-height: 1.5;
-            margin-left: auto;
-        }
-
-        .footer-a11y-text a {
-            color: #94a3b8;
-            text-decoration: underline;
-        }
-
-        .footer-a11y-text a:hover {
-            color: #fff;
-        }
-
-        /* ========================================================= */
-        /* 8. MODALS & BANNER (Language & Cookie)                    */
+        /* 5. FOOTER & MODALS (Extracted to External Component mostly) */
         /* ========================================================= */
         .modal-overlay {
             position: fixed;
@@ -928,6 +729,16 @@
         .modal-overlay.show {
             display: flex;
             animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .lang-modal-box {
@@ -971,10 +782,6 @@
             transition: all 0.2s ease;
         }
 
-        .lang-modal-btn:last-child {
-            margin-bottom: 0;
-        }
-
         .lang-modal-btn:hover,
         .lang-modal-btn:focus-visible {
             background: var(--surface-color);
@@ -1010,6 +817,18 @@
 
         .cookie-banner.show {
             display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .cookie-header {
@@ -1078,19 +897,6 @@
         }
 
         @media (max-width: 900px) {
-            .navigation {
-                display: none;
-            }
-
-            .desktop-auth-container {
-                display: none;
-            }
-
-            .nav-toggle {
-                display: block;
-                z-index: 2001;
-            }
-
             .hero-content h1 {
                 font-size: 3.5rem;
             }
@@ -1124,145 +930,25 @@
             .news-grid {
                 grid-template-columns: 1fr;
             }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 30px;
-            }
-
-            .footer-legal {
-                text-align: left;
-            }
-
-            .footer-legal-links a {
-                margin-left: 0;
-                margin-right: 15px;
-            }
-
-            .footer-a11y-text {
-                margin-left: 0;
-            }
-
-            .usa-banner__grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
         }
+        #govBannerContent .usa-banner__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+}
     </style>
 </head>
 
 <body>
-    <!-- 1. USA BANNER -->
-    <header class="usa-banner">
-        <div class="usa-accordion__heading">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/International_Flag_of_Planet_Earth.svg"
-                alt="Flag" class="flag-icon">
-            <div style="font-weight:400; margin-right: 5px;">An official website of the KSVG Organization</div>
-            <button class="usa-banner__button" aria-expanded="false" onclick="toggleBanner()" tabindex="0">
-                Here’s how you know <svg class="icon-arrow" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 10l5 5 5-5z" />
-                </svg>
-            </button>
-        </div>
-        <div class="usa-banner__content" id="govBannerContent">
-            <div class="usa-banner__grid">
-                <div class="media-block">
-                    <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
-                            aria-hidden="true">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path
-                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="media-body">
-                        <h3>Official websites use .ksvg.com.cn</h3>
-                        <p>A <strong>.ksvg.com.cn</strong> website belongs to an official KSVG entity or an organization
-                            hosted under KSVG infrastructure.</p>
-                    </div>
-                </div>
-                <div class="media-block">
-                    <div class="media-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
-                            aria-hidden="true">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                    </div>
-                    <div class="media-body">
-                        <h3>Secure Connection</h3>
-                        <p>A lock or <strong>https://</strong> means you’ve safely connected to the server.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- 占位符：挂载全局组件 (USA Banner) -->
+    <div id="us-banner-placeholder"></div>
 
+    <!-- 核心修复：复原的渐变分割线 -->
     <div class="brand-strip"></div>
 
-    <!-- 2. MAIN HEADER -->
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="https://ksvg.com.cn/" class="logo-link" tabindex="0" aria-label="KSVG Home">
-                <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo">
-            </a>
-            <nav class="navigation" aria-label="Primary Navigation">
-                <ul class="nav-menu">
-                    <li><a href="https://ksvg.com.cn/" class="active-nav-item" tabindex="0" data-i18n="nav_home">主页</a>
-                    </li>
-                    <li><a href="https://ksvg.com.cn/articles" tabindex="0" data-i18n="nav_articles">文章</a></li>
-                    <li><a href="https://ksvg.com.cn/resources" tabindex="0" data-i18n="nav_resources">素材库</a></li>
-                    <li><a href="https://ksvg.com.cn/partners" tabindex="0" data-i18n="nav_partners">合作单位</a></li>
-                    <li><a href="https://ksvg.com.cn/recruiting/" tabindex="0" data-i18n="nav_recruiting">组织招募</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <div class="desktop-auth-container" id="desktopAuthContainer">
-                    <!-- Injected via JS -->
-                </div>
-                <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Mobile Menu" tabindex="0">
-                    <i class="ri-menu-3-line" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- 3. MOBILE OVERLAY MENU -->
-    <nav class="mobile-menu-overlay" id="mobileNavMenu" aria-label="Mobile Navigation">
-        <div class="mobile-menu-header">
-            <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG">
-            <button class="mobile-close-btn" id="mobileMenuCloseBtn" aria-label="Close Mobile Menu" tabindex="0">
-                <i class="ri-close-line" aria-hidden="true"></i>
-            </button>
-        </div>
-        <ul class="mobile-nav-links">
-            <li><a href="https://ksvg.com.cn/" class="active-nav-item" tabindex="0"><i class="ri-home-5-line"
-                        aria-hidden="true"></i> <span data-i18n="nav_home">主页</span></a></li>
-            <li><a href="https://ksvg.com.cn/articles" tabindex="0"><i class="ri-article-line" aria-hidden="true"></i>
-                    <span data-i18n="nav_articles">文章</span></a></li>
-            <li><a href="https://ksvg.com.cn/resources" tabindex="0"><i class="ri-folder-open-line"
-                        aria-hidden="true"></i> <span data-i18n="nav_resources">素材库</span></a></li>
-            <!-- FIX: Using standard ri-group-line for compatibility -->
-            <li><a href="https://ksvg.com.cn/partners" tabindex="0"><i class="ri-group-line" aria-hidden="true"></i>
-                    <span data-i18n="nav_partners">合作单位</span></a></li>
-            <li><a href="https://ksvg.com.cn/recruiting/" tabindex="0"><i class="ri-user-add-line"
-                        aria-hidden="true"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
-        </ul>
-        <div class="mobile-auth-dock" id="mobileAuthDock">
-            <!-- Injected via JS -->
-        </div>
-    </nav>
+    <!-- 占位符：挂载全局组件 (Navigation) -->
+    <div id="navigation-placeholder"></div>
 
     <main>
-        <!-- 4. HERO SECTION -->
         <section class="hero-section" id="heroSection">
             <div class="hero-content">
                 <div id="heroGreetingContainer" class="hero-greeting"></div>
@@ -1271,15 +957,14 @@
             </div>
         </section>
 
-        <!-- 5. CONTENT SECTIONS -->
         <section class="content-section bg-white">
             <div class="details-grid">
                 <div class="details-visual"><i class="ri-ruler-2-line" aria-hidden="true"></i></div>
                 <div class="details-text">
                     <h2 data-i18n="sec1_title">影像标准化</h2>
                     <p data-i18n="sec1_desc">探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。</p>
-                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" target="_blank"
-                        rel="noopener noreferrer" class="learn-more-link" tabindex="0">
+                    <a href="https://docs.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="learn-more-link"
+                        tabindex="0">
                         <span data-i18n="sec1_link">阅读标准文件</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -1294,7 +979,7 @@
                     <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
                     <div class="partner-tags">
                         <span class="partner-tag"><i class="ri-bank-line" aria-hidden="true"></i> <span
-                                data-i18n="tag_bkc">Bank of Kang Chiao</span></span>
+                                data-i18n="tag_bkc">康桥银行</span></span>
                         <span class="partner-tag"><i class="ri-camera-lens-line" aria-hidden="true"></i> <span
                                 data-i18n="tag_kcsc">昆山康桥学生会公关组</span></span>
                     </div>
@@ -1309,8 +994,8 @@
                     <h2 data-i18n="sec3_title">数字基础设施</h2>
                     <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA)
                         平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
-                    <a href="https://redirect.ksvg.com.cn/?https://github.com/KCIS-KSVG" target="_blank"
-                        rel="noopener noreferrer" class="learn-more-link" tabindex="0">
+                    <a href="https://github.com/KCIS-KSVG" target="_blank" rel="noopener noreferrer"
+                        class="learn-more-link" tabindex="0">
                         <span data-i18n="sec3_link">访问 GitHub 开源库</span> <i class="ri-arrow-right-line"
                             aria-hidden="true"></i>
                     </a>
@@ -1318,7 +1003,6 @@
             </div>
         </section>
 
-        <!-- 6. NEWS SECTION -->
         <section class="content-section bg-surface" id="newsSection" style="display: none; border-bottom:none;">
             <div class="news-header">
                 <h2 data-i18n="news_title">行业资讯</h2>
@@ -1333,100 +1017,8 @@
         </section>
     </main>
 
-    <!-- 7. FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-col-main">
-                <div class="footer-heading" data-i18n="footer_col1">核心架构</div>
-                <ul class="footer-links">
-                    <li><a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn" target="_blank"
-                            rel="noopener noreferrer" tabindex="0"><span data-i18n="footer_docs">KSVG
-                                Documentation</span> <i class="ri-external-link-line" aria-hidden="true"
-                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="goToAuth('login')" tabindex="0"
-                            data-i18n="footer_uia">KSVG UIA System</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col-links">
-                <div class="footer-heading" data-i18n="footer_col2">友情链接</div>
-                <ul class="footer-links">
-                    <li><a href="https://redirect.ksvg.com.cn/?https://kcisec.site" target="_blank"
-                            rel="noopener noreferrer" tabindex="0"><span data-i18n="link_kcisec">昆山康桥校园网站</span> <i
-                                class="ri-external-link-line" aria-hidden="true"
-                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
-                    <li><a href="https://redirect.ksvg.com.cn/?https://kcsc.ksvg.com.cn" target="_blank"
-                            rel="noopener noreferrer" tabindex="0"><span data-i18n="link_kcsc">昆山康桥学生会公关组</span> <i
-                                class="ri-external-link-line" aria-hidden="true"
-                                style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
-                    <li><a href="https://redirect.ksvg.com.cn/?https://bkc.site" target="_blank"
-                            rel="noopener noreferrer" tabindex="0" data-i18n="link_bkc">康桥银行</a> <i
-                            class="ri-external-link-line" aria-hidden="true"
-                            style="font-size:0.75rem; opacity:0.6; margin-left:4px; color:#a3a3a3;"></i></li>
-                </ul>
-            </div>
-
-            <div class="footer-col-lang">
-                <div class="footer-heading" data-i18n="footer_col3">语言偏好</div>
-                <button class="footer-lang-btn" aria-haspopup="true"
-                    onclick="document.getElementById('footerLangMenu').classList.toggle('show')" tabindex="0">
-                    <i class="ri-global-line" aria-hidden="true" style="font-size:1.2rem;"></i>
-                    <span class="current-lang-text">简体中文</span>
-                    <i class="ri-arrow-down-s-line" aria-hidden="true" style="margin-left:2px;"></i>
-                </button>
-                <div class="footer-lang-menu" id="footerLangMenu">
-                    <button class="footer-lang-option" onclick="initLanguageSelection('en-us')"
-                        tabindex="0">English</button>
-                    <button class="footer-lang-option" onclick="initLanguageSelection('zh-hans')"
-                        tabindex="0">简体中文</button>
-                    <button class="footer-lang-option" onclick="initLanguageSelection('zh-hant')"
-                        tabindex="0">繁體中文</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-bottom-left">
-                <div class="footer-logo" aria-label="KSVG">
-                    <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png"
-                        alt="KSVG Logo"> KSVG
-                </div>
-
-                <!-- Native Titles used instead of custom popups for USWDS Compliance -->
-                <div class="footer-socials" aria-label="Social Media Links">
-                    <a href="https://redirect.ksvg.com.cn/?https://www.youtube.com/@kcisec-ksvg" target="_blank"
-                        rel="noopener noreferrer" tabindex="0" aria-label="YouTube" title="YouTube"
-                        class="social-circle"><i class="ri-youtube-fill" aria-hidden="true"></i></a>
-                    <a href="https://redirect.ksvg.com.cn/?https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0"
-                        target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Bilibili" title="Bilibili"
-                        class="social-circle"><i class="ri-bilibili-fill" aria-hidden="true"></i></a>
-                    <a href="mailto:support@ksvg.com.cn" tabindex="0" aria-label="Email" title="Email"
-                        class="social-circle"><i class="ri-mail-fill" aria-hidden="true"></i></a>
-                    <button class="social-circle" aria-label="WeChat" title="WeChat" onclick="copyWechat()"
-                        tabindex="0">
-                        <i class="ri-wechat-fill" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="footer-legal">
-                <div class="footer-legal-links">
-                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn/privacy" target="_blank"
-                        rel="noopener noreferrer" tabindex="0" data-i18n="footer_privacy">隐私政策</a>
-                    <a href="https://redirect.ksvg.com.cn/?https://docs.ksvg.com.cn/terms" target="_blank"
-                        rel="noopener noreferrer" tabindex="0" data-i18n="footer_terms">服务条款</a>
-                </div>
-                <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
-                <div class="footer-a11y-text" data-i18n="footer_a11y">
-                    This website is designed in accordance with <a
-                        href='https://redirect.ksvg.com.cn/?https://uswds.digital.gov' target='_blank'
-                        rel='noopener noreferrer' tabindex="0">USWDS</a> and <a
-                        href='https://redirect.ksvg.com.cn/?https://www.ada.gov' target='_blank'
-                        rel='noopener noreferrer' tabindex="0">ADA</a> standards to ensure accessible digital
-                    experiences for all users.
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- 占位符：挂载全局组件 -->
+    <div id="footer-placeholder"></div>
 
     <!-- LANGUAGE SELECTION MODAL -->
     <div class="modal-overlay" id="langModal">
@@ -1462,63 +1054,59 @@
         </div>
     </div>
 
-    <!-- UI & API SCRIPTS -->
+    <!-- 主页面核心全局逻辑 -->
     <script>
         window.locales = {};
 
-        function toggleBanner() {
-            const content = document.getElementById('govBannerContent');
-            const btn = document.querySelector('.usa-banner__button');
-            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) { content.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); }
-            else { content.style.display = 'block'; btn.setAttribute('aria-expanded', 'true'); }
-        }
+        // ============================================
+        // 核心：事件委托 (彻底解决异步加载按钮点击失效问题)
+        // ============================================
+        document.addEventListener('click', function (e) {
+            // 1. 处理 "Here's how you know" 下拉菜单 (USA Banner)
 
-        document.getElementById('mobileMenuOpenBtn').addEventListener('click', () => {
-            document.getElementById('mobileNavMenu').classList.add('is-active');
-            document.body.style.overflow = 'hidden';
-        });
-        document.getElementById('mobileMenuCloseBtn').addEventListener('click', () => {
-            document.getElementById('mobileNavMenu').classList.remove('is-active');
-            document.body.style.overflow = 'auto';
-        });
+            // 2. 处理移动端菜单的打开
+            const mobileOpenBtn = e.target.closest('#mobileMenuOpenBtn');
+            if (mobileOpenBtn) {
+                const navMenu = document.getElementById('mobileNavMenu');
+                if (navMenu) {
+                    navMenu.classList.add('is-active');
+                    document.body.style.overflow = 'hidden';
+                }
+                return;
+            }
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.footer-lang-btn') && !e.target.closest('.footer-lang-menu')) {
-                document.getElementById('footerLangMenu').classList.remove('show');
+            // 6. 微信复制提示 (由于组件化，在根级处理)
+            const wxBtn = e.target.closest('#wechatBtnAction');
+            if (wxBtn) {
+                navigator.clipboard.writeText("ksvg_official").then(() => {
+                    const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+                    const msg = {
+                        'en-us': 'WeChat ID "ksvg_official" copied to clipboard!\nPlease search for KSVG on WeChat.',
+                        'zh-hans': '微信公众号 "ksvg_official" 已复制到剪贴板！\n请前往微信搜索 KSVG。',
+                        'zh-hant': '微信公眾號 "ksvg_official" 已複製到剪貼板！\n請前往微信搜索 KSVG。'
+                    }[lang];
+                    alert(msg);
+                });
             }
         });
+
+        // 导出给组件需要的接口
+        window.acceptCookies = function () {
+            localStorage.setItem('ksvg_cookie_consent', 'accepted');
+            const banner = document.getElementById('cookieBanner');
+            if (banner) banner.classList.remove('show');
+        };
+        window.denyCookies = function () {
+            localStorage.setItem('ksvg_cookie_consent', 'denied');
+            const banner = document.getElementById('cookieBanner');
+            if (banner) banner.classList.remove('show');
+        };
 
         window.goToAuth = function (view = 'login') {
             const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
             const target = encodeURIComponent(window.location.hostname);
             window.location.href = `https://auth.ksvg.com.cn/?lang=${lang}&view=${view}&target=${target}`;
         };
-
-        window.copyWechat = function () {
-            navigator.clipboard.writeText("KSVG").then(() => {
-                const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
-                const msg = {
-                    'en-us': 'WeChat ID "KVSG" copied to clipboard!\nPlease search for KSVG on WeChat.',
-                    'zh-hans': '微信公众号 "KSVG" 已复制到剪贴板！\n请前往微信搜索 KSVG。',
-                    'zh-hant': '微信公眾號 "KSVG" 已複製到剪貼板！\n請前往微信搜索 KSVG。'
-                }[lang];
-                alert(msg);
-            }).catch(err => {
-                console.error("Could not copy text: ", err);
-            });
-        };
-
-        function setStaticHeroImage() {
-            const heroSection = document.getElementById('heroSection');
-            const wallpapers = [
-                'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-mikhail-nilov-6965514.jpg',
-                'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/wallpapers/pexels-ron-lach-8154929.jpg'
-            ];
-            const randomIndex = Math.floor(Math.random() * wallpapers.length);
-            heroSection.style.backgroundImage = `url('${wallpapers[randomIndex]}')`;
-        }
-        setStaticHeroImage();
 
         async function loadPhotographyNews() {
             const section = document.getElementById('newsSection');
@@ -1538,10 +1126,9 @@
                         if (res.ok) {
                             const data = await res.json();
                             if (data.items && data.items.length > 0) {
-                                const items = data.items.slice(0, 2).map(item => ({
+                                allArticles = allArticles.concat(data.items.slice(0, 2).map(item => ({
                                     ...item, sourceName: feed.name, pubDateObj: new Date(item.pubDate.replace(/-/g, '/'))
-                                }));
-                                allArticles = allArticles.concat(items);
+                                })));
                             }
                         }
                     } catch (err) { }
@@ -1557,30 +1144,29 @@
                         seenSources.add(article.sourceName);
                     }
                 }
-                if (diverseArticles.length < 4) {
-                    for (let article of allArticles) {
-                        if (!diverseArticles.includes(article) && diverseArticles.length < 4) diverseArticles.push(article);
-                    }
+                while (diverseArticles.length < 4 && allArticles.length > diverseArticles.length) {
+                    const next = allArticles.find(a => !diverseArticles.includes(a));
+                    if (next) diverseArticles.push(next);
                 }
+
                 grid.innerHTML = '';
                 diverseArticles.forEach(article => {
                     let imgUrl = article.thumbnail;
                     if (!imgUrl || imgUrl === "") {
                         const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
-                        if (imgMatch) imgUrl = imgMatch[1];
-                        else imgUrl = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png';
+                        // 新闻模块缺失图片时调用本地资产占位图
+                        imgUrl = imgMatch ? imgMatch[1] : './assets/ksvg-logo.png';
                     }
-                    const dateStr = article.pubDateObj.toLocaleDateString();
+                    // Direct Link, No Redirect Prefix for External RSS
                     grid.innerHTML += `
                     <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card" tabindex="0">
                         <div class="news-image" style="background-image: url('${imgUrl}')"></div>
                         <div class="news-content">
                             <div class="news-source">${article.sourceName}</div>
                             <h3 class="news-title">${article.title}</h3>
-                            <div class="news-date">${dateStr}</div>
+                            <div class="news-date">${article.pubDateObj.toLocaleDateString()}</div>
                         </div>
-                    </a>
-                `;
+                    </a>`;
                 });
             } catch (e) { section.style.display = 'none'; }
         }
@@ -1600,66 +1186,133 @@
             window.history.replaceState({}, '', url);
 
             try {
-                const res = await fetch(`./${lang}.json`);
-                if (!res.ok) throw new Error();
-                window.locales = await res.json();
+                // 读取组件级语言文件（来自 assets 目录）
+                const globalUrl = `./assets/${lang}.json`;
+                // 读取页面级语言文件（来自本根目录）
+                const pageUrl = `./${lang}.json`;
+
+                const [globalRes, pageRes] = await Promise.all([
+                    fetch(globalUrl).catch(() => null),
+                    fetch(pageUrl).catch(() => null)
+                ]);
+
+                let globalLocales = {};
+                let pageLocales = {};
+
+                if (globalRes && globalRes.ok) {
+                    try { globalLocales = await globalRes.json(); } catch (err) { }
+                }
+                if (pageRes && pageRes.ok) {
+                    try { pageLocales = await pageRes.json(); } catch (err) { }
+                }
+
+                window.locales = { ...globalLocales, ...pageLocales };
             } catch (e) {
-                console.error("I18N Error, check JSON files.");
-                return;
+                console.warn("I18N Processing Error:", e);
             }
 
             window.applyTranslations();
             document.title = window.locales['tab_title'] || "KSVG";
 
             const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
-            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang]);
+            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
             localStorage.setItem('ksvg_ui_lang', lang);
-            document.getElementById('footerLangMenu').classList.remove('show');
 
             if (window.refreshAuthText) window.refreshAuthText();
         }
 
         window.initLanguageSelection = async function (lang) {
-            document.getElementById('langModal').classList.remove('show');
+            const langModal = document.getElementById('langModal');
+            if (langModal) langModal.classList.remove('show');
             await window.setLanguage(lang);
             if (!localStorage.getItem('ksvg_cookie_consent')) {
-                setTimeout(() => { document.getElementById('cookieBanner').classList.add('show'); }, 500);
+                setTimeout(() => {
+                    const cookieBanner = document.getElementById('cookieBanner');
+                    if (cookieBanner) cookieBanner.classList.add('show');
+                }, 500);
             }
         }
 
-        window.acceptCookies = function () {
-            localStorage.setItem('ksvg_cookie_consent', 'accepted');
-            document.getElementById('cookieBanner').classList.remove('show');
-        }
-        window.denyCookies = function () {
-            localStorage.setItem('ksvg_cookie_consent', 'denied');
-            document.getElementById('cookieBanner').classList.remove('show');
-        }
-
+        // ============================================
+        // 核心装载引擎
+        // ============================================
         document.addEventListener('DOMContentLoaded', async () => {
+            async function loadComponent(url, elementId) {
+                try {
+                    // 加一个时间戳后缀，强迫浏览器每次都绕过缓存读取最新组件！
+                    const response = await fetch(url + '?t=' + new Date().getTime());
+                    if (!response.ok) return;
+                    const html = await response.text();
+
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+
+                    const scripts = Array.from(temp.querySelectorAll('script'));
+                    scripts.forEach(s => s.remove());
+
+                    const placeholder = document.getElementById(elementId);
+                    if (!placeholder) return;
+                    while (temp.firstChild) {
+                        placeholder.parentNode.insertBefore(temp.firstChild, placeholder);
+                    }
+                    placeholder.remove();
+
+                    // 让组件内的脚本复活
+                    // 修改 loadComponent 函数中最后面那一段 "注入脚本" 的逻辑
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        // 复制所有属性 (如 src, type 等)
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+
+                        // 关键修正：直接用 .text 赋值，而不是用 appendChild(createTextNode)
+                        // .text 属性会自动处理脚本内部的各种符号，不会报错
+                        if (oldScript.innerHTML) {
+                            newScript.text = oldScript.innerHTML;
+                        }
+
+                        document.body.appendChild(newScript);
+                    });
+                } catch (error) {
+                    console.error('Failed to load component:', url);
+                }
+            }
+
+            // 组件拉取基础路径变更为相对目录
+            const basePath = './assets';
+
+            await Promise.all([
+                loadComponent(`${basePath}/us-banner.html`, 'us-banner-placeholder'),
+                loadComponent(`${basePath}/navigation.html`, 'navigation-placeholder'),
+                loadComponent(`${basePath}/footer.html`, 'footer-placeholder')
+            ]);
+
             const hasLangSet = localStorage.getItem('ksvg_ui_lang');
             const hasCookieConsent = localStorage.getItem('ksvg_cookie_consent');
 
             if (!hasLangSet && !hasCookieConsent) {
-                document.getElementById('langModal').classList.add('show');
+                const langModal = document.getElementById('langModal');
+                if (langModal) langModal.classList.add('show');
             } else {
                 let lang = new URLSearchParams(window.location.search).get('lang') || hasLangSet || 'en-us';
                 await window.setLanguage(lang);
                 if (!hasCookieConsent) {
-                    setTimeout(() => { document.getElementById('cookieBanner').classList.add('show'); }, 1000);
+                    setTimeout(() => {
+                        const cookieBanner = document.getElementById('cookieBanner');
+                        if (cookieBanner) cookieBanner.classList.add('show');
+                    }, 1000);
                 }
             }
             if (window.initAuthUI) await window.initAuthUI();
         });
     </script>
 
-    <!-- MODULE: SUPABASE AUTH (Cross-Subdomain Cookie Strategy) -->
+    <!-- MODULE: SUPABASE AUTH -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
         const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
 
-// --- ADVANCED CUSTOM COOKIE STORAGE (With Chunking for >4KB Sessions) ---
+        // Advanced Chunking Cookie Storage for cross-domain auth
         const getCookieDomain = () => {
             const hostname = window.location.hostname;
             return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
@@ -1669,25 +1322,19 @@
             setItem: (key, value) => {
                 const domain = getCookieDomain();
                 const encodedValue = encodeURIComponent(value);
-                const chunkSize = 3000; // 严格控制在 4KB 限制以下
+                const chunkSize = 3000;
                 const chunks = Math.ceil(encodedValue.length / chunkSize);
 
-                // 先存储分块的总数量
                 document.cookie = `${key}-count=${chunks}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
-
-                // 循环写入每一块切片
                 for (let i = 0; i < chunks; i++) {
                     const chunk = encodedValue.slice(i * chunkSize, (i + 1) * chunkSize);
                     document.cookie = `${key}-${i}=${chunk}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
                 }
             },
             getItem: (key) => {
-                // 先读取有几个切片
                 const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
                 if (!countMatch) return null;
                 const count = parseInt(countMatch[2], 10);
-                
-                // 循环读取并拼装切片
                 let fullValue = '';
                 for (let i = 0; i < count; i++) {
                     const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
@@ -1718,7 +1365,6 @@
             if (hour >= 5 && hour < 12) timeKey = 'greeting_morning';
             else if (hour >= 12 && hour < 14) timeKey = 'greeting_noon';
             else if (hour >= 14 && hour < 19) timeKey = 'greeting_afternoon';
-
             let template = window.locales[timeKey] || "{name}";
             return template.replace('{name}', `<strong>${name}</strong>`);
         }
@@ -1727,6 +1373,7 @@
             const dAuth = document.getElementById('desktopAuthContainer');
             const mAuth = document.getElementById('mobileAuthDock');
             const heroGreeting = document.getElementById('heroGreetingContainer');
+            if (!dAuth || !mAuth) return;
 
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -1735,20 +1382,23 @@
                     const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
                     dAuth.innerHTML = `<a href="https://ksvg.com.cn/profile" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></a>`;
                     mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.location.href='https://ksvg.com.cn/profile'" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></button>`;
-                    heroGreeting.innerHTML = getGreeting(name);
-                    heroGreeting.classList.add('show');
+                    if (heroGreeting) {
+                        heroGreeting.innerHTML = getGreeting(name);
+                        heroGreeting.classList.add('show');
+                    }
                 } else {
-                    dAuth.innerHTML = `<button onclick="goToAuth('login')" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
-                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="goToAuth('login')" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
-                    heroGreeting.innerHTML = '';
-                    heroGreeting.classList.remove('show');
+                    dAuth.innerHTML = `<button onclick="window.goToAuth('login')" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
+                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.goToAuth('login')" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
+                    if (heroGreeting) {
+                        heroGreeting.innerHTML = '';
+                        heroGreeting.classList.remove('show');
+                    }
                 }
             };
-
             if (Object.keys(window.locales).length > 0) window.refreshAuthText();
         }
 
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabase.auth.onAuthStateChange(() => {
             if (window.initAuthUI) window.initAuthUI();
         });
     </script>

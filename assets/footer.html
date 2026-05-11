@@ -1,0 +1,354 @@
+<style>
+    .site-footer {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 60px 20px 30px;
+        font-family: -apple-system, sans-serif;
+    }
+
+    .footer-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 40px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 40px;
+        margin-bottom: 20px;
+    }
+
+    .footer-heading {
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .footer-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-links a {
+        color: #a3a3a3;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .footer-links a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+
+    .footer-lang-btn {
+        background: transparent;
+        border: none;
+        color: #a3a3a3;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        margin-top: 20px;
+        position: relative;
+    }
+
+    .footer-lang-btn:hover {
+        color: #fff;
+    }
+
+    .footer-lang-menu {
+        display: none;
+        background: #1a1a1a;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+
+    .footer-lang-menu.show {
+        display: block;
+    }
+
+    .footer-lang-option {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: #a3a3a3;
+        font-size: 0.9rem;
+        padding: 8px 0;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .footer-lang-option:hover {
+        color: #fff;
+    }
+
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 0.75rem;
+        color: #777;
+    }
+
+    .footer-bottom-left {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .footer-logo img {
+        width: 32px;
+        filter: grayscale(100%) brightness(200%);
+        opacity: 0.9;
+    }
+
+    .footer-socials {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .social-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #1e293b;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: all 0.2s;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .social-circle:hover,
+    .social-circle:focus-visible {
+        background: var(--link-blue, #005ea2);
+        transform: translateY(-2px);
+    }
+
+    .footer-legal {
+        text-align: right;
+    }
+
+    .footer-legal-links {
+        margin-bottom: 8px;
+        font-size: 0.7rem;
+    }
+
+    .footer-legal-links a {
+        color: #94a3b8;
+        text-decoration: none;
+        margin-left: 15px;
+        transition: color 0.2s;
+    }
+
+    .footer-legal-links a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .footer-a11y-text {
+        margin-top: 8px;
+        font-size: 0.65rem;
+        color: #64748b;
+        max-width: 500px;
+        line-height: 1.5;
+        margin-left: auto;
+    }
+
+    .footer-a11y-text a {
+        color: #94a3b8;
+        text-decoration: underline;
+    }
+
+    .footer-a11y-text a:hover {
+        color: #fff;
+    }
+
+    @media (max-width: 900px) {
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .footer-legal {
+            text-align: left;
+        }
+
+        .footer-legal-links a {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+
+        .footer-a11y-text {
+            margin-left: 0;
+        }
+    }
+</style>
+
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-col-main">
+            <div class="footer-heading" data-i18n="footer_col1">核心架构</div>
+            <ul class="footer-links">
+                <li><a href="https://docs.ksvg.com.cn" target="_blank" rel="noopener noreferrer" tabindex="0"><span
+                            data-i18n="footer_docs">KSVG Documentation</span> <i class="ri-external-link-line"
+                            aria-hidden="true" style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                <li><a href="javascript:void(0)" id="footerAuthLink" tabindex="0"><span data-i18n="footer_uia">KSVG UIA
+                            认证系统</span> <i class="ri-external-link-line" aria-hidden="true"
+                            style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-col-links">
+            <div class="footer-heading" data-i18n="footer_col2">友情链接</div>
+            <ul class="footer-links">
+                <li><a href="https://kcisec.site" target="_blank" rel="noopener noreferrer" tabindex="0"><span
+                            data-i18n="link_kcisec">昆山康桥校园网站</span> <i class="ri-external-link-line" aria-hidden="true"
+                            style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                <li><a href="https://kcsc.ksvg.com.cn" target="_blank" rel="noopener noreferrer" tabindex="0"><span
+                            data-i18n="link_kcsc">昆山康桥学生会公关组</span> <i class="ri-external-link-line" aria-hidden="true"
+                            style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
+                <li><a href="https://bankofkangchiao.com" target="_blank" rel="noopener noreferrer" tabindex="0"
+                        data-i18n="link_bkc">康桥银行</a> <i class="ri-external-link-line" aria-hidden="true"
+                        style="font-size:0.75rem; opacity:0.6; margin-left:4px; color:#a3a3a3;"></i></li>
+            </ul>
+        </div>
+        <div class="footer-col-lang">
+            <div class="footer-heading" data-i18n="footer_col3">语言偏好</div>
+            <button class="footer-lang-btn" id="footerLangToggleBtn" aria-haspopup="true" tabindex="0">
+                <i class="ri-global-line" aria-hidden="true" style="font-size:1.2rem;"></i>
+                <span class="current-lang-text">简体中文</span>
+                <i class="ri-arrow-down-s-line" aria-hidden="true" style="margin-left:2px;"></i>
+            </button>
+            <div class="footer-lang-menu" id="footerLangMenu">
+                <button class="footer-lang-option" onclick="window.initLanguageSelection('en-us')"
+                    tabindex="0">English</button>
+                <button class="footer-lang-option" onclick="window.initLanguageSelection('zh-hans')"
+                    tabindex="0">简体中文</button>
+                <button class="footer-lang-option" onclick="window.initLanguageSelection('zh-hant')"
+                    tabindex="0">繁體中文</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-bottom-left">
+            <div class="footer-logo" aria-label="KSVG">
+                <img src="./assets/ksvg-logo.png" alt="KSVG Logo"> KSVG
+            </div>
+            <div class="footer-socials" aria-label="Social Media Links">
+                <a href="https://www.youtube.com/@kcisec-ksvg" target="_blank" rel="noopener noreferrer" tabindex="0"
+                    aria-label="YouTube" title="YouTube" class="social-circle"><i class="ri-youtube-fill"
+                        aria-hidden="true"></i></a>
+                <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" target="_blank"
+                    rel="noopener noreferrer" tabindex="0" aria-label="Bilibili" title="Bilibili"
+                    class="social-circle"><i class="ri-bilibili-fill" aria-hidden="true"></i></a>
+                <!-- 抖音 (Douyin) -->
+                <a href="https://www.douyin.com/user/MS4wLjABAAAAgP4nHjviTB-pxbs3lxQThDKumdLWu5bG6WooCbBo-XE"
+                    target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Douyin" title="Douyin"
+                    class="social-circle">
+                    <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                    </svg>
+                </a>
+                <a href="mailto:support@ksvg.com.cn" tabindex="0" aria-label="Email" title="Email"
+                    class="social-circle"><i class="ri-mail-fill" aria-hidden="true"></i></a>
+                <button class="social-circle" aria-label="WeChat" title="WeChat" id="footerWechatBtn" tabindex="0">
+                    <i class="ri-wechat-fill" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="footer-legal">
+            <div class="footer-legal-links">
+                <a href="https://docs.ksvg.com.cn/privacy" target="_blank" rel="noopener noreferrer" tabindex="0"
+                    data-i18n="footer_privacy">隐私政策</a>
+                <a href="https://docs.ksvg.com.cn/terms" target="_blank" rel="noopener noreferrer" tabindex="0"
+                    data-i18n="footer_terms">服务条款</a>
+            </div>
+            <div data-i18n="footer_copyright">Copyright &copy; 2022-2026 KSVG. All rights reserved.</div>
+            <div class="footer-a11y-text" data-i18n="footer_a11y">
+                This website is designed in accordance with <a href='https://uswds.digital.gov' target='_blank'
+                    rel='noopener noreferrer' tabindex='0'>USWDS</a> and <a href='https://www.ada.gov' target='_blank'
+                    rel='noopener noreferrer' tabindex='0'>ADA</a> standards to ensure accessible digital experiences
+                for all users.
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function () {
+        if (window.footerBound) return;
+        window.footerBound = true;
+
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('#footerAuthLink')) {
+                e.preventDefault();
+                const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+                const target = encodeURIComponent(window.location.hostname);
+                const authUrl = `https://auth.ksvg.com.cn/?lang=${lang}&view=login&target=${target}`;
+                window.open(`${authUrl}`, '_blank');
+                return;
+            }
+
+            const langBtn = e.target.closest('#footerLangToggleBtn');
+            const langMenu = document.getElementById('footerLangMenu');
+            if (langBtn) {
+                if (langMenu) langMenu.classList.toggle('show');
+            } else if (!e.target.closest('.footer-lang-menu')) {
+                if (langMenu) langMenu.classList.remove('show');
+            }
+
+            if (e.target.closest('#footerWechatBtn')) {
+                navigator.clipboard.writeText("KSVG").then(() => {
+                    const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
+                    const msg = {
+                        'en-us': 'WeChat ID "KSVG" copied to clipboard!\nPlease search for KSVG on WeChat.',
+                        'zh-hans': '微信公众号 "KSVG" 已复制到剪贴板！\n请前往微信搜索 KSVG。',
+                        'zh-hant': '微信公眾號 "KSVG" 已複製到剪貼板！\n請前往微信搜索 KSVG。'
+                    }[lang];
+                    alert(msg);
+                });
+            }
+        });
+    })();
+</script>
