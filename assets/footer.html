@@ -320,7 +320,40 @@
         if (window.footerBound) return;
         window.footerBound = true;
 
+        // 🔧 更新语言按钮显示文本
+        function updateLangButtonText(lang) {
+            const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
+            const displayText = lbls[lang] || lbls['zh-hans'];
+            const btn = document.getElementById('footerLangToggleBtn');
+            if (btn) {
+                const span = btn.querySelector('.current-lang-text');
+                if (span) span.textContent = displayText;
+            }
+        }
+
+        // 🔧 包装语言切换：先切换，再更新按钮
+        async function switchLanguage(lang) {
+            if (window.initLanguageSelection) {
+                await window.initLanguageSelection(lang);
+            }
+            updateLangButtonText(lang);
+        }
+
+        // 🔧 页面加载时同步当前语言显示
+        function syncInitialLang() {
+            const currentLang = document.documentElement.getAttribute('lang') || localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            updateLangButtonText(currentLang);
+        }
+
+        // 初始化时同步一次
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', syncInitialLang);
+        } else {
+            syncInitialLang();
+        }
+
         document.addEventListener('click', function (e) {
+            // 处理 UIA 认证链接
             if (e.target.closest('#footerAuthLink')) {
                 e.preventDefault();
                 const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
@@ -330,6 +363,7 @@
                 return;
             }
 
+            // 语言菜单切换
             const langBtn = e.target.closest('#footerLangToggleBtn');
             const langMenu = document.getElementById('footerLangMenu');
             if (langBtn) {
@@ -338,6 +372,19 @@
                 if (langMenu) langMenu.classList.remove('show');
             }
 
+            // 🔧 语言选项点击：改为调用 switchLanguage
+            const langOption = e.target.closest('.footer-lang-option');
+            if (langOption) {
+                const lang = langOption.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+                if (lang) {
+                    e.preventDefault();
+                    switchLanguage(lang);
+                }
+                // 关闭菜单
+                if (langMenu) langMenu.classList.remove('show');
+            }
+
+            // 微信复制
             if (e.target.closest('#footerWechatBtn')) {
                 navigator.clipboard.writeText("KSVG").then(() => {
                     const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
@@ -350,5 +397,8 @@
                 });
             }
         });
+
+        // 🔧 暴露给外部调用（供 setLanguage 使用）
+        window.updateFooterLangDisplay = updateLangButtonText;
     })();
 </script>

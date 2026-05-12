@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KSVG | 账户管理</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
+    <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
+
+    <style>
+        :root {
+            --brand-primary: #002b49;
+            --brand-secondary: #c41230;
+            --brand-gold: #B5914F;
+            --banner-bg: #f0f0f0;
+            --bg-color: #f9fafb;
+            --surface-color: #ffffff;
+            --border-color: #e5e7eb;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --input-bg: #f3f4f6;
+            --header-height: 64px;
+            --error-red: #ef4444;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        main { flex-grow: 1; }
+
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 0.25rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px; }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
+
+        .profile-wrapper { max-width: 850px; margin: 40px auto 80px; padding: 0 20px; animation: fadeIn 0.4s ease-out; }
+        .profile-page-header { margin-bottom: 35px; display: flex; align-items: center; gap: 25px; }
+        
+        .profile-avatar-wrapper { position: relative; display: inline-flex; }
+        .profile-avatar-large { width: 90px; height: 90px; background-color: var(--brand-primary); color: white; font-size: 2.5rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0, 43, 73, 0.2); text-transform: uppercase; }
+        .verified-badge { position: absolute; bottom: 0; right: 0; background: white; color: #3b82f6; border-radius: 50%; font-size: 1.8rem; line-height: 1; display: none; align-items: center; justify-content: center; border: 2px solid var(--bg-color); }
+        
+        .profile-title h1 { font-family: 'Georgia', serif; font-size: 2rem; color: var(--text-dark); margin-bottom: 5px; }
+        .profile-title p { color: var(--text-muted); font-size: 0.95rem; }
+
+        .form-section { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 35px 40px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+        .form-section-title { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 25px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; position: relative; }
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        .form-label { font-size: 0.85rem; font-weight: 500; color: #4b5563; }
+        
+        .form-control { padding: 14px 16px; background-color: var(--input-bg); border: 1px solid transparent; border-radius: 8px; font-size: 0.95rem; font-family: inherit; color: var(--text-dark); font-weight: 500; transition: all 0.2s; width: 100%; }
+        .form-control:focus { outline: none; background-color: white; border-color: var(--brand-primary); box-shadow: 0 0 0 3px rgba(0, 43, 73, 0.1); }
+        .form-control:disabled, .form-control.locked { background-color: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+        .locked-wrapper { position: relative; display: block; width: 100%; cursor: not-allowed; }
+        .form-control.locked-input-div { display: flex; align-items: center; background-color: #e5e7eb; color: #6b7280; cursor: not-allowed; min-height: 48px; }
+
+        textarea.form-control { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+        .form-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+        .btn { padding: 12px 28px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; font-family: inherit; }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background-color: var(--brand-primary); color: white; box-shadow: 0 4px 12px rgba(0, 43, 73, 0.15); }
+        .btn-primary:hover { background-color: #001f35; }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+        .btn-secondary { background: white; border: 1px solid var(--border-color); color: var(--text-dark); }
+        .btn-secondary:hover { background: #f1f5f9; }
+
+        .status-alert { display: none; padding: 14px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; align-items: center; gap: 10px; animation: slideDown 0.3s ease; }
+        .status-alert.success { background-color: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; display: flex; }
+        .status-alert.error { background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; display: flex; }
+
+        #pageLoader { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--bg-color); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px; transition: opacity 0.4s; }
+        .spinner { animation: spin 1s linear infinite; font-size: 2.5rem; color: var(--brand-primary); }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-section { padding: 30px 20px; }
+            .profile-page-header { flex-direction: column; text-align: center; }
+            .form-actions { flex-direction: column; width: 100%; }
+            .form-actions > div { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+            .btn { width: 100%; }
+            #logoutBtnBottom { display: none !important; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pageLoader">
+        <i class="ri-loader-4-line spinner"></i>
+        <div style="color: var(--text-muted); font-weight: 500; font-size: 0.9rem;" data-i18n="text_authenticating">Authenticating Session...</div>
+    </div>
+
+    <div id="us-banner-placeholder"></div>
+    <div class="brand-strip"></div>
+    <div id="navigation-placeholder"></div>
+
+    <main>
+        <div class="profile-wrapper">
+            <div class="profile-page-header">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar-large" id="mainAvatar"><i class="ri-user-fill"></i></div>
+                    <div class="verified-badge" id="verifiedBadge" title="KSVG Verified Member"><i class="ri-checkbox-circle-fill"></i></div>
+                </div>
+                <div class="profile-title">
+                    <h1 data-i18n="profile_title">账户管理</h1>
+                    <p data-i18n="profile_subtitle">管理您的个人资料及组织公开信息。</p>
+                </div>
+            </div>
+
+            <form id="profileForm">
+                <div id="statusAlert" class="status-alert"></div>
+
+                <div class="form-section">
+                    <h2 class="form-section-title" data-i18n="sec_personal">Personal Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label class="form-label" data-i18n="label_email">Email Address</label>
+                            <div id="emailDisplay" class="form-control locked-input-div"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="displayName" data-i18n="label_name">Display Name</label>
+                            <input type="text" id="displayName" class="form-control" placeholder="First Last" tabindex="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="studentId" data-i18n="label_student_id">Student ID</label>
+                            <input type="text" id="studentId" class="form-control" placeholder="123456" tabindex="2">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="phone" data-i18n="label_phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+86 13800138000" tabindex="4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="form-section-title" data-i18n="sec_org">Organizational Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="department" data-i18n="label_dept">Department</label>
+                            <span class="locked-wrapper" id="deptWrapper">
+                                <input type="text" id="department" class="form-control" placeholder="Photography Dept" tabindex="5">
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="position" data-i18n="label_position">Position</label>
+                            <span class="locked-wrapper" id="posWrapper">
+                                <input type="text" id="position" class="form-control" placeholder="Senior Member" tabindex="6">
+                            </span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="portfolio" data-i18n="label_portfolio">Portfolio / Social Link</label>
+                            <input type="url" id="portfolio" class="form-control" placeholder="https://..." tabindex="7">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="bio" data-i18n="label_bio">Short Bio</label>
+                            <textarea id="bio" class="form-control" tabindex="8" placeholder="Write a short introduction..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn" id="logoutBtnBottom" tabindex="11" style="background: white; color: var(--error-red); border: 1px solid #fecaca; margin-right: auto;">
+                        <i class="ri-logout-box-r-line"></i> <span data-i18n="auth_sign_out">注销退出</span>
+                    </button>
+                    <div style="display: flex; gap: 15px;">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='../index.html'" tabindex="10" data-i18n="btn_cancel">取消返回</button>
+                        <button type="submit" class="btn btn-primary" id="saveBtn" tabindex="9">
+                            <span data-i18n="btn_save">保存更改</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Powered by Supabase 标识 -->
+    <div style="text-align: center; padding: 0px 20px 20px; color: #64748b; font-size: 0.8rem; background: transparent;">
+        Authentication &amp; data processing powered by 
+        <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" 
+           style="color: #3ecf8e; font-weight: 600; text-decoration: none; border-bottom: 1px dotted #3ecf8e;">
+           Supabase
+        </a>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- ========== 核心脚本 ========== -->
+    <script>
+        window.locales = {};
+
+        // 🔧 根据目录结构修正路径
+        // 组件在 Pages/assets/，当前在 Pages/profile/
+        const componentBasePath = '../assets';
+
+        async function loadComponent(filename, elementId) {
+            const url = `${componentBasePath}/${filename}?t=${new Date().getTime()}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    console.error(`❌ 组件加载失败: ${url} (状态码 ${response.status})`);
+                    return;
+                }
+                let html = await response.text();
+                // 修复组件内部引用 ./assets -> ../assets（因为组件原本在同级使用）
+                html = html.replace(/\.\/assets/g, '../assets');
+
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const scripts = Array.from(temp.querySelectorAll('script'));
+                scripts.forEach(s => s.remove());
+
+                const placeholder = document.getElementById(elementId);
+                if (!placeholder) return;
+                while (temp.firstChild) {
+                    placeholder.parentNode.insertBefore(temp.firstChild, placeholder);
+                }
+                placeholder.remove();
+
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    if (oldScript.innerHTML) newScript.text = oldScript.innerHTML;
+                    document.body.appendChild(newScript);
+                });
+
+                console.log(`✅ 组件加载成功: ${url} -> ${elementId}`);
+            } catch (error) {
+                console.error(`❌ 组件加载异常: ${url}`, error);
+            }
+        }
+
+        window.applyTranslations = function () {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (window.locales[key]) el.innerHTML = window.locales[key];
+            });
+            const ksvgOnlyTitle = window.locales['tooltip_ksvg_only'] || "仅KSVG内部成员可申请更改此字段。";
+            document.querySelectorAll('.locked').forEach(el => {
+                el.parentElement.setAttribute('title', ksvgOnlyTitle);
+            });
+        };
+
+        window.setLanguage = async function (lang) {
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('ksvg_ui_lang', lang);
+
+            try {
+                // 🔧 全局语言文件：从 Pages/assets/ 加载
+                const globalRes = await fetch(`../assets/${lang}.json?t=${new Date().getTime()}`).catch(() => null);
+                // 🔧 页面语言文件：从 Pages/profile/ 加载
+                const pageRes = await fetch(`./${lang}.json?t=${new Date().getTime()}`).catch(() => null);
+
+                let globalData = {}, pageData = {};
+                if (globalRes && globalRes.ok) {
+                    globalData = await globalRes.json();
+                    console.log(`✅ 全局语言文件加载成功: ${lang}.json`);
+                } else {
+                    console.warn(`⚠️ 全局语言文件未找到: ../assets/${lang}.json`);
+                }
+                if (pageRes && pageRes.ok) {
+                    pageData = await pageRes.json();
+                    console.log(`✅ 页面语言文件加载成功: ${lang}.json`);
+                } else {
+                    console.warn(`⚠️ 页面语言文件未找到: ./${lang}.json`);
+                }
+                window.locales = { ...globalData, ...pageData };
+            } catch (e) {
+                console.error('语言文件加载异常:', e);
+            }
+
+            window.applyTranslations();
+            document.title = window.locales['tab_title_profile'] || "KSVG | Profile";
+
+            if (window.refreshAuthText) {
+                await window.refreshAuthText();
+                window.applyTranslations();
+            }
+            // 🔧 更新 footer 语言按钮显示
+            if (window.updateFooterLangDisplay) {
+                window.updateFooterLangDisplay(lang);
+            }
+        };
+
+        window.initLanguageSelection = async function (lang) {
+            const modal = document.getElementById('langModal');
+            if (modal) modal.style.display = 'none';
+            await window.setLanguage(lang);
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 加载全局组件
+            await Promise.all([
+                loadComponent('us-banner.html', 'us-banner-placeholder'),
+                loadComponent('navigation.html', 'navigation-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+
+            let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            await window.setLanguage(lang);
+
+            if (window.initSupabaseProfile) {
+                await window.initSupabaseProfile();
+                window.applyTranslations();
+            }
+        });
+    </script>
+
+    <!-- ========== Supabase 模块 ========== -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
+
+        const getCookieDomain = () => {
+            const hostname = window.location.hostname;
+            return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
+        };
+
+        const cookieStorage = {
+            setItem: (key, value) => {
+                const domain = getCookieDomain();
+                const encodedValue = encodeURIComponent(value);
+                const chunkSize = 3000;
+                const chunks = Math.ceil(encodedValue.length / chunkSize);
+                document.cookie = `${key}-count=${chunks}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
+                for (let i = 0; i < chunks; i++) {
+                    const chunk = encodedValue.slice(i * chunkSize, (i + 1) * chunkSize);
+                    document.cookie = `${key}-${i}=${chunk}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
+                }
+            },
+            getItem: (key) => {
+                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
+                if (!countMatch) return null;
+                const count = parseInt(countMatch[2], 10);
+                let fullValue = '';
+                for (let i = 0; i < count; i++) {
+                    const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
+                    if (chunkMatch) fullValue += chunkMatch[2];
+                }
+                return fullValue ? decodeURIComponent(fullValue) : null;
+            },
+            removeItem: (key) => {
+                const domain = getCookieDomain();
+                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
+                if (countMatch) {
+                    const count = parseInt(countMatch[2], 10);
+                    for (let i = 0; i < count; i++) {
+                        document.cookie = `${key}-${i}=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+                    }
+                }
+                document.cookie = `${key}-count=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+            }
+        };
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
+        });
+
+        const alertBox = document.getElementById('statusAlert');
+        const saveBtn = document.getElementById('saveBtn');
+        const mainAvatar = document.getElementById('mainAvatar');
+
+        const formFields = {
+            full_name: document.getElementById('displayName'),
+            student_id: document.getElementById('studentId'),
+            department: document.getElementById('department'),
+            position: document.getElementById('position'),
+            portfolio_url: document.getElementById('portfolio'),
+            bio: document.getElementById('bio')
+        };
+        const fPhone = document.getElementById('phone');
+
+        function showAlert(msgKey, type = 'success') {
+            alertBox.className = `status-alert ${type}`;
+            const icon = type === 'success' ? 'ri-checkbox-circle-fill' : 'ri-error-warning-fill';
+            const text = window.locales[msgKey] || msgKey;
+            alertBox.innerHTML = `<i class="${icon}"></i> <span>${text}</span>`;
+            alertBox.style.display = 'flex';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 4000);
+        }
+
+        window.initSupabaseProfile = async function() {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session) {
+                const target = encodeURIComponent(window.location.hostname + window.location.pathname);
+                window.location.href = `https://auth.ksvg.com.cn/?target=${target}`;
+                return;
+            }
+
+            const email = session.user.email;
+            const meta = session.user.user_metadata || {};
+            const displayName = meta.full_name || email.split('@')[0];
+
+            window._profileEmail = email;
+            window._profileDisplayName = displayName;
+
+            const isKsvgUser = email.endsWith('@ksvg.com.cn');
+            let decoratedEmail = email;
+            if (isKsvgUser) {
+                decoratedEmail = email.replace('@ksvg.com.cn', '<span style="color: var(--brand-gold); font-weight: 700;">@ksvg.com.cn</span>');
+                document.getElementById('verifiedBadge').style.display = 'flex';
+            } else {
+                formFields.department.classList.add('locked');
+                formFields.department.disabled = true;
+                formFields.position.classList.add('locked');
+                formFields.position.disabled = true;
+            }
+
+            document.getElementById('emailDisplay').innerHTML = decoratedEmail;
+
+            const doLogout = async () => {
+                await supabase.auth.signOut();
+                window.location.href = '../index.html';
+            };
+
+            window.refreshAuthText = () => {
+                if (window.renderNavigationAuth) {
+                    window.renderNavigationAuth(session);
+                    window.applyTranslations();
+                }
+                const mbg = document.getElementById('mLogoutBtnNav');
+                if (mbg) mbg.onclick = doLogout;
+
+                const bbg = document.getElementById('logoutBtnBottom');
+                if (bbg) bbg.onclick = doLogout;
+            };
+
+            if (Object.keys(window.locales).length > 0) {
+                window.refreshAuthText();
+            }
+
+            mainAvatar.textContent = displayName.charAt(0).toUpperCase();
+            Object.keys(formFields).forEach(key => {
+                if (meta[key]) formFields[key].value = meta[key];
+            });
+
+            if (meta.phone) {
+                fPhone.value = meta.phone;
+            }
+
+            document.getElementById('pageLoader').style.opacity = '0';
+            setTimeout(() => document.getElementById('pageLoader').style.display = 'none', 400);
+        };
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let phoneVal = fPhone.value.trim();
+            if (phoneVal && !/^\+?\d[\d\s]{5,18}$/.test(phoneVal)) {
+                showAlert("alert_error_phone", "error");
+                return;
+            }
+            if (phoneVal && !phoneVal.startsWith('+')) {
+                phoneVal = '+86 ' + phoneVal;
+            }
+
+            const originalBtnHtml = saveBtn.innerHTML;
+            saveBtn.innerHTML = `<i class="ri-loader-4-line spinner" style="font-size:1.1rem; color:white;"></i>`;
+            saveBtn.disabled = true;
+            alertBox.style.display = 'none';
+
+            try {
+                const payload = {
+                    full_name: formFields.full_name.value.trim(),
+                    student_id: formFields.student_id.value.trim(),
+                    phone: phoneVal,
+                    portfolio_url: formFields.portfolio_url.value.trim(),
+                    bio: formFields.bio.value.trim()
+                };
+
+                if (!formFields.department.disabled) {
+                    payload.department = formFields.department.value.trim();
+                    payload.position = formFields.position.value.trim();
+                }
+
+                const { error } = await supabase.auth.updateUser({ data: payload });
+                if (error) throw error;
+
+                const newName = payload.full_name || window._profileDisplayName;
+                mainAvatar.textContent = newName.charAt(0).toUpperCase();
+                window._profileDisplayName = newName;
+
+                const { data: { session: updatedSession } } = await supabase.auth.getSession();
+                if (window.renderNavigationAuth) {
+                    window.renderNavigationAuth(updatedSession);
+                    window.applyTranslations();
+                }
+
+                showAlert("alert_success", "success");
+            } catch (err) {
+                showAlert("alert_error", "error");
+            } finally {
+                saveBtn.innerHTML = originalBtnHtml;
+                saveBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

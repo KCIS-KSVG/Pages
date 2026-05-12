@@ -27,5 +27,7 @@
   "wechat_desc": "請前往微信搜索公眾號 <br><strong>KSVG</strong>",
   "social_youtube": "YouTube",
   "social_bilibili": "嗶哩嗶哩",
-  "social_email": "聯繫郵箱"
+  "social_email": "聯繫郵箱",
+  "auth_settings": "資訊設定",
+  "auth_sign_out": "登出帳戶"
 }

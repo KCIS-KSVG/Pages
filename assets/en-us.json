@@ -27,5 +27,7 @@
   "wechat_desc": "Please search for <strong>KSVG</strong> on WeChat.",
   "social_youtube": "YouTube",
   "social_bilibili": "Bilibili",
-  "social_email": "Email"
+  "social_email": "Email",
+  "auth_settings": "Settings",
+  "auth_sign_out": "Sign Out"
 }

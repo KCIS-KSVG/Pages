@@ -5,20 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- 优化了 SEO 的 Description -->
-    <meta name="description"
-        content="KSVG（昆山康桥学生摄影合作组织）是昆山康桥学校 (KCIS) 的核心学生视觉技术团队。我们提供校园影像标准化规范、跨组织活动视觉协同支持，并开源 KSVG UIA 统一身份认证系统等数字基础设施，致力于提升校园视觉媒体质量与技术创新。">
+    <meta name="description" content="KSVG（昆山康桥学生摄影合作组织）是昆山康桥学校 (KCIS) 的核心学生视觉技术团队。我们提供校园影像标准化规范、跨组织活动视觉协同支持，并开源 KSVG UIA 统一身份认证系统等数字基础设施，致力于提升校园视觉媒体质量与技术创新。">
     <title>KSVG | 首页</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- 引入 Open Sans 以统一美系政府/官方机构设计风格 -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
     <!-- 增加版本号强制绕过浏览器缓存 -->
-    <link rel="icon" href="./assets/ksvg-logo.png?v=2" type="image/png">
-    <link rel="shortcut icon" href="./assets/ksvg-logo.png?v=2" type="image/png">
+    <link rel="icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
+    <link rel="shortcut icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
 
     <style>
         /* --- CORE VARIABLES --- */
@@ -37,904 +35,108 @@
             --transition-speed: 0.3s;
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ========================================================= */
-        /* 0. USWDS ACCESSIBILITY FOCUS (全局高亮蓝框)                 */
-        /* ========================================================= */
-        a:focus-visible,
-        button:focus-visible,
-        input:focus-visible,
-        textarea:focus-visible,
-        select:focus-visible,
-        [tabindex]:focus-visible {
+        /* USWDS ACCESSIBILITY FOCUS */
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
             outline: 0.25rem solid #2491ff !important;
             outline-offset: 0.125rem !important;
             border-radius: 4px;
         }
 
-        /* ========================================================= */
-        /* 1. USA BANNER & HEADER CSS (供动态加载的组件使用)          */
-        /* ========================================================= */
-        .usa-banner {
-            background-color: #f0f0f0;
-            color: #1b1b1b;
-            font-size: 0.8rem;
-            position: relative;
-            z-index: 2000;
-            border-bottom: 1px solid #e2e2e2;
-            width: 100%;
-        }
-
-        .usa-accordion__heading {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            position: relative;
-            background-color: var(--banner-bg);
-            z-index: 2002;
-        }
-
-        .flag-icon {
-            width: 16px;
-            opacity: 0.7;
-            border-radius: 2px;
-        }
-
-        .usa-banner__button {
-            background: none;
-            border: none;
-            color: var(--link-blue);
-            font-weight: 700;
-            cursor: pointer;
-            padding: 0 5px;
-            text-decoration: underline;
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-
-        .usa-banner__button:hover {
-            text-decoration: none;
-        }
-
-        .icon-arrow {
-            width: 10px;
-            height: 10px;
-            margin-left: 4px;
-            transition: transform var(--transition-speed) ease;
-            fill: currentColor;
-        }
-
-        .usa-banner__button[aria-expanded="true"] .icon-arrow {
-            transform: rotate(180deg);
-        }
-
-        .usa-banner__content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #dcdcdc;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px 0;
-            z-index: 2001;
-        }
-
-        .usa-banner__grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .media-block {
-            display: flex;
-            gap: 15px;
-        }
-
-        .media-icon {
-            background: #dcdcdc;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .media-body h3 {
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .media-body p {
-            font-size: 0.8rem;
-            color: #555;
-            line-height: 1.4;
-            margin: 0;
-        }
-
         /* 渐变分割线 */
-        .brand-strip {
-            height: 4px;
-            width: 100%;
-            background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%);
-        }
-
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            height: var(--header-height);
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo-link img {
-            height: 40px;
-            width: auto;
-            transition: transform var(--transition-speed);
-        }
-
-        .logo-link img:hover {
-            transform: scale(1.05);
-        }
-
-        .navigation {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-menu a {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color var(--transition-speed);
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: var(--brand-primary);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active-nav-item {
-            color: var(--brand-primary);
-        }
-
-        .nav-menu a:hover::after,
-        .nav-menu a.active-nav-item::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: flex-end;
-        }
-
-        .desktop-auth-container {
-            position: relative;
-        }
-
-        .auth-btn-styled {
-            background-color: var(--brand-primary);
-            color: white !important;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: inherit;
-            text-decoration: none;
-        }
-
-        .auth-btn-styled:hover {
-            background-color: #001f35;
-            transform: translateY(-1px);
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        /* 移动端覆盖菜单 */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: white;
-            z-index: 2100;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .mobile-menu-overlay.is-active {
-            transform: translateX(0);
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: var(--header-height);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .mobile-menu-header img {
-            height: 35px;
-        }
-
-        .mobile-close-btn {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--text-dark);
-            cursor: pointer;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-nav-links {
-            flex-grow: 1;
-            overflow-y: auto;
-            list-style: none;
-            padding: 20px;
-            margin: 0;
-        }
-
-        .mobile-nav-links li {
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .mobile-nav-links a {
-            display: flex;
-            align-items: center;
-            padding: 18px 10px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .mobile-nav-links i {
-            color: #94a3b8;
-            font-size: 1.3rem;
-            margin-right: 15px;
-        }
-
-        .mobile-nav-links a.active-nav-item {
-            background-color: #f1f5f9;
-            color: var(--brand-primary);
-            font-weight: 700;
-        }
-
-        .mobile-nav-links a.active-nav-item i {
-            color: var(--brand-primary);
-        }
-
-        .mobile-auth-dock {
-            padding: 20px;
-            border-top: 1px solid #f1f5f9;
-            background: #ffffff;
-        }
-
-        .mobile-auth-btn {
-            width: 100%;
-            padding: 16px;
-            background-color: var(--brand-primary);
-            border: none;
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: inherit;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 43, 73, 0.15);
-        }
-
-        .mobile-auth-btn:active {
-            background-color: #001f35;
-            transform: scale(0.98);
-        }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
         /* ========================================================= */
-        /* 2. HERO SECTION                                           */
+        /* HERO SECTION                                              */
         /* ========================================================= */
-        .hero-section {
-            height: calc(85vh - var(--header-height));
-            min-height: 500px;
-            background-color: var(--brand-primary);
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7);
-            transition: background-image 0.5s ease;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            padding: 0 20px;
-            color: white;
-        }
-
-        .hero-greeting {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #e2e8f0;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.8s ease;
-        }
-
-        .hero-greeting.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hero-greeting strong {
-            color: white;
-            font-weight: 600;
-        }
-
-        .hero-content h1 {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            font-weight: 400;
-            color: #cbd5e1;
-            letter-spacing: 1px;
-        }
+        .hero-section { height: calc(85vh - var(--header-height)); min-height: 500px; background-color: var(--brand-primary); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); transition: background-image 0.5s ease; }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; color: white; }
+        .hero-greeting { display: inline-flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 400; color: #e2e8f0; margin-bottom: 20px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease; }
+        .hero-greeting.show { opacity: 1; transform: translateY(0); }
+        .hero-greeting strong { color: white; font-weight: 600; text-transform: uppercase; }
+        .hero-content h1 { font-family: 'Open Sans', sans-serif; font-size: 4.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
+        .hero-subtitle { font-size: 1.15rem; font-weight: 400; color: #cbd5e1; letter-spacing: 1px; }
 
         /* ========================================================= */
-        /* 3. CONTENT SECTIONS                                       */
+        /* CONTENT SECTIONS                                          */
         /* ========================================================= */
-        .content-section {
-            padding: 90px 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
+        .content-section { padding: 90px 20px; border-bottom: 1px solid var(--border-color); }
+        .bg-white { background-color: #ffffff; }
+        .bg-surface { background-color: var(--surface-color); }
+        .details-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; align-items: center; gap: 60px; }
+        .details-grid.reverse { direction: rtl; }
+        .details-grid.reverse>* { direction: ltr; }
+        .details-visual { text-align: center; }
+        .details-visual i { font-size: 60px; color: var(--brand-primary); opacity: 0.9; }
+        .details-text h2 { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
+        .details-text p { font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
+        .learn-more-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 15px; color: var(--link-blue); font-weight: 600; font-size: 0.95rem; transition: gap 0.2s; }
+        .learn-more-link:hover { gap: 8px; text-decoration: underline; }
 
-        .bg-white {
-            background-color: #ffffff;
-        }
-
-        .bg-surface {
-            background-color: var(--surface-color);
-        }
-
-        .details-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .details-grid.reverse {
-            direction: rtl;
-        }
-
-        .details-grid.reverse>* {
-            direction: ltr;
-        }
-
-        .details-visual {
-            text-align: center;
-        }
-
-        .details-visual i {
-            font-size: 60px;
-            color: var(--brand-primary);
-            opacity: 0.9;
-        }
-
-        .details-text h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-        }
-
-        .details-text p {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--text-muted);
-        }
-
-        .learn-more-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 15px;
-            color: var(--link-blue);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: gap 0.2s;
-        }
-
-        .learn-more-link:hover {
-            gap: 8px;
-            text-decoration: underline;
-        }
-
-        .partner-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .partner-tag {
-            color: var(--brand-primary);
-            padding: 6px 14px;
-            border: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: white;
-            border-radius: 4px;
-            user-select: none;
-        }
-
-        .partner-tag i {
-            color: var(--brand-secondary);
-            font-size: 1rem;
-        }
-
-        .details-grid.reverse .partner-tags {
-            justify-content: flex-end;
-        }
+        .partner-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .partner-tag { color: var(--brand-primary); padding: 6px 14px; border: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; background: white; border-radius: 4px; user-select: none; }
+        .partner-tag i { color: var(--brand-secondary); font-size: 1rem; }
+        .details-grid.reverse .partner-tags { justify-content: flex-end; }
 
         /* ========================================================= */
-        /* 4. NEWS SECTION                                           */
+        /* NEWS SECTION                                              */
         /* ========================================================= */
-        .news-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .news-header h2 {
-            font-family: 'Georgia', serif;
-            font-size: 2rem;
-            color: var(--brand-primary);
-            margin-bottom: 10px;
-        }
-
-        .news-header p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .news-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-        }
-
-        .news-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        .news-image {
-            height: 150px;
-            background-size: cover;
-            background-position: center;
-            background-color: #e2e8f0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .news-content {
-            padding: 15px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-source {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--brand-secondary);
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .news-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            color: var(--text-dark);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .news-date {
-            margin-top: auto;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .news-loader {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            width: 100%;
-            grid-column: 1 / -1;
-        }
-
-        .spin-icon {
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+        .news-header { text-align: center; margin-bottom: 50px; }
+        .news-header h2 { font-family: 'Georgia', serif; font-size: 2rem; color: var(--brand-primary); margin-bottom: 10px; }
+        .news-header p { color: var(--text-muted); font-size: 1rem; }
+        .news-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+        .news-card { background: white; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); }
+        .news-image { height: 150px; background-size: cover; background-position: center; background-color: #e2e8f0; border-bottom: 1px solid #f1f5f9; }
+        .news-content { padding: 15px; flex: 1; display: flex; flex-direction: column; }
+        .news-source { font-size: 0.7rem; font-weight: 700; color: var(--brand-secondary); text-transform: uppercase; margin-bottom: 6px; }
+        .news-title { font-size: 0.95rem; font-weight: 700; line-height: 1.4; margin-bottom: 15px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-date { margin-top: auto; font-size: 0.75rem; color: var(--text-muted); }
+        .news-loader { text-align: center; padding: 40px; color: var(--text-muted); width: 100%; grid-column: 1 / -1; }
+        .spin-icon { animation: spin 1s linear infinite; display: inline-block; font-size: 1.5rem; margin-bottom: 10px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* ========================================================= */
-        /* 5. FOOTER & MODALS (Extracted to External Component mostly) */
+        /* MODALS & COOKIE BANNER                                    */
         /* ========================================================= */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 10000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .lang-modal-box { background: #fff; padding: 40px 30px; border-radius: 16px; width: 90%; max-width: 360px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); display: flex; flex-direction: column; align-items: center; }
+        .lang-modal-box h3 { margin: 0 0 8px 0; font-family: 'Georgia', serif; font-size: 1.5rem; color: var(--text-dark); }
+        .lang-modal-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px; line-height: 1.4; }
+        .lang-modal-btn { width: 100%; padding: 14px; margin-bottom: 12px; background: #fff; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; font-weight: 600; color: var(--text-dark); cursor: pointer; transition: all 0.2s ease; }
+        .lang-modal-btn:hover, .lang-modal-btn:focus-visible { background: var(--surface-color); color: var(--brand-primary); border-color: var(--brand-primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
-        .modal-overlay.show {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .lang-modal-box {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 360px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .lang-modal-box h3 {
-            margin: 0 0 8px 0;
-            font-family: 'Georgia', serif;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-        }
-
-        .lang-modal-box p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 25px;
-            line-height: 1.4;
-        }
-
-        .lang-modal-btn {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 12px;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lang-modal-btn:hover,
-        .lang-modal-btn:focus-visible {
-            background: var(--surface-color);
-            color: var(--brand-primary);
-            border-color: var(--brand-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .cookie-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            max-width: 400px;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            z-index: 9999;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            animation: slideUp 0.4s ease;
-        }
-
-        @media (min-width: 480px) {
-            .cookie-banner {
-                right: auto;
-            }
-        }
-
-        .cookie-banner.show {
-            display: flex;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .cookie-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cookie-header span {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .cookie-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            line-height: 1;
-        }
-
-        .cookie-body {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .cookie-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-
-        .cookie-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .cookie-btn-deny {
-            background: #f1f5f9;
-            color: var(--text-dark);
-            border-color: #cbd5e1;
-        }
-
-        .cookie-btn-deny:hover {
-            background: #e2e8f0;
-        }
-
-        .cookie-btn-agree {
-            background: var(--brand-primary);
-            color: white;
-        }
-
-        .cookie-btn-agree:hover {
-            background: #001f35;
-        }
+        .cookie-banner { position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 400px; background: #fff; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); border-radius: 8px; z-index: 9999; padding: 20px; display: none; flex-direction: column; gap: 12px; animation: slideUp 0.4s ease; }
+        @media (min-width: 480px) { .cookie-banner { right: auto; } }
+        .cookie-banner.show { display: flex; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .cookie-header { display: flex; justify-content: space-between; align-items: center; }
+        .cookie-header span { font-weight: 700; font-size: 0.85rem; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; }
+        .cookie-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); line-height: 1; }
+        .cookie-body { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+        .cookie-actions { display: flex; gap: 10px; margin-top: 5px; }
+        .cookie-btn { flex: 1; padding: 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+        .cookie-btn-deny { background: #f1f5f9; color: var(--text-dark); border-color: #cbd5e1; }
+        .cookie-btn-deny:hover { background: #e2e8f0; }
+        .cookie-btn-agree { background: var(--brand-primary); color: white; }
+        .cookie-btn-agree:hover { background: #001f35; }
 
         @media (max-width: 900px) {
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.95rem;
-            }
-
-            .content-section {
-                padding: 60px 20px;
-            }
-
-            .details-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: left;
-            }
-
-            .details-grid.reverse {
-                direction: ltr;
-            }
-
-            .details-grid.reverse .partner-tags {
-                justify-content: flex-start;
-            }
-
-            .details-visual {
-                text-align: left;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-subtitle { font-size: 0.95rem; }
+            .content-section { padding: 60px 20px; }
+            .details-grid { grid-template-columns: 1fr; gap: 30px; text-align: left; }
+            .details-grid.reverse { direction: ltr; }
+            .details-grid.reverse .partner-tags { justify-content: flex-start; }
+            .details-visual { text-align: left; }
+            .news-grid { grid-template-columns: 1fr; }
         }
-        #govBannerContent .usa-banner__grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-}
     </style>
 </head>
 
@@ -942,7 +144,7 @@
     <!-- 占位符：挂载全局组件 (USA Banner) -->
     <div id="us-banner-placeholder"></div>
 
-    <!-- 核心修复：复原的渐变分割线 -->
+    <!-- 渐变分割线 -->
     <div class="brand-strip"></div>
 
     <!-- 占位符：挂载全局组件 (Navigation) -->
@@ -963,8 +165,7 @@
                 <div class="details-text">
                     <h2 data-i18n="sec1_title">影像标准化</h2>
                     <p data-i18n="sec1_desc">探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。</p>
-                    <a href="https://docs.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="learn-more-link"
-                        tabindex="0">
+                    <a href="https://docs.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="learn-more-link" tabindex="0">
                         <span data-i18n="sec1_link">阅读标准文件</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -978,10 +179,8 @@
                     <h2 data-i18n="sec2_title">跨组织协同</h2>
                     <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
                     <div class="partner-tags">
-                        <span class="partner-tag"><i class="ri-bank-line" aria-hidden="true"></i> <span
-                                data-i18n="tag_bkc">康桥银行</span></span>
-                        <span class="partner-tag"><i class="ri-camera-lens-line" aria-hidden="true"></i> <span
-                                data-i18n="tag_kcsc">昆山康桥学生会公关组</span></span>
+                        <span class="partner-tag"><i class="ri-bank-line" aria-hidden="true"></i> <span data-i18n="tag_bkc">康桥银行</span></span>
+                        <span class="partner-tag"><i class="ri-camera-lens-line" aria-hidden="true"></i> <span data-i18n="tag_kcsc">昆山康桥学生会公关组</span></span>
                     </div>
                 </div>
             </div>
@@ -992,12 +191,9 @@
                 <div class="details-visual"><i class="ri-shield-keyhole-line" aria-hidden="true"></i></div>
                 <div class="details-text">
                     <h2 data-i18n="sec3_title">数字基础设施</h2>
-                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA)
-                        平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
-                    <a href="https://github.com/KCIS-KSVG" target="_blank" rel="noopener noreferrer"
-                        class="learn-more-link" tabindex="0">
-                        <span data-i18n="sec3_link">访问 GitHub 开源库</span> <i class="ri-arrow-right-line"
-                            aria-hidden="true"></i>
+                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
+                    <a href="https://github.com/KCIS-KSVG" target="_blank" rel="noopener noreferrer" class="learn-more-link" tabindex="0">
+                        <span data-i18n="sec3_link">访问 GitHub 开源库</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -1023,12 +219,9 @@
     <!-- LANGUAGE SELECTION MODAL -->
     <div class="modal-overlay" id="langModal">
         <div class="lang-modal-box" role="dialog" aria-labelledby="langModalTitle" aria-modal="true">
-            <i class="ri-global-line" aria-hidden="true"
-                style="font-size: 2.5rem; color: var(--brand-primary); margin-bottom: 15px;"></i>
-            <h3 id="langModalTitle" style="margin-bottom: 5px; font-family: 'Georgia', serif; font-size: 1.5rem;">Select
-                Language</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Please select your preferred
-                language to continue.</p>
+            <i class="ri-global-line" aria-hidden="true" style="font-size: 2.5rem; color: var(--brand-primary); margin-bottom: 15px;"></i>
+            <h3 id="langModalTitle" style="margin-bottom: 5px; font-family: 'Georgia', serif; font-size: 1.5rem;">Select Language</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Please select your preferred language to continue.</p>
 
             <button class="lang-modal-btn" onclick="initLanguageSelection('en-us')" tabindex="0">English</button>
             <button class="lang-modal-btn" onclick="initLanguageSelection('zh-hans')" tabindex="0">简体中文</button>
@@ -1040,17 +233,14 @@
     <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie Consent">
         <div class="cookie-header">
             <span data-i18n="cookie_title">Cookie Declaration</span>
-            <button class="cookie-close" onclick="denyCookies()" aria-label="Close Cookie Banner"
-                tabindex="0">&times;</button>
+            <button class="cookie-close" onclick="denyCookies()" aria-label="Close Cookie Banner" tabindex="0">&times;</button>
         </div>
         <div class="cookie-body" data-i18n="cookie_desc">
             We use cookies to remember your language preference and maintain secure login sessions.
         </div>
         <div class="cookie-actions">
-            <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()" data-i18n="cookie_deny"
-                tabindex="0">Deny</button>
-            <button class="cookie-btn cookie-btn-agree" onclick="acceptCookies()" data-i18n="cookie_agree"
-                tabindex="0">Agree</button>
+            <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()" data-i18n="cookie_deny" tabindex="0">Deny</button>
+            <button class="cookie-btn cookie-btn-agree" onclick="acceptCookies()" data-i18n="cookie_agree" tabindex="0">Agree</button>
         </div>
     </div>
 
@@ -1058,24 +248,8 @@
     <script>
         window.locales = {};
 
-        // ============================================
-        // 核心：事件委托 (彻底解决异步加载按钮点击失效问题)
-        // ============================================
+        // 仅处理本页面特有的事件代理（如微信复制）
         document.addEventListener('click', function (e) {
-            // 1. 处理 "Here's how you know" 下拉菜单 (USA Banner)
-
-            // 2. 处理移动端菜单的打开
-            const mobileOpenBtn = e.target.closest('#mobileMenuOpenBtn');
-            if (mobileOpenBtn) {
-                const navMenu = document.getElementById('mobileNavMenu');
-                if (navMenu) {
-                    navMenu.classList.add('is-active');
-                    document.body.style.overflow = 'hidden';
-                }
-                return;
-            }
-
-            // 6. 微信复制提示 (由于组件化，在根级处理)
             const wxBtn = e.target.closest('#wechatBtnAction');
             if (wxBtn) {
                 navigator.clipboard.writeText("ksvg_official").then(() => {
@@ -1090,7 +264,7 @@
             }
         });
 
-        // 导出给组件需要的接口
+        // Cookie 控制接口
         window.acceptCookies = function () {
             localStorage.setItem('ksvg_cookie_consent', 'accepted');
             const banner = document.getElementById('cookieBanner');
@@ -1108,10 +282,11 @@
             window.location.href = `https://auth.ksvg.com.cn/?lang=${lang}&view=${view}&target=${target}`;
         };
 
+        // 获取 RSS 新闻
         async function loadPhotographyNews() {
             const section = document.getElementById('newsSection');
             const grid = document.getElementById('newsGrid');
-            const feeds = [
+            const feeds =[
                 { name: 'PetaPixel', url: 'https://petapixel.com/feed/' },
                 { name: 'DPReview', url: 'https://www.dpreview.com/feeds/news' },
                 { name: 'DIY Photography', url: 'https://www.diyphotography.net/feed/' },
@@ -1119,7 +294,7 @@
             ];
             section.style.display = 'block';
             try {
-                let allArticles = [];
+                let allArticles =[];
                 for (let feed of feeds) {
                     try {
                         const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
@@ -1136,7 +311,7 @@
                 if (allArticles.length === 0) throw new Error('No articles');
                 allArticles.sort((a, b) => b.pubDateObj - a.pubDateObj);
 
-                let diverseArticles = [];
+                let diverseArticles =[];
                 let seenSources = new Set();
                 for (let article of allArticles) {
                     if (!seenSources.has(article.sourceName) && diverseArticles.length < 4) {
@@ -1154,10 +329,8 @@
                     let imgUrl = article.thumbnail;
                     if (!imgUrl || imgUrl === "") {
                         const imgMatch = article.content.match(/<img[^>]+src="([^">]+)"/);
-                        // 新闻模块缺失图片时调用本地资产占位图
                         imgUrl = imgMatch ? imgMatch[1] : './assets/ksvg-logo.png';
                     }
-                    // Direct Link, No Redirect Prefix for External RSS
                     grid.innerHTML += `
                     <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card" tabindex="0">
                         <div class="news-image" style="background-image: url('${imgUrl}')"></div>
@@ -1172,6 +345,7 @@
         }
         loadPhotographyNews();
 
+        // 语言应用逻辑
         window.applyTranslations = function () {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1199,12 +373,8 @@
                 let globalLocales = {};
                 let pageLocales = {};
 
-                if (globalRes && globalRes.ok) {
-                    try { globalLocales = await globalRes.json(); } catch (err) { }
-                }
-                if (pageRes && pageRes.ok) {
-                    try { pageLocales = await pageRes.json(); } catch (err) { }
-                }
+                if (globalRes && globalRes.ok) { try { globalLocales = await globalRes.json(); } catch (err) { } }
+                if (pageRes && pageRes.ok) { try { pageLocales = await pageRes.json(); } catch (err) { } }
 
                 window.locales = { ...globalLocales, ...pageLocales };
             } catch (e) {
@@ -1218,7 +388,10 @@
             document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
             localStorage.setItem('ksvg_ui_lang', lang);
 
-            if (window.refreshAuthText) window.refreshAuthText();
+if (window.refreshAuthText) {
+    window.refreshAuthText();
+    window.applyTranslations();   // 确保手机菜单刷新后翻译
+}
         }
 
         window.initLanguageSelection = async function (lang) {
@@ -1237,9 +410,10 @@
         // 核心装载引擎
         // ============================================
         document.addEventListener('DOMContentLoaded', async () => {
+            const basePath = './assets';
+
             async function loadComponent(url, elementId) {
                 try {
-                    // 加一个时间戳后缀，强迫浏览器每次都绕过缓存读取最新组件！
                     const response = await fetch(url + '?t=' + new Date().getTime());
                     if (!response.ok) return;
                     const html = await response.text();
@@ -1258,27 +432,18 @@
                     placeholder.remove();
 
                     // 让组件内的脚本复活
-                    // 修改 loadComponent 函数中最后面那一段 "注入脚本" 的逻辑
                     scripts.forEach(oldScript => {
                         const newScript = document.createElement('script');
-                        // 复制所有属性 (如 src, type 等)
                         Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-
-                        // 关键修正：直接用 .text 赋值，而不是用 appendChild(createTextNode)
-                        // .text 属性会自动处理脚本内部的各种符号，不会报错
                         if (oldScript.innerHTML) {
                             newScript.text = oldScript.innerHTML;
                         }
-
                         document.body.appendChild(newScript);
                     });
                 } catch (error) {
                     console.error('Failed to load component:', url);
                 }
             }
-
-            // 组件拉取基础路径变更为相对目录
-            const basePath = './assets';
 
             await Promise.all([
                 loadComponent(`${basePath}/us-banner.html`, 'us-banner-placeholder'),
@@ -1302,7 +467,10 @@
                     }, 1000);
                 }
             }
-            if (window.initAuthUI) await window.initAuthUI();
+if (window.initAuthUI) {
+    await window.initAuthUI();
+    window.applyTranslations();   // 首次加载后的动态翻译
+}
         });
     </script>
 
@@ -1312,7 +480,6 @@
         const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
 
-        // Advanced Chunking Cookie Storage for cross-domain auth
         const getCookieDomain = () => {
             const hostname = window.location.hostname;
             return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
@@ -1324,7 +491,6 @@
                 const encodedValue = encodeURIComponent(value);
                 const chunkSize = 3000;
                 const chunks = Math.ceil(encodedValue.length / chunkSize);
-
                 document.cookie = `${key}-count=${chunks}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
                 for (let i = 0; i < chunks; i++) {
                     const chunk = encodedValue.slice(i * chunkSize, (i + 1) * chunkSize);
@@ -1370,31 +536,68 @@
         }
 
         window.initAuthUI = async function () {
-            const dAuth = document.getElementById('desktopAuthContainer');
-            const mAuth = document.getElementById('mobileAuthDock');
-            const heroGreeting = document.getElementById('heroGreetingContainer');
-            if (!dAuth || !mAuth) return;
-
             const { data: { session } } = await supabase.auth.getSession();
 
             window.refreshAuthText = () => {
+
+                window.initAuthUI = async function () {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            window.refreshAuthText = () => {
+                // 渲染 Navigation
+                if (window.renderNavigationAuth) {
+                    window.renderNavigationAuth(session);
+                    
+                    // 绑定手机端的注销按钮
+                    const mbg = document.getElementById('mLogoutBtnNav');
+                    if (mbg) {
+                        mbg.onclick = async () => {
+                            await supabase.auth.signOut();
+                            window.location.reload();
+                        };
+                    }
+                }
+
+                // 独立的大屏幕问候语
+                const heroGreeting = document.getElementById('heroGreetingContainer');
                 if (session) {
-                    const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-                    dAuth.innerHTML = `<a href="https://ksvg.com.cn/profile" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></a>`;
-                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.location.href='https://ksvg.com.cn/profile'" tabindex="0"><span>${window.locales['auth_my_account'] || 'MY ACCOUNT'}</span></button>`;
+                    const displayName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
                     if (heroGreeting) {
-                        heroGreeting.innerHTML = getGreeting(name);
+                        heroGreeting.innerHTML = getGreeting(displayName);
                         heroGreeting.classList.add('show');
                     }
                 } else {
-                    dAuth.innerHTML = `<button onclick="window.goToAuth('login')" class="auth-btn-styled" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
-                    mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.goToAuth('login')" tabindex="0"><span>${window.locales['auth_login_ksvg'] || 'Login & Register'}</span></button>`;
                     if (heroGreeting) {
                         heroGreeting.innerHTML = '';
                         heroGreeting.classList.remove('show');
                     }
                 }
             };
+
+            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
+        }
+
+                // 1. 调用 navigation.html 中内嵌的全局 UI 渲染器
+                if (window.renderNavigationAuth) {
+                    window.renderNavigationAuth(session);
+                }
+
+                // 2. 仅处理本页面特有的独立逻辑 (大屏幕中央的问候语)
+                const heroGreeting = document.getElementById('heroGreetingContainer');
+                if (session) {
+                    const displayName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+                    if (heroGreeting) {
+                        heroGreeting.innerHTML = getGreeting(displayName);
+                        heroGreeting.classList.add('show');
+                    }
+                } else {
+                    if (heroGreeting) {
+                        heroGreeting.innerHTML = '';
+                        heroGreeting.classList.remove('show');
+                    }
+                }
+            };
+
             if (Object.keys(window.locales).length > 0) window.refreshAuthText();
         }
 
@@ -1403,5 +606,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -27,5 +27,7 @@
   "wechat_desc": "请前往微信搜索公众号 <br><strong>KSVG</strong>",
   "social_youtube": "YouTube",
   "social_bilibili": "哔哩哔哩",
-  "social_email": "联系邮箱"
+  "social_email": "联系邮箱",
+  "auth_settings": "信息设置",
+  "auth_sign_out": "注销退出"
 }
