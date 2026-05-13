@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="KSVG Resources, 昆山康桥学生摄影合作组织素材库">
+    <title>KSVG | 素材库</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
+    <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
+
+    <style>
+        :root {
+            --brand-primary: #002b49;
+            --brand-secondary: #c41230;
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --header-height: 64px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        main { flex-grow: 1; }
+
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 0.25rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px; }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
+
+        /* ========== 页面头部 ========== */
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 0;
+        }
+
+        .page-header h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .page-header .page-subtitle {
+            font-size: 1.05rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .page-header .header-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%);
+            margin-bottom: 50px;
+        }
+
+        /* ========== 不可用板块 ========== */
+        .unavailable-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .unavailable-card {
+            text-align: center;
+            max-width: 520px;
+        }
+
+        .unavailable-card .maintenance-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            margin-bottom: 30px;
+        }
+
+        .unavailable-card .maintenance-icon i {
+            font-size: 2.5rem;
+            color: #64748b;
+        }
+
+        .unavailable-card h2 {
+            font-family: 'Georgia', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .unavailable-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 40px 20px 0; }
+            .page-header h1 { font-size: 2.2rem; }
+            .page-header .page-subtitle { font-size: 0.9rem; }
+            .unavailable-section { padding: 60px 20px 100px; }
+            .unavailable-card .maintenance-icon { width: 80px; height: 80px; }
+            .unavailable-card .maintenance-icon i { font-size: 2rem; }
+            .unavailable-card h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="us-banner-placeholder"></div>
+    <div class="brand-strip"></div>
+    <div id="navigation-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1 data-i18n="resources_page_title">素材库</h1>
+            <p class="page-subtitle" data-i18n="resources_page_subtitle">浏览并下载高质量校园影像素材与标准化资源</p>
+            <div class="header-divider"></div>
+        </div>
+
+        <section class="unavailable-section">
+            <div class="unavailable-card">
+                <div class="maintenance-icon">
+                    <i class="ri-settings-5-line" aria-hidden="true"></i>
+                </div>
+                <h2 data-i18n="resources_unavailable_title">此板块暂时不可用</h2>
+                <p data-i18n="resources_unavailable_desc">我们正在整理素材资源，请稍后再来查看。</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- ========== 核心脚本 ========== -->
+    <script>
+        window.locales = {};
+        const componentBasePath = '../assets';
+
+        async function loadComponent(filename, elementId) {
+            const url = `${componentBasePath}/${filename}?t=${new Date().getTime()}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) { console.error(`❌ 组件加载失败: ${url}`); return; }
+                let html = await response.text();
+                html = html.replace(/\.\/assets/g, '../assets');
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const scripts = Array.from(temp.querySelectorAll('script'));
+                scripts.forEach(s => s.remove());
+                const placeholder = document.getElementById(elementId);
+                if (!placeholder) return;
+                while (temp.firstChild) { placeholder.parentNode.insertBefore(temp.firstChild, placeholder); }
+                placeholder.remove();
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    if (oldScript.innerHTML) newScript.text = oldScript.innerHTML;
+                    document.body.appendChild(newScript);
+                });
+                console.log(`✅ 组件加载成功: ${url} -> ${elementId}`);
+            } catch (error) { console.error(`❌ 组件加载异常: ${url}`, error); }
+        }
+
+        window.applyTranslations = function () {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (window.locales[key]) el.innerHTML = window.locales[key];
+            });
+        };
+
+        window.setLanguage = async function (lang) {
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('ksvg_ui_lang', lang);
+
+            try {
+                const globalRes = await fetch(`../assets/${lang}.json?t=${new Date().getTime()}`).catch(() => null);
+                const pageRes = await fetch(`./${lang}.json?t=${new Date().getTime()}`).catch(() => null);
+                let globalData = {}, pageData = {};
+                if (globalRes && globalRes.ok) globalData = await globalRes.json();
+                if (pageRes && pageRes.ok) pageData = await pageRes.json();
+                window.locales = { ...globalData, ...pageData };
+            } catch (e) { console.error('语言文件加载异常:', e); }
+
+            window.applyTranslations();
+            document.title = window.locales['tab_title_resources'] || "KSVG | 素材库";
+
+            const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
+            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
+
+            if (window.updateFooterLangDisplay) window.updateFooterLangDisplay(lang);
+
+            if (window.refreshAuthText) {
+                window.refreshAuthText();
+                window.applyTranslations();
+            }
+        };
+
+        window.initLanguageSelection = async function (lang) {
+            const modal = document.getElementById('langModal');
+            if (modal) modal.classList.remove('show');
+            await window.setLanguage(lang);
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await Promise.all([
+                loadComponent('us-banner.html', 'us-banner-placeholder'),
+                loadComponent('navigation.html', 'navigation-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+
+            let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            await window.setLanguage(lang);
+
+            if (window.initAuthUI) {
+                await window.initAuthUI();
+                window.applyTranslations();
+            }
+        });
+    </script>
+
+    <!-- ========== Supabase 认证 ========== -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
+
+        const getCookieDomain = () => {
+            const hostname = window.location.hostname;
+            return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
+        };
+
+        const cookieStorage = {
+            getItem: (key) => {
+                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
+                if (!countMatch) return null;
+                const count = parseInt(countMatch[2], 10);
+                let fullValue = '';
+                for (let i = 0; i < count; i++) {
+                    const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
+                    if (chunkMatch) fullValue += chunkMatch[2];
+                }
+                return fullValue ? decodeURIComponent(fullValue) : null;
+            },
+            setItem: () => {},
+            removeItem: () => {}
+        };
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
+        });
+
+        window.initAuthUI = async function () {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            window.refreshAuthText = () => {
+                if (window.renderNavigationAuth) {
+                    window.renderNavigationAuth(session);
+                    window.applyTranslations();
+                }
+                const mbg = document.getElementById('mLogoutBtnNav');
+                if (mbg) {
+                    mbg.onclick = async () => {
+                        await supabase.auth.signOut();
+                        window.location.href = '../index.html';
+                    };
+                }
+            };
+
+            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
+        };
+    </script>
+</body>
+
+</html>
