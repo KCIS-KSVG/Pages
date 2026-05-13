@@ -233,9 +233,6 @@
                 <li><a href="https://docs.ksvg.com.cn" target="_blank" rel="noopener noreferrer" tabindex="0"><span
                             data-i18n="footer_docs">KSVG Documentation</span> <i class="ri-external-link-line"
                             aria-hidden="true" style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
-                <li><a href="javascript:void(0)" id="footerAuthLink" tabindex="0"><span data-i18n="footer_uia">KSVG UIA
-                            认证系统</span> <i class="ri-external-link-line" aria-hidden="true"
-                            style="font-size:0.75rem; opacity:0.6; margin-left:4px;"></i></a></li>
             </ul>
         </div>
         <div class="footer-col-links">
@@ -281,7 +278,6 @@
                 <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" target="_blank"
                     rel="noopener noreferrer" tabindex="0" aria-label="Bilibili" title="Bilibili"
                     class="social-circle"><i class="ri-bilibili-fill" aria-hidden="true"></i></a>
-                <!-- 抖音 (Douyin) -->
                 <a href="https://www.douyin.com/user/MS4wLjABAAAAgP4nHjviTB-pxbs3lxQThDKumdLWu5bG6WooCbBo-XE"
                     target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Douyin" title="Douyin"
                     class="social-circle">
@@ -320,7 +316,6 @@
         if (window.footerBound) return;
         window.footerBound = true;
 
-        // 🔧 更新语言按钮显示文本
         function updateLangButtonText(lang) {
             const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
             const displayText = lbls[lang] || lbls['zh-hans'];
@@ -331,7 +326,6 @@
             }
         }
 
-        // 🔧 包装语言切换：先切换，再更新按钮
         async function switchLanguage(lang) {
             if (window.initLanguageSelection) {
                 await window.initLanguageSelection(lang);
@@ -339,13 +333,11 @@
             updateLangButtonText(lang);
         }
 
-        // 🔧 页面加载时同步当前语言显示
         function syncInitialLang() {
             const currentLang = document.documentElement.getAttribute('lang') || localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
             updateLangButtonText(currentLang);
         }
 
-        // 初始化时同步一次
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', syncInitialLang);
         } else {
@@ -353,17 +345,6 @@
         }
 
         document.addEventListener('click', function (e) {
-            // 处理 UIA 认证链接
-            if (e.target.closest('#footerAuthLink')) {
-                e.preventDefault();
-                const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
-                const target = encodeURIComponent(window.location.hostname);
-                const authUrl = `https://auth.ksvg.com.cn/?lang=${lang}&view=login&target=${target}`;
-                window.open(`${authUrl}`, '_blank');
-                return;
-            }
-
-            // 语言菜单切换
             const langBtn = e.target.closest('#footerLangToggleBtn');
             const langMenu = document.getElementById('footerLangMenu');
             if (langBtn) {
@@ -372,7 +353,6 @@
                 if (langMenu) langMenu.classList.remove('show');
             }
 
-            // 🔧 语言选项点击：改为调用 switchLanguage
             const langOption = e.target.closest('.footer-lang-option');
             if (langOption) {
                 const lang = langOption.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
@@ -380,11 +360,9 @@
                     e.preventDefault();
                     switchLanguage(lang);
                 }
-                // 关闭菜单
                 if (langMenu) langMenu.classList.remove('show');
             }
 
-            // 微信复制
             if (e.target.closest('#footerWechatBtn')) {
                 navigator.clipboard.writeText("KSVG").then(() => {
                     const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
@@ -398,7 +376,6 @@
             }
         });
 
-        // 🔧 暴露给外部调用（供 setLanguage 使用）
         window.updateFooterLangDisplay = updateLangButtonText;
     })();
 </script>

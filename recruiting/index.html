@@ -3,653 +3,988 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="KSVG 组织招募 - 加入我们，共创未来">
     <title>KSVG | 组织招募</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" type="image/png">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/footer.css">
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.loli.net" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
+    <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
 
     <style>
         :root {
+            --brand-primary: #002b49;
+            --brand-secondary: #c41230;
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
             --primary-color: #920783;
-            --dark-gray: #1d1d1f;
-            --medium-gray: #424245;
-            --light-gray: #f5f5f7;
-            --text-color: #1d1d1f;
-            --header-height: 70px;
-            --status-ongoing-bg: #f6ffed;
-            --status-ongoing-text: #389e0d;
-            --status-ended-bg: #fafafa;
-            --status-ended-text: #8c8c8c;
-            --status-planned-bg: #e6f7ff;
-            --status-planned-text: #006d9c;
+            --primary-gradient: linear-gradient(135deg, #920783 0%, #b51a9f 100%);
+            --status-ongoing-bg: #f0fdf4;
+            --status-ongoing-text: #15803d;
+            --status-ongoing-dot: #22c55e;
+            --status-ended-bg: #f1f5f9;
+            --status-ended-text: #64748b;
+            --status-ended-dot: #94a3b8;
+            --status-planned-bg: #eff6ff;
+            --status-planned-text: #1d4ed8;
+            --status-planned-dot: #3b82f6;
+            --focus-ring: 0 0 0 3px rgba(0,43,73,0.3);
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        main { flex-grow: 1; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        :focus-visible { outline: 0.2rem solid var(--brand-primary); outline-offset: 0.2rem; border-radius: 4px; }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--light-gray);
-            color: var(--text-color);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        /* 头部 */
+        .page-header { max-width: 1400px; margin: 0 auto; padding: 60px 20px 0; }
+        .page-header h1 { font-family: 'Open Sans', sans-serif; font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: 1px; }
+        .page-header .page-subtitle { font-size: 1.05rem; color: #64748b; font-weight: 400; margin-bottom: 30px; line-height: 1.5; }
+        .page-header .header-divider { width: 100%; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%); margin-bottom: 40px; }
 
-        body.no-scroll {
-            overflow: hidden;
-        }
+        /* 工具栏 */
+        .toolbar { max-width: 1400px; margin: 0 auto 20px; padding: 0 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; position: relative; }
+        .search-wrapper { flex: 1; min-width: 200px; position: relative; }
+        .search-wrapper i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.1rem; pointer-events: none; }
+        .search-input { width: 100%; padding: 12px 14px 12px 40px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; font-family: inherit; background: var(--surface-color); transition: all 0.2s; }
+        .search-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--focus-ring); }
+        .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem; padding: 4px; display: none; border-radius: 50%; transition: 0.2s; }
+        .search-clear:hover { color: var(--text-dark); background: #f1f5f9; }
+        .search-clear.visible { display: flex; align-items: center; justify-content: center; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        .toolbar-actions { display: flex; gap: 8px; align-items: center; }
+        .icon-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--surface-color); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.2s; }
+        .icon-btn:hover { background: #e2e8f0; color: var(--brand-primary); border-color: var(--brand-primary); }
+        .icon-btn.active-view { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
 
-        main {
-            padding-top: var(--header-height);
-            flex-grow: 1;
-        }
+        /* 筛选面板 */
+        .filter-panel { position: absolute; top: calc(100% + 8px); right: 20px; width: 340px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); z-index: 100; display: none; padding: 24px; flex-direction: column; gap: 20px; }
+        .filter-panel.open { display: flex; }
+        .filter-group-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-chip { padding: 6px 16px; border-radius: 40px; border: 1px solid var(--border-color); background: var(--surface-color); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
+        .filter-chip:hover { border-color: #94a3b8; background: #f8fafc; }
+        .filter-chip.selected { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
+        .panel-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
+        .panel-btn { padding: 8px 20px; border-radius: 40px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: #f1f5f9; color: var(--text-dark); transition: all 0.2s; }
+        .panel-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
-        .page-intro {
-            padding: 60px 30px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-        }
+        .results-count { max-width: 1400px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.85rem; color: var(--text-muted); }
 
-        .page-container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .page-intro h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .page-intro p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            max-width: 800px;
-        }
-
-        .content-section {
-            padding: 40px 30px 60px;
-        }
-
+        /* ========== 网格视图 ========== */
+        .recruiting-section { max-width: 1400px; margin: 0 auto; padding: 0 20px 40px; }
         #recruiting-cards-container {
-            position: relative;
-            min-height: 200px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 28px;
+            transition: all 0.2s;
         }
-        
-        .recruiting-card {
-            background-color: #fff;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            overflow: hidden;
+
+        /* ========== 列表视图（全新设计，干净整洁） ========== */
+        #recruiting-cards-container.list-view {
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            gap: 16px;
+        }
+
+        .list-view .recruiting-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: var(--surface-color);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 20px 24px;
+            gap: 16px;
+            transition: all 0.2s;
             cursor: pointer;
         }
 
+        .list-view .recruiting-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-color: var(--brand-primary);
+        }
+
+        /* 左侧：标题 + 状态 */
+        .list-view .card-left {
+            flex: 2;
+            min-width: 180px;
+        }
+
+        .list-view .card-left h3 {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: var(--text-dark);
+        }
+
+        .list-view .status-dot {
+            display: inline-flex;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+        }
+
+        /* 中间：时间 + 对象 */
+        .list-view .card-middle {
+            flex: 3;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .list-view .card-middle .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .list-view .card-middle .meta-item i {
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        /* 右侧：组织 + 箭头 */
+        .list-view .card-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            min-width: 140px;
+        }
+
+        .list-view .card-right .org {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--brand-primary);
+            background: #f0f4f8;
+            padding: 6px 14px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .list-view .card-right i {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            transition: transform 0.2s;
+        }
+
+        .list-view .recruiting-card:hover .card-right i {
+            transform: translateX(4px);
+            color: var(--brand-primary);
+        }
+
+        /* 移动端列表视图适配 */
+        @media (max-width: 768px) {
+            .list-view .recruiting-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px;
+            }
+
+            .list-view .card-left {
+                width: 100%;
+            }
+
+            .list-view .card-middle {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .list-view .card-middle .meta-item {
+                white-space: normal;
+                flex: 1;
+                min-width: calc(50% - 12px);
+            }
+
+            .list-view .card-right {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 8px;
+            }
+
+            .list-view .card-right .org {
+                white-space: normal;
+                text-align: center;
+            }
+        }
+
+        /* 通用卡片样式（网格视图） */
+        .recruiting-card {
+            background-color: var(--surface-color);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
         .recruiting-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
         }
-
-        .card-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .card-header h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .card-header p {
-            font-size: 0.95rem;
-            color: var(--medium-gray);
-        }
-
-        .card-body {
-            padding: 20px 25px;
+        .card-inner {
+            padding: 28px;
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .card-top h3 {
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin: 0;
+        }
+        .status-dot {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            padding: 4px 12px;
+            border-radius: 30px;
+        }
+        .status-dot::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-ongoing { background: var(--status-ongoing-bg); color: var(--status-ongoing-text); }
+        .status-ongoing::before { background: var(--status-ongoing-dot); }
+        .status-ended { background: var(--status-ended-bg); color: var(--status-ended-text); }
+        .status-ended::before { background: var(--status-ended-dot); }
+        .status-planned { background: var(--status-planned-bg); color: var(--status-planned-text); }
+        .status-planned::before { background: var(--status-planned-dot); }
 
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card-meta-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 4px;
+        }
         .card-meta-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        .card-meta-item i {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
-        
-        .card-meta-item:not(:last-child) {
-            margin-bottom: 15px;
-        }
-
-        .card-footer {
-            padding: 15px 25px;
-            background-color: #fafafa;
-            border-top: 1px solid #f0f0f0;
-            text-align: right;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 14px;
+            gap: 10px;
             font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .card-meta-item i {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 48px;
+            margin-bottom: 20px;
+        }
+        .page-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 24px;
+            border-radius: 40px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .page-btn:hover:not(:disabled) {
+            background: var(--brand-primary);
+            color: white;
+            border-color: var(--brand-primary);
+        }
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .page-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 6px 20px;
+            border-radius: 40px;
         }
 
-        .status-ongoing {
-            background-color: var(--status-ongoing-bg);
-            color: var(--status-ongoing-text);
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
         }
-        
-        .status-ended {
-            background-color: var(--status-ended-bg);
-            color: var(--status-ended-text);
+        .empty-state i { font-size: 3rem; color: #cbd5e1; margin-bottom: 20px; display: block; }
+        .retry-btn {
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
         }
-        
-        .status-planned {
-            background-color: var(--status-planned-bg);
-            color: var(--status-planned-text);
-        }
-
         #loading-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(245, 245, 247, 0.7);
-            z-index: 10;
+            background: rgba(248,250,252,0.85);
+            backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.3s;
+            z-index: 10;
+            border-radius: 20px;
         }
-
         .loader {
-            border: 7px solid #e0e0e0;
-            border-top: 7px solid var(--primary-color);
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--primary-color);
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
+            width: 48px;
+            height: 48px;
+            animation: spin 0.8s linear infinite;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* 模态框 */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(29, 29, 31, 0.5);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: opacity 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
-        .modal-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
+        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
         .modal-content {
             background: #fff;
-            border-radius: 12px;
+            border-radius: 28px;
             width: 90%;
             max-width: 800px;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            transform: scale(0.95);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            transform: scale(0.96);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.25s, opacity 0.25s;
+            overflow: hidden;
         }
-
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-
+        .modal-overlay.visible .modal-content { transform: scale(1); opacity: 1; }
         .modal-header {
-            flex-shrink: 0;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 20px 30px;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 24px 28px;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 16px;
         }
-
-        .modal-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            margin: 0;
-        }
-
+        .modal-header h2 { font-family: 'Georgia', serif; font-size: 1.5rem; flex: 1; margin: 0; }
         .modal-close {
-            background: none;
+            background: #f1f5f9;
             border: none;
-            font-size: 28px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             cursor: pointer;
-            color: var(--medium-gray);
+            font-size: 1.3rem;
         }
-        
-        .modal-body {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 30px;
-        }
-        
-        /* MODIFIED: Styles for the new meta section in the modal */
-        #modal-subtitle {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px; }
         .modal-meta {
+            background: #f9f9fb;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 24px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 25px;
         }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-        }
-        
-        .meta-item i {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-        }
-
-        .meta-item-label {
-            font-weight: 600;
-            color: var(--dark-gray);
-        }
-
-        .meta-item-value {
-            color: var(--medium-gray);
-        }
-
-        .modal-divider {
-            border: none;
-            border-top: 1px solid #f0f0f0;
-            margin-bottom: 25px;
-        }
-
-        #modal-body-content {
-            white-space: pre-wrap;
-            line-height: 1.8;
-            color: var(--dark-gray);
-        }
-        
+        .meta-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; }
+        .meta-item i { color: var(--primary-color); width: 24px; }
+        .meta-item-label { font-weight: 700; min-width: 90px; }
         .modal-footer {
-            flex-shrink: 0;
-            padding: 20px 30px;
-            border-top: 1px solid #e0e0e0;
+            padding: 20px 28px;
+            border-top: 1px solid #f0f0f0;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
         }
-
-        .apply-button {
+        .apply-btn {
+            padding: 14px 36px;
+            border-radius: 40px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--primary-gradient);
+            color: white;
             display: inline-flex;
             align-items: center;
-            padding: 12px 28px;
-            background-color: var(--primary-color);
-            color: #fff;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            gap: 8px;
+            transition: 0.2s;
         }
-        
-        .apply-button:hover {
-            background-color: #7a066e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(146, 7, 131, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .page-intro { padding: 40px 15px; }
-            .content-section { padding: 30px 15px; }
-            #recruiting-cards-container { grid-template-columns: 1fr; }
-        }
+        .apply-btn:disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
+        .apply-btn:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(146,7,131,0.3); }
     </style>
 </head>
 
 <body>
-    <header class="site-header">
-        <nav class="navigation">
-            <a href="https://ksvg.com.cn/" class="logo-link"><img
-                    src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/ksvg-logo.png" alt="KSVG Logo"
-                    class="logo-image"></a>
-            <ul class="nav-menu">
-                <li><a href="https://ksvg.com.cn/">主页</a></li>
-                <li><a href="https://ksvg.com.cn/progress/">项目进展</a></li>
-                <li><a href="https://ksvg.com.cn/media/">媒体共享</a></li>
-                <li><a href="https://ksvg.com.cn/documentation/">文件共享</a></li>
-                <li><a href="https://ksvg.com.cn/schedule/">日程信息</a></li>
-                <li><a href="https://ksvg.com.cn/recruiting/" class="active">组织招募</a></li>
-            </ul>
-            <button class="nav-toggle" aria-label="Open menu"><i class="ri-menu-line"></i></button>
-        </nav>
-    </header>
+    <div id="us-banner-placeholder"></div>
+    <div class="brand-strip"></div>
+    <div id="navigation-placeholder"></div>
 
     <main>
-        <section class="page-intro">
-            <div class="page-container">
-                <h1>组织招募</h1>
-                <p>我们欢迎充满热情与创造力的你加入KSVG。这里是最新的招募信息，期待与你一同用镜头记录校园的精彩瞬间。</p>
+        <div class="page-header">
+            <h1 data-i18n="recruiting_page_title">组织招募</h1>
+            <p class="page-subtitle" data-i18n="recruiting_page_subtitle">我们欢迎充满热情与创造力的你加入KSVG及其合作伙伴，这里提供最新的招募动态。</p>
+            <div class="header-divider"></div>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-wrapper">
+                <i class="ri-search-line"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="输入关键词，按回车搜索..." autocomplete="off">
+                <button class="search-clear" id="searchClear"><i class="ri-close-line"></i></button>
             </div>
-        </section>
-        <section class="content-section">
-            <div class="page-container">
-                <div id="recruiting-cards-container">
-                    <div id="loading-overlay">
-                        <div class="loader"></div>
-                    </div>
+            <div class="toolbar-actions">
+                <button class="icon-btn" id="filterToggleBtn"><i class="ri-equalizer-line"></i></button>
+                <button class="icon-btn active-view" id="viewGridBtn"><i class="ri-grid-line"></i></button>
+                <button class="icon-btn" id="viewListBtn"><i class="ri-list-check-2"></i></button>
+            </div>
+            <div class="filter-panel" id="filterPanel">
+                <div class="filter-group-title">状态</div>
+                <div class="filter-chips" id="statusFilters">
+                    <button class="filter-chip selected" data-type="status" data-value="ongoing">进行中</button>
+                    <button class="filter-chip selected" data-type="status" data-value="planned">计划中</button>
+                    <button class="filter-chip selected" data-type="status" data-value="ended">已结束</button>
                 </div>
+                <div class="filter-group-title">类别</div>
+                <div class="filter-chips" id="categoryFilters">
+                    <button class="filter-chip selected" data-type="category" data-value="定期招募">定期招募</button>
+                    <button class="filter-chip selected" data-type="category" data-value="长期招募">长期招募</button>
+                </div>
+                <div class="filter-group-title">归属组织</div>
+                <div class="filter-chips" id="orgFilters">
+                    <button class="filter-chip selected" data-type="org" data-value="昆山康桥学生会">昆山康桥学生会</button>
+                    <button class="filter-chip selected" data-type="org" data-value="KSVG">KSVG</button>
+                </div>
+                <div class="panel-actions">
+                    <button class="panel-btn" id="resetFiltersBtn">重置全部筛选</button>
+                </div>
+            </div>
+        </div>
+        <div class="results-count" id="resultsCount"></div>
+
+        <section class="recruiting-section">
+            <div id="recruiting-cards-container">
+                <div id="loading-overlay"><div class="loader"></div></div>
+            </div>
+            <div class="pagination" id="paginationControls" style="display: none;">
+                <button class="page-btn" id="prevPageBtn">上一页</button>
+                <span class="page-info" id="pageInfo">第 1 / 1 页</span>
+                <button class="page-btn" id="nextPageBtn">下一页</button>
             </div>
         </section>
     </main>
-    
+
+    <div id="footer-placeholder"></div>
+
     <div class="modal-overlay" id="details-modal">
         <div class="modal-content">
             <div class="modal-header">
+                <span id="modal-status-badge" class="status-dot status-ongoing"></span>
                 <h2 id="modal-title"></h2>
                 <button class="modal-close" id="modal-close-button"><i class="ri-close-line"></i></button>
             </div>
             <div class="modal-body">
-                <p id="modal-subtitle"></p>
-                <!-- MODIFIED: Added meta container for all details -->
                 <div class="modal-meta" id="modal-meta-container"></div>
-                <hr class="modal-divider">
-                <p id="modal-body-content"></p>
+                <div id="modal-body-content"></div>
             </div>
             <div class="modal-footer">
-                <!-- MODIFIED: Button text changed and icon removed -->
-                <a href="#" id="modal-apply-button" class="apply-button" target="_blank" rel="noopener noreferrer">
-                    申请填报（前往Google™ Forms）
-                </a>
+                <button id="applyBtn" class="apply-btn" disabled><i class="ri-external-link-line"></i> <span>访问招募问卷</span></button>
             </div>
         </div>
     </div>
 
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <p>© 2025 TonyJian-KSVG. All Rights Reserved.</p>
-                <div class="footer-socials">
-                    <a href="https://space.bilibili.com/23855258?spm_id_from=333.1007.0.0" aria-label="Bilibili"
-                        title="Bilibili"><i class="ri-bilibili-fill"></i></a>
-                    <a href="https://www.youtube.com/@kcisec-ksvg" aria-label="YouTube" title="YouTube"><i
-                            class="ri-youtube-fill"></i></a>
-                    <a href="mailto:support_ksvg@163.com" aria-label="Email" title="Email"><i
-                            class="ri-mail-line"></i></a>
-                </div>
-            </div>
-            <div class="footer-address">
-                <p>Kang Chiao International School East China</p>
-                <p>No.500, Xihuan Road, Huaqiao Economic Development Zone, Kunshan, Jiangsu</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        try {
-            document.addEventListener("DOMContentLoaded", function () {
-                // --- Standard Navigation Menu Logic ---
-                const navToggle = document.querySelector('.nav-toggle'); 
-                const navMenu = document.querySelector('.nav-menu'); 
-                const body = document.body;
-                if (navToggle && navMenu) {
-                    const icon = navToggle.querySelector('i');
-                    const toggleMenu = (forceClose = false) => {
-                        const isActive = navMenu.classList.contains('is-active');
-                        if (forceClose || isActive) {
-                            navMenu.classList.remove('is-active'); 
-                            navToggle.classList.remove('is-active');
-                            body.classList.remove('no-scroll'); 
-                            icon.className = 'ri-menu-line';
-                        } else {
-                            navMenu.classList.add('is-active'); 
-                            navToggle.classList.add('is-active');
-                            body.classList.add('no-scroll'); 
-                            icon.className = 'ri-close-line';
-                        }
-                    };
-                    navToggle.addEventListener('click', () => toggleMenu());
-                    const navLinks = navMenu.querySelectorAll('a');
-                    navLinks.forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
-                }
-
-                // --- Page Specific Logic ---
-                const RECRUITING_DATA_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/08.csv';
-                
-                const ui = {
-                    cardsContainer: document.getElementById('recruiting-cards-container'),
-                    loadingOverlay: document.getElementById('loading-overlay'),
-                    modalOverlay: document.getElementById('details-modal'),
-                    modalTitle: document.getElementById('modal-title'),
-                    modalSubtitle: document.getElementById('modal-subtitle'),
-                    modalMetaContainer: document.getElementById('modal-meta-container'), // MODIFIED: New UI element
-                    modalBody: document.getElementById('modal-body-content'),
-                    modalApplyBtn: document.getElementById('modal-apply-button'),
-                    modalCloseBtn: document.getElementById('modal-close-button'),
-                };
-
-                let allRecruitments = [];
-
-                function parseCSV(text) {
-                    const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
-                    if (lines.length < 2) return [];
-                    const headers = lines[0].split(',').map(h => h.trim());
-                    return lines.slice(1).map(line => {
-                        if (!line.trim()) return null;
-                        // A more robust CSV parsing to handle commas within fields if they are quoted
-                        const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-                        return headers.reduce((obj, header, index) => {
-                            let value = (values[index] || '').trim();
-                            if (value.startsWith('"') && value.endsWith('"')) {
-                                value = value.slice(1, -1);
-                            }
-                            obj[header] = value;
-                            return obj;
-                        }, {});
-                    }).filter(Boolean);
-                }
-
-                function parseDateString(dateStr) {
-                    const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
-                    if (!match) return null;
-                    const [, year, month, day] = match;
-                    return new Date(year, month - 1, day);
-                }
-
-                function getRecruitmentStatus(startDateStr, endDateStr) {
-                    const now = new Date();
-                    now.setHours(0, 0, 0, 0); 
-                    
-                    const startDate = parseDateString(startDateStr);
-                    const endDate = parseDateString(endDateStr);
-
-                    if (!startDate || !endDate) return { text: '日期无效', class: 'ended' };
-                    
-                    endDate.setHours(23, 59, 59, 999);
-
-                    if (now < startDate) {
-                        return { text: '未开始', class: 'planned' };
-                    } else if (now > endDate) {
-                        return { text: '已结束', class: 'ended' };
-                    } else {
-                        return { text: '进行中', class: 'ongoing' };
-                    }
-                }
-
-                function renderCards(data) {
-                    ui.cardsContainer.innerHTML = ''; // Clear previous content
-                    if (data.length === 0) {
-                        ui.cardsContainer.innerHTML = `<p>当前没有新的招募信息。</p>`;
-                        return;
-                    }
-                    
-                    data.forEach(item => {
-                        const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
-                        const card = document.createElement('div');
-                        card.className = 'recruiting-card';
-                        card.dataset.id = item['自动编号'];
-                        
-                        card.innerHTML = `
-                            <div class="card-header">
-                                <h3>${item['场次名称']}</h3>
-                                <p>${item['副标题']}</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-meta-item">
-                                    <i class="ri-calendar-line"></i>
-                                    <span>${item['开始时间']} 至 ${item['结束时间']}</span>
-                                </div>
-                                <div class="card-meta-item">
-                                    <i class="ri-group-line"></i>
-                                    <span>招募对象: ${item['招募对象']}</span>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-${status.class}">${status.text}</span>
-                            </div>
-                        `;
-                        ui.cardsContainer.appendChild(card);
-                    });
-                }
-                
-                const modal = {
-                    open(recruitmentData) {
-                        ui.modalTitle.textContent = recruitmentData['场次名称'];
-                        ui.modalSubtitle.textContent = recruitmentData['副标题'];
-                        ui.modalBody.innerHTML = recruitmentData['正文'].replace(/\\n/g, '<br>');
-                        ui.modalApplyBtn.href = recruitmentData['问卷链接'];
-                        
-                        // MODIFIED: Populate the new meta section with all details
-                        const metaHTML = `
-                            <div class="meta-item">
-                                <i class="ri-barcode-line"></i>
-                                <span class="meta-item-label">招募编号:</span>
-                                <span class="meta-item-value">${recruitmentData['自动编号']}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="ri-calendar-2-line"></i>
-                                <span class="meta-item-label">起止时间:</span>
-                                <span class="meta-item-value">${recruitmentData['开始时间']} 至 ${recruitmentData['结束时间']}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="ri-group-2-line"></i>
-                                <span class="meta-item-label">招募对象:</span>
-                                <span class="meta-item-value">${recruitmentData['招募对象']}</span>
-                            </div>
-                        `;
-                        ui.modalMetaContainer.innerHTML = metaHTML;
-
-                        ui.modalOverlay.classList.add('visible');
-                        body.classList.add('no-scroll');
-                    },
-                    close() {
-                        ui.modalOverlay.classList.remove('visible');
-                        body.classList.remove('no-scroll');
-                    }
-                };
-
-                async function initializePage() {
-                    try {
-                        const response = await fetch(`${RECRUITING_DATA_URL}?v=${new Date().getTime()}`);
-                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                        const csvText = await response.text();
-                        allRecruitments = parseCSV(csvText);
-                        renderCards(allRecruitments);
-                    } catch (error) {
-                        console.error("Failed to load or parse recruitment data:", error);
-                        ui.cardsContainer.innerHTML = `<p style="color: red;">无法加载招募信息，请稍后重试。</p>`;
-                    } finally {
-                        ui.loadingOverlay.style.opacity = '0';
-                        setTimeout(() => ui.loadingOverlay.style.display = 'none', 300);
-                    }
-                }
-
-                // Event Listeners
-                ui.cardsContainer.addEventListener('click', (e) => {
-                    const card = e.target.closest('.recruiting-card');
-                    if (card) {
-                        const id = card.dataset.id;
-                        const data = allRecruitments.find(item => item['自动编号'] === id);
-                        if (data) {
-                            modal.open(data);
-                        }
-                    }
-                });
-                
-                ui.modalCloseBtn.addEventListener('click', modal.close);
-                ui.modalOverlay.addEventListener('click', (e) => {
-                    if (e.target === ui.modalOverlay) {
-                        modal.close();
-                    }
-                });
-
-                initializePage();
-            });
-        } catch (e) {
-            console.error("A critical error occurred on the page:", e);
-            document.getElementById('recruiting-cards-container').innerHTML = `<p style="color: red;">页面脚本发生严重错误，请联系管理员。</p>`;
+        // ---------- 组件加载 & 多语言 ----------
+        window.locales = {};
+        const componentBasePath = '../assets';
+        async function loadComponent(filename, elementId) {
+            const url = `${componentBasePath}/${filename}?t=${Date.now()}`;
+            try {
+                const res = await fetch(url);
+                if (!res.ok) return;
+                let html = await res.text();
+                html = html.replace(/\.\/assets/g, '../assets');
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const scripts = Array.from(temp.querySelectorAll('script'));
+                scripts.forEach(s => s.remove());
+                const placeholder = document.getElementById(elementId);
+                if (!placeholder) return;
+                while (temp.firstChild) placeholder.parentNode.insertBefore(temp.firstChild, placeholder);
+                placeholder.remove();
+                scripts.forEach(s => { const ns = document.createElement('script'); Array.from(s.attributes).forEach(attr => ns.setAttribute(attr.name, attr.value)); if (s.innerHTML) ns.text = s.innerHTML; document.body.appendChild(ns); });
+            } catch (e) { console.error(e); }
         }
+        window.applyTranslations = function() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (window.locales[key]) el.innerHTML = window.locales[key];
+            });
+        };
+        window.setLanguage = async function(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            localStorage.setItem('ksvg_ui_lang', lang);
+            try {
+                const g = await fetch(`../assets/${lang}.json?t=${Date.now()}`).catch(()=>null);
+                const p = await fetch(`./${lang}.json?t=${Date.now()}`).catch(()=>null);
+                let gd={}, pd={};
+                if(g && g.ok) gd = await g.json();
+                if(p && p.ok) pd = await p.json();
+                window.locales = {...gd, ...pd};
+            } catch(e) { console.warn(e); }
+            window.applyTranslations();
+            document.title = window.locales['tab_title_recruiting'] || "KSVG | 组织招募";
+            const lbls = { 'en-us':'English','zh-hans':'简体中文','zh-hant':'繁體中文' };
+            document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
+            if(window.updateFooterLangDisplay) window.updateFooterLangDisplay(lang);
+        };
+        window.initLanguageSelection = async function(lang) {
+            const modal = document.getElementById('langModal');
+            if(modal) modal.classList.remove('show');
+            await window.setLanguage(lang);
+        };
+
+        // ---------- CSV 解析（支持多行、空字段）----------
+        function parseCSV(text) {
+            const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
+            if (lines.length < 2) return [];
+            
+            function parseCSVLine(line) {
+                const result = [];
+                let inQuote = false;
+                let current = '';
+                for (let i = 0; i < line.length; i++) {
+                    const ch = line[i];
+                    if (ch === '"') {
+                        if (inQuote && line[i+1] === '"') {
+                            current += '"';
+                            i++;
+                        } else {
+                            inQuote = !inQuote;
+                        }
+                    } else if (ch === ',' && !inQuote) {
+                        result.push(current);
+                        current = '';
+                    } else {
+                        current += ch;
+                    }
+                }
+                result.push(current);
+                return result.map(f => f.trim());
+            }
+            
+            const headers = parseCSVLine(lines[0]);
+            const records = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line === '') continue;
+                let values = parseCSVLine(line);
+                while (values.length < headers.length) values.push('');
+                const record = {};
+                for (let j = 0; j < headers.length; j++) {
+                    let val = values[j] || '';
+                    if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+                    record[headers[j]] = val;
+                }
+                records.push(record);
+            }
+            return records;
+        }
+
+        function parseDateString(dateStr) {
+            const m = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+            if(!m) return null;
+            return new Date(parseInt(m[1]), parseInt(m[2])-1, parseInt(m[3]));
+        }
+        function getRecruitmentStatus(startStr, endStr) {
+            const now = new Date(); now.setHours(0,0,0,0);
+            const start = parseDateString(startStr);
+            const end = parseDateString(endStr);
+            if(!start || !end) return { text:'日期无效', class:'ended' };
+            const endDay = new Date(end); endDay.setHours(23,59,59,999);
+            if(now < start) return { text:'计划中', class:'planned' };
+            if(now > endDay) return { text:'已结束', class:'ended' };
+            return { text:'进行中', class:'ongoing' };
+        }
+
+        let allRecruitments = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const ITEMS_PER_PAGE = 10;
+        let viewMode = localStorage.getItem('ksvg_recruit_view') || 'grid';
+        let activeFilters = {
+            status: ['ongoing', 'planned', 'ended'],
+            category: ['定期招募', '长期招募'],
+            org: ['昆山康桥学生会', 'KSVG']
+        };
+        let pendingSearchTerm = ''; // 暂存的搜索词（按回车后才应用）
+
+        function applyFiltersAndSearch() {
+            const searchTerm = pendingSearchTerm.toLowerCase();
+            const filtered = allRecruitments.filter(item => {
+                const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
+                if(!activeFilters.status.includes(status.class)) return false;
+                if(!activeFilters.category.includes(item['类别'])) return false;
+                if(!activeFilters.org.includes(item['归属组织'])) return false;
+                if(searchTerm) {
+                    const haystack = [item['场次名称'], item['副标题'], item['招募对象'], item['正文'], item['归属组织']].join(' ').toLowerCase();
+                    if(!haystack.includes(searchTerm)) return false;
+                }
+                return true;
+            });
+            filteredData = filtered;
+            return filtered;
+        }
+
+        function renderPagination() {
+            const total = filteredData.length;
+            const totalPages = Math.ceil(total / ITEMS_PER_PAGE) || 1;
+            const paginationDiv = document.getElementById('paginationControls');
+            if(totalPages <= 1) {
+                paginationDiv.style.display = 'none';
+                return;
+            }
+            paginationDiv.style.display = 'flex';
+            const prevBtn = document.getElementById('prevPageBtn');
+            const nextBtn = document.getElementById('nextPageBtn');
+            const pageInfoSpan = document.getElementById('pageInfo');
+            prevBtn.disabled = (currentPage === 1);
+            nextBtn.disabled = (currentPage === totalPages);
+            pageInfoSpan.textContent = `第 ${currentPage} / ${totalPages} 页`;
+            if(!window._paginationBound) {
+                window._paginationBound = true;
+                prevBtn.onclick = () => { if(currentPage > 1) { currentPage--; renderCards(); } };
+                nextBtn.onclick = () => { if(currentPage < totalPages) { currentPage++; renderCards(); } };
+            }
+        }
+
+        function renderCards() {
+            const container = document.getElementById('recruiting-cards-container');
+            if(!container) return;
+            applyFiltersAndSearch();
+            const total = filteredData.length;
+            const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+            if(currentPage > totalPages) currentPage = Math.max(1, totalPages);
+            const start = (currentPage-1) * ITEMS_PER_PAGE;
+            const pageItems = filteredData.slice(start, start+ITEMS_PER_PAGE);
+            
+            const resultSpan = document.getElementById('resultsCount');
+            resultSpan.textContent = total === allRecruitments.length ? `共 ${total} 个招募` : `找到 ${total} 个匹配（共 ${allRecruitments.length} 个）`;
+            
+            if(pageItems.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="ri-information-line"></i><p>没有匹配的招募信息</p></div>`;
+                renderPagination();
+                return;
+            }
+            
+            if(viewMode === 'grid') {
+                container.className = '';
+                container.innerHTML = '';
+                pageItems.forEach(item => {
+                    const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
+                    const card = document.createElement('div');
+                    card.className = 'recruiting-card';
+                    card.dataset.id = item['自动编号'];
+                    card.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-top">
+                                <h3>${escapeHtml(item['场次名称'])}</h3>
+                                <span class="status-dot status-${status.class}">${status.text}</span>
+                            </div>
+                            <p class="card-subtitle">${escapeHtml(item['副标题'])}</p>
+                            <div class="card-meta-row">
+                                <div class="card-meta-item"><i class="ri-calendar-line"></i><span>${item['开始时间']} — ${item['结束时间']}</span></div>
+                                <div class="card-meta-item"><i class="ri-group-line"></i><span>${escapeHtml(item['招募对象'])}</span></div>
+                                <div class="card-meta-item"><i class="ri-building-line"></i><span>${escapeHtml(item['归属组织'])}</span></div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                // 列表视图 - 全新布局
+                container.className = 'list-view';
+                container.innerHTML = '';
+                pageItems.forEach(item => {
+                    const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
+                    const card = document.createElement('div');
+                    card.className = 'recruiting-card';
+                    card.dataset.id = item['自动编号'];
+                    card.innerHTML = `
+                        <div class="card-left">
+                            <h3>${escapeHtml(item['场次名称'])}</h3>
+                            <span class="status-dot status-${status.class}">${status.text}</span>
+                        </div>
+                        <div class="card-middle">
+                            <div class="meta-item"><i class="ri-calendar-line"></i><span>${item['开始时间']} — ${item['结束时间']}</span></div>
+                            <div class="meta-item"><i class="ri-group-line"></i><span>${escapeHtml(item['招募对象'])}</span></div>
+                        </div>
+                        <div class="card-right">
+                            <span class="org">${escapeHtml(item['归属组织'])}</span>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+            renderPagination();
+        }
+
+        function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+        function openModal(data) {
+            const modal = document.getElementById('details-modal');
+            if(!modal) return;
+            document.getElementById('modal-title').textContent = data['场次名称'] || '';
+            const status = getRecruitmentStatus(data['开始时间'], data['结束时间']);
+            const badge = document.getElementById('modal-status-badge');
+            badge.textContent = status.text;
+            badge.className = `status-dot status-${status.class}`;
+            const meta = document.getElementById('modal-meta-container');
+            meta.innerHTML = `
+                <div class="meta-item"><i class="ri-barcode-line"></i><span class="meta-item-label">编号:</span><span>${data['自动编号']||'—'}</span></div>
+                <div class="meta-item"><i class="ri-calendar-2-line"></i><span class="meta-item-label">时间:</span><span>${data['开始时间']} 至 ${data['结束时间']}</span></div>
+                <div class="meta-item"><i class="ri-group-2-line"></i><span class="meta-item-label">对象:</span><span>${escapeHtml(data['招募对象'])}</span></div>
+                <div class="meta-item"><i class="ri-stack-line"></i><span class="meta-item-label">类别:</span><span>${data['类别']||'—'}</span></div>
+                <div class="meta-item"><i class="ri-building-line"></i><span class="meta-item-label">组织:</span><span>${data['归属组织']||'—'}</span></div>
+                <div class="meta-item"><i class="ri-question-answer-line"></i><span class="meta-item-label">面试:</span><span>${data['是否需要面试']||'—'}</span></div>
+            `;
+            document.getElementById('modal-body-content').innerHTML = (data['正文']||'').replace(/\\n/g,'<br>');
+            const applyBtn = document.getElementById('applyBtn');
+            const link = data['问卷链接']?.trim();
+            const isEnded = status.class === 'ended';
+            const noLink = !link || link === 'N/A' || link === '';
+            if(isEnded || noLink) {
+                applyBtn.disabled = true;
+                applyBtn.innerHTML = `<i class="ri-lock-line"></i> <span>${isEnded ? '招募已结束' : '暂无链接'}</span>`;
+            } else {
+                applyBtn.disabled = false;
+                applyBtn.innerHTML = `<i class="ri-external-link-line"></i> <span>访问问卷</span>`;
+                applyBtn.onclick = () => window.open(link,'_blank');
+            }
+            modal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            const modal = document.getElementById('details-modal');
+            if(modal) { modal.classList.remove('visible'); document.body.style.overflow = ''; }
+        }
+
+        function updateFilterChips() {
+            document.querySelectorAll('.filter-chip[data-type="status"]').forEach(c => c.classList.toggle('selected', activeFilters.status.includes(c.dataset.value)));
+            document.querySelectorAll('.filter-chip[data-type="category"]').forEach(c => c.classList.toggle('selected', activeFilters.category.includes(c.dataset.value)));
+            document.querySelectorAll('.filter-chip[data-type="org"]').forEach(c => c.classList.toggle('selected', activeFilters.org.includes(c.dataset.value)));
+        }
+        function toggleView(mode) {
+            viewMode = mode;
+            localStorage.setItem('ksvg_recruit_view', mode);
+            document.getElementById('viewGridBtn').classList.toggle('active-view', mode==='grid');
+            document.getElementById('viewListBtn').classList.toggle('active-view', mode==='list');
+            renderCards();
+        }
+
+        async function loadRecruitments() {
+            const container = document.getElementById('recruiting-cards-container');
+            let overlay = document.getElementById('loading-overlay');
+            if(!overlay && container) {
+                const div = document.createElement('div'); div.id='loading-overlay'; div.innerHTML='<div class="loader"></div>'; container.appendChild(div); overlay=div;
+            }
+            const controller = new AbortController();
+            const tid = setTimeout(()=>controller.abort(), 10000);
+            try {
+                const url = `../assets/recruiting.csv?t=${Date.now()}`;
+                const res = await fetch(url, { signal: controller.signal });
+                if(!res.ok) throw new Error(`HTTP ${res.status}`);
+                const text = await res.text();
+                allRecruitments = parseCSV(text);
+                if(!allRecruitments.length) throw new Error('无有效数据');
+                applyFiltersAndSearch();
+                currentPage = 1;
+                renderCards();
+            } catch(err) {
+                console.error(err);
+                if(container) {
+                    container.innerHTML = `<div class="empty-state"><i class="ri-error-warning-line"></i><p>加载失败，请检查网络后重试</p><button class="retry-btn" id="retryLoadBtn">重新加载</button></div>`;
+                    document.getElementById('retryLoadBtn')?.addEventListener('click',()=>location.reload());
+                }
+            } finally {
+                clearTimeout(tid);
+                const ov = document.getElementById('loading-overlay');
+                if(ov) ov.remove();
+            }
+        }
+
+        // 执行搜索（按回车时触发）
+        function performSearch() {
+            const input = document.getElementById('searchInput');
+            pendingSearchTerm = input?.value || '';
+            currentPage = 1;
+            renderCards();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await Promise.all([
+                loadComponent('us-banner.html','us-banner-placeholder'),
+                loadComponent('navigation.html','navigation-placeholder'),
+                loadComponent('footer.html','footer-placeholder')
+            ]);
+            const lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
+            await window.setLanguage(lang);
+
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+            
+            // 按回车搜索
+            searchInput?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+            
+            // 清除按钮
+            searchClear?.addEventListener('click', ()=>{
+                searchInput.value = '';
+                pendingSearchTerm = '';
+                searchClear.classList.remove('visible');
+                currentPage = 1;
+                renderCards();
+                searchInput.focus();
+            });
+            
+            // 输入时只显示清除按钮，不触发搜索
+            searchInput?.addEventListener('input', () => {
+                searchClear.classList.toggle('visible', searchInput.value.length > 0);
+            });
+            
+            // 筛选面板逻辑
+            const filterPanel = document.getElementById('filterPanel');
+            const filterToggle = document.getElementById('filterToggleBtn');
+            filterToggle?.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                filterPanel.classList.toggle('open');
+                filterToggle.classList.toggle('active', filterPanel.classList.contains('open'));
+            });
+            document.addEventListener('click', (e)=>{
+                if(!filterPanel?.contains(e.target) && e.target !== filterToggle && filterPanel?.classList.contains('open')) {
+                    filterPanel.classList.remove('open');
+                    filterToggle?.classList.remove('active');
+                }
+            });
+            
+            document.getElementById('filterPanel')?.addEventListener('click', (e)=>{
+                const chip = e.target.closest('.filter-chip');
+                if(!chip) return;
+                const type = chip.dataset.type;
+                const val = chip.dataset.value;
+                let arr;
+                if(type==='status') arr = activeFilters.status;
+                else if(type==='category') arr = activeFilters.category;
+                else if(type==='org') arr = activeFilters.org;
+                else return;
+                const idx = arr.indexOf(val);
+                if(idx>-1) arr.splice(idx,1);
+                else arr.push(val);
+                updateFilterChips();
+                currentPage = 1;
+                renderCards();
+            });
+            
+            document.getElementById('resetFiltersBtn')?.addEventListener('click', ()=>{
+                activeFilters = { status:['ongoing','planned','ended'], category:['定期招募','长期招募'], org:['昆山康桥学生会','KSVG'] };
+                updateFilterChips();
+                if(searchInput) searchInput.value = '';
+                pendingSearchTerm = '';
+                if(searchClear) searchClear.classList.remove('visible');
+                currentPage = 1;
+                renderCards();
+            });
+            
+            document.getElementById('viewGridBtn')?.addEventListener('click',()=>toggleView('grid'));
+            document.getElementById('viewListBtn')?.addEventListener('click',()=>toggleView('list'));
+            document.getElementById('modal-close-button')?.addEventListener('click',closeModal);
+            document.getElementById('details-modal')?.addEventListener('click',(e)=>{ if(e.target===e.currentTarget) closeModal(); });
+            document.getElementById('recruiting-cards-container')?.addEventListener('click',(e)=>{
+                const card = e.target.closest('.recruiting-card');
+                if(card) {
+                    const id = card.dataset.id;
+                    const data = allRecruitments.find(i=>i['自动编号']===id);
+                    if(data) openModal(data);
+                }
+            });
+            
+            const isMobile = window.matchMedia('(max-width:768px)').matches;
+            if(isMobile && !localStorage.getItem('ksvg_recruit_view')) viewMode = 'list';
+            toggleView(viewMode);
+            loadRecruitments();
+        });
     </script>
 </body>
 

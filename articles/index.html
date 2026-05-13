@@ -155,7 +155,7 @@
 
     <div id="footer-placeholder"></div>
 
-    <!-- ========== 核心脚本 ========== -->
+    <!-- ========== 核心脚本（已完全移除认证相关代码） ========== -->
     <script>
         window.locales = {};
         const componentBasePath = '../assets';
@@ -212,11 +212,6 @@
             document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
 
             if (window.updateFooterLangDisplay) window.updateFooterLangDisplay(lang);
-
-            if (window.refreshAuthText) {
-                window.refreshAuthText();
-                window.applyTranslations();
-            }
         };
 
         window.initLanguageSelection = async function (lang) {
@@ -234,64 +229,7 @@
 
             let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
             await window.setLanguage(lang);
-
-            if (window.initAuthUI) {
-                await window.initAuthUI();
-                window.applyTranslations();
-            }
         });
-    </script>
-
-    <!-- ========== Supabase 认证 ========== -->
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
-
-        const getCookieDomain = () => {
-            const hostname = window.location.hostname;
-            return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
-        };
-
-        const cookieStorage = {
-            getItem: (key) => {
-                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
-                if (!countMatch) return null;
-                const count = parseInt(countMatch[2], 10);
-                let fullValue = '';
-                for (let i = 0; i < count; i++) {
-                    const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
-                    if (chunkMatch) fullValue += chunkMatch[2];
-                }
-                return fullValue ? decodeURIComponent(fullValue) : null;
-            },
-            setItem: () => {},
-            removeItem: () => {}
-        };
-
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
-        });
-
-        window.initAuthUI = async function () {
-            const { data: { session } } = await supabase.auth.getSession();
-
-            window.refreshAuthText = () => {
-                if (window.renderNavigationAuth) {
-                    window.renderNavigationAuth(session);
-                    window.applyTranslations();
-                }
-                const mbg = document.getElementById('mLogoutBtnNav');
-                if (mbg) {
-                    mbg.onclick = async () => {
-                        await supabase.auth.signOut();
-                        window.location.href = '../index.html';
-                    };
-                }
-            };
-
-            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
-        };
     </script>
 </body>
 

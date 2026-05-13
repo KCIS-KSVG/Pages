@@ -11,10 +11,6 @@
     .nav-menu a:hover::after, .nav-menu a.active-nav-item::after { width: 100%; }
     .header-actions { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
     
-    /* 桌面蓝色按钮样式 */
-    .auth-btn-styled { background-color: var(--brand-primary, #002b49); color: white !important; padding: 8px 18px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; transition: all 0.2s; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit; text-decoration: none; }
-    .auth-btn-styled:hover { background-color: #001f35; transform: translateY(-1px); }
-    
     .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-dark, #0f172a); cursor: pointer; padding: 5px; }
     
     .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 2100; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -28,10 +24,8 @@
     .mobile-nav-links i { color: #94a3b8; font-size: 1.3rem; margin-right: 15px; }
     .mobile-nav-links a.active-nav-item { background-color: #f1f5f9; color: var(--brand-primary, #002b49); font-weight: 700; }
     .mobile-nav-links a.active-nav-item i { color: var(--brand-primary, #002b49); }
-    .mobile-auth-dock { padding: 20px; border-top: 1px solid #f1f5f9; background: #ffffff; }
-    .mobile-auth-btn { width: 100%; padding: 16px; background-color: var(--brand-primary, #002b49); border: none; color: white; font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; text-align: center; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-family: inherit; border-radius: 6px; box-shadow: 0 4px 12px rgba(0, 43, 73, 0.15); }
-    .mobile-auth-btn:active { background-color: #001f35; transform: scale(0.98); }
-    @media (max-width: 900px) { .navigation, .desktop-auth-container { display: none; } .nav-toggle { display: block; z-index: 2001; } }
+    
+    @media (max-width: 900px) { .navigation { display: none; } .nav-toggle { display: block; z-index: 2001; } }
 </style>
 
 <header class="site-header">
@@ -49,7 +43,6 @@
             </ul>
         </nav>
         <div class="header-actions">
-            <div class="desktop-auth-container" id="desktopAuthContainer"></div>
             <button class="nav-toggle" id="mobileMenuOpenBtn" aria-label="Open Mobile Menu" tabindex="0">
                 <i class="ri-menu-3-line" aria-hidden="true"></i>
             </button>
@@ -71,12 +64,11 @@
         <li><a href="https://ksvg.com.cn/partners" tabindex="0"><i class="ri-group-line" aria-hidden="true"></i> <span data-i18n="nav_partners">合作单位</span></a></li>
         <li><a href="https://ksvg.com.cn/recruiting/" tabindex="0"><i class="ri-user-add-line" aria-hidden="true"></i> <span data-i18n="nav_recruiting">组织招募</span></a></li>
     </ul>
-    <div class="mobile-auth-dock" id="mobileAuthDock"></div>
 </nav>
 
 <script>
     (function() {
-        // --- 1. 选项卡智能高亮逻辑 ---
+        // 选项卡智能高亮逻辑
         function highlightActiveLink() {
             const currPath = window.location.pathname; 
             document.querySelectorAll('.nav-menu a, .mobile-nav-links a').forEach(link => {
@@ -96,7 +88,7 @@
         }
         setTimeout(highlightActiveLink, 100);
 
-        // --- 2. 手机菜单逻辑 ---
+        // 手机菜单逻辑
         if (!window.navMenuBound) {
             window.navMenuBound = true;
             document.addEventListener('click', function(e) {
@@ -109,64 +101,5 @@
                 }
             });
         }
-
-        // --- 3. [极简版] 全局 Auth 界面渲染器 ---
-        window.renderNavigationAuth = function(session) {
-            const dAuth = document.getElementById('desktopAuthContainer');
-            const mAuth = document.getElementById('mobileAuthDock');
-            if (!dAuth || !mAuth) return;
-
-            const isProfilePage = window.location.pathname.includes('/profile');
-            const profileUrl = isProfilePage ? '#' : './profile/index.html';
-
-            const titleMyAccount = window.locales['auth_my_account'] || '我的账户';
-            const titleSettings = window.locales['auth_settings'] || '信息设置';
-            const titleLogin = window.locales['auth_login_ksvg'] || 'Login & Register';
-            const titleLogout = window.locales['auth_sign_out'] || '注销退出';
-
-            if (session) {
-                const email = session.user.email;
-                const meta = session.user.user_metadata || {};
-                const displayName = meta.full_name || email.split('@')[0];
-                const isKsvgUser = email.endsWith('@ksvg.com.cn');
-                
-                let decoratedEmail = email;
-                if (isKsvgUser) decoratedEmail = email.replace('@ksvg.com.cn', '<span style="color: #B5914F; font-weight: 700;">@ksvg.com.cn</span>');
-
-                // 桌面端：极简的蓝色按钮
-                dAuth.innerHTML = `
-                    <a href="${profileUrl}" class="auth-btn-styled" tabindex="0">
-                        <i class="ri-user-smile-line"></i> <span>${titleMyAccount}</span>
-                    </a>
-                `;
-
-                // 手机端：保持复杂的控制面板
-// 找到 renderNavigationAuth 中的手机端菜单部分 (mAuth.innerHTML)
-        mAuth.innerHTML = `
-            <div style="padding: 15px; background: #f8fafc; border-radius: 8px; margin-bottom: 15px; text-align:left;">
-                <strong style="font-size: 1rem; color: var(--text-dark, #0f172a); display:flex; align-items:center; gap:4px; margin-bottom: 4px;">
-                    ${displayName} ${isKsvgUser ? '<i class="ri-checkbox-circle-fill" style="color:#3b82f6; font-size:1.05rem;"></i>' : ''}
-                </strong>
-                <div style="font-size: 0.85rem; color: var(--text-muted, #475569); word-break: break-all;">
-                    ${decoratedEmail}
-                </div>
-            </div>
-            <button onclick="window.location.href='${profileUrl}'" tabindex="0" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; text-align: center; font-size: 0.95rem; font-family: inherit; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: var(--brand-primary, #002b49); color: white; margin-bottom: 10px; border:none;">
-                <i class="ri-settings-4-line"></i> <span data-i18n="auth_settings">信息设置</span>
-            </button>
-            <button id="mLogoutBtnNav" tabindex="0" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; text-align: center; font-size: 0.95rem; font-family: inherit; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: white; color: #ef4444; border: 1px solid #fecaca; font-weight: 600;">
-                <i class="ri-logout-box-r-line"></i> <span data-i18n="auth_sign_out">注销退出</span>
-            </button>
-        `;
-        if (typeof window.applyTranslations === 'function') {
-    window.applyTranslations();
-}
-
-            } else {
-                // 未登录状态
-                dAuth.innerHTML = `<button onclick="window.goToAuth ? window.goToAuth('login') : null" class="auth-btn-styled" tabindex="0"><span>${titleLogin}</span></button>`;
-                mAuth.innerHTML = `<button class="mobile-auth-btn" onclick="window.goToAuth ? window.goToAuth('login') : null" tabindex="0"><span>${titleLogin}</span></button>`;
-            }
-        };
     })();
 </script>
