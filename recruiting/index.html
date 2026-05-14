@@ -46,12 +46,49 @@
         :focus-visible { outline: 0.2rem solid var(--brand-primary); outline-offset: 0.2rem; border-radius: 4px; }
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
-        .page-header { max-width: 1400px; margin: 0 auto; padding: 60px 20px 0; }
-        .page-header h1 { font-family: 'Open Sans', sans-serif; font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: 1px; }
-        .page-header .page-subtitle { font-size: 1.05rem; color: #64748b; font-weight: 400; margin-bottom: 30px; line-height: 1.5; }
-        .page-header .header-divider { width: 100%; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%); margin-bottom: 40px; }
+        /* ========== 页面头部（统一 max-width: 1200px） ========== */
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 0;
+        }
 
-        .toolbar { max-width: 1400px; margin: 0 auto 20px; padding: 0 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; position: relative; }
+        .page-header h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .page-header .page-subtitle {
+            font-size: 1.05rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .page-header .header-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%);
+            margin-bottom: 40px;
+        }
+
+        /* ========== 工具栏（统一 max-width: 1200px） ========== */
+        .toolbar {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 0 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
         .search-wrapper { flex: 1; min-width: 200px; position: relative; }
         .search-wrapper i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.1rem; pointer-events: none; }
         .search-input { width: 100%; padding: 12px 14px 12px 40px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; font-family: inherit; background: var(--surface-color); transition: all 0.2s; }
@@ -60,11 +97,7 @@
         .search-clear:hover { color: var(--text-dark); background: #f1f5f9; }
         .search-clear.visible { display: flex; align-items: center; justify-content: center; }
 
-        .toolbar-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+        .toolbar-actions { display: flex; gap: 8px; align-items: center; }
         .icon-btn {
             width: 42px;
             height: 42px;
@@ -96,10 +129,21 @@
         .panel-btn { padding: 8px 20px; border-radius: 40px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: #f1f5f9; color: var(--text-dark); transition: all 0.2s; }
         .panel-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
-        .results-count { max-width: 1400px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.85rem; color: var(--text-muted); }
+        .results-count {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 0 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
 
-        /* ========== 列表视图（唯一视图） ========== */
-        .recruiting-section { max-width: 1400px; margin: 0 auto; padding: 0 20px 40px; }
+        /* ========== 列表视图 ========== */
+        .recruiting-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
         #recruiting-cards-container {
             display: flex;
             flex-direction: column;
@@ -121,7 +165,6 @@
             border-color: var(--brand-primary);
         }
 
-        /* 标题行：标题 + 状态标签 */
         .card-header {
             display: flex;
             align-items: center;
@@ -165,7 +208,6 @@
         .status-planned { background: var(--status-planned-bg); color: var(--status-planned-text); }
         .status-planned::before { background: var(--status-planned-dot); }
 
-        /* 信息行：日期和招募对象并排 */
         .card-info-row {
             display: flex;
             flex-wrap: wrap;
@@ -187,7 +229,6 @@
             width: 20px;
         }
 
-        /* 日期范围 */
         .date-range {
             display: inline-flex;
             align-items: center;
@@ -198,7 +239,6 @@
             white-space: nowrap;
         }
 
-        /* 底部：归属组织 + 箭头 */
         .card-footer {
             display: flex;
             align-items: center;
@@ -227,60 +267,49 @@
             color: var(--brand-primary);
         }
 
-        /* 移动端专用优化 */
         @media (max-width: 768px) {
             .card-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-            
             .card-header h3 {
                 font-size: 1rem;
             }
-            
             .card-info-row {
                 flex-direction: column;
                 gap: 12px;
             }
-            
             .info-item {
                 font-size: 0.8rem;
             }
-            
             .date-range {
                 flex-wrap: wrap;
             }
-            
             .date-range .date {
                 white-space: normal;
                 word-break: keep-all;
             }
-            
             .org-badge {
                 font-size: 0.75rem;
                 padding: 4px 12px;
             }
         }
 
-        /* 桌面端微调 */
         @media (min-width: 769px) {
             .card-header {
                 flex-direction: row;
                 align-items: center;
             }
-            
             .card-info-row {
                 flex-direction: row;
                 align-items: center;
             }
-            
             .info-item {
                 white-space: nowrap;
             }
         }
 
-        /* 分页 */
         .pagination {
             display: flex;
             justify-content: center;
@@ -356,7 +385,6 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* 模态框 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -521,7 +549,6 @@
     </div>
 
     <script>
-        // ---------- 组件加载 & 多语言 ----------
         window.locales = {};
         const componentBasePath = '../assets';
         async function loadComponent(filename, elementId) {
@@ -571,7 +598,6 @@
             await window.setLanguage(lang);
         };
 
-        // ---------- CSV 解析 ----------
         function parseCSV(text) {
             const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
             if (lines.length < 2) return [];
