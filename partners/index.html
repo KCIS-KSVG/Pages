@@ -106,13 +106,26 @@
             width: 56px;
             height: 56px;
             border-radius: 12px;
-            background: var(--brand-primary);
-            color: white;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            overflow: hidden;
             flex-shrink: 0;
+        }
+
+        .partner-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+
+        /* 为没有图片的卡片保留原来的图标样式 */
+        .partner-icon i {
+            font-size: 1.6rem;
+            color: var(--brand-primary);
         }
 
         .partner-info {
@@ -154,23 +167,6 @@
             opacity: 0.7;
         }
 
-        .partner-coming-soon {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #94a3b8;
-            padding: 6px 14px;
-            background: #f8fafc;
-            border-radius: 6px;
-            border: 1px dashed #e2e8f0;
-        }
-
-        .partner-coming-soon i {
-            font-size: 0.9rem;
-        }
-
         @media (max-width: 768px) {
             .page-header { padding: 40px 20px 0; }
             .page-header h1 { font-size: 2.2rem; }
@@ -200,11 +196,12 @@
                 <!-- 康桥银行 -->
                 <a href="https://bankofkangchiao.com" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
                     <div class="partner-icon">
-                        <i class="ri-bank-line" aria-hidden="true"></i>
+                        <img src="../assets/bkc-logo.png" alt="Bank of Kang Chiao Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="ri-bank-line" style="display: none;"></i>
                     </div>
                     <div class="partner-info">
                         <h3 data-i18n="partner_bkc_name">康桥银行</h3>
-                        <p class="partner-desc" data-i18n="partner_bkc_desc">Bank of Kang Chiao — 康桥学生自主运营的校园金融机构，提供创新金融教育与服务体验</p>
+                        <p class="partner-desc" data-i18n="partner_bkc_desc">康桥学生自主运营的校园金融机构，提供创新金融教育与服务体验</p>
                         <div class="partner-link-row">
                             <span data-i18n="partner_visit_website">访问网站</span>
                             <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
@@ -215,11 +212,28 @@
                 <!-- 学生会公关组 -->
                 <a href="https://kcsc.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
                     <div class="partner-icon">
-                        <i class="ri-group-line" aria-hidden="true"></i>
+                        <img src="../assets/kcsc-logo.png" alt="KCSC Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="ri-group-line" style="display: none;"></i>
                     </div>
                     <div class="partner-info">
                         <h3 data-i18n="partner_kcsc_name">昆山康桥学生会公关组</h3>
-                        <p class="partner-desc" data-i18n="partner_kcsc_desc">Student Council PR Team — 负责学生会对外联络与形象宣传的核心部门</p>
+                        <p class="partner-desc" data-i18n="partner_kcsc_desc">负责学生会对外联络与形象宣传的核心部门</p>
+                        <div class="partner-link-row">
+                            <span data-i18n="partner_visit_website">访问网站</span>
+                            <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 康桥排球联赛 KCVA（链接暂时为 #） -->
+                <a href="#" class="partner-card has-link" tabindex="0">
+                    <div class="partner-icon">
+                        <img src="../assets/kcva-logo.png" alt="KCVA Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="ri-volleyball-line" style="display: none;"></i>
+                    </div>
+                    <div class="partner-info">
+                        <h3 data-i18n="partner_kcva_name">康桥排球联赛</h3>
+                        <p class="partner-desc" data-i18n="partner_kcva_desc">KCVA — 康桥排球联赛，推动校园排球运动发展，组织校内联赛与校际交流</p>
                         <div class="partner-link-row">
                             <span data-i18n="partner_visit_website">访问网站</span>
                             <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
