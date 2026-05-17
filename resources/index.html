@@ -36,7 +36,11 @@
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
-        :focus-visible { outline: 0.2rem solid var(--brand-primary); outline-offset: 0.2rem; border-radius: 4px; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+    outline: 0.25rem solid #2491ff !important;
+    outline-offset: 0.125rem !important;
+    border-radius: 4px;
+}
 .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
         /* 页面头部 */
@@ -405,7 +409,7 @@
         <div class="toolbar">
             <div class="search-wrapper">
                 <i class="ri-search-line"></i>
-                <input type="text" class="search-input" id="searchInput" placeholder="搜索素材包，按回车搜索..." autocomplete="off">
+                <input type="text" class="search-input" id="searchInput" placeholder="输入关键词，按回车搜索..." autocomplete="off">
                 <button class="search-clear" id="searchClear"><i class="ri-close-line"></i></button>
             </div>
             <div class="toolbar-actions">
