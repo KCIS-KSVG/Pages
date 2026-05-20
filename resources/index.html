@@ -36,12 +36,12 @@
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-    outline: 0.25rem solid #2491ff !important;
-    outline-offset: 0.125rem !important;
-    border-radius: 4px;
-}
-.brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+            outline: 0.25rem solid #2491ff !important;
+            outline-offset: 0.125rem !important;
+            border-radius: 4px;
+        }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
         /* 页面头部 */
         .page-header {
@@ -49,14 +49,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             margin: 0 auto;
             padding: 60px 20px 0;
         }
-.page-header h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 12px;
-    letter-spacing: 1px;  /* 与 recruiting 保持一致 */
-}
+        .page-header h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
         .page-header .page-subtitle {
             font-size: 0.95rem;
             color: #64748b;
@@ -359,6 +359,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             padding: 6px 10px;
             border-radius: 6px;
             font-size: 0.85rem;
+            user-select: all;
+            cursor: pointer;
         }
         .modal-footer {
             padding: 16px 24px 24px;
@@ -382,7 +384,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         .download-btn:hover:not(:disabled) { background: #001f35; transform: translateY(-1px); }
         .download-btn:disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
 
-        @media (max-width: 768px) {
+        /* Toast 提示 */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 600px) {
             .page-header { padding: 40px 20px 0; }
             .page-header h1 { font-size: 2.2rem; }
             .filter-panel { width: calc(100vw - 40px); right: 0; left: auto; }
@@ -390,6 +415,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             .resource-card { padding: 16px; }
             .modal-header { padding: 16px 20px; }
             .modal-body { padding: 16px 20px; }
+            #toast {
+                white-space: normal;
+                max-width: 80%;
+                text-align: center;
+                font-size: 0.75rem;
+                padding: 8px 20px;
+            }
         }
     </style>
 </head>
@@ -465,7 +497,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
                     <i class="ri-lock-password-line"></i>
                     <div style="flex:1">
                         <div class="info-label">解压密码</div>
-                        <div class="info-value code" id="modal-password"></div>
+                        <div class="info-value code" id="modal-password" onclick="copyPasswordFromModal()"></div>
                     </div>
                 </div>
                 <div class="info-row">
@@ -478,7 +510,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             </div>
             <div class="modal-footer">
                 <button class="download-btn" id="downloadBtn">
-                    <i class="ri-download-line"></i> 访问下载链接
+                    <i class="ri-download-line"></i> 访问下载链接并复制密码
                 </button>
             </div>
         </div>
@@ -533,6 +565,47 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             const modal = document.getElementById('langModal');
             if(modal) modal.classList.remove('show');
             await window.setLanguage(lang);
+        };
+
+        // ---------- Toast 提示 ----------
+        function showToast(message, isError = false) {
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            if (isError) {
+                toast.style.background = 'rgba(198, 40, 40, 0.9)';
+            } else {
+                toast.style.background = 'rgba(0, 0, 0, 0.85)';
+            }
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.style.background = 'rgba(0, 0, 0, 0.85)';
+                }, 300);
+            }, 2500);
+        }
+
+        // 全局存储当前素材的密码，供点击复制使用
+        let currentPassword = '';
+
+        // 复制密码函数（供模态框内点击密码区域使用）
+        window.copyPasswordFromModal = function() {
+            if (currentPassword && currentPassword !== '无密码') {
+                navigator.clipboard.writeText(currentPassword).then(() => {
+                    showToast(`密码已复制：${currentPassword}`);
+                }).catch(() => {
+                    showToast('复制失败，请手动复制', true);
+                });
+            } else if (currentPassword === '无密码') {
+                showToast('此资源无密码，可直接访问');
+            } else {
+                showToast('未获取到密码信息', true);
+            }
         };
 
         // ---------- CSV 解析 ----------
@@ -691,6 +764,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             const link = data['链接'] || '';
             const startTime = data['生效时间'] || 'Unlimited';
             const endTime = data['失效时间'] || 'Unlimited';
+            
+            // 存储密码供全局复制使用
+            currentPassword = password;
+            
             let validityText = '';
             if (startTime === 'Unlimited' && endTime === 'Unlimited') validityText = '永久有效';
             else if (endTime === 'Unlimited') validityText = `自 ${startTime} 起有效`;
@@ -700,22 +777,47 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             document.getElementById('modal-title').textContent = escapeHtml(title);
             document.getElementById('modal-package-name').textContent = escapeHtml(title);
             document.getElementById('modal-package-desc').textContent = escapeHtml(desc);
-            document.getElementById('modal-password').textContent = password;
+            const pwdElement = document.getElementById('modal-password');
+            pwdElement.textContent = password;
+            // 如果密码不是"无密码"，添加提示样式
+            if (password !== '无密码') {
+                pwdElement.style.cursor = 'pointer';
+                pwdElement.title = '点击复制密码';
+            } else {
+                pwdElement.style.cursor = 'default';
+                pwdElement.title = '';
+            }
             document.getElementById('modal-validity').textContent = validityText;
             
             const downloadBtn = document.getElementById('downloadBtn');
             const expired = isExpired(endTime);
+            
             if (expired || !link || link === '') {
                 downloadBtn.disabled = true;
                 downloadBtn.innerHTML = `<i class="ri-lock-line"></i> ${expired ? '资源已失效' : '暂无下载链接'}`;
             } else {
                 downloadBtn.disabled = false;
-                downloadBtn.innerHTML = `<i class="ri-download-line"></i> 访问下载链接`;
-                downloadBtn.onclick = () => window.open(link, '_blank');
+                downloadBtn.innerHTML = `<i class="ri-download-line"></i> 访问下载链接并复制密码`;
+                downloadBtn.onclick = () => {
+                    // 复制密码
+                    if (password && password !== '无密码') {
+                        navigator.clipboard.writeText(password).then(() => {
+                            showToast(`密码已复制：${password}`);
+                        }).catch(() => {
+                            showToast('复制失败，请手动复制', true);
+                        });
+                    } else {
+                        showToast('此资源无密码，可直接访问');
+                    }
+                    // 打开链接
+                    window.open(link, '_blank');
+                };
             }
+            
             modal.classList.add('visible');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeModal() {
             const modal = document.getElementById('details-modal');
             if (modal) { modal.classList.remove('visible'); document.body.style.overflow = ''; }
