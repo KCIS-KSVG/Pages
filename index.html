@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- 优化了 SEO 的 Description -->
-    <meta name="description" content="KSVG（昆山康桥学生摄影合作组织）是昆山康桥学校 (KCIS) 的核心学生视觉技术团队。我们提供校园影像标准化规范、跨组织活动视觉协同支持，并开源 KSVG UIA 统一身份认证系统等数字基础设施，致力于提升校园视觉媒体质量与技术创新。">
-    <title>KSVG | 首页</title>
+    <meta name="description" content="昆山康桥学生摄影合作组织（KSVG）提供影像标准化规范、跨组织活动视觉协同支持，并开源KS系列规范供外部团队参考，致力于提升校园视觉媒体质量与技术创新。">
+    <title>KSVG | Homepage</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,53 @@
     <!-- 增加版本号强制绕过浏览器缓存 -->
     <link rel="icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
     <link rel="shortcut icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
+
+    <!-- Open Graph / Facebook (AI 搜索和社交媒体抓取极其依赖此协议) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ksvg.com.cn/">
+    <meta property="og:title" content="KSVG | Kang Chiao Students Photography Cooperative Organization">
+    <meta property="og:description" content="KSVG is the core student visual technology team of Kang Chiao International School East China. We provide campus imaging standardization, collaborative visual network, and open-source infrastructure.">
+    <meta property="og:image" content="https://ksvg.com.cn/assets/ksvg-logo.png">
+
+    <!-- Twitter Metadata -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ksvg.com.cn/">
+    <meta property="twitter:title" content="KSVG | Kang Chiao Students Photography Cooperative Organization">
+    <meta property="twitter:description" content="KSVG is the core student visual technology team of Kang Chiao International School East China.">
+    <meta property="twitter:image" content="https://ksvg.com.cn/assets/ksvg-logo.png">
+
+    <!-- Schema.org 组织结构化数据 (帮助 Google 建立 Sitelinks 关联) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "KSVG",
+      "alternateName": "昆山康桥学生摄影合作组织",
+      "url": "https://ksvg.com.cn",
+      "logo": "https://ksvg.com.cn/assets/ksvg-logo.png",
+      "sameAs": [
+        "https://www.youtube.com/@kcisec-ksvg",
+        "https://space.bilibili.com/23855258"
+      ],
+      "description": "KSVG is the core student visual technology team of Kang Chiao International School East China (KCIS EC). We provide campus imaging standardization, collaborative multi-organization event coverage, and open-source infrastructure.",
+      "knowsAbout": ["Photography", "Web Development", "Campus Media", "Supabase", "Open Source"]
+    }
+    </script>
+
+    <!-- Schema.org 网站内搜索与子链接数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "KSVG",
+      "url": "https://ksvg.com.cn",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ksvg.com.cn/articles?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <style>
         /* --- CORE VARIABLES --- */
