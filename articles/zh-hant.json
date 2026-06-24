@@ -1,9 +1,13 @@
 {
   "tab_title_articles": "KSVG | 文章",
   "articles_page_title": "文章",
-  "articles_page_subtitle": "探索最新動態、官方發布與高品質影像記錄",
-  "articles_unavailable_title": "此板塊暫時不可用",
-  "articles_unavailable_desc": "我們正在努力完善內容，請稍後再來查看。",
+  "articles_page_subtitle": "享受全球攝影相關的設備評測、事件報導、技術分享等權威內容。",
+  "search_placeholder": "輸入關鍵詞並按回車搜尋...",
+  "latest_headlines": "最新頭條",
+  "no_cover_indexed": "未索引到封面",
+  "text_read_more": "閱讀全文",
+  "text_error": "無法獲取最新文章，請檢查網路連線。",
+  "rss_disclaimer": "以上新聞資訊透過 RSS 渠道獲取自 {sources} 等權威平台，所有原創內容與版權均歸原報社所有。",
   "auth_settings": "資訊設定",
   "auth_sign_out": "登出帳戶"
 }

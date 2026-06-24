@@ -1,9 +1,13 @@
 {
   "tab_title_articles": "KSVG | 文章",
   "articles_page_title": "文章",
-  "articles_page_subtitle": "探索最新动态、官方发布与高质量影像记录",
-  "articles_unavailable_title": "此板块暂时不可用",
-  "articles_unavailable_desc": "我们正在努力完善内容，请稍后再来查看。",
+  "articles_page_subtitle": "享受全球摄影相关的设备测评、事件报道、技术分享等权威内容。",
+  "search_placeholder": "输入关键词并按回车搜索...",
+  "latest_headlines": "最新头条",
+  "no_cover_indexed": "未索引到封面",
+  "text_read_more": "阅读全文",
+  "text_error": "无法获取最新文章，请检查网络连接。",
+  "rss_disclaimer": "以上新闻资讯通过 RSS 渠道获取自 {sources} 等权威平台，所有原创内容与版权均归原报社所有。",
   "auth_settings": "信息设置",
   "auth_sign_out": "注销退出"
 }

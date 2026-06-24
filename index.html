@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- 优化了 SEO 的 Description -->
-    <meta name="description" content="昆山康桥学生摄影合作组织（KSVG）提供影像标准化规范、跨组织活动视觉协同支持，并开源KS系列规范供外部团队参考，致力于提升校园视觉媒体质量与技术创新。">
+    <meta name="description" content="KSVG™ is a cross-organizational student alliance providing hands-on media production, broadcasting, and technical support for campus committees and leagues.">
     <title>KSVG | Homepage</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,23 +45,8 @@
         "https://www.youtube.com/@kcisec-ksvg",
         "https://space.bilibili.com/23855258"
       ],
-      "description": "KSVG is the core student visual technology team of Kang Chiao International School East China (KCIS EC). We provide campus imaging standardization, collaborative multi-organization event coverage, and open-source infrastructure.",
-      "knowsAbout": ["Photography", "Web Development", "Campus Media", "Supabase", "Open Source"]
-    }
-    </script>
-
-    <!-- Schema.org 网站内搜索与子链接数据 -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "KSVG",
-      "url": "https://ksvg.com.cn",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://ksvg.com.cn/articles?search={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "description": "KSVG™ is a cross-organizational student alliance providing hands-on media production, broadcasting, and technical support for campus committees and leagues.",
+      "knowsAbout": ["Photography", "Technical Support", "Campus", "Student Organizations", "Open Source"]
     }
     </script>
 
@@ -100,13 +85,17 @@
         /* ========================================================= */
         /* HERO SECTION                                              */
         /* ========================================================= */
-        .hero-section { height: calc(85vh - var(--header-height)); min-height: 500px; background-color: var(--brand-primary); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); transition: background-image 0.5s ease; }
+        .hero-section { height: calc(85vh - var(--header-height)); min-height: 500px; background-color: var(--brand-primary); background-image: url('./assets/wallpaper_01.jpeg'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); transition: background-image 0.5s ease; }
         .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; color: white; }
         .hero-greeting { display: inline-flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 400; color: #e2e8f0; margin-bottom: 20px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease; }
         .hero-greeting.show { opacity: 1; transform: translateY(0); }
         .hero-greeting strong { color: white; font-weight: 600; text-transform: uppercase; }
         .hero-content h1 { font-family: 'Open Sans', sans-serif; font-size: 4.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
         .hero-subtitle { font-size: 1.15rem; font-weight: 400; color: #cbd5e1; letter-spacing: 1px; }
+
+        /* HERO 版权声明 */
+        .hero-copyright { position: absolute; bottom: 20px; left: 20px; color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; display: flex; align-items: center; gap: 6px; z-index: 2; pointer-events: none; }
+        .hero-copyright i { font-size: 1rem; }
 
         /* ========================================================= */
         /* CONTENT SECTIONS                                          */
@@ -123,11 +112,6 @@
         .details-text p { font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
         .learn-more-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 15px; color: var(--link-blue); font-weight: 600; font-size: 0.95rem; transition: gap 0.2s; }
         .learn-more-link:hover { gap: 8px; text-decoration: underline; }
-
-        .partner-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .partner-tag { color: var(--brand-primary); padding: 6px 14px; border: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; background: white; border-radius: 4px; user-select: none; }
-        .partner-tag i { color: var(--brand-secondary); font-size: 1rem; }
-        .details-grid.reverse .partner-tags { justify-content: flex-end; }
 
         /* ========================================================= */
         /* NEWS SECTION                                              */
@@ -177,10 +161,10 @@
         @media (max-width: 900px) {
             .hero-content h1 { font-size: 3.5rem; }
             .hero-subtitle { font-size: 0.95rem; }
+            .hero-copyright { font-size: 0.65rem; bottom: 10px; left: 10px; }
             .content-section { padding: 60px 20px; }
             .details-grid { grid-template-columns: 1fr; gap: 30px; text-align: left; }
             .details-grid.reverse { direction: ltr; }
-            .details-grid.reverse .partner-tags { justify-content: flex-start; }
             .details-visual { text-align: left; }
             .news-grid { grid-template-columns: 1fr; }
         }
@@ -204,11 +188,17 @@
                 <h1 data-i18n="hero_title">KSVG</h1>
                 <p class="hero-subtitle" data-i18n="hero_subtitle">昆山康桥学生摄影合作组织</p>
             </div>
+            <div class="hero-copyright">
+                <i class="ri-information-line" aria-hidden="true"></i> 
+                <span data-i18n="hero_copyright">本网站内图片（含壁纸）版权均归 KSVG 所有，未经授权严禁任何形式的商业使用。</span>
+            </div>
         </section>
 
         <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-ruler-2-line" aria-hidden="true"></i></div>
+                <div class="details-visual">
+                    <i class="ri-ruler-2-line" aria-hidden="true"></i>
+                </div>
                 <div class="details-text">
                     <h2 data-i18n="sec1_title">影像标准化</h2>
                     <p data-i18n="sec1_desc">探索并建立校园影像规范。通过整理前期参数与后期归档标准，我们希望为每一次高质量的视觉记录提供稳定的技术参考与工作流保障。</p>
@@ -221,21 +211,24 @@
 
         <section class="content-section bg-surface">
             <div class="details-grid reverse">
-                <div class="details-visual"><i class="ri-node-tree" aria-hidden="true"></i></div>
+                <div class="details-visual">
+                    <i class="ri-node-tree" aria-hidden="true"></i>
+                </div>
                 <div class="details-text">
                     <h2 data-i18n="sec2_title">跨组织协同</h2>
                     <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
-                    <div class="partner-tags">
-                        <span class="partner-tag"><i class="ri-bank-line" aria-hidden="true"></i> <span data-i18n="tag_bkc">康桥银行</span></span>
-                        <span class="partner-tag"><i class="ri-camera-lens-line" aria-hidden="true"></i> <span data-i18n="tag_kcsc">昆山康桥学生会公关组</span></span>
-                    </div>
+                    <a href="#" class="learn-more-link" tabindex="0">
+                        <span data-i18n="sec2_link">查看合作伙伴</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="content-section bg-white">
             <div class="details-grid">
-                <div class="details-visual"><i class="ri-shield-keyhole-line" aria-hidden="true"></i></div>
+                <div class="details-visual">
+                    <i class="ri-shield-keyhole-line" aria-hidden="true"></i>
+                </div>
                 <div class="details-text">
                     <h2 data-i18n="sec3_title">数字基础设施</h2>
                     <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
@@ -246,7 +239,22 @@
             </div>
         </section>
 
-        <section class="content-section bg-surface" id="newsSection" style="display: none; border-bottom:none;">
+        <section class="content-section bg-surface">
+            <div class="details-grid reverse">
+                <div class="details-visual">
+                    <i class="ri-team-line" aria-hidden="true"></i>
+                </div>
+                <div class="details-text">
+                    <h2 data-i18n="sec4_title">KSVG™ 人才库计划是什么？</h2>
+                    <p data-i18n="sec4_desc">KSVG™ 人才库计划旨在为热心社区建设的学生提供实践平台，涵盖日常事务、技术支持、团队协作及后勤管理。我们专门对接康桥货币政策委员会、康桥排球联赛等校内外组织的媒体技术团队，并为其提供协助。</p>
+                    <a href="https://ksvg.com.cn/recruiting" class="learn-more-link" tabindex="0">
+                        <span data-i18n="sec4_link">参阅更多 KSVG™人才库计划</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section bg-white" id="newsSection" style="display: none; border-bottom:none;">
             <div class="news-header">
                 <h2 data-i18n="news_title">行业资讯</h2>
                 <p data-i18n="news_desc">洞察全球影像技术前沿与行业动态</p>
@@ -435,10 +443,10 @@
             document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
             localStorage.setItem('ksvg_ui_lang', lang);
 
-if (window.refreshAuthText) {
-    window.refreshAuthText();
-    window.applyTranslations();   // 确保手机菜单刷新后翻译
-}
+            if (window.refreshAuthText) {
+                window.refreshAuthText();
+                window.applyTranslations();   // 确保手机菜单刷新后翻译
+            }
         }
 
         window.initLanguageSelection = async function (lang) {
@@ -514,10 +522,11 @@ if (window.refreshAuthText) {
                     }, 1000);
                 }
             }
-if (window.initAuthUI) {
-    await window.initAuthUI();
-    window.applyTranslations();   // 首次加载后的动态翻译
-}
+
+            if (window.initAuthUI) {
+                await window.initAuthUI();
+                window.applyTranslations();   // 首次加载后的动态翻译
+            }
         });
     </script>
 
@@ -586,12 +595,7 @@ if (window.initAuthUI) {
             const { data: { session } } = await supabase.auth.getSession();
 
             window.refreshAuthText = () => {
-
-                window.initAuthUI = async function () {
-            const { data: { session } } = await supabase.auth.getSession();
-
-            window.refreshAuthText = () => {
-                // 渲染 Navigation
+                // 调用 navigation.html 中内嵌的全局 UI 渲染器
                 if (window.renderNavigationAuth) {
                     window.renderNavigationAuth(session);
                     
@@ -605,31 +609,7 @@ if (window.initAuthUI) {
                     }
                 }
 
-                // 独立的大屏幕问候语
-                const heroGreeting = document.getElementById('heroGreetingContainer');
-                if (session) {
-                    const displayName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-                    if (heroGreeting) {
-                        heroGreeting.innerHTML = getGreeting(displayName);
-                        heroGreeting.classList.add('show');
-                    }
-                } else {
-                    if (heroGreeting) {
-                        heroGreeting.innerHTML = '';
-                        heroGreeting.classList.remove('show');
-                    }
-                }
-            };
-
-            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
-        }
-
-                // 1. 调用 navigation.html 中内嵌的全局 UI 渲染器
-                if (window.renderNavigationAuth) {
-                    window.renderNavigationAuth(session);
-                }
-
-                // 2. 仅处理本页面特有的独立逻辑 (大屏幕中央的问候语)
+                // 处理本页面特有的独立逻辑 (大屏幕中央的问候语)
                 const heroGreeting = document.getElementById('heroGreetingContainer');
                 if (session) {
                     const displayName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];

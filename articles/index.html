@@ -24,105 +24,194 @@
             --text-dark: #0f172a;
             --text-muted: #475569;
             --header-height: 64px;
+            --focus-ring: 0 0 0 3px rgba(0, 43, 73, 0.15);
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
         a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 0.25rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px; }
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
-        /* ========== 页面头部：黑色大标题 + 灰色副标题 + 分隔线 ========== */
-        .page-header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px 0;
+        /* ========== 严格靠齐 Recruiting 页面的头部 ========== */
+        .page-header { max-width: 1200px; margin: 0 auto; padding: 60px 20px 0; }
+        .page-header h1 { font-family: 'Open Sans', sans-serif; font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: 1px; }
+        .page-header .page-subtitle { font-size: 1.05rem; color: #64748b; font-weight: 400; margin-bottom: 30px; line-height: 1.5; }
+        .page-header .header-divider { width: 100%; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%); margin-bottom: 40px; }
+
+        /* ========== 搜索工具栏 ========== */
+        .toolbar { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; display: flex; gap: 16px; align-items: center; }
+        .search-wrapper { flex: 1; position: relative; }
+        .search-wrapper i.ri-search-line { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.1rem; pointer-events: none; }
+        .search-input { width: 100%; padding: 12px 40px 12px 40px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; font-family: inherit; background: var(--surface-color); transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .search-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--focus-ring); }
+        .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem; padding: 4px; display: none; border-radius: 50%; transition: background 0.2s, color 0.2s; }
+        .search-clear:hover { color: var(--text-dark); background: #f1f5f9; }
+        .search-clear.visible { display: flex; align-items: center; justify-content: center; }
+
+        /* ========== 头条轮播板块 (Headlines Carousel) ========== */
+        .section-container { max-width: 1200px; margin: 0 auto 50px; padding: 0 20px; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-title { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+
+        .headlines-carousel {
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+            scroll-behavior: smooth; padding-bottom: 15px;
+        }
+        .headlines-carousel::-webkit-scrollbar { height: 6px; }
+        .headlines-carousel::-webkit-scrollbar-track { background: transparent; }
+        .headlines-carousel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        .headline-card {
+            flex: 0 0 100%; height: 380px; border-radius: 20px; position: relative; overflow: hidden;
+            scroll-snap-align: center; display: block; box-shadow: 0 10px 25px rgba(0,0,0,0.06); transition: transform 0.2s;
+        }
+        .headline-card:hover { transform: translateY(-2px); }
+
+        .headline-fallback {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #1e293b;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #94a3b8; gap: 12px; z-index: 0; font-weight: 500; font-size: 0.95rem;
+        }
+        .headline-fallback i { font-size: 3.5rem; color: #475569; }
+
+        .headline-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); z-index: 1;
+        }
+        .headline-card:hover .headline-bg { transform: scale(1.03); }
+
+        .headline-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.85) 100%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; z-index: 2;
         }
 
-        .page-header h1 {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
+        .headline-meta { margin-bottom: 10px; display: flex; align-items: center; justify-content: flex-start; gap: 10px; }
+        .headline-tag { 
+            background: var(--brand-secondary); color: white; padding: 4px 10px; border-radius: 6px; 
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 65%; flex-shrink: 0;
+        }
+        .headline-date { color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 500; flex-shrink: 0; }
+        .headline-title { color: white; font-size: 1.8rem; font-weight: 800; line-height: 1.3; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        @media (min-width: 992px) { .headline-card { flex: 0 0 calc(50% - 10px); } }
+
+        /* ========== Apple 风格横向报社列 (Publisher Rows) ========== */
+        .publisher-section { max-width: 1200px; margin: 0 auto 50px; padding: 0 20px; }
+        .publisher-title-link {
+            display: inline-flex; align-items: center; gap: 4px; font-size: 1.5rem; font-weight: 800;
+            color: var(--text-dark); margin-bottom: 16px; transition: opacity 0.2s; text-decoration: none;
+        }
+        .publisher-title-link:hover { opacity: 0.7; }
+        .publisher-title-link i { color: #94a3b8; font-size: 1.6rem; margin-top: 2px; }
+
+        .publisher-row {
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+            padding: 4px 4px 20px 4px; margin: -4px -4px 0 -4px;
+        }
+        .publisher-row::-webkit-scrollbar { display: none; }
+
+        /* 通用卡片样式 */
+        .article-card {
+            flex: 0 0 280px; background: var(--surface-color); border-radius: 16px; overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03); transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex; flex-direction: column; border: 1px solid var(--border-color); scroll-snap-align: start;
+        }
+        .article-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); }
+
+        .img-wrapper { width: 100%; height: 160px; position: relative; background: #f1f5f9; overflow: hidden; }
+        .article-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2;
+        }
+        .article-card:hover .article-image { transform: scale(1.05); }
+
+        .img-fallback {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #94a3b8; font-size: 0.85rem; font-weight: 500; gap: 8px; z-index: 1;
+        }
+        .img-fallback i { font-size: 2rem; color: #cbd5e1; }
+
+        .article-content { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
+        
+        .article-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+        .publisher-tag {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            color: var(--text-muted); background: #f1f5f9;
+            padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; flex-shrink: 0;
+        }
+        .article-date { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+
+        .article-title {
+            font-size: 1.1rem; font-weight: 700; color: var(--text-dark);
+            line-height: 1.4; margin-bottom: 8px; display: -webkit-box;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .article-desc {
+            font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; margin-bottom: 16px; flex-grow: 1;
         }
 
-        .page-header .page-subtitle {
-            font-size: 1.05rem;
-            color: #64748b;
-            font-weight: 400;
-            margin-bottom: 30px;
-            line-height: 1.5;
+        /* 多彩标签配色 */
+        .tag-petapixel { color: #dc2626 !important; background: #fee2e2 !important; }
+        .tag-phoblographer { color: #9333ea !important; background: #f3e8ff !important; }
+        .tag-diy-photography { color: #0284c7 !important; background: #e0f2fe !important; }
+        .tag-fstoppers { color: #16a34a !important; background: #dcfce7 !important; }
+        .tag-photography-life { color: #0d9488 !important; background: #ccfbf1 !important; }
+        .tag-sony-alpha-rumors { color: #ea580c !important; background: #ffedd5 !important; }
+        .tag-canon-rumors { color: #e11d48 !important; background: #ffe4e6 !important; }
+
+        /* ========== 搜索结果网格 (Search Results) ========== */
+        .search-results-section { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; display: none; }
+        .search-results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .search-results-grid .article-card { flex: unset; }
+
+        /* ========== 底部声明与呼吸灯 ========== */
+        .rss-disclaimer {
+            max-width: 1200px; margin: 0 auto 40px; padding: 20px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color);
+            text-align: center; line-height: 1.5;
+        }
+        
+        /* 酷炫绿点脉冲呼吸灯 (Live Status) */
+        .live-indicator {
+            position: relative; display: inline-flex; justify-content: center; align-items: center;
+            width: 12px; height: 12px; flex-shrink: 0;
+        }
+        .live-dot {
+            width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
+            position: absolute; z-index: 2;
+        }
+        .live-pulse {
+            width: 100%; height: 100%; background-color: #10b981; border-radius: 50%;
+            position: absolute; animation: live-pulse 2s infinite ease-out; z-index: 1;
+        }
+        @keyframes live-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2.8); opacity: 0; }
         }
 
-        .page-header .header-divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%);
-            margin-bottom: 50px;
-        }
+        .skeleton { background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: pulse-load 1.5s infinite; border-radius: 6px; }
+        @keyframes pulse-load { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        /* ========== 不可用板块：大气居中 ========== */
-        .unavailable-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .unavailable-card {
-            text-align: center;
-            max-width: 520px;
-        }
-
-        .unavailable-card .maintenance-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            margin-bottom: 30px;
-        }
-
-        .unavailable-card .maintenance-icon i {
-            font-size: 2.5rem;
-            color: #64748b;
-        }
-
-        .unavailable-card h2 {
-            font-family: 'Georgia', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
-
-        .unavailable-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        /* ========== 响应式 ========== */
         @media (max-width: 768px) {
             .page-header { padding: 40px 20px 0; }
             .page-header h1 { font-size: 2.2rem; }
-            .page-header .page-subtitle { font-size: 0.9rem; }
-            .unavailable-section { padding: 60px 20px 100px; }
-            .unavailable-card .maintenance-icon { width: 80px; height: 80px; }
-            .unavailable-card .maintenance-icon i { font-size: 2rem; }
-            .unavailable-card h2 { font-size: 1.3rem; }
+            .headline-card { height: 260px; }
+            .headline-title { font-size: 1.4rem; }
+            .article-card { flex: 0 0 260px; }
         }
     </style>
 </head>
@@ -134,37 +223,288 @@
     <div id="navigation-placeholder"></div>
 
     <main>
-        <!-- 页面头部 -->
+        <!-- 严格规范的页面头部 -->
         <div class="page-header">
             <h1 data-i18n="articles_page_title">文章</h1>
-            <p class="page-subtitle" data-i18n="articles_page_subtitle">探索最新动态、官方发布与高质量影像记录</p>
+            <p class="page-subtitle" data-i18n="articles_page_subtitle">享受全球摄影相关的设备测评、事件报道、技术分享等权威内容。</p>
             <div class="header-divider"></div>
         </div>
 
-        <!-- 不可用提示 -->
-        <section class="unavailable-section">
-            <div class="unavailable-card">
-                <div class="maintenance-icon">
-                    <i class="ri-settings-5-line" aria-hidden="true"></i>
-                </div>
-                <h2 data-i18n="articles_unavailable_title">此板块暂时不可用</h2>
-                <p data-i18n="articles_unavailable_desc">我们正在努力完善内容，请稍后再来查看。</p>
+        <!-- 无缝触发的搜索工具栏 -->
+        <div class="toolbar">
+            <div class="search-wrapper">
+                <i class="ri-search-line"></i>
+                <input type="text" class="search-input" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Search articles and press Enter..." autocomplete="off">
+                <button class="search-clear" id="searchClear"><i class="ri-close-circle-fill"></i></button>
             </div>
-        </section>
+        </div>
+
+        <!-- 默认视图：包含头条轮播和报社队列 -->
+        <div id="defaultViews">
+            <!-- 焦点轮播 (Headlines) -->
+            <div class="section-container" id="headlinesContainer" style="display: none;">
+                <h2 class="section-title"><i class="ri-fire-line" style="color:var(--brand-secondary);"></i> <span data-i18n="latest_headlines">最新头条</span></h2>
+                <div class="headlines-carousel" id="headlinesCarousel">
+                    <!-- Javascript 渲染大屏轮播 -->
+                </div>
+            </div>
+
+            <!-- Apple Music 式水平排列 (Publisher Rows) -->
+            <div id="publisherRowsContainer">
+                <!-- 预加载骨架屏 -->
+                <div class="publisher-section">
+                    <div style="height: 30px; width: 150px; margin-bottom: 16px;" class="skeleton"></div>
+                    <div class="publisher-row">
+                        <div class="article-card skeleton" style="height: 300px;"></div>
+                        <div class="article-card skeleton" style="height: 300px;"></div>
+                        <div class="article-card skeleton" style="height: 300px;"></div>
+                        <div class="article-card skeleton" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索视图：平铺大网格 -->
+        <div class="search-results-section" id="searchResultsSection">
+            <div class="search-results-grid" id="searchResultsGrid">
+                <!-- Javascript 渲染搜索结果 -->
+            </div>
+        </div>
+
+
     </main>
 
     <div id="footer-placeholder"></div>
 
-    <!-- ========== 核心脚本（已完全移除认证相关代码） ========== -->
+    <!-- ========== 核心脚本 ========== -->
     <script>
         window.locales = {};
         const componentBasePath = '../assets';
 
+        // 状态缓存
+        window.articlesCache = [];
+        window.isSearching = false;
+        let carouselInterval = null;
+
+        // 全球权威摄影媒体数据池
+        const newsFeeds = [
+            { id: 'PetaPixel', url: 'https://petapixel.com/feed/', site: 'https://petapixel.com/' },
+            { id: 'Phoblographer', url: 'https://www.thephoblographer.com/feed/', site: 'https://www.thephoblographer.com/' },
+            { id: 'DIY Photography', url: 'https://www.diyphotography.net/feed/', site: 'https://www.diyphotography.net/' },
+            { id: 'Fstoppers', url: 'https://fstoppers.com/feed', site: 'https://fstoppers.com/' },
+            { id: 'Photography Life', url: 'https://photographylife.com/feed', site: 'https://photographylife.com/' },
+            { id: 'Sony Alpha Rumors', url: 'https://www.sonyalpharumors.com/feed/', site: 'https://www.sonyalpharumors.com/' },
+            { id: 'Canon Rumors', url: 'https://www.canonrumors.com/feed/', site: 'https://www.canonrumors.com/' }
+        ];
+
+        function getTagClass(name) { return 'tag-' + name.toLowerCase().replace(/\s+/g, '-'); }
+
+        function stripHtml(html) {
+            if(!html) return "";
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.body.textContent || "";
+        }
+
+        function extractImageUrl(article) {
+            let imgUrl = '';
+            if (article.enclosure && article.enclosure.link && article.enclosure.type && article.enclosure.type.startsWith('image/')) {
+                imgUrl = article.enclosure.link;
+            }
+            if (!imgUrl) {
+                const html = article.content || article.description || '';
+                const match = html.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i);
+                if (match) imgUrl = match[1];
+            }
+            if (!imgUrl) imgUrl = article.thumbnail || '';
+            return imgUrl;
+        }
+
+        // ================== 渲染逻辑 ==================
+
+        function renderArticleCardHtml(article) {
+            const imgUrl = extractImageUrl(article);
+            const lang = document.documentElement.getAttribute('lang') || 'en-us';
+            const dateStr = article.pubDateObj.toLocaleDateString(lang, { year: 'numeric', month: 'short', day: 'numeric' });
+            const tagClass = getTagClass(article.sourceName);
+            const noCoverText = window.locales['no_cover_indexed'] || 'No cover indexed';
+
+            return `
+            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="article-card" tabindex="0">
+                <div class="img-wrapper">
+                    <div class="img-fallback">
+                        <i class="ri-image-2-line"></i>
+                        <span data-i18n="no_cover_indexed">${noCoverText}</span>
+                    </div>
+                    ${imgUrl ? `<div class="article-image" style="background-image: url('${imgUrl}');" 
+                                onload="this.style.display='block'; this.previousElementSibling.style.display='none';" 
+                                onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';"></div>` : ''}
+                </div>
+                <div class="article-content">
+                    <div class="article-meta">
+                        <span class="publisher-tag ${tagClass}">${article.sourceName}</span>
+                        <span class="article-date">${dateStr}</span>
+                    </div>
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-desc">${article.cleanDesc}</p>
+                </div>
+            </a>`;
+        }
+
+        // 渲染大屏焦点图 (完全弃用 KSVG Logo)
+        function renderHeadlines() {
+            const container = document.getElementById('headlinesContainer');
+            const carousel = document.getElementById('headlinesCarousel');
+            if (window.articlesCache.length < 3) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.style.display = 'block';
+            const topArticles = window.articlesCache.slice(0, 4); // 取全网最新的 4 篇
+            const lang = document.documentElement.getAttribute('lang') || 'en-us';
+            const noCoverText = window.locales['no_cover_indexed'] || 'No cover indexed';
+            
+            carousel.innerHTML = topArticles.map(article => {
+                const imgUrl = extractImageUrl(article);
+                const tagClass = getTagClass(article.sourceName);
+                const dateStr = article.pubDateObj.toLocaleDateString(lang, { year: 'numeric', month: 'short', day: 'numeric' });
+                
+                return `
+                <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="headline-card">
+                    <div class="headline-fallback">
+                        <i class="ri-image-2-line"></i>
+                        <span data-i18n="no_cover_indexed">${noCoverText}</span>
+                    </div>
+                    ${imgUrl ? `<div class="headline-bg" style="background-image: url('${imgUrl}');"></div>` : ''}
+                    <div class="headline-overlay">
+                        <div class="headline-meta">
+                            <span class="headline-tag ${tagClass}">${article.sourceName}</span>
+                            <span class="headline-date">${dateStr}</span>
+                        </div>
+                        <h3 class="headline-title">${article.title}</h3>
+                    </div>
+                </a>`;
+            }).join('');
+
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+                }
+            }, 5000);
+
+            const stopCarousel = () => clearInterval(carouselInterval);
+            carousel.addEventListener('mouseenter', stopCarousel);
+            carousel.addEventListener('touchstart', stopCarousel);
+        }
+
+        // 渲染各报社独立队列 (Apple Music Style)
+        function renderPublisherRows() {
+            const container = document.getElementById('publisherRowsContainer');
+            let html = '';
+
+            newsFeeds.forEach(feed => {
+                const topLinks = window.articlesCache.slice(0, 4).map(a => a.link);
+                const feedArticles = window.articlesCache.filter(a => a.sourceName === feed.id && !topLinks.includes(a.link));
+                
+                if (feedArticles.length === 0) return;
+                const items = feedArticles.slice(0, 10); // 每个报社最多 10 篇
+
+                html += `
+                <div class="publisher-section">
+                    <a href="${feed.site}" target="_blank" rel="noopener noreferrer" class="publisher-title-link">
+                        ${feed.id} <i class="ri-arrow-right-s-line"></i>
+                    </a>
+                    <div class="publisher-row">
+                        ${items.map(article => renderArticleCardHtml(article)).join('')}
+                    </div>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 渲染搜索结果大网格
+        function renderSearchResults(term) {
+            const grid = document.getElementById('searchResultsGrid');
+            const searchSection = document.getElementById('searchResultsSection');
+            const defaultViews = document.getElementById('defaultViews');
+
+            const filtered = window.articlesCache.filter(a => 
+                a.title.toLowerCase().includes(term) || 
+                a.cleanDesc.toLowerCase().includes(term) ||
+                a.sourceName.toLowerCase().includes(term)
+            );
+
+            defaultViews.style.display = 'none';
+            searchSection.style.display = 'block';
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; grid-column: 1/-1; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="ri-search-eye-line" style="font-size: 3rem; margin-bottom: 12px; display: block; opacity: 0.3;"></i>
+                        <span style="font-size: 1rem;">未找到与 "${term}" 相关的文章记录。</span>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(a => renderArticleCardHtml(a)).join('');
+        }
+
+        function restoreDefaultView() {
+            document.getElementById('defaultViews').style.display = 'block';
+            document.getElementById('searchResultsSection').style.display = 'none';
+        }
+
+        function updateDisclaimer() {
+            const disclaimerEl = document.getElementById('disclaimerText');
+            if (!disclaimerEl) return;  // 元素不存在时静默返回，避免报错
+            let template = window.locales['rss_disclaimer'] || "The news and articles above are aggregated via RSS feeds from {sources}.";
+            const sourcesList = newsFeeds.map(f => f.id).join(', ');
+            disclaimerEl.innerHTML = template.replace('{sources}', `<strong>${sourcesList}</strong>`);
+        }
+
+        // 并行拉取 RSS 数据流
+        async function fetchAllArticles() {
+            try {
+                const fetchPromises = newsFeeds.map(feed => 
+                    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.items) {
+                            return data.items.slice(0, 15).map(item => ({
+                                ...item,
+                                sourceName: feed.id,
+                                pubDateObj: new Date(item.pubDate.replace(/-/g, '/')),
+                                cleanDesc: stripHtml(item.description || item.content)
+                            }));
+                        }
+                        return [];
+                    }).catch(() => [])
+                );
+                
+                const results = await Promise.all(fetchPromises);
+                window.articlesCache = results.flat().sort((a, b) => b.pubDateObj - a.pubDateObj);
+                
+                renderHeadlines();
+                renderPublisherRows();
+            } catch (e) {
+                document.getElementById('publisherRowsContainer').innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="ri-error-warning-line" style="font-size: 2.5rem; opacity: 0.5; margin-bottom: 10px; display: block;"></i>
+                        加载文章失败，请检查网络设置或稍后重试。
+                    </div>`;
+            }
+        }
+
+        // ================= 全局装载器与多语言逻辑 =================
         async function loadComponent(filename, elementId) {
             const url = `${componentBasePath}/${filename}?t=${new Date().getTime()}`;
             try {
                 const response = await fetch(url);
-                if (!response.ok) { console.error(`❌ 组件加载失败: ${url}`); return; }
+                if (!response.ok) return;
                 let html = await response.text();
                 html = html.replace(/\.\/assets/g, '../assets');
                 const temp = document.createElement('div');
@@ -181,8 +521,7 @@
                     if (oldScript.innerHTML) newScript.text = oldScript.innerHTML;
                     document.body.appendChild(newScript);
                 });
-                console.log(`✅ 组件加载成功: ${url} -> ${elementId}`);
-            } catch (error) { console.error(`❌ 组件加载异常: ${url}`, error); }
+            } catch (error) {}
         }
 
         window.applyTranslations = function () {
@@ -190,6 +529,21 @@
                 const key = el.getAttribute('data-i18n');
                 if (window.locales[key]) el.innerHTML = window.locales[key];
             });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (window.locales[key]) el.setAttribute('placeholder', window.locales[key]);
+            });
+            
+            updateDisclaimer();
+
+            if(window.articlesCache.length > 0) {
+                if (window.isSearching) {
+                    renderSearchResults(window.pendingSearchTerm);
+                } else {
+                    renderHeadlines();
+                    renderPublisherRows();
+                }
+            }
         };
 
         window.setLanguage = async function (lang) {
@@ -203,7 +557,7 @@
                 if (globalRes && globalRes.ok) globalData = await globalRes.json();
                 if (pageRes && pageRes.ok) pageData = await pageRes.json();
                 window.locales = { ...globalData, ...pageData };
-            } catch (e) { console.error('语言文件加载异常:', e); }
+            } catch (e) {}
 
             window.applyTranslations();
             document.title = window.locales['tab_title_articles'] || "KSVG | Articles";
@@ -229,8 +583,42 @@
 
             let lang = localStorage.getItem('ksvg_ui_lang') || 'zh-hans';
             await window.setLanguage(lang);
+
+            // ================== 搜索栏交互逻辑 ==================
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+
+            searchInput.addEventListener('input', (e) => {
+                searchClear.classList.toggle('visible', e.target.value.length > 0);
+            });
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const term = searchInput.value.trim().toLowerCase();
+                    if (term) {
+                        window.isSearching = true;
+                        window.pendingSearchTerm = term;
+                        renderSearchResults(term);
+                    } else {
+                        window.isSearching = false;
+                        window.pendingSearchTerm = '';
+                        restoreDefaultView();
+                    }
+                }
+            });
+
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                window.pendingSearchTerm = '';
+                window.isSearching = false;
+                searchClear.classList.remove('visible');
+                restoreDefaultView();
+                searchInput.focus();
+            });
+
+            fetchAllArticles();
         });
     </script>
 </body>
-
 </html>
