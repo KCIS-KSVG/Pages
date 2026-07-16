@@ -14,6 +14,9 @@
     <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
     <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
 
+    <!-- ========== 全局焦点高亮模块（符合 ADA 标准） ========== -->
+    <link rel="stylesheet" href="../assets/focus.css">
+
     <style>
         :root {
             --brand-primary: #002b49;
@@ -32,7 +35,8 @@
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
-        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 0.25rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px; }
+        /* 注：焦点高亮样式已移至 assets/focus.css */
+
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
         /* ========== 页面头部 ========== */
@@ -193,8 +197,8 @@
 
         <section class="partners-section">
             <div class="partners-grid">
-                <!-- 康桥银行 -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
+                <!-- 康桥银行（链接更新为 404） -->
+                <a href="https://ksvg.com.cn/404.html" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
                     <div class="partner-icon">
                         <img src="../assets/bkc-logo.png" alt="Bank of Kang Chiao Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <i class="ri-bank-line" style="display: none;"></i>
@@ -209,14 +213,14 @@
                     </div>
                 </a>
 
-                <!-- 学生会公关组 -->
-                <a href="https://kcsc.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
+                <!-- 学生会（链接更新为 studentcouncil.ksvg.com.cn） -->
+                <a href="https://studentcouncil.ksvg.com.cn" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
                     <div class="partner-icon">
                         <img src="../assets/kcsc-logo.png" alt="KCSC Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <i class="ri-group-line" style="display: none;"></i>
                     </div>
                     <div class="partner-info">
-                        <h3 data-i18n="partner_kcsc_name">昆山康桥学生会公关组</h3>
+                        <h3 data-i18n="partner_kcsc_name">昆山康桥学生会议事委员会</h3>
                         <p class="partner-desc" data-i18n="partner_kcsc_desc">负责学生会对外联络与形象宣传的核心部门</p>
                         <div class="partner-link-row">
                             <span data-i18n="partner_visit_website">访问网站</span>
@@ -225,8 +229,8 @@
                     </div>
                 </a>
 
-                <!-- 康桥排球联赛 KCVA（链接暂时为 #） -->
-                <a href="https://kcva.com.cn" class="partner-card has-link" tabindex="0">
+                <!-- 康桥排球联赛 KCVA -->
+                <a href="https://kcva.com.cn" target="_blank" rel="noopener noreferrer" class="partner-card has-link" tabindex="0">
                     <div class="partner-icon">
                         <img src="../assets/kcva-logo.png" alt="KCVA Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <i class="ri-volleyball-line" style="display: none;"></i>

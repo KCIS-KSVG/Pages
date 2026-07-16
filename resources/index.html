@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- ========== 全局焦点高亮模块（符合 ADA 标准） ========== -->
+    <link rel="stylesheet" href="../assets/focus.css">
+
     <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
     <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
 
@@ -36,11 +40,8 @@
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
-        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-            outline: 0.25rem solid #2491ff !important;
-            outline-offset: 0.125rem !important;
-            border-radius: 4px;
-        }
+        /* 注：焦点高亮样式已移至 assets/focus.css */
+
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
         /* 页面头部 */
@@ -71,7 +72,7 @@
             margin-bottom: 40px;
         }
 
-        /* 工具栏 */
+        /* ========== 工具栏（仅搜索框，无筛选按钮） ========== */
         .toolbar {
             max-width: 1200px;
             margin: 0 auto 20px;
@@ -80,10 +81,21 @@
             gap: 12px;
             align-items: center;
             flex-wrap: wrap;
+        }
+        .search-wrapper {
+            flex: 1;
+            min-width: 240px;
             position: relative;
         }
-        .search-wrapper { flex: 1; min-width: 240px; position: relative; }
-        .search-wrapper i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1rem; pointer-events: none; }
+        .search-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+            pointer-events: none;
+        }
         .search-input {
             width: 100%;
             padding: 10px 14px 10px 38px;
@@ -94,57 +106,48 @@
             background: var(--surface-color);
             transition: all 0.2s;
         }
-        .search-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--focus-ring); }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: var(--focus-ring);
+        }
         .search-clear {
-            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1rem;
-            padding: 4px; display: none; border-radius: 50%;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+            display: none;
+            border-radius: 50%;
         }
-        .search-clear:hover { color: var(--text-dark); background: #f1f5f9; }
-        .search-clear.visible { display: flex; align-items: center; justify-content: center; }
-
-        .toolbar-actions { display: flex; gap: 8px; align-items: center; }
-        .icon-btn {
-            width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--border-color);
-            background: var(--surface-color); color: var(--text-muted); cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-            transition: all 0.2s;
+        .search-clear:hover {
+            color: var(--text-dark);
+            background: #f1f5f9;
         }
-        .icon-btn:hover { background: #e2e8f0; color: var(--brand-primary); border-color: var(--brand-primary); }
-
-        /* 筛选面板 */
-        .filter-panel {
-            position: absolute; top: calc(100% + 8px); right: 20px; width: 280px;
-            background: var(--surface-color); border: 1px solid var(--border-color);
-            border-radius: 12px; box-shadow: var(--shadow-lg); z-index: 100;
-            display: none; padding: 20px; flex-direction: column; gap: 16px;
+        .search-clear.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .filter-panel.open { display: flex; }
-        .filter-group-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
-        .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-        .filter-chip {
-            padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border-color);
-            background: var(--surface-color); font-size: 0.75rem; font-weight: 500;
-            cursor: pointer; transition: all 0.2s; color: var(--text-muted);
-        }
-        .filter-chip:hover { border-color: var(--brand-primary); background: #f0f4f8; }
-        .filter-chip.selected { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
-        .panel-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
-        .panel-btn {
-            padding: 6px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; border: none; background: #f1f5f9; color: var(--text-dark);
-        }
-        .panel-btn.primary { background: var(--brand-primary); color: white; }
-        .panel-btn:hover { opacity: 0.85; }
 
         .results-count {
-            max-width: 1200px; margin: 0 auto 16px; padding: 0 20px;
-            font-size: 0.8rem; color: var(--text-muted);
+            max-width: 1200px;
+            margin: 0 auto 16px;
+            padding: 0 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
         /* 资源网格 */
         .resources-section {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
         }
         #resources-cards-container {
             display: grid;
@@ -410,7 +413,6 @@
         @media (max-width: 600px) {
             .page-header { padding: 40px 20px 0; }
             .page-header h1 { font-size: 2.2rem; }
-            .filter-panel { width: calc(100vw - 40px); right: 0; left: auto; }
             #resources-cards-container { grid-template-columns: 1fr; gap: 12px; }
             .resource-card { padding: 16px; }
             .modal-header { padding: 16px 20px; }
@@ -438,21 +440,12 @@
             <div class="header-divider"></div>
         </div>
 
+        <!-- 仅搜索框，无筛选按钮 -->
         <div class="toolbar">
             <div class="search-wrapper">
                 <i class="ri-search-line"></i>
                 <input type="text" class="search-input" id="searchInput" placeholder="输入关键词，按回车搜索..." autocomplete="off">
                 <button class="search-clear" id="searchClear"><i class="ri-close-line"></i></button>
-            </div>
-            <div class="toolbar-actions">
-                <button class="icon-btn" id="filterToggleBtn"><i class="ri-equalizer-line"></i></button>
-            </div>
-            <div class="filter-panel" id="filterPanel">
-                <div class="filter-group-title">分类筛选</div>
-                <div class="filter-chips" id="filterChips"></div>
-                <div class="panel-actions">
-                    <button class="panel-btn" id="resetFiltersBtn">重置</button>
-                </div>
             </div>
         </div>
         <div class="results-count" id="resultsCount"></div>
@@ -656,33 +649,15 @@
         let filteredData = [];
         let currentPage = 1;
         const ITEMS_PER_PAGE = 12;
-        let activeFilters = new Set();
         let pendingSearchTerm = '';
 
-        function extractFilterOptions(items) {
-            const options = new Set();
-            items.forEach(item => {
-                const title = item['文件包标题'] || '';
-                const match = title.match(/^(\d{4}|\D+)/);
-                if (match) options.add(match[1]);
-            });
-            return Array.from(options).sort();
-        }
-
+        // 仅按搜索词过滤，移除分类筛选
         function applyFiltersAndSearch() {
             const searchTerm = pendingSearchTerm.toLowerCase();
             let filtered = allResources.filter(item => {
                 if (searchTerm) {
                     const haystack = [item['文件包标题'], item['文件包描述']].join(' ').toLowerCase();
                     if (!haystack.includes(searchTerm)) return false;
-                }
-                if (activeFilters.size > 0) {
-                    const title = item['文件包标题'] || '';
-                    let match = false;
-                    for (let filter of activeFilters) {
-                        if (title.startsWith(filter)) { match = true; break; }
-                    }
-                    if (!match) return false;
                 }
                 return true;
             });
@@ -765,7 +740,6 @@
             const startTime = data['生效时间'] || 'Unlimited';
             const endTime = data['失效时间'] || 'Unlimited';
             
-            // 存储密码供全局复制使用
             currentPassword = password;
             
             let validityText = '';
@@ -779,7 +753,6 @@
             document.getElementById('modal-package-desc').textContent = escapeHtml(desc);
             const pwdElement = document.getElementById('modal-password');
             pwdElement.textContent = password;
-            // 如果密码不是"无密码"，添加提示样式
             if (password !== '无密码') {
                 pwdElement.style.cursor = 'pointer';
                 pwdElement.title = '点击复制密码';
@@ -799,7 +772,6 @@
                 downloadBtn.disabled = false;
                 downloadBtn.innerHTML = `<i class="ri-download-line"></i> 访问下载链接并复制密码`;
                 downloadBtn.onclick = () => {
-                    // 复制密码
                     if (password && password !== '无密码') {
                         navigator.clipboard.writeText(password).then(() => {
                             showToast(`密码已复制：${password}`);
@@ -809,7 +781,6 @@
                     } else {
                         showToast('此资源无密码，可直接访问');
                     }
-                    // 打开链接
                     window.open(link, '_blank');
                 };
             }
@@ -821,26 +792,6 @@
         function closeModal() {
             const modal = document.getElementById('details-modal');
             if (modal) { modal.classList.remove('visible'); document.body.style.overflow = ''; }
-        }
-
-        function updateFilterChipsUI() {
-            const options = extractFilterOptions(allResources);
-            const container = document.getElementById('filterChips');
-            if (!container) return;
-            if (options.length === 0) { container.innerHTML = '<span style="font-size:0.75rem;color:#94a3b8;">暂无分类</span>'; return; }
-            container.innerHTML = options.map(opt => `
-                <button class="filter-chip ${activeFilters.has(opt) ? 'selected' : ''}" data-filter="${opt}">${opt}</button>
-            `).join('');
-            document.querySelectorAll('.filter-chip[data-filter]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const val = btn.dataset.filter;
-                    if (activeFilters.has(val)) activeFilters.delete(val);
-                    else activeFilters.add(val);
-                    updateFilterChipsUI();
-                    currentPage = 1;
-                    renderCards();
-                });
-            });
         }
 
         async function loadResources() {
@@ -858,8 +809,6 @@
                 const text = await res.text();
                 allResources = parseCSV(text);
                 if (!allResources.length) throw new Error('无有效数据');
-                activeFilters.clear();
-                updateFilterChipsUI();
                 applyFiltersAndSearch();
                 currentPage = 1;
                 renderCards();
@@ -894,19 +843,31 @@
 
             const searchInput = document.getElementById('searchInput');
             const searchClear = document.getElementById('searchClear');
-            searchInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
-            searchClear?.addEventListener('click', () => { searchInput.value = ''; pendingSearchTerm = ''; searchClear.classList.remove('visible'); currentPage = 1; renderCards(); searchInput.focus(); });
-            searchInput?.addEventListener('input', () => { searchClear.classList.toggle('visible', searchInput.value.length > 0); });
             
-            const filterPanel = document.getElementById('filterPanel');
-            const filterToggle = document.getElementById('filterToggleBtn');
-            filterToggle?.addEventListener('click', (e) => { e.stopPropagation(); filterPanel.classList.toggle('open'); filterToggle.classList.toggle('active', filterPanel.classList.contains('open')); });
-            document.addEventListener('click', (e) => { if (!filterPanel?.contains(e.target) && e.target !== filterToggle && filterPanel?.classList.contains('open')) { filterPanel.classList.remove('open'); filterToggle?.classList.remove('active'); } });
+            // 按回车触发搜索
+            searchInput?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
             
-            document.getElementById('resetFiltersBtn')?.addEventListener('click', () => { activeFilters.clear(); updateFilterChipsUI(); currentPage = 1; renderCards(); if (searchInput) { searchInput.value = ''; pendingSearchTerm = ''; searchClear?.classList.remove('visible'); } });
+            // 清除按钮清空搜索并重置
+            searchClear?.addEventListener('click', () => {
+                searchInput.value = '';
+                pendingSearchTerm = '';
+                searchClear.classList.remove('visible');
+                currentPage = 1;
+                renderCards();
+                searchInput.focus();
+            });
             
-            document.getElementById('modal-close-button')?.addEventListener('click', closeModal);
-            document.getElementById('details-modal')?.addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+            // 输入时显示清除按钮
+            searchInput?.addEventListener('input', () => {
+                searchClear.classList.toggle('visible', searchInput.value.length > 0);
+            });
+
+            // 点击卡片打开详情
             document.getElementById('resources-cards-container')?.addEventListener('click', (e) => {
                 const card = e.target.closest('.resource-card');
                 if (card) {
@@ -915,6 +876,13 @@
                     if (data) openModal(data);
                 }
             });
+
+            // 模态框关闭
+            document.getElementById('modal-close-button')?.addEventListener('click', closeModal);
+            document.getElementById('details-modal')?.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeModal();
+            });
+
             loadResources();
         });
     </script>

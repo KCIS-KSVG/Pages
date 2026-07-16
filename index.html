@@ -4,35 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- 优化了 SEO 的 Description -->
-    <meta name="description" content="KSVG™ is a cross-organizational student alliance providing hands-on media production, broadcasting, and technical support for campus committees and leagues.">
-    <title>KSVG | Homepage</title>
 
+    <!-- ========== SEO 核心优化 ========== -->
+    <!-- 英文描述，避免 .cn 域名在国际搜索中的不利影响，彰显权威性与专业性 -->
+    <meta name="description" content="KSVG — Kang Chiao Student Visual Group, established 2022. An autonomous student-led organization dedicated to campus imaging standardization, cross-committee collaboration, and open-source visual infrastructure. Serving the Kang Chiao International School East China community with professional-grade media support and technical governance.">
+
+    <title>KSVG | Kang Chiao Student Visual Group</title>
+
+    <!-- ========== 字体与样式 ========== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- 引入 Open Sans 以统一美系政府/官方机构设计风格 -->
+    <link rel="stylesheet" href="./assets/focus.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@700;800&family=Georgia&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    
-    <!-- 增加版本号强制绕过浏览器缓存 -->
+
+    <!-- Favicon -->
     <link rel="icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
     <link rel="shortcut icon" href="./assets/ksvg-logo.png?v=3" type="image/png">
 
-    <!-- Open Graph / Facebook (AI 搜索和社交媒体抓取极其依赖此协议) -->
+    <!-- ========== Open Graph / Facebook ========== -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ksvg.com.cn/">
-    <meta property="og:title" content="KSVG | Kang Chiao Students Photography Cooperative Organization">
-    <meta property="og:description" content="KSVG is the core student visual technology team of Kang Chiao International School East China. We provide campus imaging standardization, collaborative visual network, and open-source infrastructure.">
+    <meta property="og:title" content="KSVG | Kang Chiao Student Visual Group">
+    <meta property="og:description" content="KSVG is an autonomous student visual group at Kang Chiao International School East China, providing campus imaging standards, cross-organization collaboration, and open-source visual infrastructure since 2022.">
     <meta property="og:image" content="https://ksvg.com.cn/assets/ksvg-logo.png">
+    <meta property="og:site_name" content="KSVG">
+    <meta property="og:locale" content="zh_CN">
 
-    <!-- Twitter Metadata -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ksvg.com.cn/">
-    <meta property="twitter:title" content="KSVG | Kang Chiao Students Photography Cooperative Organization">
-    <meta property="twitter:description" content="KSVG is the core student visual technology team of Kang Chiao International School East China.">
-    <meta property="twitter:image" content="https://ksvg.com.cn/assets/ksvg-logo.png">
+    <!-- ========== Twitter Card ========== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ksvg_org">
+    <meta name="twitter:title" content="KSVG | Kang Chiao Student Visual Group">
+    <meta name="twitter:description" content="An autonomous student visual group since 2022. Campus imaging standards, cross-organization collaboration, and open-source infrastructure for the Kang Chiao community.">
+    <meta name="twitter:image" content="https://ksvg.com.cn/assets/ksvg-logo.png">
 
-    <!-- Schema.org 组织结构化数据 (帮助 Google 建立 Sitelinks 关联) -->
+    <!-- ========== SEO 补充 ========== -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://ksvg.com.cn/">
+    <meta name="author" content="KSVG">
+    <meta name="copyright" content="KSVG">
+
+    <!-- ========== Schema.org 结构化数据（增强搜索权重） ========== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,12 +54,18 @@
       "alternateName": "昆山康桥学生摄影合作组织",
       "url": "https://ksvg.com.cn",
       "logo": "https://ksvg.com.cn/assets/ksvg-logo.png",
+      "foundingDate": "2022",
+      "description": "KSVG is an autonomous student-led visual group at Kang Chiao International School East China. We provide campus imaging standards, cross-committee collaboration, and open-source visual infrastructure.",
       "sameAs": [
         "https://www.youtube.com/@kcisec-ksvg",
-        "https://space.bilibili.com/23855258"
+        "https://space.bilibili.com/23855258",
+        "https://github.com/KCIS-KSVG"
       ],
-      "description": "KSVG™ is a cross-organizational student alliance providing hands-on media production, broadcasting, and technical support for campus committees and leagues.",
-      "knowsAbout": ["Photography", "Technical Support", "Campus", "Student Organizations", "Open Source"]
+      "knowsAbout": ["Photography", "Video Production", "Campus Media", "Student Organizations", "Open Source"],
+      "areaServed": {
+        "@type": "Place",
+        "name": "Kang Chiao International School East China"
+      }
     }
     </script>
 
@@ -72,12 +91,6 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        /* USWDS ACCESSIBILITY FOCUS */
-        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-            outline: 0.25rem solid #2491ff !important;
-            outline-offset: 0.125rem !important;
-            border-radius: 4px;
-        }
 
         /* 渐变分割线 */
         .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
@@ -87,15 +100,8 @@
         /* ========================================================= */
         .hero-section { height: calc(85vh - var(--header-height)); min-height: 500px; background-color: var(--brand-primary); background-image: url('./assets/wallpaper_01.jpeg'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; box-shadow: inset 0 0 0 2000px rgba(0, 20, 40, 0.7); transition: background-image 0.5s ease; }
         .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; color: white; }
-        .hero-greeting { display: inline-flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 400; color: #e2e8f0; margin-bottom: 20px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease; }
-        .hero-greeting.show { opacity: 1; transform: translateY(0); }
-        .hero-greeting strong { color: white; font-weight: 600; text-transform: uppercase; }
         .hero-content h1 { font-family: 'Open Sans', sans-serif; font-size: 4.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
         .hero-subtitle { font-size: 1.15rem; font-weight: 400; color: #cbd5e1; letter-spacing: 1px; }
-
-        /* HERO 版权声明 */
-        .hero-copyright { position: absolute; bottom: 20px; left: 20px; color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; display: flex; align-items: center; gap: 6px; z-index: 2; pointer-events: none; }
-        .hero-copyright i { font-size: 1rem; }
 
         /* ========================================================= */
         /* CONTENT SECTIONS                                          */
@@ -161,7 +167,6 @@
         @media (max-width: 900px) {
             .hero-content h1 { font-size: 3.5rem; }
             .hero-subtitle { font-size: 0.95rem; }
-            .hero-copyright { font-size: 0.65rem; bottom: 10px; left: 10px; }
             .content-section { padding: 60px 20px; }
             .details-grid { grid-template-columns: 1fr; gap: 30px; text-align: left; }
             .details-grid.reverse { direction: ltr; }
@@ -184,13 +189,8 @@
     <main>
         <section class="hero-section" id="heroSection">
             <div class="hero-content">
-                <div id="heroGreetingContainer" class="hero-greeting"></div>
                 <h1 data-i18n="hero_title">KSVG</h1>
                 <p class="hero-subtitle" data-i18n="hero_subtitle">昆山康桥学生摄影合作组织</p>
-            </div>
-            <div class="hero-copyright">
-                <i class="ri-information-line" aria-hidden="true"></i> 
-                <span data-i18n="hero_copyright">本网站内图片（含壁纸）版权均归 KSVG 所有，未经授权严禁任何形式的商业使用。</span>
             </div>
         </section>
 
@@ -217,7 +217,7 @@
                 <div class="details-text">
                     <h2 data-i18n="sec2_title">跨组织协同</h2>
                     <p data-i18n="sec2_desc">通过专业的技术服务能力，我们与校内多方学生组织建立协作机制，共同为复杂的校园活动提供全面的视觉支持网络。</p>
-                    <a href="#" class="learn-more-link" tabindex="0">
+                    <a href="https://ksvg.com.cn/partners" class="learn-more-link" tabindex="0">
                         <span data-i18n="sec2_link">查看合作伙伴</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -227,11 +227,11 @@
         <section class="content-section bg-white">
             <div class="details-grid">
                 <div class="details-visual">
-                    <i class="ri-shield-keyhole-line" aria-hidden="true"></i>
+                    <i class="ri-database-2-line" aria-hidden="true"></i>
                 </div>
                 <div class="details-text">
-                    <h2 data-i18n="sec3_title">数字基础设施</h2>
-                    <p data-i18n="sec3_desc">依托基于 Supabase 架构的 KSVG 统一身份认证 (UIA) 平台，我们为内部成员及合作方提供统一的数字资源访问凭证，且所有数字资产架构均开源以供查阅参考。</p>
+                    <h2 data-i18n="sec3_title">自主运营与开源生态</h2>
+                    <p data-i18n="sec3_desc">自 2022 年成立以来，KSVG 始终由学生自主运营，积累了完整的组织架构、影像标准与技术文档。我们坚持将核心资产开源共享，为校内外的学生组织提供可参考的治理范本与技术基础设施。</p>
                     <a href="https://github.com/KCIS-KSVG" target="_blank" rel="noopener noreferrer" class="learn-more-link" tabindex="0">
                         <span data-i18n="sec3_link">访问 GitHub 开源库</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
@@ -246,7 +246,7 @@
                 </div>
                 <div class="details-text">
                     <h2 data-i18n="sec4_title">KSVG™ 人才库计划是什么？</h2>
-                    <p data-i18n="sec4_desc">KSVG™ 人才库计划旨在为热心社区建设的学生提供实践平台，涵盖日常事务、技术支持、团队协作及后勤管理。我们专门对接康桥货币政策委员会、康桥排球联赛等校内外组织的媒体技术团队，并为其提供协助。</p>
+                    <p data-i18n="sec4_desc">KSVG™ 人才库计划旨在为热心社区建设的学生提供实践平台，涵盖日常事务、技术支持、团队协作及后勤管理。</p>
                     <a href="https://ksvg.com.cn/recruiting" class="learn-more-link" tabindex="0">
                         <span data-i18n="sec4_link">参阅更多 KSVG™人才库计划</span> <i class="ri-arrow-right-line" aria-hidden="true"></i>
                     </a>
@@ -329,12 +329,6 @@
             localStorage.setItem('ksvg_cookie_consent', 'denied');
             const banner = document.getElementById('cookieBanner');
             if (banner) banner.classList.remove('show');
-        };
-
-        window.goToAuth = function (view = 'login') {
-            const lang = document.documentElement.getAttribute('lang') || 'zh-hans';
-            const target = encodeURIComponent(window.location.hostname);
-            window.location.href = `https://auth.ksvg.com.cn/?lang=${lang}&view=${view}&target=${target}`;
         };
 
         // 获取 RSS 新闻
@@ -442,11 +436,6 @@
             const lbls = { 'en-us': 'English', 'zh-hans': '简体中文', 'zh-hant': '繁體中文' };
             document.querySelectorAll('.current-lang-text').forEach(s => s.textContent = lbls[lang] || lbls['zh-hans']);
             localStorage.setItem('ksvg_ui_lang', lang);
-
-            if (window.refreshAuthText) {
-                window.refreshAuthText();
-                window.applyTranslations();   // 确保手机菜单刷新后翻译
-            }
         }
 
         window.initLanguageSelection = async function (lang) {
@@ -522,115 +511,8 @@
                     }, 1000);
                 }
             }
-
-            if (window.initAuthUI) {
-                await window.initAuthUI();
-                window.applyTranslations();   // 首次加载后的动态翻译
-            }
-        });
-    </script>
-
-    <!-- MODULE: SUPABASE AUTH -->
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-        const SUPABASE_URL = 'https://nggctknpitbycegyvfzk.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ2N0a25waXRieWNlZ3l2ZnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDM5MzksImV4cCI6MjA4NDUxOTkzOX0.zQRfrbC5qSjrnSN9Z_ITjL_OVUbCsWFz5zUro0dP1fU';
-
-        const getCookieDomain = () => {
-            const hostname = window.location.hostname;
-            return hostname.includes('ksvg.com.cn') ? '.ksvg.com.cn' : hostname;
-        };
-
-        const cookieStorage = {
-            setItem: (key, value) => {
-                const domain = getCookieDomain();
-                const encodedValue = encodeURIComponent(value);
-                const chunkSize = 3000;
-                const chunks = Math.ceil(encodedValue.length / chunkSize);
-                document.cookie = `${key}-count=${chunks}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
-                for (let i = 0; i < chunks; i++) {
-                    const chunk = encodedValue.slice(i * chunkSize, (i + 1) * chunkSize);
-                    document.cookie = `${key}-${i}=${chunk}; domain=${domain}; path=/; max-age=31536000; secure; samesite=lax`;
-                }
-            },
-            getItem: (key) => {
-                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
-                if (!countMatch) return null;
-                const count = parseInt(countMatch[2], 10);
-                let fullValue = '';
-                for (let i = 0; i < count; i++) {
-                    const chunkMatch = document.cookie.match(new RegExp('(^| )' + key + '-' + i + '=([^;]+)'));
-                    if (chunkMatch) fullValue += chunkMatch[2];
-                }
-                return fullValue ? decodeURIComponent(fullValue) : null;
-            },
-            removeItem: (key) => {
-                const domain = getCookieDomain();
-                const countMatch = document.cookie.match(new RegExp('(^| )' + key + '-count=([^;]+)'));
-                if (countMatch) {
-                    const count = parseInt(countMatch[2], 10);
-                    for (let i = 0; i < count; i++) {
-                        document.cookie = `${key}-${i}=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-                    }
-                }
-                document.cookie = `${key}-count=; domain=${domain}; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-            }
-        };
-
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            auth: { storage: cookieStorage, storageKey: 'ksvg-auth-token' }
-        });
-
-        function getGreeting(name) {
-            const hour = new Date().getHours();
-            let timeKey = 'greeting_evening';
-            if (hour >= 5 && hour < 12) timeKey = 'greeting_morning';
-            else if (hour >= 12 && hour < 14) timeKey = 'greeting_noon';
-            else if (hour >= 14 && hour < 19) timeKey = 'greeting_afternoon';
-            let template = window.locales[timeKey] || "{name}";
-            return template.replace('{name}', `<strong>${name}</strong>`);
-        }
-
-        window.initAuthUI = async function () {
-            const { data: { session } } = await supabase.auth.getSession();
-
-            window.refreshAuthText = () => {
-                // 调用 navigation.html 中内嵌的全局 UI 渲染器
-                if (window.renderNavigationAuth) {
-                    window.renderNavigationAuth(session);
-                    
-                    // 绑定手机端的注销按钮
-                    const mbg = document.getElementById('mLogoutBtnNav');
-                    if (mbg) {
-                        mbg.onclick = async () => {
-                            await supabase.auth.signOut();
-                            window.location.reload();
-                        };
-                    }
-                }
-
-                // 处理本页面特有的独立逻辑 (大屏幕中央的问候语)
-                const heroGreeting = document.getElementById('heroGreetingContainer');
-                if (session) {
-                    const displayName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-                    if (heroGreeting) {
-                        heroGreeting.innerHTML = getGreeting(displayName);
-                        heroGreeting.classList.add('show');
-                    }
-                } else {
-                    if (heroGreeting) {
-                        heroGreeting.innerHTML = '';
-                        heroGreeting.classList.remove('show');
-                    }
-                }
-            };
-
-            if (Object.keys(window.locales).length > 0) window.refreshAuthText();
-        }
-
-        supabase.auth.onAuthStateChange(() => {
-            if (window.initAuthUI) window.initAuthUI();
         });
     </script>
 </body>
+
 </html>

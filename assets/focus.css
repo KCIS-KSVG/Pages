@@ -1,0 +1,51 @@
+/* ============================================================ */
+/* FOCUS STYLES - USWDS & ADA COMPLIANT                         */
+/* 独立焦点高亮模块，符合美国 ADA Section 508 标准               */
+/* 引用方式：<link rel="stylesheet" href="./assets/focus.css">   */
+/* ============================================================ */
+
+/* 全局焦点指示器 - 采用 USWDS 标准蓝色 #005ea2 */
+/* 厚度 0.125rem (约2px)，兼顾可见性与精致感 */
+:focus-visible {
+    outline: 0.125rem solid #005ea2 !important;
+    outline-offset: 0.1rem !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 0 0.1rem #005ea2 !important;
+    transition: outline 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Firefox 兼容 */
+::-moz-focus-inner {
+    border: 0;
+}
+
+/* 针对特定元素的微调，确保一致性 */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 0.125rem solid #005ea2 !important;
+    outline-offset: 0.1rem !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 0 0.1rem #005ea2 !important;
+}
+
+/* 高对比度模式下（Windows 高对比度主题）自动适配 */
+@media (forced-colors: active) {
+    :focus-visible {
+        outline: 0.125rem solid CanvasText !important;
+        outline-offset: 0.1rem !important;
+        box-shadow: none !important;
+    }
+}
+
+/* 可选：针对输入框的额外样式，使聚焦更清晰 */
+input:focus-visible,
+textarea:focus-visible {
+    outline: 0.125rem solid #005ea2 !important;
+    outline-offset: 0 !important;
+    border-color: #005ea2 !important;
+    box-shadow: 0 0 0 0.15rem rgba(0, 94, 162, 0.25) !important;
+}
