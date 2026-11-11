@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
     <link rel="icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
     <link rel="shortcut icon" href="../assets/ksvg-logo.png?v=3" type="image/png">
 
@@ -25,7 +27,7 @@
             --text-dark: #0f172a;
             --text-muted: #475569;
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             --focus-ring: 0 0 0 3px rgba(0, 43, 73, 0.25);
         }
 
@@ -34,18 +36,13 @@
         a { text-decoration: none; color: inherit; }
         main { flex-grow: 1; }
 
-        a:focus-visible, button:focus-visible, input:focus-visible { outline: 0.2rem solid #2491ff !important; outline-offset: 0.125rem !important; border-radius: 4px; }
-        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
-
-        /* 页面头部 */
         .page-header { max-width: 1200px; margin: 0 auto; padding: 60px 20px 0; }
         .page-header h1 { font-family: 'Open Sans', sans-serif; font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: 1px; }
         .page-header .page-subtitle { font-size: 0.95rem; color: #64748b; font-weight: 400; margin-bottom: 30px; line-height: 1.5; }
         .page-header .header-divider { width: 100%; height: 1px; background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, transparent 100%); margin-bottom: 40px; }
+        .brand-strip { height: 4px; width: 100%; background: linear-gradient(90deg, var(--brand-primary) 60%, var(--brand-secondary) 100%); }
 
-        /* 工具栏 (搜索 & 筛选) */
         .toolbar { max-width: 1200px; margin: 0 auto 20px; padding: 0 20px; display: flex; flex-direction: column; gap: 16px; }
-        
         .search-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .search-wrapper { flex: 1; min-width: 240px; position: relative; }
         .search-wrapper i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1rem; pointer-events: none; }
@@ -57,7 +54,6 @@
         .filter-chip:hover { border-color: var(--brand-primary); }
         .filter-chip.active { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
 
-        /* 列表视图 */
         .sop-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; }
         .sop-list { display: flex; flex-direction: column; background: var(--surface-color); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm); }
         
@@ -69,29 +65,83 @@
         
         .sop-info { flex: 1; min-width: 0; }
         
-        /* 文件名和标签的排版 */
         .sop-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .sop-name { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        /* 标签样式 */
-        .sop-tag {
-            font-size: 0.65rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .tag-kcis { background: #eff6ff; color: #1d4ed8; } /* KCIS 蓝色标签 */
-        .tag-kcva { background: #f0fdf4; color: #15803d; } /* KCVA 绿色标签 */
+        .sop-tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+        .tag-kcis { background: #eff6ff; color: #1d4ed8; }
+        .tag-kcva { background: #f0fdf4; color: #15803d; }
         
         .sop-actions { display: flex; gap: 8px; flex-shrink: 0; }
         .action-btn { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: 0.2s; border: 1px solid var(--brand-primary); background: var(--brand-primary); color: white; text-decoration: none; }
-        .action-btn:hover { background: #001f35; border-color: #001f35; }
+        .action-btn:hover:not(:disabled) { background: #001f35; border-color: #001f35; }
+        .action-btn:disabled { background: #94a3b8; border-color: #94a3b8; cursor: not-allowed; }
 
-        /* 空状态 */
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
         .empty-state i { font-size: 3rem; color: #cbd5e1; margin-bottom: 16px; display: block; }
+
+        /* 模态框 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.visible { display: flex; }
+        
+        .modal-content {
+            background: var(--surface-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+        .modal-close { background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .modal-close:hover { color: var(--brand-secondary); }
+
+        .modal-body { padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+
+        .agreement-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            height: 240px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            white-space: pre-wrap; /* 关键：保留换行 */
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        .form-input { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; transition: 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--focus-ring); }
+
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-top: 10px; }
+        .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; cursor: pointer; accent-color: var(--brand-primary); }
+        .checkbox-text { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); user-select: none; }
+
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 12px; }
+        .btn-cancel { padding: 10px 20px; border: 1px solid var(--border-color); background: white; color: var(--text-muted); border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-cancel:hover { background: #f1f5f9; }
+        .btn-download { padding: 10px 24px; border: none; background: var(--brand-primary); color: white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-download:hover:not(:disabled) { background: #001f35; }
+        .btn-download:disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
 
         @media (max-width: 768px) {
             .page-header { padding: 40px 20px 0; }
@@ -101,6 +151,7 @@
             .sop-info { width: calc(100% - 80px); }
             .sop-title-row { flex-direction: column; align-items: flex-start; gap: 4px; }
             .sop-name { white-space: normal; word-break: break-all; }
+            .modal-content { width: 95%; }
         }
     </style>
 </head>
@@ -125,24 +176,45 @@
                 </div>
             </div>
             
-            <div class="filter-row" id="filterContainer">
-                <!-- 筛选按钮将通过 JS 动态生成 -->
-            </div>
+            <div class="filter-row" id="filterContainer"></div>
         </div>
 
         <section class="sop-section">
-            <div class="sop-list" id="sopList">
-                <!-- 列表通过 JS 渲染 -->
-            </div>
+            <div class="sop-list" id="sopList"></div>
         </section>
     </main>
 
     <div id="footer-placeholder"></div>
 
+    <!-- 下载协议模态框 -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" data-i18n="sop_modal_title">KSVG 文件共享与保密协议</h2>
+                <button class="modal-close" onclick="closeDownloadModal()"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <!-- 协议文本，依赖 data-i18n -->
+                <div class="agreement-box" data-i18n="sop_agreement_text"></div>
+                
+                <div class="form-group">
+                    <label class="form-label" data-i18n="sop_modal_username_label">您的称呼</label>
+                    <input type="text" id="usernameInput" class="form-input" data-i18n-placeholder="sop_modal_username_placeholder" placeholder="选填">
+                </div>
+
+                <label class="checkbox-group">
+                    <input type="checkbox" id="agreeCheckbox" onchange="toggleDownloadBtn()">
+                    <span class="checkbox-text" data-i18n="sop_modal_agree">我已阅读并同意上述《KSVG 文件共享与保密协议》</span>
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeDownloadModal()" data-i18n="sop_modal_btn_cancel">取消</button>
+                <button class="btn-download" id="confirmDownloadBtn" onclick="confirmDownload()" disabled data-i18n="sop_modal_btn_download">确认并下载</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ==========================================
-        // 核心数据源
-        // ==========================================
         const sopData = [
             { file: "KSVG-SOP100-校庆开幕式活动拍摄.pdf" },
             { file: "KSVG-SOP101-阶梯教室班代会拍摄.pdf" },
@@ -156,9 +228,206 @@
 
         let currentSearchTerm = '';
         let currentFilter = 'all';
+        let userIP = 'Unknown';
+        
+        let pendingFilePath = '';
+        let pendingFileName = '';
 
         window.locales = {};
         const componentBasePath = '../assets';
+
+        // ---------- 核心工具函数 ----------
+        function generateUUID() {
+            if (self.crypto && self.crypto.randomUUID) return self.crypto.randomUUID();
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        async function fetchUserIP() {
+            try {
+                const res = await fetch('https://api64.ipify.org?format=json');
+                if (res.ok) {
+                    const data = await res.json();
+                    userIP = data.ip;
+                }
+            } catch (e) { console.warn('IP 获取失败'); }
+        }
+
+        // ---------- 模态框交互 ----------
+        function openDownloadModal(filePath, fileName) {
+            pendingFilePath = filePath;
+            pendingFileName = fileName;
+            
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('agreeCheckbox').checked = false;
+            document.getElementById('confirmDownloadBtn').disabled = true;
+            
+            document.getElementById('downloadModal').classList.add('visible');
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('visible');
+        }
+
+        function toggleDownloadBtn() {
+            document.getElementById('confirmDownloadBtn').disabled = !document.getElementById('agreeCheckbox').checked;
+        }
+
+        // ---------- 执行真正的水印生成与下载 ----------
+        async function confirmDownload() {
+            const username = document.getElementById('usernameInput').value.trim() || 'Anonymous';
+            const btn = document.getElementById('confirmDownloadBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '处理中...';
+            btn.disabled = true;
+
+            try {
+                const now = new Date();
+                const timestamp = now.getFullYear() + '-' + 
+                    String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(now.getDate()).padStart(2, '0') + ' ' + 
+                    String(now.getHours()).padStart(2, '0') + ':' + 
+                    String(now.getMinutes()).padStart(2, '0') + ':' + 
+                    String(now.getSeconds()).padStart(2, '0') + '.' + 
+                    String(now.getMilliseconds()).padStart(3, '0');
+
+                const uuid = generateUUID();
+                
+                const line1 = `Time: ${timestamp} | IP: ${userIP}`;
+                const line2 = `User: ${username}`;
+                const line3 = `UUID: ${uuid}`;
+
+                const response = await fetch(pendingFilePath);
+                if (!response.ok) throw new Error(`PDF 文件找不到 (HTTP ${response.status})`);
+                const arrayBuffer = await response.arrayBuffer();
+
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+                const pages = pdfDoc.getPages();
+                pages.forEach(page => {
+                    const { width } = page.getSize();
+                    const fontSize = 32; // 超大字号
+                    
+                    const textWidth1 = font.widthOfTextAtSize(line1, fontSize);
+                    const textWidth2 = font.widthOfTextAtSize(line2, fontSize);
+                    const textWidth3 = font.widthOfTextAtSize(line3, fontSize);
+                    
+                    const x1 = (width - textWidth1) / 2;
+                    const x2 = (width - textWidth2) / 2;
+                    const x3 = (width - textWidth3) / 2;
+
+                    const y1 = 85; 
+                    const y2 = 50; 
+                    const y3 = 15; 
+
+                    const color = PDFLib.rgb(0.5, 0.5, 0.5);
+                    const opacity = 0.6;
+
+                    page.drawText(line1, { x: x1, y: y1, size: fontSize, font: font, color, opacity });
+                    page.drawText(line2, { x: x2, y: y2, size: fontSize, font: font, color, opacity });
+                    page.drawText(line3, { x: x3, y: y3, size: fontSize, font: font, color, opacity });
+                });
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = pendingFileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                closeDownloadModal();
+
+            } catch (error) {
+                console.error('水印处理失败:', error);
+                alert(`文件处理失败！\n错误信息: ${error.message}`);
+            } finally {
+                btn.innerHTML = originalText;
+            }
+        }
+
+        // ---------- 列表与筛选渲染 ----------
+        function extractSeries(filename) {
+            const match = filename.match(/SOP(\d)\d\d/i);
+            return match ? `SOP${match[1]}00` : '其他';
+        }
+
+        function getTagHtml(filename) {
+            if (filename.includes('SOP1')) return `<span class="sop-tag tag-kcis">KCIS昆山康桥</span>`;
+            if (filename.includes('SOP2')) return `<span class="sop-tag tag-kcva">KCVA校队联盟</span>`;
+            return '';
+        }
+
+        function renderFilters() {
+            const container = document.getElementById('filterContainer');
+            const seriesSet = new Set();
+            sopData.forEach(item => {
+                const series = extractSeries(item.file);
+                if (series !== '其他') seriesSet.add(series);
+            });
+            const sortedSeries = Array.from(seriesSet).sort();
+            
+            let html = `<button class="filter-chip ${currentFilter === 'all' ? 'active' : ''}" onclick="setFilter('all')">${window.locales['sop_filter_all'] || '全部'}</button>`;
+            sortedSeries.forEach(series => {
+                html += `<button class="filter-chip ${currentFilter === series ? 'active' : ''}" onclick="setFilter('${series}')">${series}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        window.setFilter = function(filter) {
+            currentFilter = filter;
+            renderFilters();
+            renderList();
+        }
+
+        function renderList() {
+            const container = document.getElementById('sopList');
+            const term = currentSearchTerm.toLowerCase();
+
+            const filtered = sopData.filter(item => {
+                const matchesSearch = item.file.toLowerCase().includes(term);
+                const matchesFilter = currentFilter === 'all' || extractSeries(item.file) === currentFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="ri-inbox-line"></i><p>没有找到匹配的文件</p></div>`;
+                return;
+            }
+
+            let html = '';
+            filtered.forEach((item) => {
+                const filePath = `../assets/sop/${item.file}`;
+                const tagHtml = getTagHtml(item.file);
+                
+                html += `
+                    <div class="sop-item">
+                        <div class="sop-icon"><i class="ri-file-pdf-line"></i></div>
+                        <div class="sop-info">
+                            <div class="sop-title-row">
+                                <span class="sop-name" title="${item.file}">${item.file}</span>
+                                ${tagHtml}
+                            </div>
+                        </div>
+                        <div class="sop-actions">
+                            <button onclick="openDownloadModal('${filePath}', '${item.file}')" class="action-btn">
+                                <i class="ri-download-line"></i> ${window.locales['sop_btn_download'] || '下载'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
 
         // ---------- 组件加载 & 多语言 ----------
         async function loadComponent(filename, elementId) {
@@ -219,104 +488,7 @@
             await window.setLanguage(lang);
         };
 
-        // ---------- 核心功能 ----------
-        
-        // 智能提取系列前缀
-        function extractSeries(filename) {
-            const match = filename.match(/SOP(\d)\d\d/i);
-            if (match) {
-                return `SOP${match[1]}00`;
-            }
-            return '其他';
-        }
-
-        // 根据文件名获取标签HTML
-        function getTagHtml(filename) {
-            if (filename.includes('SOP1')) {
-                return `<span class="sop-tag tag-kcis">KCIS昆山康桥</span>`;
-            } else if (filename.includes('SOP2')) {
-                return `<span class="sop-tag tag-kcva">KCVA校队联盟</span>`;
-            }
-            return '';
-        }
-
-        // 渲染筛选按钮
-        function renderFilters() {
-            const container = document.getElementById('filterContainer');
-            const seriesSet = new Set();
-            
-            sopData.forEach(item => {
-                const series = extractSeries(item.file);
-                if (series !== '其他') {
-                    seriesSet.add(series);
-                }
-            });
-            
-            const sortedSeries = Array.from(seriesSet).sort();
-            
-            let html = `<button class="filter-chip ${currentFilter === 'all' ? 'active' : ''}" onclick="setFilter('all')">${window.locales['sop_filter_all'] || '全部'}</button>`;
-            
-            sortedSeries.forEach(series => {
-                html += `<button class="filter-chip ${currentFilter === series ? 'active' : ''}" onclick="setFilter('${series}')">${series}</button>`;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        window.setFilter = function(filter) {
-            currentFilter = filter;
-            renderFilters();
-            renderList();
-        }
-
-        // 渲染列表
-        function renderList() {
-            const container = document.getElementById('sopList');
-            const term = currentSearchTerm.toLowerCase();
-
-            const filtered = sopData.filter(item => {
-                const matchesSearch = item.file.toLowerCase().includes(term);
-                let matchesFilter = false;
-                if (currentFilter === 'all') {
-                    matchesFilter = true;
-                } else {
-                    matchesFilter = (extractSeries(item.file) === currentFilter);
-                }
-                return matchesSearch && matchesFilter;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="empty-state"><i class="ri-inbox-line"></i><p>没有找到匹配的文件</p></div>`;
-                return;
-            }
-
-            let html = '';
-            filtered.forEach((item) => {
-                const filePath = `../assets/sop/${item.file}`;
-                const tagHtml = getTagHtml(item.file);
-                
-                html += `
-                    <div class="sop-item">
-                        <div class="sop-icon"><i class="ri-file-pdf-line"></i></div>
-                        <div class="sop-info">
-                            <div class="sop-title-row">
-                                <span class="sop-name" title="${item.file}">${item.file}</span>
-                                ${tagHtml}
-                            </div>
-                        </div>
-                        <div class="sop-actions">
-                            <a href="${filePath}" download class="action-btn">
-                                <i class="ri-download-line"></i> ${window.locales['sop_btn_download'] || '下载'}
-                            </a>
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        // 监听搜索框：按下回车/搜索键才触发搜索
+        // ---------- 初始化 ----------
         document.getElementById('searchInput').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 currentSearchTerm = e.target.value.trim();
@@ -324,8 +496,8 @@
             }
         });
 
-        // 初始化
         document.addEventListener('DOMContentLoaded', async () => {
+            fetchUserIP();
             await Promise.all([
                 loadComponent('us-banner.html', 'us-banner-placeholder'),
                 loadComponent('navigation.html', 'navigation-placeholder'),

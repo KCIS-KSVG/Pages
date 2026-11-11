@@ -1,8 +1,14 @@
 {
   "sop_page_title": "標準化",
   "sop_page_subtitle": "在此查閱公開的 KSVG 營運與執行標準操作程序",
-  "sop_search_placeholder": "搜尋檔案名稱...",
+  "sop_search_placeholder": "搜尋檔案名稱按回車...",
   "sop_filter_all": "全部",
   "sop_btn_download": "下載",
-  "sop_btn_batch_download": "批次下載"
+  "sop_modal_title": "KSVG 檔案共享與保密協議",
+  "sop_modal_agree": "我已閱讀並同意上述《KSVG 檔案共享與保密協議》",
+  "sop_modal_username_label": "您的稱呼",
+  "sop_modal_username_placeholder": "選填",
+  "sop_modal_btn_cancel": "取消",
+  "sop_modal_btn_download": "確認並下載",
+  "sop_agreement_text": "歡迎使用 KSVG 標準操作程序（SOP）文件庫！\n\n為了保護組織的知識產權並規範文件的使用，請在下載前仔細閱讀以下條款。一旦您確認下載，即視為您同意受本協議約束：\n\n一、 授權範圍\n本文件僅供 KSVG 內部成員及授權合作夥伴在校園日常營運、非商業教育等合法場景下參考與使用。\n\n二、 禁止行為\n嚴禁將本文件用於任何商業牟利目的；嚴禁惡意篡改、非法複製、未經授權的二次分發（包括但不限於上傳至公共網盤、社交平台或非授權論壇）。\n\n三、 溯源與浮水印追蹤\n為保障信息安全與合規，您下載的每一份 PDF 均會被系統自動打上專屬浮水印。浮水印包含但不限於：下載時間、IP 地址、唯一標識碼（UUID）及您填寫的稱呼。該浮水印不可篡改，若發生信息洩露或違規傳播，KSVG 保留利用浮水印進行溯源及追究相關責任的權利。\n\n四、 免責聲明\n本文件所載信息僅供參考。KSVG 不對因使用本文件或依賴其內容而產生的任何直接或間接損失承擔責任。\n\n五、 協議終止\n如您違反上述任何條款，您的訪問與下載權限將被立即終止，且 KSVG 保留追究法律責任的權利。"
 }

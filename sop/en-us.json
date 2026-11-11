@@ -1,8 +1,14 @@
 {
   "sop_page_title": "Standardization",
   "sop_page_subtitle": "Browse publicly available KSVG operational and execution SOPs here",
-  "sop_search_placeholder": "Search filenames...",
+  "sop_search_placeholder": "Search filenames and press Enter...",
   "sop_filter_all": "All",
   "sop_btn_download": "Download",
-  "sop_btn_batch_download": "Batch Download"
+  "sop_modal_title": "KSVG File Sharing & Non-Disclosure Agreement",
+  "sop_modal_agree": "I have read and agree to the KSVG File Sharing & Non-Disclosure Agreement",
+  "sop_modal_username_label": "Your Name",
+  "sop_modal_username_placeholder": "Optional",
+  "sop_modal_btn_cancel": "Cancel",
+  "sop_modal_btn_download": "Confirm & Download",
+  "sop_agreement_text": "Welcome to the KSVG Standard Operating Procedures (SOP) Library!\n\nTo protect the organization's intellectual property and regulate the use of documents, please read the following terms carefully before downloading. By confirming your download, you agree to be bound by this agreement:\n\n1. Scope of Authorization\nThis document is provided solely for the reference and use of KSVG internal members and authorized partners in non-commercial educational scenarios and daily campus operations.\n\n2. Prohibited Acts\nIt is strictly prohibited to use this document for any commercial profit. Malicious tampering, illegal copying, and unauthorized secondary distribution (including but not limited to uploading to public cloud drives, social platforms, or unauthorized forums) are strictly forbidden.\n\n3. Traceability & Watermark Tracking\nTo ensure information security and compliance, every PDF you download will be automatically watermarked by the system. The watermark includes but is not limited to: download time, IP address, unique identifier (UUID), and your provided name. This watermark cannot be tampered with. In the event of information leakage or unauthorized distribution, KSVG reserves the right to use the watermark for tracing and holding relevant parties accountable.\n\n4. Disclaimer\nThe information contained in this document is for reference only. KSVG assumes no responsibility for any direct or indirect losses arising from the use of or reliance on this document.\n\n5. Termination\nIf you violate any of the above terms, your access and download privileges will be immediately terminated, and KSVG reserves the right to pursue legal action."
 }

@@ -1,8 +1,14 @@
 {
   "sop_page_title": "标准化",
   "sop_page_subtitle": "在此查阅公开的 KSVG 运营与执行标准操作程序",
-  "sop_search_placeholder": "搜索文件名...",
+  "sop_search_placeholder": "搜索文件名按回车...",
   "sop_filter_all": "全部",
   "sop_btn_download": "下载",
-  "sop_btn_batch_download": "批量下载"
+  "sop_modal_title": "KSVG 文件共享与保密协议",
+  "sop_modal_agree": "我已阅读并同意上述《KSVG 文件共享与保密协议》",
+  "sop_modal_username_label": "您的称呼",
+  "sop_modal_username_placeholder": "选填",
+  "sop_modal_btn_cancel": "取消",
+  "sop_modal_btn_download": "确认并下载",
+  "sop_agreement_text": "欢迎使用 KSVG 标准操作程序（SOP）文档库！\n\n为了保护组织的知识产权并规范文件的使用，请在下载前仔细阅读以下条款。一旦您确认下载，即视为您同意受本协议约束：\n\n一、 授权范围\n本文件仅供 KSVG 内部成员及授权合作伙伴在校园日常运营、非商业教育等合法场景下参考与使用。\n\n二、 禁止行为\n严禁将本文件用于任何商业牟利目的；严禁恶意篡改、非法复制、未经授权的二次分发（包括但不限于上传至公共网盘、社交平台或非授权论坛）。\n\n三、 溯源与水印追踪\n为保障信息安全与合规，您下载的每一份 PDF 均会被系统自动打上专属水印。水印包含但不限于：下载时间、IP 地址、唯一标识码（UUID）及您填写的称呼。该水印不可篡改，若发生信息泄露或违规传播，KSVG 保留利用水印进行溯源及追究相关责任的权利。\n\n四、 免责声明\n本文件所载信息仅供参考。KSVG 不对因使用本文件或依赖其内容而产生的任何直接或间接损失承担责任。\n\n五、 协议终止\n如您违反上述任何条款，您的访问与下载权限将被立即终止，且 KSVG 保留追究法律责任的权利。"
 }
