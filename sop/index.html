@@ -80,7 +80,6 @@
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
         .empty-state i { font-size: 3rem; color: #cbd5e1; margin-bottom: 16px; display: block; }
 
-        /* 模态框 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -124,7 +123,7 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             line-height: 1.6;
-            white-space: pre-wrap; /* 关键：保留换行 */
+            white-space: pre-wrap;
         }
 
         .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -186,7 +185,6 @@
 
     <div id="footer-placeholder"></div>
 
-    <!-- 下载协议模态框 -->
     <div class="modal-overlay" id="downloadModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -194,7 +192,6 @@
                 <button class="modal-close" onclick="closeDownloadModal()"><i class="ri-close-line"></i></button>
             </div>
             <div class="modal-body">
-                <!-- 协议文本，依赖 data-i18n -->
                 <div class="agreement-box" data-i18n="sop_agreement_text"></div>
                 
                 <div class="form-group">
@@ -236,7 +233,6 @@
         window.locales = {};
         const componentBasePath = '../assets';
 
-        // ---------- 核心工具函数 ----------
         function generateUUID() {
             if (self.crypto && self.crypto.randomUUID) return self.crypto.randomUUID();
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -256,7 +252,6 @@
             } catch (e) { console.warn('IP 获取失败'); }
         }
 
-        // ---------- 模态框交互 ----------
         function openDownloadModal(filePath, fileName) {
             pendingFilePath = filePath;
             pendingFileName = fileName;
@@ -276,7 +271,6 @@
             document.getElementById('confirmDownloadBtn').disabled = !document.getElementById('agreeCheckbox').checked;
         }
 
-        // ---------- 执行真正的水印生成与下载 ----------
         async function confirmDownload() {
             const username = document.getElementById('usernameInput').value.trim() || 'Anonymous';
             const btn = document.getElementById('confirmDownloadBtn');
@@ -306,16 +300,77 @@
                 const arrayBuffer = await response.arrayBuffer();
 
                 const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                
+                // 【修复点】：确保字体加载无误
+                const fontRegular = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                const fontBold = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
 
                 const pages = pdfDoc.getPages();
                 pages.forEach(page => {
-                    const { width } = page.getSize();
-                    const fontSize = 32; // 超大字号
+                    const { width, height } = page.getSize();
                     
-                    const textWidth1 = font.widthOfTextAtSize(line1, fontSize);
-                    const textWidth2 = font.widthOfTextAtSize(line2, fontSize);
-                    const textWidth3 = font.widthOfTextAtSize(line3, fontSize);
+                    // ==========================================
+                    // 左上角红色空心印章（适中尺寸）
+                    // ==========================================
+                    const stampWidth = 550; 
+                    const stampHeight = 250; 
+                    
+                    const stampX = 40; // 距离左侧 40
+                    const stampY = height - stampHeight - 40; // 距离顶部 40
+
+                    const redColor = PDFLib.rgb(0.77, 0.07, 0.19); // #C41230
+
+                    // 绘制红色空心矩形
+                    page.drawRectangle({
+                        x: stampX,
+                        y: stampY,
+                        width: stampWidth,
+                        height: stampHeight,
+                        borderColor: redColor,
+                        borderWidth: 8, // 粗边框
+                    });
+
+                    // 第一行文字：KSVG
+                    const stampText1 = 'KSVG';
+                    const stampFontSize1 = 80; 
+                    const stampText1Width = fontBold.widthOfTextAtSize(stampText1, stampFontSize1);
+                    const stampText1X = stampX + (stampWidth - stampText1Width) / 2; // 水平居中
+                    
+                    // Y 轴放在偏上位置（留出中间空白）
+                    const stampText1Y = stampY + stampHeight - 120;
+
+                    page.drawText(stampText1, {
+                        x: stampText1X,
+                        y: stampText1Y,
+                        size: stampFontSize1,
+                        font: fontBold,
+                        color: redColor,
+                    });
+
+                    // 第二行文字：Controlled Document
+                    const stampText2 = 'Controlled Document';
+                    const stampFontSize2 = 40;
+                    const stampText2Width = fontRegular.widthOfTextAtSize(stampText2, stampFontSize2);
+                    const stampText2X = stampX + (stampWidth - stampText2Width) / 2; // 水平居中
+                    
+                    // Y 轴放在偏下位置（与第一行产生大间距）
+                    const stampText2Y = stampY + 60;
+
+                    page.drawText(stampText2, {
+                        x: stampText2X,
+                        y: stampText2Y,
+                        size: stampFontSize2,
+                        font: fontRegular,
+                        color: redColor,
+                    });
+
+                    // ==========================================
+                    // 底部三行溯源水印
+                    // ==========================================
+                    const fontSize = 32; 
+                    const textWidth1 = fontRegular.widthOfTextAtSize(line1, fontSize);
+                    const textWidth2 = fontRegular.widthOfTextAtSize(line2, fontSize);
+                    const textWidth3 = fontRegular.widthOfTextAtSize(line3, fontSize);
                     
                     const x1 = (width - textWidth1) / 2;
                     const x2 = (width - textWidth2) / 2;
@@ -325,12 +380,12 @@
                     const y2 = 50; 
                     const y3 = 15; 
 
-                    const color = PDFLib.rgb(0.5, 0.5, 0.5);
-                    const opacity = 0.6;
+                    const watermarkColor = PDFLib.rgb(0.5, 0.5, 0.5);
+                    const watermarkOpacity = 0.6;
 
-                    page.drawText(line1, { x: x1, y: y1, size: fontSize, font: font, color, opacity });
-                    page.drawText(line2, { x: x2, y: y2, size: fontSize, font: font, color, opacity });
-                    page.drawText(line3, { x: x3, y: y3, size: fontSize, font: font, color, opacity });
+                    page.drawText(line1, { x: x1, y: y1, size: fontSize, font: fontRegular, color: watermarkColor, opacity: watermarkOpacity });
+                    page.drawText(line2, { x: x2, y: y2, size: fontSize, font: fontRegular, color: watermarkColor, opacity: watermarkOpacity });
+                    page.drawText(line3, { x: x3, y: y3, size: fontSize, font: fontRegular, color: watermarkColor, opacity: watermarkOpacity });
                 });
 
                 const pdfBytes = await pdfDoc.save();
@@ -355,7 +410,6 @@
             }
         }
 
-        // ---------- 列表与筛选渲染 ----------
         function extractSeries(filename) {
             const match = filename.match(/SOP(\d)\d\d/i);
             return match ? `SOP${match[1]}00` : '其他';
@@ -429,7 +483,6 @@
             container.innerHTML = html;
         }
 
-        // ---------- 组件加载 & 多语言 ----------
         async function loadComponent(filename, elementId) {
             const url = `${componentBasePath}/${filename}?t=${Date.now()}`;
             try {
@@ -488,7 +541,6 @@
             await window.setLanguage(lang);
         };
 
-        // ---------- 初始化 ----------
         document.getElementById('searchInput').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 currentSearchTerm = e.target.value.trim();
